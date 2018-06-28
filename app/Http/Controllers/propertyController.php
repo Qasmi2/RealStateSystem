@@ -48,9 +48,10 @@ class propertyController extends Controller
             'propertyType' => 'required',
             'registrationStatus' => 'required',
             'propertySection' => 'required',
-            'propertyAddress' => 'required',
-            'propertyLocation' => 'required',
             'propertySize' =>'required',
+            // 'propertyAddress' => 'required',
+            // 'propertyLocation' => 'required',
+            
             // 'jointProperty'=>'required',
             // 'noOfJointproperty'=>'required',
         ]);
