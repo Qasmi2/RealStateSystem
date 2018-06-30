@@ -44,8 +44,8 @@ class paymentController extends Controller
             'propertyPurchingDate' => 'required',
             'propertyPaymentProcedure' =>'required',
             'paymentType'=>'required',
-            'paymentMethod'=>'required',
-            // 'bankName' => 'required',
+            'bankName' => 'required',
+            // 'paymentMethod'=>'required',
             // 'propertyPaymentType' => 'required',
             // 'chequeNo'=>'required',
             // 'totalAmount'=>'required',
@@ -72,12 +72,24 @@ class paymentController extends Controller
         $payment->totalAmount = $request->input('totalAmount');
         $payment->initialDeposite = $request->input('initialDeposite');
         $payment->propertyId = $request->input('propertyId');
+        $installment = $payment->propertyPaymentProcedure;
+        // var_dump($installment);
+        // exit();
         if($payment->save()){
+            if($installment == "Installment")
+            {
+                $lastId = payment::orderBy('updated_at','desc')->first();
+                
+                return view('registrationfrom/installment')->with('lastId',$lastId);
+            }
+            else{
+                return view('registrationfrom/submitform')->with('success',"added form.");   
+            }
             // save all the property info and return successuflly message;
             return response()->json(['success'=>'added successfully'], 201);
         }
         else{
-            return response()->json(['error'=>'All the field are required (Enter all the field ).Something wrong Not Save into database '], 401);
+            return redirect()->back()->with('error',' Payment section data is not Insert .');
         }
             // end of user data 
     }

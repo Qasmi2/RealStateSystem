@@ -7,6 +7,25 @@ use Validator;
 use App\property;
 class propertyController extends Controller
 {
+     /**
+     * show insert from template.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    // public function applicantform()
+    // {
+    //     $lastId = property::orderBy('updated_at','desc')->first();
+    //     return view('registrationfrom/applicantform')->with('lastId',$lastId);
+    // }
+     /**
+     * show insert from template.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function propertyform()
+    {
+        return view('registrationfrom/propertyform');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,12 +35,12 @@ class propertyController extends Controller
     {
         // need to change the pagination after front end integartion,
         $properties = property::orderBy('created_at','desc')->get();
-        if($properties){
-            return response()->json(['properties'=> $properties], 201);
-        }
-        else{
-            return response()->json(['error'=> 'No Record found'], 201);
-        }
+        // if($properties){
+        //     return view('')->with('properties',$properties);
+        // }
+        // else{
+        //     return redirect()->back()->with('error',' Record is not Added Something Wrong! .');
+        // }
 
     }
 
@@ -72,12 +91,25 @@ class propertyController extends Controller
         $property->propertySize = $request->input('propertySize');
         $property->jointProperty = $request->input('jointProperty');
         $property->noOfJointApplicant = $request->input('noOfJointApplicant');
+       
+        if($property->jointProperty == "No")
+        {
+            $property->jointProperty = 0;
+        }
+        else
+        {
+            $property->jointProperty = 1;
+        }
+        
+
         if($property->save()){
             // save all the property info and return successuflly message;
-            return response()->json(['success'=>'added successfully'], 201);
+            // return redirect()->back()->with('success','Insert Record successfully.');
+            $lastId = property::orderBy('updated_at','desc')->first();
+            return view('registrationfrom/applicantform')->with('lastId',$lastId);
         }
         else{
-            return response()->json(['error'=>'All the field are required (Enter all the field ).Something wrong Not Save into database '], 401);
+            return redirect()->back()->with('error',' Property section data is not Insert .');
         }
             // end of user data 
     }
@@ -91,13 +123,14 @@ class propertyController extends Controller
      */
     public function show($id)
     {
-        if($property = property::findorFail($id)){
+        // if($property = property::findorFail($id)){
           
-            return response()->json($property, 201);
-        }
-        else{
-            return response()->json(['error'=>'not find your applicant, there are some Errors'], 401);   
-        }
+        //     return view('')->with('property',$property);
+        // }
+        // else{
+            
+        //     return redirect()->back()->with('error',' not find your applicant, there are some Errors.');
+        // }
     }
 
     /**
@@ -109,13 +142,13 @@ class propertyController extends Controller
     public function edit($id)
     {
         
-        if($property = property::findorFail($id)){
-          
-            return response()->json($property, 201);
-        }
-        else{
-            return response()->json(['error'=>'not find your applicant, there are some Errors'], 401);   
-        }
+        // if($property = property::findorFail($id)){
+            
+        //     return view('')->with('property',$property);
+        // }
+        // else{
+        //     return redirect()->back()->with('error',' not find your applicant, there are some Errors');  
+        // }
     }
 
     /**
@@ -155,13 +188,13 @@ class propertyController extends Controller
         $property->propertySize = $request->input('propertySize');
         $property->jointProperty = $request->input('jointProperty');
         $property->noOfJointApplicant = $request->input('noOfJointApplicant');
-        if($property->save()){
-            // save all the property info and return successuflly message;
-            return response()->json(['success'=>'added successfully'], 201);
-        }
-        else{
-            return response()->json(['error'=>'All the field are required (Enter all the field ).Something wrong Not Save into database '], 401);
-        }
+        // if($property->save()){
+        //     // save all the property info and return successuflly message;
+        //     return redirect()->back()->with('success','Updated Record successfully.');
+        // }
+        // else{
+        //     return redirect()->back()->with('error',' Record is not Insert .');
+        // }
             // end of user data 
     }
 
@@ -175,19 +208,20 @@ class propertyController extends Controller
     {
         
         $property = property::find($id);
-		if($property){
+		// if($property){
 			
-			if($property->delete()){
-                return response()->json(['success'=>'Record Remove'], 201);  
-			}
-			else{
-                return response()->json(['error'=>'NOT Record Remove !!!'], 401);  
-            }
+		// 	if($property->delete()){
+        //         return redirect()->back()->with('success', 'Record Removed');
+		// 	}
+		// 	else{
+                
+        //         return redirect()->back()->with('error', 'NOT Record Removed !!!');
+        //     }
             
-		}
-		else{
-            return response()->json(['error'=>'NO Record Found'], 401);  
-        }
+		// }
+		// else{
+        //     return redirect()->back()->with('error', 'Record NOT Found !!!');  
+        // }
         
     }
 }

@@ -24,7 +24,7 @@ class CreateApplicantsTable extends Migration
             $table->string('email');
             $table->string('phoneNO');
             $table->string('mobileNo1');
-            $table->string('mobileNo2');
+            $table->string('mobileNo2')->nullable();
             $table->string('pic');
             $table->string('nomineeName');
             $table->string('nomineeFatherName');
@@ -36,7 +36,7 @@ class CreateApplicantsTable extends Migration
             $table->string('nomineeMail');
             $table->string('nomineePhoneNo');
             $table->string('nomineeMobileNo1');
-            $table->string('nomineeMobileNo2');
+            $table->string('nomineeMobileNo2')->nullable();
             $table->integer('propertyId')->unsigned();
             $table->foreign('propertyId')->references('id')->on('properties');
             $table->timestamps();

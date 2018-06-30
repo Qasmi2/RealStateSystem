@@ -22,7 +22,7 @@ class CreatePropertiesTable extends Migration
             $table->string('propertyLocation')->nullable();
             $table->string('propertySize');
             $table->tinyInteger('jointProperty')->default(0)->nullable();
-            $table->integer('noOfJointApplicant')->nullable();
+            $table->integer('noOfJointApplicant')->unsigned()->nullable();
             $table->timestamps();
         });
     }

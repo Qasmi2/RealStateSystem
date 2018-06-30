@@ -22,8 +22,8 @@ class CreatePaymentsTable extends Migration
             $table->string('propertyPurchingDate');
             $table->string('propertyPaymentProcedure');           
             $table->string('paymentType');
-            $table->string('paymentMethod');
-            $table->dateTime('bookingDate');
+            $table->string('paymentMethod')->nullable();
+            $table->dateTime('bookingDate')->nullable();
             $table->string('chequeNo')->nullable();
             $table->string('totalAmount')->nullable();   
             $table->string('initialDeposite')->nullable();
