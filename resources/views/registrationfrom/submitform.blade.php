@@ -15,7 +15,7 @@
                         </div>
                     @endif
                   
-                    
+                    <h1>Thank you, You form have been submitted</h1>
                 </div>
             </div>
         </div>

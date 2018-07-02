@@ -79,14 +79,15 @@ class paymentController extends Controller
             if($installment == "Installment")
             {
                 $lastId = payment::orderBy('updated_at','desc')->first();
-                
+                // save all the property info and return propertyId;
                 return view('registrationfrom/installment')->with('lastId',$lastId);
             }
             else{
-                return view('registrationfrom/submitform')->with('success',"added form.");   
+                // save all the property info and return successuflly message;
+                $lastId = payment::orderBy('updated_at','desc')->first();
+                return view('registrationfrom/submitform')->with('lastId',$lastId);   
             }
-            // save all the property info and return successuflly message;
-            return response()->json(['success'=>'added successfully'], 201);
+            
         }
         else{
             return redirect()->back()->with('error',' Payment section data is not Insert .');

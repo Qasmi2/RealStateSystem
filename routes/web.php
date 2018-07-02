@@ -33,3 +33,5 @@ Route::post('update/{id}','propertyController@update')->name('update')->middlewa
 Route::post('insertapplicantinfo','applicantController@store')->name('insertapplicantinfo')->middleware('auth');
 // Route for payment table
 Route::post('insertpayment','paymentcontroller@store')->name('insertpayment')->middleware('auth');
+// Route for installment
+Route::post('installments','installmentsController@store')->name('installments')->middleware('auth');
