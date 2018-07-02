@@ -140,5 +140,5 @@
     </div>
 </div>
 @endsection
-{{$lastId['propertyId']}}
+
 

@@ -1,4 +1,4 @@
-{{$lastId['id']}}
+
 @extends('layouts.app')
 
 @section('content')

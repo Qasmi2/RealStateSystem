@@ -17,7 +17,7 @@
                     <?php  $applicant = array($applicant);
                            $property = array($property);
                            $payment = array($payment);
-                          
+                           $installment = array($installment);
                     ?>
                       <h2>property Info</h2>
                     <table class="table table-bordered table-striped table-hover table-responsive">
@@ -31,7 +31,8 @@
                                 <td>Property Location</td>
                                 <td>Property Size</td>
                                 <td>joint Property</td>
-                                <td>No of Joint property </td>                    
+                                <td>No of Joint property </td>
+                                                    
                             </tr>
                         </thead>
                         <tbody>
@@ -45,10 +46,13 @@
                                 <td>{{$te->propertySize}}</td>
                                 <td>{{$te->jointProperty}}</td>
                                 <td>{{$te->noOfJointApplicant}}</td>
+                                
+                                
                             </tr>
                         </tbody>
                                 @endforeach
-                    </table>  
+                     
+                    </table>
                     <table class="table table-bordered table-striped table-hover table-responsive">
                         <thead bgcolor="#fff" >
                             <tr>
@@ -108,8 +112,8 @@
                         </tbody>
                                 @endforeach
                                 <h2>Applicant Info</h2>
-                    </table>
-                    <table class="table table-bordered table-striped table-hover table-responsive">
+
+                              <table class="table table-bordered table-striped table-hover table-responsive">
                         <thead bgcolor="#fff" >
                             <tr>
                                 <td>Name</td>
@@ -142,7 +146,24 @@
                         </tbody>
                                 @endforeach
                                 <h2>Nominee Info</h2>
-                    </table> 
+                    </table>
+                    <table class="table table-bordered table-striped table-hover table-responsive">
+                        <thead bgcolor="#fff" >
+                            <tr>
+                                <td>Number of installments </td>
+                                <td>Single Installment Amount </td>                 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                @foreach($installment as $te)
+                                <td>{{$te->noOfInstallments}}</td>
+                                <td>{{$te->installmentAmount}}</td>
+                            </tr>
+                        </tbody>
+                                @endforeach
+                                <h2>installment Info</h2>
+                    </table>
                 </div>
             </div>
         </div>

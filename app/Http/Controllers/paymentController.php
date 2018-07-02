@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\payment;
+use App\property;
+use App\applicant;
 use Validator;
+use DB;
 
 class paymentController extends Controller
 {
@@ -73,6 +76,8 @@ class paymentController extends Controller
         $payment->initialDeposite = $request->input('initialDeposite');
         $payment->propertyId = $request->input('propertyId');
         $installment = $payment->propertyPaymentProcedure;
+        //get property ID 
+        $propertyID = $request->input('propertyId');
         // var_dump($installment);
         // exit();
         if($payment->save()){
@@ -83,9 +88,22 @@ class paymentController extends Controller
                 return view('registrationfrom/installment')->with('lastId',$lastId);
             }
             else{
-                // save all the property info and return successuflly message;
-                $lastId = payment::orderBy('updated_at','desc')->first();
-                return view('registrationfrom/submitform')->with('lastId',$lastId);   
+                // save all the property info and return property, applicant, payment, rows of the property Id
+                $property = DB::table('properties')->where('id',$propertyID)->first();
+                $applicant = DB::table('applicants')->where('propertyId',$propertyID)->first();
+                $payment = DB::table('payments')->where('propertyId',$propertyID)->first();
+
+                //  $test = array($applicant);
+                // foreach($test as $te)
+                // {
+                //     echo $te->name;
+                //     echo"<br>";
+                //     echo $te->fatherName;
+                //     exit();
+                // }
+                // exit();     
+                return view('registrationfrom/submitform',compact('property','applicant','payment'));   
+                
             }
             
         }

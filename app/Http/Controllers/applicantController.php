@@ -73,7 +73,7 @@ class applicantController extends Controller
         
         $applicant = new applicant;
         $applicant->name = $request->input('name');
-        $applicant->pic = $request->input('cover_image');
+        $applicant->cover_image = $request->input('cover_image');
         $applicant->fatherName = $request->input('fatherName');
         $applicant->cnicNo = $request->input('cnicNo');
         $applicant->passportNo = $request->input('passportNo');
@@ -95,7 +95,7 @@ class applicantController extends Controller
         $applicant->nomineeMobileNo1 = $request->input('nomineeMobileNo1');
         $applicant->nomineeMobileNo2 = $request->input('nomineeMobileNo2');
         $applicant->propertyId = $request->input('propertyId');
-
+        
         if($applicant->save()){
             
             $lastId = applicant::orderBy('updated_at','desc')->first();
