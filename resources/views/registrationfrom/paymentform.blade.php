@@ -87,42 +87,7 @@
                                 @endif
                             </div>
                         </div>
-                        <!-- <div class="form-group row">
-                            <div class="col-md-6 col-lg-6 col-sm-12">
-                                <label for="propertySize">{{ __('Property Size') }}</label>
-                                <input id="propertySize" type="text" placeholder="Enter Property Size" class="form-control{{ $errors->has('propertySize') ? ' is-invalid' : '' }}" name="propertySize" value="{{ old('propertySize') }}"  required>
-                                @if ($errors->has('propertySize'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('propertySize') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                            <div class="col-md-6 col-lg-6 col-sm-12">
-                                <label for="jointProperty">{{ __('Joint Property') }}</label>
-                                <!-- <input id="jointProperty" type="text" placeholder="Enter Joint Property" class="form-control{{ $errors->has('jointProperty') ? ' is-invalid' : '' }}" name="jointProperty" value="{{ old('jointProperty') }}"  required> -->
-                                <!-- <select class="form-control" name="jointProperty" id="jointProperty" >
-                                    <option value="No">No</option>
-                                    <option value="Yes">Yes</option>
-                                </select>
-                                @if ($errors->has('jointProperty'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('jointProperty') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div> -->
-                        <!-- <div class="form-group row">
-                            <div class="col-md-12 col-lg-12 col-sm-12">
-                                <label for="noOfJointApplicant">{{ __('Number Of Joint Applicant') }}</label>
-                                <input id="noOfJointApplicant" type="number" placeholder="Enter no Of Joint Applicant" class="form-control{{ $errors->has('noOfJointApplicant') ? ' is-invalid' : '' }}" name="noOfJointApplicant" value="{{ old('noOfJointApplicant') }}" >
-                                @if ($errors->has('noOfJointApplicant'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('noOfJointApplicant') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                           
-                        </div> -->
+                     
                         <input type="hidden" name="propertyId" value="{{$lastId['propertyId']}}">
                         <div class="col-md-12 col-lg-12 col-sm-12" style="margin-top:30px;">
                             <div class="form-group row mb-0">

@@ -21,8 +21,15 @@
                               
                                   <select class="form-control" name="noOfInstallments" id="noOfInstallments" >
                                     <option value="">Select No of Installments</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
                                     <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
                                     <option value="8">8</option>
+                                    <option value="9">9</option>
                                     <option value="10">10</option>
                                     
                                 </select>
@@ -31,7 +38,16 @@
                                         <strong>{{ $errors->first('noOfInstallments') }}</strong>
                                     </span>
                                 @endif
-                            </div>                           
+                            </div>       
+                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                <label for="downpayment">{{ __('Date') }}</label>
+                                <input id="downpayment" type="number" min="0" placeholder="Enter down payment" class="form-control{{ $errors->has('downpayment') ? ' is-invalid' : '' }}" name="downpayment" value="{{ old('downpayment') }}" >
+                                @if ($errors->has('downpayment'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('downpayment') }}</strong>
+                                    </span>
+                                @endif
+                            </div>                    
                         </div>
                         <input type="hidden" name="propertyId" value="{{$lastId['propertyId']}}">
                         <input type="hidden" name="paymentId" value="{{$lastId['id']}}">

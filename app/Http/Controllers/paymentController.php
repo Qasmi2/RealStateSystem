@@ -61,19 +61,12 @@ class paymentController extends Controller
         //initilization the property object 
 
         $payment = new payment;
-        $payment->propertyPrice = $request->input('propertyPrice');
-        $payment->propertyPaymentType = $request->input('propertyPaymentType');
+        $payment->paymentType = $request->input('paymentType');
         $payment->transferTo = $request->input('transferTo');
         $payment->bankName = $request->input('bankName');
-        $payment->propertyPaymentProcedure = $request->input('propertyPaymentProcedure');
         $payment->propertyPurchingDate = $request->input('propertyPurchingDate');
-        $payment->paymentType = $request->input('paymentType');
-        $payment->paymentMethod = $request->input('paymentMethod');
-        // booking data should be '9999-12-31 23:59:59'. like this 
-        $payment->bookingDate = $request->input('bookingDate');
-        $payment->chequeNo = $request->input('chequeNo');
-        $payment->totalAmount = $request->input('totalAmount');
-        $payment->initialDeposite = $request->input('initialDeposite');
+        $payment->propertyPaymentProcedure = $request->input('propertyPaymentProcedure');
+        $payment->propertyPrice = $request->input('propertyPrice');
         $payment->propertyId = $request->input('propertyId');
         $installment = $payment->propertyPaymentProcedure;
         //get property ID 

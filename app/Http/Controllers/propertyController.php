@@ -101,7 +101,8 @@ class propertyController extends Controller
             $property->jointProperty = 1;
         }
         
-
+        // var_dump(Json_encode($property));
+        // exit();
         if($property->save()){
             // save all the property info and return successuflly message;
             // return redirect()->back()->with('success','Insert Record successfully.');

@@ -35,3 +35,6 @@ Route::post('insertapplicantinfo','applicantController@store')->name('insertappl
 Route::post('insertpayment','paymentcontroller@store')->name('insertpayment')->middleware('auth');
 // Route for installment
 Route::post('installments','installmentsController@store')->name('installments')->middleware('auth');
+// show info about properties 
+Route::get('properties','propertiesformController@index')->name('properties')->middleware('auth');
+

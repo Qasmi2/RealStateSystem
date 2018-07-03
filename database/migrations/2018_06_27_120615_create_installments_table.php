@@ -16,11 +16,10 @@ class CreateInstallmentsTable extends Migration
         Schema::create('installments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('noOfInstallments')->nullable();
-            $table->string('installmentAmount')->nullable();
             $table->integer('downpayment')->nullable();
-            $table->dateTime('installmentDated')->nullable();
-            $table->integer('paymentId')->unsigned();
-            $table->foreign('paymentId')->references('id')->on('payments');
+            $table->integer('propertyId')->unsigned();
+            $table->foreign('propertyId')->references('id')->on('properties');
+            
             $table->timestamps();
         });
     }

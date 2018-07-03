@@ -151,14 +151,14 @@
                         <thead bgcolor="#fff" >
                             <tr>
                                 <td>Number of installments </td>
-                                <td>Single Installment Amount </td>                 
+                                <td>Down payment </td>                 
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 @foreach($installment as $te)
                                 <td>{{$te->noOfInstallments}}</td>
-                                <td>{{$te->installmentAmount}}</td>
+                                <td>{{$te->downpayment}}</td>
                             </tr>
                         </tbody>
                                 @endforeach
