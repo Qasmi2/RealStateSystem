@@ -64,18 +64,14 @@ class installmentsController extends Controller
         $installment->installmentAmount = $AmountOfOneInstallment;
         // $installment->propertyId = $propertyId;
         $installment->paymentId = $request->input('paymentId');
-        $propertyID = $request->input('paymentId');
+        $paymentId = $request->input('paymentId');
         if($installment->save()){
            
-                $property = DB::table('properties')->where('id',$propertyID)->first();
-                $applicant = DB::table('applicants')->where('propertyId',$propertyID)->first();
-                $payment = DB::table('payments')->where('propertyId',$propertyID)->first();
-                // to get the installment table info, have to get the payment Id
-                $paymentId =  $request->input('paymentId');
-                
-                
+                $property = DB::table('properties')->where('id',$propertyId)->first();
+                $applicant = DB::table('applicants')->where('propertyId',$propertyId)->first();
+                $payment = DB::table('payments')->where('propertyId',$propertyId)->first();
                 $installment = DB::table('installments')->where('paymentId',$paymentId)->first();
-               
+                
             return view('registrationfrom/submitforminstallment ',compact('property','applicant','payment','installment')); 
         }
         else{

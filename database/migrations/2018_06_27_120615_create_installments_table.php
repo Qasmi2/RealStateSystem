@@ -17,6 +17,7 @@ class CreateInstallmentsTable extends Migration
             $table->increments('id');
             $table->integer('noOfInstallments')->nullable();
             $table->string('installmentAmount')->nullable();
+            $table->integer('downpayment')->nullable();
             $table->dateTime('installmentDated')->nullable();
             $table->integer('paymentId')->unsigned();
             $table->foreign('paymentId')->references('id')->on('payments');
