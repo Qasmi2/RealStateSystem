@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Property Registion Form Display</div>
 
@@ -13,26 +13,47 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                   <?php 
-                        $applicants = array($applicanties);
-                        $property = array($properties);
-                        // foreach($applicanties as $ap){
-                        //     echo $ap[0]->name;
-                        //     exit();
-                        // }
-                   ?>
-                    <!--------   start showing the properties info --------------------- --> 
-                    @foreach($property as $applicant)
-                        <div>
-                            <ul>
-                                <li>Property Type : {{$applicant[0]->propertyType}}</li>
-                                <li>Registration Status: {{$applicant[0]->propertyStatus}}</li>
-                                <li>Registration Section: {{$applicant[0]->propertySection}}</li>
-                                <li>Registration Address: {{$applicant[0]->propertyAddress}}</li>
-                            </ul>
-                        </div>
-                    @endforeach        
+                 
+                    <?php $appSize = sizeof($applicanties);
+                          $proSize = sizeof($properties);
+                          $proSize = sizeof($payments);
+
+                    ?>
+                   
+
+                    <table class="table table-bordered table-striped table-hover table-responsive">
+                        <thead bgcolor="#a6468c" style="color:white;">
+                            <tr>
+                               <a href="#"> <th>Property Registration Number</th></a>
+                               <th>Address</th>
+                               <th>Location</th>
+                               <th>Size</th>
+                               <th>Owner</th>
+                               <th>Owner CNIC NO</th>
+                               <th>Total Amount</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for($i=0; $appSize >$i; $i++)
+                                <tr>
+                                    <td><a href="#">{{$properties[$i]['id']}}</a></td>
+                                    <td>{{$properties[$i]['propertyAddress']}}</td>
+                                    <td>{{$properties[$i]['propertyLocation']}}</td>
+                                    <td>{{$properties[$i]['propertySize']}}</td>
+                                    <td>{{$applicanties[$i]['name']}}</td>
+                                    <td>{{$applicanties[$i]['cnicNo']}}</td>
+                                    <td>{{$payments[$i]['propertyPrice']}}</td>
+
+                                </tr>
+                            @endfor
+                            
+                        </tbody>
+                    </table>
+                    {{$properties->links()}}
+                    
                 </div>
+                
             </div>
         </div>
     </div>

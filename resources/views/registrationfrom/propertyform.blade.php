@@ -117,7 +117,7 @@
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                 <label for="noOfJointApplicant">{{ __('Number Of Joint Applicant') }}</label>
-                                <input id="noOfJointApplicant" type="number" placeholder="Enter no Of Joint Applicant" class="form-control{{ $errors->has('noOfJointApplicant') ? ' is-invalid' : '' }}" name="noOfJointApplicant" value="{{ old('noOfJointApplicant') }}" >
+                                <input id="noOfJointApplicant" type="number" min="0" placeholder="Enter no Of Joint Applicant" class="form-control{{ $errors->has('noOfJointApplicant') ? ' is-invalid' : '' }}" name="noOfJointApplicant" value="{{ old('noOfJointApplicant') }}" >
                                 @if ($errors->has('noOfJointApplicant'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('noOfJointApplicant') }}</strong>

@@ -38,3 +38,8 @@ Route::post('installments','installmentsController@store')->name('installments')
 // show info about properties 
 Route::get('properties','propertiesformController@index')->name('properties')->middleware('auth');
 
+// get decrlation form 
+Route::get('/declarationfom', function () {
+    return view('displayrecord.declarationform');
+})->name('declarationfom');
+
