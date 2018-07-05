@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\property;
 use App\applicant;
 use App\payment;
+use App\installment;
+use DB;
 
 class propertiesformController extends Controller
 {
@@ -19,7 +21,9 @@ class propertiesformController extends Controller
         $properties = property::orderBy('created_at','desc')->paginate(8);
         $applicanties = applicant::orderBy('created_at','desc')->paginate(8);
         $payments = payment::orderBy('created_at','desc')->paginate(8);
-       
+        $installment = installment::orderBy('created_at','desc')->paginate(8);
+        
+        
         
         // echo sizeof($applicanties);
         // echo $applicanties[0]['name'];
@@ -73,7 +77,20 @@ class propertiesformController extends Controller
      */
     public function show($id)
     {
-        //
+        $property  = DB::table('properties')->where('id',$id)->first();
+        $applicant = DB::table('applicants')->where('propertyId',$id)->first();
+        $payment = DB::table('payments')->where('propertyId',$id)->first();
+        $installment = DB::table('installments')->where('propertyId',$id)->first();
+
+        var_dump(json_encode($property));
+        echo "<br>";
+        var_dump(json_encode($applicant));
+        echo "<br>";
+        var_dump(json_encode($payment));
+        echo "<br>";
+        var_dump(json_encode($installment));
+        exit();
+        return view('displayrecord.singleproperty',compact('property','applicant','payment','installment'));
     }
 
     /**

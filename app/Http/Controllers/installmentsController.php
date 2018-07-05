@@ -7,6 +7,9 @@ use App\installment;
 use App\payment;
 use Validator;
 use DB;
+use App\Http\Controllers\DataTime;
+use DateTime;
+use DateInterval;
 class installmentsController extends Controller
 {
     /**
@@ -57,13 +60,23 @@ class installmentsController extends Controller
         // Total amount , down payment , No of installment (calculation of installment throught these three variables)
         $remaningAmount = $propertyprice - $downpayment ;
         // total Amount divided into Number of installment to get the one installments
-        $AmountOfOneInstallment = $remaningAmount/$noOfinstallments;
+        $amountOfOneInstallment = $remaningAmount/$noOfinstallments;
         // get today data and add 3 months ( 90 days ) to calculat the next installment date
-        //$todayDate = date("Y-m-d");
-        //date_add($todayDate,date_interval_create_from_date_string("90 days"));
-        //$nextInstallmentPayment = $todayDate;
-        
-
+       
+        $todayDate = date("Y-m-d");
+        $data1 = $todayDate;
+        // var_dump($data1);
+        $installmentDates = []; 
+        for($i=0; $i < $noOfinstallments; $i++)
+        {
+            
+            $date2 = new DateTime($data1);
+            $date2->add(new DateInterval('P90D')); // P90D means a period of 90 day
+            $installmentDates[$i] = $date2->format('Y-m-d');
+            $data1 = $installmentDates[$i];         
+            
+        }
+       
         // get all user data
         //initilization the property object 
 
@@ -71,15 +84,19 @@ class installmentsController extends Controller
         $installment->noOfInstallments = $noOfinstallments; 
         $installment->downpayment = $downpayment;
         $installment->propertyId = $propertyId;
-    
+        $installment->amountOfOneInstallment = $amountOfOneInstallment; 
+        $installment->installmentDates = json_encode($installmentDates);
+        
         if($installment->save()){
                 
                 $property = DB::table('properties')->where('id',$propertyId)->first();
                 $applicant = DB::table('applicants')->where('propertyId',$propertyId)->first();
                 $payment = DB::table('payments')->where('propertyId',$propertyId)->first();
                 $installment = DB::table('installments')->where('propertyId',$propertyId)->first();
+                // var_dump(json_encode($installment));
+                // exit();
 
-            return view('registrationfrom/submitforminstallment ',compact('property','applicant','payment','installment')); 
+            return view('registrationfrom/submitforminstallment ',compact('property','applicant','payment','installment','installmentDates')); 
         }
         else{
             return redirect()->back()->with('error',' installment section data is not Insert there are some problem within database .');

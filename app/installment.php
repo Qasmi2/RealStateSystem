@@ -12,9 +12,13 @@ class installment extends Model
      * @var array
      */
     protected $fillable = [
-        'noOfInstallments','downpayment','propertyId',
+        'noOfInstallments','downpayment','propertyId','installmentDates','amountOfOneInstallment',
         
      ];
+
+    //  protected $casts = [
+    //     'installmentDates' => 'json'
+    // ];
      /**
       * The attributes that should be hidden for arrays.
       *

@@ -37,6 +37,8 @@ Route::post('insertpayment','paymentcontroller@store')->name('insertpayment')->m
 Route::post('installments','installmentsController@store')->name('installments')->middleware('auth');
 // show info about properties 
 Route::get('properties','propertiesformController@index')->name('properties')->middleware('auth');
+// show info single property 
+Route::get('singlerecord/{id}','propertiesformController@show')->name('singlerecord')->middleware('auth');
 
 // get decrlation form 
 Route::get('/declarationfom', function () {

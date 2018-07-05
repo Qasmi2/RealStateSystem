@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Payment Registion Form</div>
 
@@ -13,7 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <form method="POST"  action="{{route('insertpayment')}}" enctype="multipart/form-data" >
+                    <form method="POST"  action="{{route('insertpayment')}}" enctype="multipart/form-data" value="PATCH">
                         {{ csrf_field() }}
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
@@ -40,7 +40,7 @@
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                 <label for="bankName">{{ __('Bank Name') }}</label>
-                                <input id="bankName" type="text" placeholder="Enter bankName " class="form-control{{ $errors->has('bankName') ? ' is-invalid' : '' }}" name="bankName" value="{{ old('bankName') }}"  required>
+                                <input id="bankName" type="text" placeholder="Enter bankName " class="form-control{{ $errors->has('bankName') ? ' is-invalid' : '' }}" name="bankName" value="{{ old('bankName') }}" >
                                
                                 @if ($errors->has('bankName'))
                                     <span class="invalid-feedback">
@@ -62,7 +62,7 @@
                             </div>
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertyPrice">{{ __('Total Amount') }}</label>
-                                <input id="propertyPrice" type="text" placeholder="Enter Total Amount " class="form-control{{ $errors->has('propertyPrice') ? ' is-invalid' : '' }}" name="propertyPrice" value="{{ old('propertyPrice') }}" >
+                                <input id="propertyPrice" type="text" placeholder="Enter Total Amount " class="form-control{{ $errors->has('propertyPrice') ? ' is-invalid' : '' }}" name="propertyPrice" value="{{ old('propertyPrice') }}" required>
                                 @if ($errors->has('propertyPrice'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertyPrice') }}</strong>

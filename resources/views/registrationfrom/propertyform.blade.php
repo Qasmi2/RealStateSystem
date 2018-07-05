@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Property Registion Form</div>
 
@@ -13,7 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <form method="POST"  action="{{route('insertproperty')}}" enctype="multipart/form-data" >
+                    <form method="POST"  action="{{route('insertproperty')}}" enctype="multipart/form-data" value="PATCH">
                         {{ csrf_field() }}
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
@@ -93,7 +93,7 @@
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertySize">{{ __('Property Size') }}</label>
-                                <input id="propertySize" type="text" placeholder="Enter Property Size" class="form-control{{ $errors->has('propertySize') ? ' is-invalid' : '' }}" name="propertySize" value="{{ old('propertySize') }}"  required>
+                                <input id="propertySize" type="text" placeholder="Enter Property Size  (Sqr ft)" class="form-control{{ $errors->has('propertySize') ? ' is-invalid' : '' }}" name="propertySize" value="{{ old('propertySize') }}"  required>
                                 @if ($errors->has('propertySize'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertySize') }}</strong>
@@ -105,7 +105,7 @@
                                 <!-- <input id="jointProperty" type="text" placeholder="Enter Joint Property" class="form-control{{ $errors->has('jointProperty') ? ' is-invalid' : '' }}" name="jointProperty" value="{{ old('jointProperty') }}"  required> -->
                                 <select class="form-control" name="jointProperty" id="jointProperty" >
                                     <option value="No">No</option>
-                                    <option value="Yes">Yes</option>
+                                    <option value="Yes" disabled>Yes</option>
                                 </select>
                                 @if ($errors->has('jointProperty'))
                                     <span class="invalid-feedback">
@@ -114,7 +114,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                 <label for="noOfJointApplicant">{{ __('Number Of Joint Applicant') }}</label>
                                 <input id="noOfJointApplicant" type="number" min="0" placeholder="Enter no Of Joint Applicant" class="form-control{{ $errors->has('noOfJointApplicant') ? ' is-invalid' : '' }}" name="noOfJointApplicant" value="{{ old('noOfJointApplicant') }}" >
@@ -125,7 +125,7 @@
                                 @endif
                             </div>
                            
-                        </div>
+                        </div> -->
                         <div class="col-md-12 col-lg-12 col-sm-12" style="margin-top:30px;">
                             <div class="form-group row mb-0">
                                 <div class="col-md-12 ">

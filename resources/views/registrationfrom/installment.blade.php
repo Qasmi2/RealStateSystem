@@ -13,7 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <form method="POST"  action="{{route('installments')}}" enctype="multipart/form-data" >
+                    <form method="POST"  action="{{route('installments')}}" enctype="multipart/form-data" value="PATCH">
                         {{ csrf_field() }}
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">

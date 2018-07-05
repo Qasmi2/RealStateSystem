@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
+    
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Declartion From') }}</title>
 
-    <!-- Scripts -->
+    
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
@@ -32,7 +32,7 @@
         margin-right: auto;
         background-color:white;
         font-family:Arial, Helvetica, sans-serif;
-        font-size:12px;
+        /* font-size:12px; */
     }
     </style>
 </head>
@@ -42,11 +42,11 @@
 <h2 class="text-center"><b>DECLARATION</b></h2>
 <div>
     <p class="text-justify" style="line-height: 2.5;" style="font-size:18px !important;">
-        I/ We, Mr. /Mrs. /Ms. /M/s.__________________________________________________________________ 
-        S/O , D/O _______________________________________________________________________________
-        bearing CNIN NO. ________________________________________________________________________
-        Resident of/ situated at ________________________________________________________________
-        _________________________________________________________________________________________
+        I/ We, Mr. /Mrs. /Ms. /M/s._____________________________________________________
+        S/O , D/O _____________________________________________________________
+        bearing CNIN NO. ________________________________________________________
+        Resident of/ situated at ______________________________________________________
+        __________________________________________________________________________
     </p>
     &nbsp;&nbsp; 
     <p class="text-juistify" style="line-height: 2.5;">
@@ -57,7 +57,7 @@
     </p>
     &nbsp;&nbsp; &nbsp;&nbsp; 
     <p class="text-juistify" style="line-height: 2.5;">
-        Name of Booking Person ____________________________________________________________________
+        Name of Booking Person ______________________________________________________________________
         Read, understood and accepted above terms and conditions of application form.
     </p>
     &nbsp;&nbsp;
@@ -104,9 +104,9 @@
 </div>
 </body>
 <script>
-    let doc = new jsPDF('p','pt','a4');
-doc.addHTML(document.body,function() {
-    doc.save('html.pdf');
+//     let doc = new jsPDF('p','pt','a4');
+// doc.addHTML(document.body,function() {
+//     doc.save('declaration.pdf');
 });
 </script>
 </html>
