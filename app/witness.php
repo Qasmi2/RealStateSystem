@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class property extends Model
+class witness extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,9 +12,8 @@ class property extends Model
      * @var array
      */
     protected $fillable = [
-        'propertyType','registrationStatus','propertySection','propertyAddress','propertyLocation','propertySize','jointProperty','noOfJointApplicant',
-        'tokenNo',
-    ];
+        'witnessName','witnessCnicNo','propertyId',
+     ];
      /**
       * The attributes that should be hidden for arrays.
       *
@@ -23,4 +22,5 @@ class property extends Model
      protected $hidden = [
          
      ];
+
 }

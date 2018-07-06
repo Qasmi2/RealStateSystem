@@ -17,6 +17,8 @@
                     <?php  $applicant = array($applicant);
                            $property = array($property);
                            $payment = array($payment);
+                           $witness = array($witness);
+                           $review = array($review);
                            $installment = array($installment);
                            $sizeOfInstallmentDates = sizeof($installmentDates);
                            
@@ -253,6 +255,41 @@
                                 @endforeach
                             </div>
                         </div>
+                    </fieldset>
+                    <fieldset class="col-md-12" style="background-color:#fff; margin-top:20px;">    	
+                    <legend>Witness Infromation</legend>
+                        <!-- <div class="col-md-12 col-lg-12 col-sm-12">     -->
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                            @foreach($witness as $te)
+                                        <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Witness Name') }}    :</label>
+                                           <b>{{$te->witnessName}}</b>
+                                        </div>
+                                        <br>
+                                        <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Witness CNIC NO.') }}    :</label>
+                                               <b>{{$te->witnessCnicNo}}</b> 
+                                        </div>
+                                        
+                                </div>
+                                        
+                            </div>
+                                    
+                        @endforeach
+                    </fieldset>
+                    <fieldset class="col-md-12" style="background-color:#fff; margin-top:20px;">    	
+                    <legend>Review</legend>
+                        <!-- <div class="col-md-12 col-lg-12 col-sm-12">     -->
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                            @foreach($review as $te)
+                                        <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Your Comment') }}    :</label>
+                                           <b><br>{{$te->comment}}</b>
+                                        </div>
+                                </div>
+                                        
+                            </div>
+                                    
+                        @endforeach
                     </fieldset>
                            
                    

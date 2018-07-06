@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\payment;
 use App\property;
 use App\applicant;
+use App\witness;
+use App\review;
 use Validator;
 use DB;
 
@@ -47,12 +49,9 @@ class paymentController extends Controller
             'propertyPurchingDate' => 'required',
             'propertyPaymentProcedure' =>'required',
             'paymentType'=>'required',
-            'bankName' => 'required',
-            // 'paymentMethod'=>'required',
-            // 'propertyPaymentType' => 'required',
-            // 'chequeNo'=>'required',
-            // 'totalAmount'=>'required',
-            // 'initialDeposite'=>'required',  
+            'witnessName' => 'required',
+            'witnessCnicNo' => 'required',
+            
         ]);
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 401);            
@@ -71,9 +70,23 @@ class paymentController extends Controller
         $installment = $payment->propertyPaymentProcedure;
         //get property ID 
         $propertyID = $request->input('propertyId');
-        // var_dump($installment);
-        // exit();
+
+        // initilization the witness table object
+        $witness = new witness;
+        $witness->witnessName = $request->input('witnessName');
+        $witness->witnessCnicNo = $request->input('witnessCnicNo');
+        $witness->propertyId = $request->input('propertyId');
+
+        // initilization the review table object
+        $review = new review;
+        $review->comment=$request->input('comment');
+        $review->propertyId = $request->input('propertyId');
+
         if($payment->save()){
+            // insert the witness info
+            $witness->save();
+            // insert the review 
+            $review->save();
             if($installment == "Installment")
             {
                 $lastId = payment::orderBy('updated_at','desc')->first();
@@ -85,6 +98,9 @@ class paymentController extends Controller
                 $property = DB::table('properties')->where('id',$propertyID)->first();
                 $applicant = DB::table('applicants')->where('propertyId',$propertyID)->first();
                 $payment = DB::table('payments')->where('propertyId',$propertyID)->first();
+                $witness = DB::table('witnesses')->where('propertyId',$propertyID)->first();
+                $review = DB::table('reviews')->where('propertyId',$propertyID)->first();
+                 
 
                 //  $test = array($applicant);
                 // foreach($test as $te)
@@ -95,7 +111,7 @@ class paymentController extends Controller
                 //     exit();
                 // }
                 // exit();     
-                return view('registrationfrom/submitform',compact('property','applicant','payment'));   
+                return view('registrationfrom/submitform',compact('property','applicant','payment','witness','review'));   
                 
             }
             

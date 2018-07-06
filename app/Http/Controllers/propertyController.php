@@ -78,9 +78,21 @@ class propertyController extends Controller
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 401);            
         }   
+        // function to Generate the random number
+        function random_string($length) {
+            $key = '';
+            $keys = array_merge(range(0, 9), range('a', 'z'));
+        
+            for ($i = 0; $i < $length; $i++) {
+                $key .= $keys[array_rand($keys)];
+            }
+        
+            return $key;
+        }
 
           // get all user data
         //initilization the property object 
+
 
         $property = new property;
         $property->propertyType = $request->input('propertyType');
@@ -89,6 +101,7 @@ class propertyController extends Controller
         $property->propertyAddress = $request->input('propertyAddress');
         $property->propertyLocation = $request->input('propertyLocation');
         $property->propertySize = $request->input('propertySize');
+        $property->tokenNo = random_string(20);
         $property->jointProperty = $request->input('jointProperty');
         $property->noOfJointApplicant = $request->input('noOfJointApplicant');
        
@@ -101,8 +114,7 @@ class propertyController extends Controller
             $property->jointProperty = 1;
         }
         
-        // var_dump(Json_encode($property));
-        // exit();
+        
         if($property->save()){
             // save all the property info and return successuflly message;
             // return redirect()->back()->with('success','Insert Record successfully.');

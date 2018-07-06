@@ -87,7 +87,42 @@
                                 @endif
                             </div>
                         </div>
-                     
+                        
+                        <div class="card-header">Witness Form</div>
+                        <div class="form-group row">    
+                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                    <label for="witnessName">{{ __('Witness Name') }}</label>
+                                    <input id="witnessName" type="text" placeholder="Enter Witess Name " class="form-control{{ $errors->has('witnessName') ? ' is-invalid' : '' }}" name="witnessName" value="{{ old('witnessName') }}" required>
+                                    @if ($errors->has('witnessName'))
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('witnessName') }}</strong>
+                                        </span>
+                                    @endif
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                    <label for="witnessCnicNo">{{ __('Witness CNIC NO') }}</label>
+                                    <input id="witnessCnicNo" type="text" placeholder="Enter Witness CNIC NO " class="form-control{{ $errors->has('witnessCnicNo') ? ' is-invalid' : '' }}" name="witnessCnicNo" value="{{ old('witnessCnicNo') }}" required>
+                                    @if ($errors->has('witnessCnicNo'))
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('witnessCnicNo') }}</strong>
+                                        </span>
+                                    @endif
+                            </div>
+                        </div>
+                        <div class="card-header">Review Form</div>
+                        <div class="form-group row">   
+                            <div class="col-md-12 col-lg-12 col-sm-12">
+                                <label for="comment">{{ __('Write your Comments') }}</label>
+                                <!-- <input  type="text"  placeholder="Enter comment" class="form-control{{ $errors->has('comment') ? ' is-invalid' : '' }}" name="comment" value="{{ old('comment') }}" > -->
+                                <textarea rows="4" cols="100" id="comment" name="comment" placeholder="Enter your comment" class="form-control{{ $errors->has('comment') ? ' is-invalid' : '' }}" name="comment" value="{{ old('comment') }}" ></textarea>
+                                @if ($errors->has('comment'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('comment') }}</strong>
+                                    </span>
+                                @endif
+                            </div> 
+                        </div>
+
                         <input type="hidden" name="propertyId" value="{{$lastId['propertyId']}}">
                         <div class="col-md-12 col-lg-12 col-sm-12" style="margin-top:30px;">
                             <div class="form-group row mb-0">

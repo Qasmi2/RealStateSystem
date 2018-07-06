@@ -14,6 +14,19 @@
 Route::get('/', function () {
     return view('welcome');
 });
+// get decrlation form 
+Route::get('/declarationfom', function () {
+    return view('displayrecord.declarationform');
+})->name('declarationfom')->middleware('auth');
+
+// get reviw form 
+Route::get('/review', function () {
+    return view('displayrecord.review');
+})->name('review')->middleware('auth');
+// get witness form
+Route::get('/witness', function () {
+    return view('displayrecord.review');
+})->name('witness')->middleware('auth');
 
 
 Auth::routes();
@@ -40,8 +53,6 @@ Route::get('properties','propertiesformController@index')->name('properties')->m
 // show info single property 
 Route::get('singlerecord/{id}','propertiesformController@show')->name('singlerecord')->middleware('auth');
 
-// get decrlation form 
-Route::get('/declarationfom', function () {
-    return view('displayrecord.declarationform');
-})->name('declarationfom');
+
+
 

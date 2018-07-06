@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\installment;
 use App\payment;
+use App\property;
+use App\witness;
 use Validator;
 use DB;
 use App\Http\Controllers\DataTime;
@@ -93,10 +95,12 @@ class installmentsController extends Controller
                 $applicant = DB::table('applicants')->where('propertyId',$propertyId)->first();
                 $payment = DB::table('payments')->where('propertyId',$propertyId)->first();
                 $installment = DB::table('installments')->where('propertyId',$propertyId)->first();
+                $witness = DB::table('witnesses')->where('propertyId',$propertyId)->first();
+                $review = DB::table('reviews')->where('propertyId',$propertyId)->first();
                 // var_dump(json_encode($installment));
                 // exit();
 
-            return view('registrationfrom/submitforminstallment ',compact('property','applicant','payment','installment','installmentDates')); 
+            return view('registrationfrom/submitforminstallment ',compact('property','applicant','payment','installment','installmentDates','witness','review')); 
         }
         else{
             return redirect()->back()->with('error',' installment section data is not Insert there are some problem within database .');
