@@ -99,6 +99,7 @@ class installmentsController extends Controller
                 $review = DB::table('reviews')->where('propertyId',$propertyId)->first();
                 // var_dump(json_encode($installment));
                 // exit();
+                
 
             return view('registrationfrom/submitforminstallment ',compact('property','applicant','payment','installment','installmentDates','witness','review')); 
         }
@@ -115,7 +116,11 @@ class installmentsController extends Controller
      */
     public function show($id)
     {
-        //
+        // $installment =$request->input($id);
+        // $payment = DB::table('payments')->where('propertyId',$id)->first();
+        
+        // var_dump($payment);
+        // exit();
     }
 
     /**

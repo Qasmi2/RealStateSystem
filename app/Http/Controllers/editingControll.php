@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use witness;
+use App\installment;
+use App\payment;
+use App\property;
+use App\witness;
+use App\review;
+use Validator;
 use DB;
 
-class witnessController extends Controller
+class editingControll extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,37 +41,7 @@ class witnessController extends Controller
      */
     public function store(Request $request)
     {
-        // validation 
-        $validator = Validator::make($request->all(), [
-            'witnessName' => 'required',
-            'cnicNo' => 'required',
-            'propertyId' => 'required',
-          
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);            
-        }   
-        
-
-          // get all user data
-        //initilization the property object 
-
-
-        $witness = new witness;
-        $witness->witnessName = $request->input('witnessName');
-        $witness->cnicNo = $request->input('cnicNo');
-        $witness->propertyId = $request->input('propertyId');
-        $propertyId = $request->input('propertyId');
-        if($witness->save()){
-           
-            $lastId = property::orderBy('updated_at','desc')->first();
-            return view('registrationfrom/applicantform')->with('lastId',$lastId);
-        }
-        else{
-            return redirect()->back()->with('error',' Property section data is not Insert .');
-        }
-            // end of user data 
+        //
     }
 
     /**
@@ -77,7 +52,7 @@ class witnessController extends Controller
      */
     public function show($id)
     {
-        //
+      
     }
 
     /**
@@ -88,7 +63,11 @@ class witnessController extends Controller
      */
     public function edit($id)
     {
-        //
+        $property  = DB::table('properties')->where('propertyId',$id)->first();
+        $payment = DB::table('payments')->where('propertyId',$id)->first();
+        $applicant = DB::table('applicant')->where('propertyId',$id)->first();
+        $installment = DB::table('installments')->where('propertyId',$id)->first();
+        
     }
 
     /**

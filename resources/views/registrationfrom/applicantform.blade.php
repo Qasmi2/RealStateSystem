@@ -2,11 +2,16 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container" style="margin-top:60px;">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
+            <div class="card">
+                <div class="card-header" style="background-color: #f44336;color:white;">Applicant Registion Form</div>
+<!-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header" style="background:#e025ad;color:white;">Applicant Registion Form</div>
+                <div class="card-header" style="background:#e025ad;color:white;">Applicant Registion Form</div> -->
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,14 +19,14 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <div class="card-header" style="background:#d4aec9;margin:10px;">Applicant form </div>
+                    <div class="card-header" style="background:#f44336;color:white;margin:10px;">Applicant form </div>
                     <form method="POST"  action="{{route('insertapplicantinfo')}}" enctype="multipart/form-data" value="PATCH">
                         {{ csrf_field() }}
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                 <label>Please choose your Picture</label>
                                 <br>
-                                <input type="file" name="cover_image" id="cover_image" class="btn btn-dark"/>
+                                <input type="file" name="cover_image" id="cover_image" class="btn btn-primary" style="color:white;"/>
                                     @if ($errors->has('cover_image'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('cover_image') }}</strong>
@@ -136,7 +141,7 @@
                         </div>
                         <!--------------- Nominee information ----------------------------------------------------- -->
 
-                        <div class="card-header" style="background:#d4aec9;margin:10px;">Nominee Registion Form</div>
+                        <div class="card-header" style="background:#f44336;color:white;margin:10px;">Nominee Registion Form</div>
                         <div class="form-group row">
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="nomineeName" >{{ __('Nominee Name') }}</label>
@@ -255,7 +260,7 @@
                         <div class="col-md-12 col-lg-12 col-sm-12" style="margin-top:30px;">
                             <div class="form-group row mb-0">
                                 <div class="col-md-12 ">
-                                    <button type="submit" class="btn btn-lg" style="float:right;background-color: rgb(166, 70, 140) !important; color:white;" >
+                                    <button type="submit" class="btn btn-lg" style="float:right;background-color:#f44336!important; color:white;" >
                                         {{ __('Next') }}
                                     </button>
                                 </div>

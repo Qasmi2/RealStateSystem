@@ -16,7 +16,7 @@ class CreateInstallmentsTable extends Migration
         Schema::create('installments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('noOfInstallments')->nullable();
-            $table->integer('downpayment')->nullable();
+            $table->double('downpayment')->nullable();
             $table->double('amountOfOneInstallment', 8, 2)->nullable();
             $table->string('installmentDates')->nullable();
             $table->integer('propertyId')->unsigned();

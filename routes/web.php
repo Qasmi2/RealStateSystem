@@ -14,6 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/login', function () {
+    return view('welcome');
+});
+Route::get('/register', function () {
+    return view('welcome');
+});
 // get decrlation form 
 Route::get('/declarationfom', function () {
     return view('displayrecord.declarationform');
@@ -52,6 +58,10 @@ Route::post('installments','installmentsController@store')->name('installments')
 Route::get('properties','propertiesformController@index')->name('properties')->middleware('auth');
 // show info single property 
 Route::get('singlerecord/{id}','propertiesformController@show')->name('singlerecord')->middleware('auth');
+
+
+// editing forms 
+Route::get('editingform/{id}','editingControll@edit')->name('editingform');
 
 
 

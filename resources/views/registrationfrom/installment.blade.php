@@ -1,11 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container" style="margin-top:60px;">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
+            <div class="card">
+                <div class="card-header" style="background-color: #f44336;color:white;">Installment From</div>
+<!-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Property Registion Form</div>
+                <div class="card-header">Property Registion Form</div> -->
 
                 <div class="card-body">
                     @if (session('status'))
@@ -40,7 +45,7 @@
                                 @endif
                             </div>       
                             <div class="col-md-6 col-lg-6 col-sm-12">
-                                <label for="downpayment">{{ __('Date') }}</label>
+                                <label for="downpayment">{{ __('Down Payment') }}</label>
                                 <input id="downpayment" type="number" min="0" placeholder="Enter down payment" class="form-control{{ $errors->has('downpayment') ? ' is-invalid' : '' }}" name="downpayment" value="{{ old('downpayment') }}" >
                                 @if ($errors->has('downpayment'))
                                     <span class="invalid-feedback">
@@ -54,7 +59,7 @@
                         <div class="col-md-12 col-lg-12 col-sm-12" style="margin-top:30px;">
                             <div class="form-group row mb-0">
                                 <div class="col-md-12 ">
-                                    <button type="submit" class="btn btn-lg " style="float:right; background-color: rgb(166, 70, 140) !important; color:white;" >
+                                    <button type="submit" class="btn btn-lg " style="float:right; background-color:#f44336 !important; color:white;" >
                                         {{ __('Next') }}
                                     </button>
                                 </div>

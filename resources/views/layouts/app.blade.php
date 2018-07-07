@@ -7,25 +7,29 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ config('app.name', 'Montviro-BookingPortal') }}</title>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- external ------->
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <link href="{{ URL::to('css/style.css') }}" rel="stylesheet">
+    <link href="{{ URL::to('css/all-themes.css') }}" rel="stylesheet" />
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/stylenadeem.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md bg-dark navbar-dark" style="background-color: rgb(166, 70, 140) !important;">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-fixed-top" style="background-color:#f44336 !important;position: fixed !important;">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand" href="{{ url('/home') }}">
+                    {{ config('app.name', 'Montviro-BookingPortal') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -81,10 +85,95 @@
                 </div>
             </div>
         </nav>
+        @auth
+        <!-- Left Sidebar -->
+        <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+        <aside id="leftsidebar" class="sidebar sidebar_block" style="margin-top:-6px;">
+            <!-- User Info -->
+            <div class="user-info">
+                <div class="image">
+                    <img src="images/user.png" width="48" height="48" alt="User" />
+                </div>
+                <div class="info-container">
+                    <!-- <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</div> -->
+                    <div class=" name dropdown">
+                                <a style="color:white;"id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
 
-        <main class="py-4">
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="top:157px !important;">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- #User Info -->
+            <!-- Menu -->
+            <div class="menu">
+                <ul class="list">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li>
+                        <a href="{{ url('/home') }}">
+                            
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                            
+                                <a class="nav-link" href="{{ route('propertyform') }}">
+                              
+                                    <span>{{__('Reistration Property')}}</span>
+                                </a>
+                    </li>
+                    <li class="nav-item">
+                                <a class="nav-link" href="{{ route('properties') }}">
+                              
+                                    <span>{{ __('Diplay Properties') }}</span>
+                                </a>
+                    </li>
+                    <li class="nav-item">
+                                <a class="nav-link" href="{{ route('declarationfom') }}">
+                                
+                                    <span>{{ __('Declaration Form') }}</span>
+                                </a>
+                    </li>
+                    
+                    <!-- <li >
+                        <a href="" >
+                            <i class="material-icons">view_list</i>
+                            <span>Prospects Details</span>
+                        </a>
+                    </li> -->
+
+                </ul>
+            </div>
+            <!-- #Menu -->
+            <!-- Footer -->
+            <div class="legal">
+                <div class="copyright">
+                    &copy; 2018 <a href="javascript:void(0);">MONTVIRO- BOOKING PORTAL</a>.
+                </div>
+            </div>
+            <!-- #Footer -->
+        </aside>
+        </div>
+    @endauth
+
+        <main class="py-4" class="content">
             @yield('content')
         </main>
     </div>
+
+  
 </body>
 </html>

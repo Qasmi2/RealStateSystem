@@ -101,7 +101,26 @@ class propertiesformController extends Controller
      */
     public function edit($id)
     {
-        //
+        $property= DB::table('properties')->where('id',$id)->first();
+        $applicant = DB::table('applicants')->where("propertyId",$id)->first();
+        $payment = DB::table('payments')->where('propertyId',$id)->first();
+        $installment = DB::table('isntallments')->where('propertyId',$id)->first();
+        $review = DB:: table('reviews')->where('propertyId',$id)->first();
+        $witness = DB:: table('witness')->where('propertyId',$id)->first();
+
+        var_dump(json_encode($property));
+        exit();
+        var_dump(json_encode($applicant));
+        exiX();
+        var_dump(json_encode($payments));
+        exit();
+        var_dump(json_encode($review));
+        exit();
+        var_dump(json_encode($witness));
+        exit();
+
+        
+
     }
 
     /**
