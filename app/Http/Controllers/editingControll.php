@@ -63,11 +63,41 @@ class editingControll extends Controller
      */
     public function edit($id)
     {
-        $property  = DB::table('properties')->where('propertyId',$id)->first();
-        $payment = DB::table('payments')->where('propertyId',$id)->first();
-        $applicant = DB::table('applicant')->where('propertyId',$id)->first();
-        $installment = DB::table('installments')->where('propertyId',$id)->first();
         
+        $property  = DB::table('properties')->where('id',$id)->first();
+        $payment = DB::table('payments')->where('propertyId',$id)->first();
+        $applicant = DB::table('applicants')->where('propertyId',$id)->first();
+        $installment = DB::table('installments')->where('propertyId',$id)->first();
+        $review = DB::table('reviews')->where('propertyId',$id)->first();
+        $witness = DB::table('witnesses')->where('propertyId',$id)->first();
+
+        // var_dump(json_encode($property));
+        // echo"<br>";
+        // var_dump(json_encode($payment));
+        // echo"<br>";
+        // var_dump(json_encode($applicant));
+        // echo"<br>";
+        // var_dump(json_encode($installment));
+        // echo"<br>";
+        // var_dump(json_encode($review));
+        // echo"<br>";
+        // var_dump(json_encode($witness));
+        // echo"<br>";
+        // exit();
+         $isEmpty = json_encode($installment);
+        //  echo $isEmpty;
+        //  exit();
+        
+        if($isEmpty == "null")
+        { 
+            
+            return view('editingfrom/editfromsinstallment',compact('property','applicant','payment','witness','review','installment'));    
+        }
+        else{
+            
+            return view('editingfrom/editfroms',compact('property','applicant','payment','witness','review')); 
+        }
+
     }
 
     /**

@@ -5,12 +5,11 @@
     $property = array($property);
     $payment = array($payment);
     $applicant = array($applicant);
+    $installment = array($installment);
     $review = array($review);
     $witness = array($witness);
-    // foreach($property as $pr){
-    //     echo $pr->id;
-    //     exit();
-    // }
+   
+    
    
 ?>
 <div class="container" style="margin-top:60px;">
@@ -516,7 +515,46 @@
                         </div>
                     </from>
                     @endforeach
-                   
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <div><h3>Installment Info</h3></div>
+                        <hr>
+                    @foreach($installment as $te)
+                        <form method="POST"  action="{{route('installments')}}" enctype="multipart/form-data" value="PATCH">
+                        {{ csrf_field() }}
+                        <div class="form-group row">
+                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                <label for="noOfInstallments" >{{ __('Number of Installments') }}</label>
+                                 <input  type="text"  placeholder="Enter comment" class="form-control{{ $errors->has('noOfInstallments') ? ' is-invalid' : '' }}" name="noOfInstallments" value="" >
+                                 
+                                @if ($errors->has('noOfInstallments'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('noOfInstallments') }}</strong>
+                                    </span>
+                                @endif
+                            </div>       
+                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                <label for="downpayment">{{ __('Down Payment') }}</label>
+                                <input id="downpayment" type="number" min="0" placeholder="Enter down payment" class="form-control{{ $errors->has('downpayment') ? ' is-invalid' : '' }}" name="downpayment" value="" >
+                                @if ($errors->has('downpayment'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('downpayment') }}</strong>
+                                    </span>
+                                @endif
+                            </div>                    
+                        </div>
+                        <input type="hidden" name="propertyId" value="">
+                        
+                        <div class="col-md-12 col-lg-12 col-sm-12" style="margin-top:30px;">
+                            <div class="form-group row mb-0">
+                                <div class="col-md-12 ">
+                                    <button type="submit" class="btn btn-lg " style="float:right; background-color:#f44336 !important; color:white;" >
+                                        {{ __('update') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </from>
+                    @endforeach    
                 </div>
             </div>
         </div>
