@@ -173,6 +173,7 @@ class propertyController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
           // validation 
           $validator = Validator::make($request->all(), [
             'propertyType' => 'required',
@@ -201,13 +202,13 @@ class propertyController extends Controller
         $property->propertySize = $request->input('propertySize');
         $property->jointProperty = $request->input('jointProperty');
         $property->noOfJointApplicant = $request->input('noOfJointApplicant');
-        // if($property->save()){
-        //     // save all the property info and return successuflly message;
-        //     return redirect()->back()->with('success','Updated Record successfully.');
-        // }
-        // else{
-        //     return redirect()->back()->with('error',' Record is not Insert .');
-        // }
+        if($property->save()){
+            // save all the property info and return successuflly message;
+            return redirect()->back()->with('success','Updated Record successfully.');
+        }
+        else{
+            return redirect()->back()->with('error',' Record is not Insert .');
+        }
             // end of user data 
     }
 

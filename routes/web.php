@@ -50,6 +50,7 @@ Route::post('update/{id}','propertyController@update')->name('update')->middlewa
 // Route::get('applicantform','propertyController@applicantform')->name('applicantform')->middleware('auth');
 // Route for the applicant form 
 Route::post('insertapplicantinfo','applicantController@store')->name('insertapplicantinfo')->middleware('auth');
+Route::post('updateapplicant/{id}','applicantController@update')->name('updateapplicant')->middleware('auth');
 // Route for payment table
 Route::post('insertpayment','paymentcontroller@store')->name('insertpayment')->middleware('auth');
 // Route for installment
@@ -61,7 +62,8 @@ Route::get('singlerecord/{id}','propertiesformController@show')->name('singlerec
 
 
 // editing forms 
-Route::get('editingform/{id}','editingControll@edit')->name('editingform');
+Route::get('editingform/{id}','editingControll@edit')->name('editingform')->middleware('auth');
+Route::post('updating/{id}','editingControll@update')->name('updating')->middleware('auth');
 
 
 

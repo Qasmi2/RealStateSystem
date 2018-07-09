@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@include('flash')
 @section('content')
 <?php 
     $property = array($property);
@@ -30,7 +30,7 @@
                     &nbsp;&nbsp;
                     &nbsp;
                     @foreach($property as $te)
-                    <form method="POST"  action="#" enctype="multipart/form-data" value="PATCH">
+                    <form method="POST"  action="{{ url('update/'.$te->id)}}" enctype="multipart/form-data" value="PATCH">
                         {{ csrf_field() }}
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
@@ -134,7 +134,9 @@
                         {{ csrf_field() }}
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
-                                <label>Please choose your Picture</label>
+                                <img src="../storage/cover_images/{{$te->cover_image}}" height="100" width="100">
+                                <br>
+                                <label>Please update your Picture</label>
                                 <br>
                                 <input type="file" name="cover_image" id="cover_image" class="btn btn-primary" style="color:white;"/>
                                     @if ($errors->has('cover_image'))

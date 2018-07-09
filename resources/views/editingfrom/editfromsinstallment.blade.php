@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@include('flash')
 @section('content')
 <?php 
     $property = array($property);
@@ -29,7 +29,7 @@
                     &nbsp;&nbsp;
                     &nbsp;
                     @foreach($property as $te)
-                    <form method="POST"  action="#" enctype="multipart/form-data" value="PATCH">
+                    <form method="POST"  action="{{ url('updating/'.$te->id)}}" enctype="multipart/form-data" value="PATCH">
                         {{ csrf_field() }}
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
@@ -133,6 +133,8 @@
                         {{ csrf_field() }}
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
+                            <img src="../storage/cover_images/{{$te->cover_image}}" height="100" width="100">
+                            <br>
                                 <label>Please choose your Picture</label>
                                 <br>
                                 <input type="file" name="cover_image" id="cover_image" class="btn btn-primary" style="color:white;"/>
@@ -524,7 +526,7 @@
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="noOfInstallments" >{{ __('Number of Installments') }}</label>
-                                 <input  type="text"  placeholder="Enter comment" class="form-control{{ $errors->has('noOfInstallments') ? ' is-invalid' : '' }}" name="noOfInstallments" value="" >
+                                 <input  type="text"  placeholder="Enter comment" class="form-control{{ $errors->has('noOfInstallments') ? ' is-invalid' : '' }}" name="noOfInstallments" value="{{$te->noOfInstallments}}" >
                                  
                                 @if ($errors->has('noOfInstallments'))
                                     <span class="invalid-feedback">
@@ -534,7 +536,7 @@
                             </div>       
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="downpayment">{{ __('Down Payment') }}</label>
-                                <input id="downpayment" type="number" min="0" placeholder="Enter down payment" class="form-control{{ $errors->has('downpayment') ? ' is-invalid' : '' }}" name="downpayment" value="" >
+                                <input id="downpayment" type="number" min="0" placeholder="Enter down payment" class="form-control{{ $errors->has('downpayment') ? ' is-invalid' : '' }}" name="downpayment" value="{{$te->downpayment}}" >
                                 @if ($errors->has('downpayment'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('downpayment') }}</strong>

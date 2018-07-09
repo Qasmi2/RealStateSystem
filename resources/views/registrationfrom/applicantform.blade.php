@@ -19,6 +19,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
+        
                     <div class="card-header" style="background:#f44336;color:white;margin:10px;">Applicant form </div>
                     <form method="POST"  action="{{route('insertapplicantinfo')}}" enctype="multipart/form-data" value="PATCH">
                         {{ csrf_field() }}

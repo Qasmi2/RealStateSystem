@@ -71,33 +71,18 @@ class editingControll extends Controller
         $review = DB::table('reviews')->where('propertyId',$id)->first();
         $witness = DB::table('witnesses')->where('propertyId',$id)->first();
 
-        // var_dump(json_encode($property));
-        // echo"<br>";
-        // var_dump(json_encode($payment));
-        // echo"<br>";
-        // var_dump(json_encode($applicant));
-        // echo"<br>";
-        // var_dump(json_encode($installment));
-        // echo"<br>";
-        // var_dump(json_encode($review));
-        // echo"<br>";
-        // var_dump(json_encode($witness));
-        // echo"<br>";
-        // exit();
          $isEmpty = json_encode($installment);
-        //  echo $isEmpty;
-        //  exit();
         
         if($isEmpty == "null")
         { 
             
-            return view('editingfrom/editfromsinstallment',compact('property','applicant','payment','witness','review','installment'));    
+            return view('editingfrom/editfroms',compact('property','applicant','payment','witness','review'));    
         }
         else{
             
-            return view('editingfrom/editfroms',compact('property','applicant','payment','witness','review')); 
+            return view('editingfrom/editfromsinstallment',compact('property','applicant','payment','witness','review','installment')); 
         }
-
+        
     }
 
     /**
@@ -109,7 +94,8 @@ class editingControll extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        var_dump("testing updating controller" .$id);
+        exit();
     }
 
     /**

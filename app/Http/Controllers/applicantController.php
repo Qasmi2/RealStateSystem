@@ -68,12 +68,28 @@ class applicantController extends Controller
             return response()->json(['error'=>$validator->errors()], 401);            
         }   
 
+        // Handle File Upload
+        if($request->hasFile('cover_image')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('cover_image')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'noimage.jpg';
+        }
+
         // get all user data
         //initilization the property object 
         
         $applicant = new applicant;
         $applicant->name = $request->input('name');
-        $applicant->cover_image = $request->input('cover_image');
+        $applicant->cover_image = $fileNameToStore;
         $applicant->fatherName = $request->input('fatherName');
         $applicant->cnicNo = $request->input('cnicNo');
         $applicant->passportNo = $request->input('passportNo');
@@ -138,7 +154,8 @@ class applicantController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        var_dump("testing updating applicant ".$id);
+        exit();
     }
 
     /**

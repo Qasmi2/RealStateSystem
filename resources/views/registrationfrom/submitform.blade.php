@@ -69,6 +69,10 @@
                         <div class="form-group row">
                             <div class="col-md-6">
                             @foreach($applicant as $te)
+                        
+                                        <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Picture') }}    :</label>
+                                                <img src="../storage/cover_images/{{$te->cover_image}}" height="100" width="100">
+                                        </div>
                                         <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Name') }}    :</label>
                                                 <b>{{$te->name}}</b> 
                                         </div>
