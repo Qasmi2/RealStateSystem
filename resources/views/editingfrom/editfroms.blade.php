@@ -30,7 +30,7 @@
                     &nbsp;&nbsp;
                     &nbsp;
                     @foreach($property as $te)
-                    <form method="POST"  action="{{ url('update/'.$te->id)}}" enctype="multipart/form-data" value="PATCH">
+                <form method="POST"  action="{{ url('updating/'.$te->id)}}" enctype="multipart/form-data" value="PATCH">
                         {{ csrf_field() }}
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
@@ -114,24 +114,15 @@
                             </div>
                         </div>
                        
-                        <div class="col-md-12 col-lg-12 col-sm-12" style="margin-top:30px;">
-                            <div class="form-group row mb-0">
-                                <div class="col-md-12 ">
-                                    <button type="submit" class="btn btn-primary btn-lg " style="float:right; background-color:#f44336 !important; color:white;" >
-                                        {{ __('Update') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </from>
+                       
+                    
                     @endforeach
                     &nbsp;&nbsp;
                     &nbsp;
                     <div><h3>Applicant Information</h3></div>
                     <hr>
                     @foreach($applicant as $te)
-                    <form method="POST"  action="#" enctype="multipart/form-data" value="PATCH">
-                        {{ csrf_field() }}
+                    
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                 <img src="../storage/cover_images/{{$te->cover_image}}" height="100" width="100">
@@ -371,24 +362,14 @@
                                 @endif
                             </div>
                         </div>
-                        <!-- <input type="hidden" name="propertyId" value=""> -->
-                        <div class="col-md-12 col-lg-12 col-sm-12" style="margin-top:30px;">
-                            <div class="form-group row mb-0">
-                                <div class="col-md-12 ">
-                                    <button type="submit" class="btn btn-lg" style="float:right;background-color:#f44336!important; color:white;" >
-                                        {{ __('Update') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </from>
+                       
+                    <!-- </from> -->
                     @endforeach
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <div><h3>Payment Information</h3></div>
                         <hr>
                     @foreach($payment as $te)
-                    <form method="POST"  action="{{route('insertpayment')}}" enctype="multipart/form-data" value="PATCH">
-                        {{ csrf_field() }}
+                    
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="paymentType" >{{ __('Cash / Pay Order / Cheque / Adjustment') }}</label>
@@ -506,7 +487,7 @@
                             </div> 
                         </div>
                         @endforeach
-                        <input type="hidden" name="propertyId" value="">
+                        <!-- <input type="hidden" name="propertyId" value=""> -->
                         <div class="col-md-12 col-lg-12 col-sm-12" style="margin-top:30px;">
                             <div class="form-group row mb-0">
                                 <div class="col-md-12 ">
@@ -516,9 +497,9 @@
                                 </div>
                             </div>
                         </div>
-                    </from>
-                    @endforeach
                    
+                    @endforeach
+            </from>
                 </div>
             </div>
         </div>
