@@ -82,6 +82,7 @@ class paymentController extends Controller
         $review->comment=$request->input('comment');
         $review->propertyId = $request->input('propertyId');
 
+
         if($payment->save()){
             // insert the witness info
             $witness->save();

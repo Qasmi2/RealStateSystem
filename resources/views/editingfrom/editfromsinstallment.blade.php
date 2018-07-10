@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @include('flash')
 @section('content')
+
 <?php 
     $property = array($property);
     $payment = array($payment);
@@ -34,8 +35,13 @@
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertyType" >{{ __('Registion Project') }}</label>
-                                <input id="propertyType" type="propertyType" placeholder="Enter REGISTERED PROJECT " class="form-control{{ $errors->has('propertyType') ? ' is-invalid' : '' }}" name="propertyType" value="{{$te->propertyType}}" required>
-                                 
+                                <!-- <input id="propertyType" type="propertyType" placeholder="Enter REGISTERED PROJECT " class="form-control{{ $errors->has('propertyType') ? ' is-invalid' : '' }}" name="propertyType" value="{{$te->propertyType}}" required> -->
+                                <select class="form-control" name="propertyType" id="propertyType" >
+                                    <option value="{{$te->propertyType}}">{{$te->propertyType}}</option>
+                                    <option value="Montviro Hotal">Montviro Hotal</option>
+                                    <option value="Montviro Mall">Montviro Mall</option>
+                                    <option value="Montviro Theme Park">Montviro Theme Park</option>
+                                </select>
                                 @if ($errors->has('propertyType'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertyType') }}</strong>
@@ -44,8 +50,13 @@
                             </div>
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="registrationStatus">{{ __('Registration Status') }}</label>
-                                <input id="registrationStatus" type="text" placeholder="Select Registration Status " class="form-control{{ $errors->has('registrationStatus') ? ' is-invalid' : '' }}" name="registrationStatus" value="{{$te->registrationStatus}}" required>
-                               
+                                <!-- <input id="registrationStatus" type="text" placeholder="Select Registration Status " class="form-control{{ $errors->has('registrationStatus') ? ' is-invalid' : '' }}" name="registrationStatus" value="{{$te->registrationStatus}}" required> -->
+                                <select class="form-control" name="registrationStatus" id="registrationStatus" >
+                                    <option value="{{$te->registrationStatus}}">{{$te->registrationStatus}}</option>
+                                    <option value="First Alottee">First Alottee</option>
+                                    <option value="Transfer Certificate">Transfer Certificate</option>
+                                    <option value="Open Certificate">Open Certificate</option>
+                                </select>
                                 @if ($errors->has('registrationStatus'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('registrationStatus') }}</strong>
@@ -56,8 +67,16 @@
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                 <label for="propertySection">{{ __('Property Section') }}</label>
-                                <input id="propertySection" type="text" placeholder="Enter property Section " class="form-control{{ $errors->has('propertySection') ? ' is-invalid' : '' }}" name="propertySection" value="{{ $te->propertySection }}"  required>
-                                
+                                <!-- <input id="propertySection" type="text" placeholder="Enter property Section " class="form-control{{ $errors->has('propertySection') ? ' is-invalid' : '' }}" name="propertySection" value="{{ $te->propertySection }}"  required> -->
+                                <select class="form-control" name="propertySection" id="propertySection" >
+                                    <option value="{{ $te->propertySection }}">{{ $te->propertySection }}</option>
+                                    <option value="Office">Office</option>
+                                    <option value="Shop">Shop</option>
+                                    <option value="Suite">Suite</option>
+                                    <option value="Food Court">Food Court</option>
+                                    <option value="Kiosk">Kiosk</option>
+                                    <option value="Theme Park">Theme Park</option>
+                                </select>
                                 @if ($errors->has('propertySection'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertySection') }}</strong>
@@ -426,13 +445,13 @@
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                 <label for="propertyPaymentProcedure">{{ __('property Payment Procedure') }}</label>
-                                <input id="propertyPaymentProcedure" type="text" placeholder="Enter Total Amount " class="form-control{{ $errors->has('propertyPaymentProcedure') ? ' is-invalid' : '' }}" name="propertyPaymentProcedure" value="{{ $te->propertyPaymentProcedure }}" required>
-                                <!-- <select class="form-control" name="propertyPaymentProcedure" id="propertyPaymentProcedure" >
-                                    <option value="">Choice Payment Procedure</option>
+                                <!-- <input id="propertyPaymentProcedure" type="text" placeholder="Enter Total Amount " class="form-control{{ $errors->has('propertyPaymentProcedure') ? ' is-invalid' : '' }}" name="propertyPaymentProcedure" value="{{ $te->propertyPaymentProcedure }}" required> -->
+                                <select class="form-control" name="propertyPaymentProcedure" id="propertyPaymentProcedure" onchange="paymentProcedure(this);" >
+                                    <option value="{{ $te->propertyPaymentProcedure }}">{{ $te->propertyPaymentProcedure }}</option>
                                     <option value="Installment">Installment</option>
                                     <option value="Total Amount">Total Amount</option>
                                     
-                                </select> -->
+                                </select>
                                 @if ($errors->has('propertyPaymentProcedure'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertyPaymentProcedure') }}</strong>
@@ -440,6 +459,34 @@
                                 @endif
                             </div>
                         </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <div><h3>Installment Info</h3></div>
+                            <hr>
+                        @foreach($installment as $te)
+                            <div id="addinstallment">
+                            <div class="form-group row">
+                                <div class="col-md-6 col-lg-6 col-sm-12">
+                                    <label for="noOfInstallments">{{ __('Number of Installments') }}</label>
+                                    <input  type="text"  id="noOfInstallments" placeholder="" class="form-control{{ $errors->has('noOfInstallments') ? ' is-invalid' : '' }}" name="noOfInstallments" value="{{$te->noOfInstallments}}" >
+                                    
+                                    @if ($errors->has('noOfInstallments'))
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('noOfInstallments') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>       
+                                <div class="col-md-6 col-lg-6 col-sm-12">
+                                    <label for="downpayment" >{{ __('Down Payment') }}</label>
+                                    <input id="downpayment" type="number" min="0" placeholder="" class="form-control{{ $errors->has('downpayment') ? ' is-invalid' : '' }}" name="downpayment" value="{{$te->downpayment}}" >
+                                    @if ($errors->has('downpayment'))
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('downpayment') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>                    
+                            </div>
+                        </div>
+                        @endforeach
                         
                         <!-- <div class="card-header" style="background:#f44336;color:white;margin:10px;">Witness Form</div> -->
                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -486,33 +533,8 @@
                         </div>
                         @endforeach
                        
-                    @endforeach
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <div><h3>Installment Info</h3></div>
-                        <hr>
-                    @foreach($installment as $te)
-                        
-                        <div class="form-group row">
-                            <div class="col-md-6 col-lg-6 col-sm-12">
-                                <label for="noOfInstallments" >{{ __('Number of Installments') }}</label>
-                                 <input  type="text"  placeholder="Enter comment" class="form-control{{ $errors->has('noOfInstallments') ? ' is-invalid' : '' }}" name="noOfInstallments" value="{{$te->noOfInstallments}}" >
-                                 
-                                @if ($errors->has('noOfInstallments'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('noOfInstallments') }}</strong>
-                                    </span>
-                                @endif
-                            </div>       
-                            <div class="col-md-6 col-lg-6 col-sm-12">
-                                <label for="downpayment">{{ __('Down Payment') }}</label>
-                                <input id="downpayment" type="number" min="0" placeholder="Enter down payment" class="form-control{{ $errors->has('downpayment') ? ' is-invalid' : '' }}" name="downpayment" value="{{$te->downpayment}}" >
-                                @if ($errors->has('downpayment'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('downpayment') }}</strong>
-                                    </span>
-                                @endif
-                            </div>                    
-                        </div>
+                    
+                   
                        
                         
                         <div class="col-md-12 col-lg-12 col-sm-12" style="margin-top:30px;">
@@ -531,4 +553,58 @@
         </div>
     </div>
 </div>
+<!-- javascript code -->
+<script>
+//add fucntion to test
+function paymentProcedure(val){
+
+    
+var paymentProcedure = val.value;
+var parent = document.getElementById('addinstallment');
+if( paymentProcedure == "Total Amount"){
+
+    document.getElementById("noOfInstallments").value ="";
+    document.getElementById("downpayment").value ="";
+
+    document.getElementById("noOfInstallments").type ="hidden";
+    document.getElementById("downpayment").type ="hidden";
+    
+   
+}
+if( paymentProcedure == "Installment"){
+
+  var added = 
+                            '<div class="col-md-12 col-lg-12 col-sm-12">'+
+                                '<label for="noOfInstallments" >No Of installment</label>'+
+                              
+                                  '<select class="form-control" name="noOfInstallments" id="noOfInstallments" >'+
+                                    '<option value="">Select No of Installments</option>'+
+                                    '<option value="1">1</option>'+
+                                    '<option value="2">2</option>'+
+                                    '<option value="3">3</option>'+
+                                    '<option value="4">4</option>'+
+                                    '<option value="5">5</option>'+
+                                    '<option value="6">6</option>'+
+                                    '<option value="7">7</option>'+
+                                    '<option value="8">8</option>'+
+                                    '<option value="9">9</option>'+
+                                    '<option value="10">10</option>'+
+                                    
+                                '</select>'+
+                              
+                            '</div>'+       
+                            '<div class="col-md-12 col-lg-12 col-sm-12">'+
+                                '<label for="downpayment">Down Payment</label>'+
+                                '<input id="downpayment" type="number" min="0" placeholder="Enter down payment" class="form-control" name="downpayment" value="" >'+
+                               
+                            '</div>';                
+                        
+        parent.insertAdjacentHTML('beforeend', added);
+}
+
+
+return 0;
+}
+</script>
+
 @endsection

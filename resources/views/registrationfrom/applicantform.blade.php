@@ -1,6 +1,6 @@
 
 @extends('layouts.app')
-
+@include('flash')
 @section('content')
 <div class="container" style="margin-top:60px;">
     <div class="row justify-content-center">

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@include('flash')
 @section('content')
 <div class="container" style="margin-top:60px;">
     <div class="row justify-content-center">
@@ -24,7 +24,8 @@
                           $proSize = sizeof($payments);
 
                     ?>
-                    
+
+                   
                     <table class="table table-bordered table-striped table-hover table-responsive">
                         <thead bgcolor="#a6468c" style="color:white;">
                             <tr>
