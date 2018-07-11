@@ -10,6 +10,9 @@ use App\witness;
 use App\review;
 use App\applicant;
 use Validator;
+use App\Http\Controllers\DataTime;
+use DateTime;
+use DateInterval;
 use DB;
 
 class editingControll extends Controller
@@ -237,6 +240,9 @@ class editingControll extends Controller
 
         // installment will be changed into 2nd version 
 
+        $paymentProcedure = $payment->propertyPaymentProcedure;
+        
+
         if($property->save()){
             // save the applicant 
             $applicant->save();
@@ -246,7 +252,73 @@ class editingControll extends Controller
             $witness->save();
             // save the review
             $review->save(); 
+            if($paymentProcedure == "Installment"){
+                
+                 // validation
+                $validator = Validator::make($request->all(), [
+                    'noOfInstallments' => 'required',
+                    'downpayment' => 'required',
+                    
+                    
+                ]);
+                if ($validator->fails()) {
+                    return response()->json(['error'=>$validator->errors()], 401);            
+                }
 
+                // property Id , down payment , No of installment require for calculation so get all the variables 
+                $propertyId = $id;
+                $downpayment = $request->input('downpayment');
+                $noOfinstallments = $request->input('noOfInstallments');
+
+                //get the total amount
+                $propertyprice  = DB::table('payments')->where('propertyId',$propertyId)->value('propertyPrice');
+                // Total amount , down payment , No of installment (calculation of installment throught these three variables)
+                $remaningAmount = $propertyprice - $downpayment ;
+                // total Amount divided into Number of installment to get the one installments
+                $amountOfOneInstallment = $remaningAmount/$noOfinstallments;
+                
+                // get today data and add 3 months ( 90 days ) to calculat the next installment date
+                $todayDate = date("Y-m-d");
+                $data1 = $todayDate;
+                // var_dump($data1);
+                $installmentDates = []; 
+                for($i=0; $i < $noOfinstallments; $i++)
+                {
+                    
+                    $date2 = new DateTime($data1);
+                    $date2->add(new DateInterval('P90D')); // P90D means a period of 90 day
+                    $installmentDates[$i] = $date2->format('Y-m-d');
+                    $data1 = $installmentDates[$i];         
+                    
+                }
+                // get all user data
+                //initilization the property object 
+
+                $installment = new installment;
+                $installment->noOfInstallments = $noOfinstallments; 
+                $installment->downpayment = $downpayment;
+                $installment->propertyId = $propertyId;
+                $installment->amountOfOneInstallment = $amountOfOneInstallment; 
+                $installment->installmentDates = json_encode($installmentDates);
+                // save the installment info
+                $installment->save();
+
+            }
+            elseif($paymentProcedure == "Total Amount"){
+               
+                $installmentrow = DB::table('installments')->where('propertyId',$id)->first();
+                // if(!$installmentrow){
+                //     var_dump("tesing installment row not exit ");
+                //     exit();
+                // }
+                if($installmentrow){
+                    
+                    $deleteInstallmentId = DB::table('installments')->where('propertyId',$id)->value('id');
+                    $deleteInstallmentRow = installment::find($deleteInstallmentId);
+                    $deleteInstallmentRow->delete();
+                }
+            }
+           
             // save all the property info and return successuflly message;
             return redirect()->back()->with('success','Updated Record successfully.');
         }
