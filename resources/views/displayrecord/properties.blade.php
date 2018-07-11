@@ -43,7 +43,7 @@
                         <tbody>
                             @for($i=0; $appSize >$i; $i++)
                                 <tr>
-                                    <td><a href="#">{{$properties[$i]['propertyType']}}</a></td>
+                                    <td><a href="{{url('display/'.$properties[$i]['id'])}}">{{$properties[$i]['propertyType']}}</a></td>
                                     <td>{{$properties[$i]['propertyAddress']}}</td>
                                     <td>{{$properties[$i]['propertyLocation']}}</td>
                                     <td>{{$properties[$i]['propertySize']}}</td>

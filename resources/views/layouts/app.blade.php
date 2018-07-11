@@ -19,10 +19,14 @@
     <link href="{{ URL::to('css/all-themes.css') }}" rel="stylesheet" />
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/stylenadeem.css') }}" rel="stylesheet">
+
+      <!-- javascrip link to delete confirmation form -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
     <div id="app">
@@ -173,7 +177,7 @@
             @yield('content')
         </main>
     </div>
-
-  
+  <script src="{{ asset('js/app.js') }}" defer></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

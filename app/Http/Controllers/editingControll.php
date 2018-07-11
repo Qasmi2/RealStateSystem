@@ -24,7 +24,7 @@ class editingControll extends Controller
      */
     public function index()
     {
-        //
+      
     }
 
     /**
@@ -56,7 +56,26 @@ class editingControll extends Controller
      */
     public function show($id)
     {
-      
+        $property  = DB::table('properties')->where('id',$id)->first();
+        $payment = DB::table('payments')->where('propertyId',$id)->first();
+        $applicant = DB::table('applicants')->where('propertyId',$id)->first();
+        $installment = DB::table('installments')->where('propertyId',$id)->first();
+        $review = DB::table('reviews')->where('propertyId',$id)->first();
+        $witness = DB::table('witnesses')->where('propertyId',$id)->first();
+
+         $isEmpty = json_encode($installment);
+        
+        if($isEmpty == "null")
+        { 
+            
+            return view('displayrecord/singlerecord',compact('property','applicant','payment','witness','review'));    
+        }
+        else{
+            
+            return view('displayrecord/singlerecordinstallment',compact('property','applicant','payment','witness','review','installment')); 
+        }
+       
+        
     }
 
     /**
@@ -334,7 +353,71 @@ class editingControll extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    { 
+        
+        $installmentrow = DB::table('installments')->where('propertyId',$id)->first();
+        // get installment table id to delete that have property Id same 
+        // $deleteInstallmentId = DB::table('installments')->where('propertyId',$id)->value('id');
+        // get payment table id to delete that  HAVE property Id same 
+        $deletePaymentId = DB::table('payments')->where('propertyId',$id)->value('id');
+        // get applicant table id to delete that  HAVE property Id same 
+        $deleteApplicantId = DB::table('applicants')->where('propertyId',$id)->value('id');
+        // get witness table id to delete that  HAVE property Id same 
+        $deleteWitnessId = DB::table('witnesses')->where('propertyId',$id)->value('id');
+        // get review table id to delete that  HAVE property Id same 
+        $deleteReviewsId = DB::table('reviews')->where('propertyId',$id)->value('id');
+        // get property table id to delete that  HAVE property Id same 
+        $deletepropertyId = property::find($id);
+       
+        // check that installment is exist or not 
+        if($installmentrow){
+                    
+            $deleteInstallmentId = DB::table('installments')->where('propertyId',$id)->value('id');
+            $deleteInstallmentRow = installment::find($deleteInstallmentId);
+            $deleteInstallmentRow->delete();
+        }
+        $payment = payment::find($deletePaymentId);
+        if($payment){
+            // if apyment is not delete then error massage will be shown 
+            if(!$payment->delete()){
+                return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+            }
+        }
+        $applicant = applicant::find($deleteApplicantId);
+        if($applicant){
+            if(!$applicant->delete()){
+                return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+            }
+        }
+        $witness = witness::find($deleteWitnessId);
+        if($witness){
+            if(!$witness->delete()){
+                return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+            }
+        }
+        $review = review::find($deleteReviewsId);
+        if($review){
+            if(!$review->delete()){
+                // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
+            }
+        }
+        $property = property::find($id);
+        if($property){
+
+            if($property->delete()){
+                return view('displayrecord.deleterecordMessage')->with('success', 'Record Removed');
+            }
+            else{
+                
+                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed !!!');
+            }
+
+        }
+        else{
+
+            return view('displayrecord.deleterecordMessage')->with('error', 'Record NOT Found or Something Wrong !!!');  
+        }
+		
     }
 }
