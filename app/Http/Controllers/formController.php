@@ -69,7 +69,20 @@ class formController extends Controller
         $payment = DB::table('payments')->where('propertyId',$id)->first();
         $applicant = DB::table('applicants')->where('propertyId',$id)->first();
         $installment = DB::table('installments')->where('propertyId',$id)->first();
-        return view('displayrecord.declarationform2',compact('property','payment','applicant','installment'));
+       
+
+         $isEmpty = json_encode($installment);
+        
+        if($isEmpty == "null")
+        { 
+            
+            return view('displayrecord.declarationform2',compact('property','applicant','payment'));    
+        }
+        else{
+            
+            return view('displayrecord.declarationform21',compact('property','applicant','payment','installment')); 
+        }
+   
     }
 
     /**

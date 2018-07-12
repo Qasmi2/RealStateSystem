@@ -144,8 +144,9 @@
             font-size:14px;
         }
     </style>
-                    <?php  
-                           $payment = array($payment);  
+     <?php  
+                           $payment = array($payment); 
+                           $installment = array($installment); 
                            foreach($payment as $te){
                                $totalPrice = $te->propertyPrice;
                                $data = $te->propertyPurchingDate;
@@ -230,66 +231,66 @@
         </section>
         
         <div style="margin:30px 0px;">
-            Total Cost of Unit: {{$totalPrice}}/- &nbsp;Amount Paid: PKR {{$totalPrice}}/-
+            Total Cost of Unit: {{$totalPrice}}/- &nbsp;Amount Paid: PKR 630,000/-
         </div>
-       
+
         <section class="comptable">
             <img src="..\..\public\images\tabletop.jpg" />
             <h3 style="margin-bottom:0px; padding-bottom:0px;"><span style="padding:0px 70px;">Description</span><span style="padding:0px 70px;">Amount in PKR</span><span style="padding:0px 70px;">Date</span></h3>
             <table>
                 <tr>
                     <td class="tdprop">Down Payment on Booking</td>
-                    <td class="tdprop">{{$totalPrice}}</td>
-                    <td class="tdprop">{{$data}}</td>
+                    <td class="tdprop">630,000</td>
+                    <td class="tdprop">12th-March-2018</td>
                 </tr>
                 <tr>
                     <td class="tdprop">1st Installment</td>
-                    <td class="tdprop"></td>
-                    <td class="tdprop"></td>
+                    <td class="tdprop">252,000</td>
+                    <td class="tdprop">10-Sep-2018</td>
                 </tr>
                 <tr>
                     <td class="tdprop">2nd Installment</td>
-                    <td class="tdprop"></td>
-                    <td class="tdprop"></td>
+                    <td class="tdprop">252,000</td>
+                    <td class="tdprop">10-Dec-2018</td>
                 </tr>
                 <tr>
                     <td class="tdprop">3rd Installment</td>
-                    <td class="tdprop"></td>
+                    <td class="tdprop">252,000</td>
                     <td class="tdprop"></td>
                 </tr>
                 <tr>
                     <td class="tdprop">4th Installment</td>
-                    <td class="tdprop"></td>
+                    <td class="tdprop">252,000</td>
                     <td class="tdprop"></td>
                 </tr>
                 <tr>
                     <td class="tdprop">5th Installment</td>
-                    <td class="tdprop"></td>
+                    <td class="tdprop">252,000</td>
                     <td class="tdprop"></td>
                 </tr>
                 <tr>
                     <td class="tdprop">6th Installment</td>
-                    <td class="tdprop"></td>
+                    <td class="tdprop">252,000</td>
                     <td class="tdprop"></td>
                 </tr>
                 <tr>
                     <td class="tdprop">7th Installment</td>
-                    <td class="tdprop"></td>
+                    <td class="tdprop">252,000</td>
                     <td class="tdprop"></td>
                 </tr>
                 <tr>
                     <td class="tdprop">8th Installment</td>
-                    <td class="tdprop"></td>
+                    <td class="tdprop">252,000</td>
                     <td class="tdprop"></td>
                 </tr>
                 <tr>
                     <td class="tdprop">9th Installment</td>
-                    <td class="tdprop"></td>
+                    <td class="tdprop">252,000</td>
                     <td class="tdprop"></td>
                 </tr>
                 <tr>
                     <td class="tdprop">10th Installment</td>
-                    <td class="tdprop"></td>
+                    <td class="tdprop">252,000</td>
                     <td class="tdprop"></td>
                 </tr>
             </table>
@@ -312,7 +313,6 @@
                 </tr>
             </table>
         </section>
-        
     </div>
     <!--<img src="images/footer.jpg" class="footerprop" />-->
 
