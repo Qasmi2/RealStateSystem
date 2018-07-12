@@ -11,22 +11,23 @@
 
     <!-- external ------->
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+   
 
     <link href="{{ URL::to('css/style.css') }}" rel="stylesheet">
     <link href="{{ URL::to('css/all-themes.css') }}" rel="stylesheet" />
 
-    <!-- Scripts -->
     
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/stylenadeem.css') }}" rel="stylesheet">
 
       <!-- javascrip link to delete confirmation form -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <!-- javascrip link to delete confirmation form -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+     <!-- Google Fonts -->
+     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div id="app">
@@ -178,6 +179,7 @@
         </main>
     </div>
   <script src="{{ asset('js/app.js') }}" defer></script>
+  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -13,7 +13,7 @@
             <!-- <div class="card">
                 <div class="card-header">Montviro (PVT) Ltd.<br><small>Booking Application Form (Non-refundable)</small></div> -->
                  <!-- javaScript delete confirmation -->
-                 <script>
+                    <script>
                             $(document).ready(function() {
                             $('a[data-confirm]').click(function(ev) {
                             var href = $(this).attr('href');
@@ -26,7 +26,7 @@
                             return false;
                                 });
                         });
-                        </script>
+                    </script>
                         <!-- End JavaScript code -->
                 <div class="card-body"> 
                     @if (session('status'))
@@ -59,7 +59,8 @@
                      <div>
                         <button class="btn btn-lg btn-default" onclick="window.history.go(-1)">Back</button>
                         <button style="float:right;color:white;" class="btn btn-lg btn-warning" ><a href="{{url('editingform/'.$Idkey)}}">Edit</a></button>
-                        <button style="float:right;color:white;" class="btn btn-lg btn-danger" data-confirm="Are you sure you want to delete?"><a href="{{url('deleteform/'.$Idkey)}}">Delete</a></button>
+                        <!-- <button style="float:right;color:white;" class="btn btn-lg btn-danger" data-confirm="Are you sure you want to delete?"><a href="{{url('deleteform/'.$Idkey)}}">Delete</a></button> -->
+                        <a href="{{ url('deleteform/'.$Idkey) }}" data-confirm="Are you sure you want to delete?" class="btn btn-lg btn-danger">Delete</a>
                     </div> 
                     <fieldset class="col-md-12" style="background-color:#fff; margin-top:20px;">    	
                     <legend>Registration Detail</legend>
@@ -334,7 +335,8 @@
                     <div>
                         <button class="btn btn-lg btn-default" onclick="window.history.go(-1)">Back</button>
                         <button style="float:right;color:white;" class="btn btn-lg btn-warning" ><a href="{{url('editingform/'.$Idkey)}}">Edit</a></button>
-                        <button style="float:right;color:white;" class="btn btn-lg btn-danger" data-confirm="Are you sure you want to delete?"  ><a href="{{url('deleteform/'.$Idkey)}}">Delete</a></button>
+                        <!-- <button style="float:right;color:white;" class="btn btn-lg btn-danger" data-confirm="Are you sure you want to delete?"  ><a href="{{url('deleteform/'.$Idkey)}}">Delete</a></button> -->
+                        <a href="{{ url('deleteform/'.$Idkey) }}" data-confirm="Are you sure you want to delete?" class="btn btn-lg btn-danger">Delete</a>
                     </div>   
 
                      

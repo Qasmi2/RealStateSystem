@@ -37,6 +37,7 @@
                                <th>Owner CNIC NO</th>
                                <th>Total Amount</th>
                                <th>Actions</th>
+                               <th>Download</th>
                                
                             </tr>
                         </thead>
@@ -51,6 +52,8 @@
                                     <td>{{$applicanties[$i]['cnicNo']}}</td>
                                     <td>{{$payments[$i]['propertyPrice']}}</td>
                                     <td><a href="{{url('editingform/'.$properties[$i]['id'])}}">Edit</a></td>
+                                    <td><a href="{{url('form1/'.$properties[$i]['id'])}}">Download Form1</a>
+                                    <a href="{{url('form2/'.$properties[$i]['id'])}}">Download Form2</a></td>
 
                                 </tr>
                             @endfor

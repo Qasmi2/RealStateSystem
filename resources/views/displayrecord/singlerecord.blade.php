@@ -13,18 +13,18 @@
                 <div class="card-header">Montviro (PVT) Ltd.<br><small>Booking Application Form (Non-refundable)</small></div> -->
                         <!-- javaScript delete confirmation -->
                         <script>
-                            $(document).ready(function() {
-                            $('a[data-confirm]').click(function(ev) {
-                            var href = $(this).attr('href');
-                            if (!$('#dataConfirmModal').length) {
-                            $('body').append('<div id="dataConfirmModal" class="modal fade modal" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true"><div class="modal-dialog "><div class="modal-content"><div class=" modal-header" ><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h3 id="dataConfirmLabel" >Please Confirm</h3></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button><a class="btn btn-danger" id="dataConfirmOK">Delete</a></div></div></div></div>');
-                            } 
-                            $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
-                            $('#dataConfirmOK').attr('href', href);
-                            $('#dataConfirmModal').modal({show:true});
-                            return false;
-                                });
-                        });
+                                $(document).ready(function() {
+                                $('a[data-confirm]').click(function(ev) {
+                                var href = $(this).attr('href');
+                                if (!$('#dataConfirmModal').length) {
+                                $('body').append('<div id="dataConfirmModal" class="modal fade modal" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true"><div class="modal-dialog "><div class="modal-content"><div class=" modal-header" ><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><br><h3 id="dataConfirmLabel" >Please Confirm</h3></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button><a class="btn btn-danger" id="dataConfirmOK">Delete</a></div></div></div></div>');
+                                } 
+                                $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
+                                $('#dataConfirmOK').attr('href', href);
+                                $('#dataConfirmModal').modal({show:true});
+                                return false;
+                                    });
+                            });
                         </script>
                         <!-- End JavaScript code -->
                 <!-- <div class="card-body"> -->
@@ -47,8 +47,10 @@
                      <div>
                         <button class="btn btn-lg btn-default" onclick="window.history.go(-1)">Back</button>
                         <button style="float:right;color:white;" class="btn btn-lg btn-warning" ><a href="{{url('editingform/'.$Idkey)}}">Edit</a></button>
-                        <button style="float:right;color:white;" class="btn btn-lg btn-danger" data-confirm="Are you sure you want to delete?"><a href="{{url('deleteform/'.$Idkey)}}">Delete</a></button>
-                    </div>  
+                        <!-- <button style="float:right;color:white;" class="btn btn-lg btn-danger" data-confirm="Are you sure you want to delete?"><a href="{{url('deleteform/'.$Idkey)}}">Delete</a></button> -->
+                        <a href="{{ url('deleteform/'.$Idkey) }}" data-confirm="Are you sure you want to delete?" class="btn btn-lg btn-danger">Delete</a>
+                    </div> 
+
                     <fieldset class="col-md-12" style="background-color:#fff; margin-top:20px;">    	
                     <legend>Registration Detail</legend>
                         <!-- <div class="col-md-12 col-lg-12 col-sm-12">     -->
@@ -275,7 +277,8 @@
                     <div>
                         <button class="btn btn-lg btn-default" onclick="window.history.go(-1)">Back</button>
                         <button style="float:right;color:white;" class="btn btn-lg btn-warning" ><a href="{{url('editingform/'.$Idkey)}}">Edit</a></button>
-                        <button style="float:right;color:white;" class="btn btn-lg btn-danger" data-confirm="Are you sure you want to delete?"><a href="{{url('deleteform/'.$Idkey)}}">Delete</a></button>
+                        <!-- <button style="float:right;color:white;" class="btn btn-lg btn-danger" data-confirm="Are you sure you want to delete?"><a href="{{url('deleteform/'.$Idkey)}}">Delete</a></button> -->
+                        <a href="{{ url('deleteform/'.$Idkey) }}" data-confirm="Are you sure you want to delete?" class="btn btn-lg btn-danger">Delete</a>
                     </div> 
                       
                 <!-- </div>

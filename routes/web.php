@@ -20,10 +20,13 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('welcome');
 });
+// all the printed form routes 
 // get decrlation form 
 Route::get('/declarationfom', function () {
     return view('displayrecord.declarationform');
 })->name('declarationfom')->middleware('auth');
+
+
 
 // get reviw form 
 Route::get('/review', function () {
@@ -66,6 +69,13 @@ Route::get('display/{id}','editingControll@show')->name('display')->middleware('
 Route::get('editingform/{id}','editingControll@edit')->name('editingform')->middleware('auth');
 Route::post('updating/{id}','editingControll@update')->name('updating')->middleware('auth');
 Route::get('deleteform/{id}','editingControll@destroy')->name('deleteform')->middleware('auth');
+
+// get the forms for print 
+Route::get('form1/{id}','formController@show')->name('form1')->middleware('auth');
+Route::get('form2/{id}','formController@showform2')->name('form2')->middleware('auth');
+
+
+
 
 
 

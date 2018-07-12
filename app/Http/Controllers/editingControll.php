@@ -367,7 +367,8 @@ class editingControll extends Controller
         // get review table id to delete that  HAVE property Id same 
         $deleteReviewsId = DB::table('reviews')->where('propertyId',$id)->value('id');
         // get property table id to delete that  HAVE property Id same 
-        $deletepropertyId = property::find($id);
+        $deletepropertyId = DB::table('properties')->where('id',$id)->value('id');
+       
        
         // check that installment is exist or not 
         if($installmentrow){
@@ -380,19 +381,22 @@ class editingControll extends Controller
         if($payment){
             // if apyment is not delete then error massage will be shown 
             if(!$payment->delete()){
-                return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+                // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
             }
         }
         $applicant = applicant::find($deleteApplicantId);
         if($applicant){
             if(!$applicant->delete()){
-                return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+                // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
             }
         }
         $witness = witness::find($deleteWitnessId);
         if($witness){
             if(!$witness->delete()){
-                return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+                // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
             }
         }
         $review = review::find($deleteReviewsId);
@@ -402,15 +406,17 @@ class editingControll extends Controller
                 return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
             }
         }
-        $property = property::find($id);
+        $property = property::find($deletepropertyId);
+       
         if($property){
+           
+            if(!$property->delete()){
 
-            if($property->delete()){
-                return view('displayrecord.deleterecordMessage')->with('success', 'Record Removed');
+                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
             }
             else{
-                
-                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed !!!');
+                return view('displayrecord.deleterecordMessage')->with('success', 'Delted Record  !!!');  
+               
             }
 
         }
