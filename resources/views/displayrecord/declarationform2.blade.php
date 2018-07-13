@@ -4,8 +4,8 @@
     <style>
         @font-face {
             font-family: 'GothamBlack','GothamBook';
-            src: url("../../public/fonts/Gotham-Black.ttf");
-            src: url("../../public/fonts/Gotham-Book.ttf");
+            src: url("../public/fonts/Gotham-Black.ttf");
+            src: url("../public/fonts/Gotham-Book.ttf");
         }
 
         body {

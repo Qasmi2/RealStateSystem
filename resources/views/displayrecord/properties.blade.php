@@ -52,8 +52,9 @@
                                     <td>{{$applicanties[$i]['cnicNo']}}</td>
                                     <td>{{$payments[$i]['propertyPrice']}}</td>
                                     <td><a href="{{url('editingform/'.$properties[$i]['id'])}}">Edit</a></td>
-                                    <td><a href="{{url('form1/'.$properties[$i]['id'])}}">Download Form1</a>
-                                    <a href="{{url('form2/'.$properties[$i]['id'])}}">Download Form2</a></td>
+                                    <td><a href="{{url('form1/'.$properties[$i]['id'])}}">Print Form1</a>
+                                    <a href="{{url('form2/'.$properties[$i]['id'])}}">Print Form2</a>
+                                    <a href="{{url('form3/'.$properties[$i]['id'])}}">Print Form3</a></td>
 
                                 </tr>
                             @endfor

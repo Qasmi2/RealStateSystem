@@ -84,6 +84,21 @@ class formController extends Controller
         }
    
     }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showform3($id)
+    {
+      
+        $applicant = DB::table('applicants')->where('propertyId',$id)->first();
+        $payment = DB::table('payments')->where('propertyId',$id)->first();
+
+        return view('displayrecord.declarationform3',compact('applicant','payment')); 
+   
+    }
 
     /**
      * Show the form for editing the specified resource.

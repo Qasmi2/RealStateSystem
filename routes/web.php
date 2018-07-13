@@ -73,6 +73,7 @@ Route::get('deleteform/{id}','editingControll@destroy')->name('deleteform')->mid
 // get the forms for print 
 Route::get('form1/{id}','formController@show')->name('form1')->middleware('auth');
 Route::get('form2/{id}','formController@showform2')->name('form2')->middleware('auth');
+Route::get('form3/{id}','formController@showform3')->name('form3')->middleware('auth');
 
 
 

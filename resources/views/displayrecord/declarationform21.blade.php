@@ -4,8 +4,8 @@
     <style>
         @font-face {
             font-family: 'GothamBlack','GothamBook';
-            src: url("../../public/fonts/Gotham-Black.ttf");
-            src: url("../../public/fonts/Gotham-Book.ttf");
+            src: url("../public/fonts/Gotham-Black.ttf");
+            src: url("../public/fonts/Gotham-Book.ttf");
         }
 
         body {
@@ -151,6 +151,13 @@
                                $totalPrice = $te->propertyPrice;
                                $data = $te->propertyPurchingDate;
                            }
+                           foreach($installment as $te){
+                            $installmentDates = json_decode($te->installmentDates);
+                            $sizeofDates = sizeof($installmentDates);
+                            $temp = 0;
+                            // echo $test[0];
+                            // exit();
+                           }
                     ?>
 </head>
 <body>
@@ -229,9 +236,9 @@
                 </table>
             </div>
         </section>
-        
+        @foreach($installment as $te)
         <div style="margin:30px 0px;">
-            Total Cost of Unit: {{$totalPrice}}/- &nbsp;Amount Paid: PKR 630,000/-
+            Total Cost of Unit: {{$totalPrice}}/- &nbsp;Amount Paid: PKR {{$te->downpayment}}/-
         </div>
 
         <section class="comptable">
@@ -240,61 +247,62 @@
             <table>
                 <tr>
                     <td class="tdprop">Down Payment on Booking</td>
-                    <td class="tdprop">630,000</td>
-                    <td class="tdprop">12th-March-2018</td>
+                    <td class="tdprop">{{$te->downpayment}}</td>
+                    <td class="tdprop">{{$data}}</td>
                 </tr>
                 <tr>
                     <td class="tdprop">1st Installment</td>
-                    <td class="tdprop">252,000</td>
-                    <td class="tdprop">10-Sep-2018</td>
+                    <td class="tdprop">{{$te->amountOfOneInstallment}}</td>
+                    <td class="tdprop">{{$installmentDates[$temp]}}</td>
                 </tr>
                 <tr>
                     <td class="tdprop">2nd Installment</td>
-                    <td class="tdprop">252,000</td>
-                    <td class="tdprop">10-Dec-2018</td>
+                    <td class="tdprop">{{$te->amountOfOneInstallment}}</td>
+                    <td class="tdprop">{{$installmentDates[$temp+1]}}</td>
                 </tr>
                 <tr>
                     <td class="tdprop">3rd Installment</td>
-                    <td class="tdprop">252,000</td>
-                    <td class="tdprop"></td>
+                    <td class="tdprop">{{$te->amountOfOneInstallment}}</td>
+                    <td class="tdprop">{{$installmentDates[$temp+2]}}</td>
                 </tr>
                 <tr>
                     <td class="tdprop">4th Installment</td>
-                    <td class="tdprop">252,000</td>
-                    <td class="tdprop"></td>
+                    <td class="tdprop">{{$te->amountOfOneInstallment}}</td>
+                    <td class="tdprop">{{$installmentDates[$temp+3]}}</td>
                 </tr>
                 <tr>
                     <td class="tdprop">5th Installment</td>
-                    <td class="tdprop">252,000</td>
-                    <td class="tdprop"></td>
+                    <td class="tdprop">{{$te->amountOfOneInstallment}}</td>
+                    <td class="tdprop">{{$installmentDates[$temp+4]}}</td>
                 </tr>
                 <tr>
                     <td class="tdprop">6th Installment</td>
-                    <td class="tdprop">252,000</td>
-                    <td class="tdprop"></td>
+                    <td class="tdprop">{{$te->amountOfOneInstallment}}</td>
+                    <td class="tdprop">{{$installmentDates[$temp+5]}}</td>
                 </tr>
                 <tr>
                     <td class="tdprop">7th Installment</td>
-                    <td class="tdprop">252,000</td>
-                    <td class="tdprop"></td>
+                    <td class="tdprop">{{$te->amountOfOneInstallment}}</td>
+                    <td class="tdprop">{{$installmentDates[$temp+6]}}</td>
                 </tr>
                 <tr>
                     <td class="tdprop">8th Installment</td>
-                    <td class="tdprop">252,000</td>
-                    <td class="tdprop"></td>
+                    <td class="tdprop">{{$te->amountOfOneInstallment}}</td>
+                    <td class="tdprop">{{$installmentDates[$temp+7]}}</td>
                 </tr>
                 <tr>
                     <td class="tdprop">9th Installment</td>
-                    <td class="tdprop">252,000</td>
-                    <td class="tdprop"></td>
+                    <td class="tdprop">{{$te->amountOfOneInstallment}}</td>
+                    <td class="tdprop">{{$installmentDates[$temp+8]}}</td>
                 </tr>
                 <tr>
                     <td class="tdprop">10th Installment</td>
-                    <td class="tdprop">252,000</td>
-                    <td class="tdprop"></td>
+                    <td class="tdprop">{{$te->amountOfOneInstallment}}</td>
+                    <td class="tdprop">{{$installmentDates[$temp+9]}}</td>
                 </tr>
             </table>
         </section>
+        @endforeach
         <section style="width:800px; font-family:'Gotham Book'; font-size:12px; margin-top:70px; text-align:left;">
             <table>
                 <tr>

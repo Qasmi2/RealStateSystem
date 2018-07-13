@@ -4,8 +4,8 @@
     <style>
         @font-face{
             font-family:'GothamBlack','GothamBook';
-            src:url("../../public/fonts/Gotham-Black.ttf");
-            src:url("../../public/fonts/Gotham-Book.ttf");
+            src:url("../public/fonts/Gotham-Black.ttf");
+            src:url("../public/fonts/Gotham-Book.ttf");
         }
         body{
             height:auto;
@@ -228,15 +228,15 @@
             <div class="h3prop">
                 REGISTRATION STATUS: &nbsp; &nbsp; &nbsp;
                 <label class="checkboxprop">
-                    <span id="check4" class="tempuncheck">&nbsp; &nbsp;</span> First Alottee 
+                    <span id="check4" class="tempuncheck">&nbsp; &nbsp;</span>Orignial First Alottee 
                 </label>
                 <label class="checkboxprop">
-                    <span id="check5" class="tempuncheck">&nbsp; &nbsp;</span>Transfer Certificate
+                    <span id="check5" class="tempuncheck">&nbsp; &nbsp;</span>Orignial Transfer Certificate
                 </label>
                 <br />
                 <br />
                 <label class="checkboxprop" style="margin-left:247px;">
-                    <span id="check6" class="tempuncheck">&nbsp; &nbsp;</span>  Open Certificate
+                    <span id="check6" class="tempuncheck">&nbsp; &nbsp;</span>Orignial Open Certificate
                 </label>
             </div>
             <?php if($te->registrationStatus == "First Alottee"){?>
@@ -498,9 +498,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
     <script>
-    let doc = new jsPDF('p','pt','a4',true);
-doc.addHTML(document.body,function() {
-    doc.save('form1.pdf');
+//     let doc = new jsPDF('p','pt','a4',true);
+// doc.addHTML(document.body,function() {
+//     doc.save('form1.pdf');
 });
 </script>
 </body>
