@@ -54,7 +54,10 @@
                                     <td><a href="{{url('editingform/'.$properties[$i]['id'])}}">Edit</a></td>
                                     <td><a href="{{url('form1/'.$properties[$i]['id'])}}">Print Form1</a>
                                     <a href="{{url('form2/'.$properties[$i]['id'])}}">Print Form2</a>
-                                    <a href="{{url('form3/'.$properties[$i]['id'])}}">Print Form3</a></td>
+                                    <a href="{{url('form3/'.$properties[$i]['id'])}}">Print Form3</a>
+                                    <a href="{{url('Receptform/'.$properties[$i]['id'])}}">Recept Form</a>
+                                    <a href="{{url('contractform/'.$properties[$i]['id'])}}">Contract Form</a>
+                                    </td>
 
                                 </tr>
                             @endfor

@@ -99,7 +99,62 @@ class formController extends Controller
         return view('displayrecord.declarationform3',compact('applicant','payment')); 
    
     }
+      /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
 
+    public function showReceptform($id)
+    {
+        $property = DB::table('properties')->where('id',$id)->first();
+        $installments = DB::table('installments')->where('propertyId',$id)->first();
+        $payment = DB::table('payments')->where('propertyId',$id)->first();
+        $witness =DB::table('witnesses')->where('propertyId',$id)->first();
+        
+        $isEmpty = json_encode($installments);
+        
+        if($isEmpty == "null")
+        { 
+           
+            return view('displayrecord.receipttotalamount',compact('property','payment','witness')); 
+            
+        }
+        else{
+           
+            return view('displayrecord.receiptinstallment',compact('property','payment','installments','witness')); 
+            // return view('displayrecord/singlerecordinstallment',compact('property','applicant','payment','witness','review','installment')); 
+        }
+        
+   
+    }
+    public function showcontractform($id)
+    {
+        $property = DB::table('properties')->where('id',$id)->first();
+        $installments = DB::table('installments')->where('propertyId',$id)->first();
+        $payment = DB::table('payments')->where('propertyId',$id)->first();
+        $witness =DB::table('witnesses')->where('propertyId',$id)->first();
+        $review = DB::table('reviews')->where('propertyId',$id)->first();
+        $applicant = DB::table('applicants')->where('propertyId',$id)->first();
+        
+        $isEmpty = json_encode($installments);
+        
+        if($isEmpty == "null")
+        { 
+           
+            return view('displayrecord.contractform',compact('property','payment','witness','applicant','review')); 
+            
+        }
+        else{
+           
+            return view('displayrecord.contractforminstallment',compact('property','payment','installments','witness','applicant','review')); 
+            // return view('displayrecord/singlerecordinstallment',compact('property','applicant','payment','witness','review','installment')); 
+        }
+        
+   
+    }
+    
     /**
      * Show the form for editing the specified resource.
      *
