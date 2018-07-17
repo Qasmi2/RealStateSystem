@@ -63,9 +63,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('properties') }}">{{ __('Diplay Properties') }}</a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('declarationfom') }}">{{ __('Declaration Form') }}</a>
-                            </li>
+                            </li> -->
                             
 
                             <li class="nav-item dropdown">
@@ -146,12 +146,12 @@
                                     <span>{{ __('Diplay Properties') }}</span>
                                 </a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('declarationfom') }}">
                                 
                                     <span>{{ __('Declaration Form') }}</span>
                                 </a>
-                    </li>
+                    </li> -->
                     
                     <!-- <li >
                         <a href="" >

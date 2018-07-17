@@ -94,7 +94,16 @@
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertySize">{{ __('Property Size') }}</label>
-                                <input id="propertySize" type="text" placeholder="Enter Property Size  (Sqr ft)" class="form-control{{ $errors->has('propertySize') ? ' is-invalid' : '' }}" name="propertySize" value="{{ old('propertySize') }}"  required>
+                                <!-- <input id="propertySize" type="text" placeholder="Enter Property Size  (Sqr ft)" class="form-control{{ $errors->has('propertySize') ? ' is-invalid' : '' }}" name="propertySize" value="{{ old('propertySize') }}"  required> -->
+                                <select class="form-control" name="propertySize" id="propertySize" >
+
+                                    <option value="315">315 sqr ft</option>
+                                    <option value="630">630 sqr ft</option>
+                                    <option value="945">945 sqr ft</option>
+                                    <option value="1260">1260 sqr ft</option>
+                                    <option value="1575">1575 sqr ft</option>
+                                    <option value="1890">1890 sqr ft</option>
+                                </select>
                                 @if ($errors->has('propertySize'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertySize') }}</strong>

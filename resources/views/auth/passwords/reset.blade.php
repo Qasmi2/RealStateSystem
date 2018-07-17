@@ -28,7 +28,7 @@ body, html {
 
 .bg {
     /* The image used */
-    background-image: url("../public/images/bg-image.png");
+    background-image: url("../../public/images/bg-image.png");
 
     /* Full height */
     height: 100%; 
@@ -104,7 +104,7 @@ body, html {
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" disabled>
                                     {{ __('Reset Password') }}
                                 </button>
                             </div>

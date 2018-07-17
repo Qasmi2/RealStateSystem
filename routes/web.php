@@ -44,11 +44,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Route for property table 
 Route::get('propertyform','propertyController@propertyform')->name('propertyform')->middleware('auth');
 Route::post('insertproperty','propertyController@store')->name('insertproperty')->middleware('auth');
-Route::get('show','propertyController@index')->name('show')->middleware('auth');
-Route::get('show/{id}','propertyController@show')->name('show')->middleware('auth');
-Route::get('delete/{id}','propertyController@destroy')->name('delete')->middleware('auth');
-Route::get('edit/{id}','propertyController@edit')->name('edit')->middleware('auth');
-Route::post('update/{id}','propertyController@update')->name('update')->middleware('auth');
+// Route::get('show','propertyController@index')->name('show')->middleware('auth');
+// Route::get('show/{id}','propertyController@show')->name('show')->middleware('auth');
+// Route::get('delete/{id}','propertyController@destroy')->name('delete')->middleware('auth');
+// Route::get('edit/{id}','propertyController@edit')->name('edit')->middleware('auth');
+// Route::post('update/{id}','propertyController@update')->name('update')->middleware('auth');
 // Route for applicant form with last entered property ID
 // Route::get('applicantform','propertyController@applicantform')->name('applicantform')->middleware('auth');
 // Route for the applicant form 

@@ -45,14 +45,14 @@ body, html {
         <div class="container">
             
             <!--- ---->
-            <div class="row justify-content-center" style="padding-top:175px;">
+            <div class="row justify-content-center" style="padding-top:150px;">
                  <div class="col-md-6">
-                     <div class="card" style="opacity: 0.8;">
+                     <div class="card" style="opacity: 0.9;">
                         <div class="card-header">Login In Form</div>
 
                             <div class="card-body">
             <!-- -->
-                 <div class="text-center">
+                 <div class="text-center" style="color:#007bff;">
                     <h1>Montrivo Booking Portal </h1>
                 </div>
 

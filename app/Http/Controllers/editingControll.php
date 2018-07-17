@@ -312,8 +312,22 @@ class editingControll extends Controller
                 }
                 // get all user data
                 //initilization the property object 
+                $installmentId  = DB::table('installments')->where('propertyId',$id)->value('id');
+               
+                $isEmpty = json_encode($installmentId);
+                
+                if($isEmpty == "null")
+                {
+                    // var_dump("No",$isEmpty);
+                    // exit();
+                    $installment = new installment;
+                }
+                else{
+                    // var_dump("yes ",$installmentId);
+                    // exit();
+                    $installment = installment::find($installmentId);
+                }
 
-                $installment = new installment;
                 $installment->noOfInstallments = $noOfinstallments; 
                 $installment->downpayment = $downpayment;
                 $installment->propertyId = $propertyId;

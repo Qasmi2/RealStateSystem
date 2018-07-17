@@ -33,6 +33,34 @@
 			padding: 8px;
 		}
     </style>
+	<?php 
+		$property = array($property);
+		$applicant = array($applicant);
+		$payment = array($payment);
+		$witness = array($witness);
+
+		
+
+		foreach($property as $te){
+			$propertyType = $te->propertyType;
+			$propertySection = $te->propertySection;
+			$size = $te->propertySize;
+			$location = $te->propertyLocation;
+
+		}
+		foreach($payment as $te){
+			$totalPrice = $te->propertyPrice;
+			$mode = $te->propertyPaymentProcedure;
+			$paymentType = $te->paymentType;
+			$purchingDate = $te->propertyPurchingDate;
+			 
+		}
+		// get per unit cost 
+		$unitCost = (int)($totalPrice/$size);
+		
+		
+	
+	?>
 
 </head>
 <body>
@@ -46,12 +74,14 @@
 			
 			&nbsp;
 		
+			@foreach($applicant as $te)
                 <div style="font-family:Calibri; font-size:15px;margin-top:5px; margin-right:20px;">
                   
-                  This contract is between M/s. Montviro (Pvt) Ltd referred to as “SELLER” and Muhammad Aamir S/O Sheikh Ghazanfar Ali,
-				  referred to as “BUYER bearing CNIC No: 36402-0824135-9, Currently Resident of H# 549 B-IV Raja  Nazuk Street  
-				  Muslim Town Sadiq Abad Rawalpindi.
-                </div>               
+                  This contract is between M/s. Montviro (Pvt) Ltd referred to as “SELLER” and <b>{{$te->name}}</b> S/O <b>{{$te->fatherName}},</b>
+				  referred to as “BUYER bearing CNIC No: <b> {{ $te->cnicNo }} , </b> Currently Resident of <b>{{$te->mailingAddress}}</b>
+                </div>       
+			@endforeach  
+
 				<div style="font-family:Calibri; font-size:15px; margin-top:5px; margin-right:20px;">
 					According to this contract CLIENT is investing in one unit of Montviro Project. 
 				</div>
@@ -59,13 +89,11 @@
 					<b>Details of Unit </b>
 					<ul>
 						<li>
-							    Unit No 1: Hotel SUITE, Size 315 Sq ft, Floor 2nd, Room No 18
-								Total Cost of unit: PKR 2,992,500 @ PKR 9,500 / Sq ft
-								Payment Made: 20% Down Payment: 598,500  through Post Dated CASH on 29-03-2018
-								Payment Mode: CASH # 
-								Remaining payment of PKR 2,394,000 will be paid by CLIENT in 10 equal installments, 
-								amount be PKR 239,400 per installment after every three months starting from payment
-								of first installment on 10th June, 2018 
+								Unit No 1: <b>{{$propertyType}} {{$propertySection}},</b> Size <b>{{$size}} Sq ft,{{$location}}</b><br>
+								Total Cost of unit: PKR <b>{{$totalPrice}}</b> @ PKR <b>{{$unitCost}} / Sq ft </b> <br>
+								Payment Made: Total Payment: <b> {{$totalPrice}} </b> through Post Dated CASH on <b>{{$purchingDate}}</b><br>
+								Payment Mode: <b>{{$paymentType}}</b> . <br>
+								Remaining payment of PKR 0/- .
 
 						</li>
 					</ul>
