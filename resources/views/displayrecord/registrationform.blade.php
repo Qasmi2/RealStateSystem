@@ -493,24 +493,21 @@
         </section>
     </div>
     <img src="..\..\public\images\footer.jpg" class="footerprop" />
-    <!-- <div id="editor"></div>
-    <button id="cmd">Generate PDF</button> -->
-    <!--download script cdn  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script> -->
-    <!-- <script>
+   
 
-    let doc = new jsPDF('p','pt','a4');
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+    <script>
+
+    let doc = new jsPDF('p','pt','letter');
     doc.addHTML(document.body,function() {
     doc.save('form1.pdf');
     });
 
-</script> -->
-<script>
+</script>
+<!-- <script>
 var doc = new jsPDF();
 var specialElementHandlers = {
     '#editor': function (element, renderer) {
@@ -525,6 +522,6 @@ $('#cmd').click(function () {
     });
     doc.save('sample-file.pdf');
 });
-</script>
+</script> -->
 </body>
 </html>

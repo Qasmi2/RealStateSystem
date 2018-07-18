@@ -429,7 +429,7 @@ class editingControll extends Controller
                 return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
             }
             else{
-                return view('displayrecord.deleterecordMessage')->with('success', 'Delted Record  !!!');  
+                return view('displayrecord.deleterecordMessage')->with('status', 'Delted Record  !!!');  
                
             }
 

@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @include('flash')
 @section('content')
+@if (session('status'))
+<div class="alert alert-success">
+{{ session('status') }}
+</div>
+@endif
 <?php 
     $property = array($property);
     $payment = array($payment);
@@ -25,6 +30,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                   
                     <div><h3>Property Information</h3></div>
                     <hr>
                     &nbsp;&nbsp;
