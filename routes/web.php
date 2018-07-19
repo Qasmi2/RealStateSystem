@@ -26,6 +26,9 @@ Route::get('/declarationfom', function () {
     return view('displayrecord.declarationform');
 })->name('declarationfom')->middleware('auth');
 
+Route::get('/formall', function () {
+    return view('registrationfrom.registrationform');
+})->name('formall')->middleware('auth');
 
 
 // get reviw form 
@@ -65,8 +68,11 @@ Route::get('singlerecord/{id}','propertiesformController@show')->name('singlerec
 
 
 // complete form display and edit 
+
+
 Route::get('display/{id}','editingControll@show')->name('display')->middleware('auth');
 Route::get('editingform/{id}','editingControll@edit')->name('editingform')->middleware('auth');
+Route::post('allformdata','editingControll@store')->name('allformdata')->middleware('auth');
 Route::post('updating/{id}','editingControll@update')->name('updating')->middleware('auth');
 Route::get('deleteform/{id}','editingControll@destroy')->name('deleteform')->middleware('auth');
 

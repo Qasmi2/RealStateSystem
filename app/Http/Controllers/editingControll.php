@@ -45,8 +45,333 @@ class editingControll extends Controller
      */
     public function store(Request $request)
     {
-        //
+           // validation 
+           $validator = Validator::make($request->all(), [
+            // property Info validation 
+            'propertyType' => 'required',
+            'registrationStatus' => 'required',
+            'propertySection' => 'required',
+            'propertyAddress' => 'required',
+            'propertyLocation' => 'required',
+            'propertySize' =>'required',
+            // 'jointProperty'=>'required',
+            // 'noOfJointproperty'=>'required',
+            // applicant info validation 
+            'name'=> 'required',
+            'fatherName'=> 'required',
+            'cnicNo'=> 'required',
+            'passportNo'=> 'required',
+            'mailingAddress' => 'required',
+            'permanentAddress'=> 'required',
+            'email'=> 'required',
+            'phoneNO'=> 'required',
+            'mobileNo1'=> 'required',
+            'mobileNo2'=> 'required',
+            // 'cover_image'=> 'required',
+            'nomineeName'=> 'required',
+            'nomineeFatherName'=> 'required',
+            'relationWithApplicant'=> 'required',
+            'nomineeCnicNo'=> 'required',
+            'nomineePassportNo' => 'required',
+            'nomineeMailingAddress'=> 'required',
+            'nomineePermanentAddress'=> 'required',
+            'nomineeMail'=> 'required',
+            'nomineePhoneNo'=> 'required',
+            'nomineeMobileNo1'=> 'required',
+            'nomineeMobileNo2'=> 'required',
+            
+            // payment info validation 
+            'propertyPrice' => 'required',
+            
+            'transferTo' => 'required',
+            'propertyPurchingDate' => 'required',
+            'propertyPaymentProcedure' =>'required',
+            'paymentType'=>'required',
+            // witness info validation 
+            'witnessName' => 'required',
+            'witnessCnicNo' => 'required',
+            // 
+
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 401);            
+        }   
+
+        // function to Generate the random number
+        function random_string($length) {
+            $key = '';
+            $keys = array_merge(range(0, 9), range('a', 'z'));
+        
+            for ($i = 0; $i < $length; $i++) {
+                $key .= $keys[array_rand($keys)];
+            }
+        
+            return $key;
+        }
+        
+        // get user data
+        //initilization the property object 
+        $property = new property;
+        $property->propertyType = $request->input('propertyType');
+        $property->registrationStatus = $request->input('registrationStatus');
+        $property->propertySection = $request->input('propertySection');
+        $property->propertyAddress = $request->input('propertyAddress');
+        $property->propertyLocation = $request->input('propertyLocation');
+        $property->propertySize = $request->input('propertySize');
+        $property->tokenNo = random_string(20);
+        $property->jointProperty = $request->input('jointProperty');
+        $property->noOfJointApplicant = $request->input('noOfJointApplicant');
+       
+        if($property->jointProperty == "No")
+        {
+            $property->jointProperty = 0;
+        }
+        else
+        {
+            $property->jointProperty = 1;
+        }
+        
+        
+        if($property->save()){
+            // save all the property info and return successuflly message;
+            // return redirect()->back()->with('success','Insert Record successfully.');
+            $lastId = property::orderBy('updated_at','desc')->first();
+            // get the id of the last enter property record
+            $lastpropertyId = array($lastId);
+            foreach($lastpropertyId as $te){
+                $propertyId = $te->id;
+            }
+           
+        }
+        else{
+            return redirect()->back()->with('error',' Property section data is not Insert .');
+        }
+
+        // Handle File Upload
+        if($request->hasFile('cover_image')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('cover_image')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'noimage.jpg';
+        }
+
+        // initilization the applicant object 
+        
+        $applicant = new applicant;
+        $applicant->name = $request->input('name');
+        $applicant->cover_image = $fileNameToStore;
+        $applicant->fatherName = $request->input('fatherName');
+        $applicant->cnicNo = $request->input('cnicNo');
+        $applicant->passportNo = $request->input('passportNo');
+        $applicant->mailingAddress = $request->input('mailingAddress');
+        $applicant->permanentAddress = $request->input('permanentAddress');
+        $applicant->email = $request->input('email');
+        $applicant->phoneNO = $request->input('phoneNO');
+        $applicant->mobileNo1 = $request->input('mobileNo1');
+        $applicant->mobileNo2 = $request->input('mobileNo2');
+        $applicant->nomineeName = $request->input('nomineeName');
+        $applicant->nomineeFatherName = $request->input('nomineeFatherName');
+        $applicant->relationWithApplicant = $request->input('relationWithApplicant');
+        $applicant->nomineeCnicNo = $request->input('nomineeCnicNo');
+        $applicant->nomineePassportNo = $request->input('nomineePassportNo');
+        $applicant->nomineeMailingAddress = $request->input('nomineeMailingAddress');
+        $applicant->nomineePermanentAddress = $request->input('nomineePermanentAddress');
+        $applicant->nomineeMail = $request->input('nomineeMail');
+        $applicant->nomineePhoneNo = $request->input('nomineePhoneNo');
+        $applicant->nomineeMobileNo1 = $request->input('nomineeMobileNo1');
+        $applicant->nomineeMobileNo2 = $request->input('nomineeMobileNo2');
+        $applicant->propertyId = $propertyId;
+
+        // initilization of payment object
+        $payment = new payment;
+        $payment->paymentType = $request->input('paymentType');
+        $payment->transferTo = $request->input('transferTo');
+        $payment->bankName = $request->input('bankName');
+        $payment->propertyPurchingDate = $request->input('propertyPurchingDate');
+        $payment->propertyPaymentProcedure = $request->input('propertyPaymentProcedure');
+        $payment->propertyPrice = $request->input('propertyPrice');
+        $payment->propertyId = $propertyId;
+
+        // initilization the witness table object
+
+        $witness = new witness;
+        $witness->witnessName = $request->input('witnessName');
+        $witness->witnessCnicNo = $request->input('witnessCnicNo');
+        $witness->propertyId = $propertyId;
+
+        // initilization the review table object
+
+        $review = new review;
+        $review->comment=$request->input('comment');
+        $review->propertyId = $propertyId;
+
+        // installment will be changed into 2nd version 
+
+        $paymentProcedure = $payment->propertyPaymentProcedure;
+        
+        // save the applicant 
+        if(!$applicant->save()){
+            return redirect()->back()->with('error',' Applicant record is not save, Something wrong .');
+        }   
+        // save the payment 
+        if(!$payment->save()){
+            return redirect()->back()->with('error','payment record is not save, Something wrong .');
+        } 
+        // save the witness
+        if(!$witness->save()){
+            return redirect()->back()->with('error','witness record is not save, Something wrong .');
+        } 
+        // save the review
+        if(!$review->save()){
+            return redirect()->back()->with('error','review record is not save, Something wrong .');
+        } 
+        // payment procedure installment headling  
+        if($paymentProcedure == "Installment"){
+                
+                 // validation
+                $validator = Validator::make($request->all(), [
+                    'noOfInstallments' => 'required',
+                    'downpayment' => 'required',
+                ]);
+                if ($validator->fails()) {
+                    return response()->json(['error'=>$validator->errors()], 401);            
+                }
+
+                // property Id , down payment , No of installment require for calculation so get all the variables 
+                $propertyId = $propertyId;
+                $downpayment = $request->input('downpayment');
+                $noOfinstallments = $request->input('noOfInstallments');
+
+                //get the total amount
+                $propertyprice  = DB::table('payments')->where('propertyId',$propertyId)->value('propertyPrice');
+                // Total amount , down payment , No of installment (calculation of installment throught these three variables)
+                $remaningAmount = $propertyprice - $downpayment ;
+                // total Amount divided into Number of installment to get the one installments
+                $amountOfOneInstallment = $remaningAmount/$noOfinstallments;
+                
+                // get today data and add 3 months ( 90 days ) to calculat the next installment date
+                $todayDate = date("Y-m-d");
+                $data1 = $todayDate;
+                // var_dump($data1);
+                $installmentDates = []; 
+                for($i=0; $i < $noOfinstallments; $i++)
+                {
+                    
+                    $date2 = new DateTime($data1);
+                    $date2->add(new DateInterval('P90D')); // P90D means a period of 90 day
+                    $installmentDates[$i] = $date2->format('Y-m-d');
+                    $data1 = $installmentDates[$i];         
+                    
+                }
+                // get all user data
+                //initilization the property object 
+            
+                $installment = new installment;
+                
+                $installment->noOfInstallments = $noOfinstallments; 
+                $installment->downpayment = $downpayment;
+                $installment->propertyId = $propertyId;
+                $installment->amountOfOneInstallment = $amountOfOneInstallment; 
+                $installment->installmentDates = json_encode($installmentDates);
+                // save the installment info
+                if(!$installment->save()){
+                    return redirect()->back()->with('error','installment record is not save, Something wrong .');
+                } 
+
+        }
+        // save all the property info and return successuflly message;
+        return redirect()->back()->with('success','Record successfully Added.');
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    // public function destroy($id)
+    // { 
+        
+    //     $installmentrow = DB::table('installments')->where('propertyId',$id)->first();
+    //     // get installment table id to delete that have property Id same 
+    //     // $deleteInstallmentId = DB::table('installments')->where('propertyId',$id)->value('id');
+    //     // get payment table id to delete that  HAVE property Id same 
+    //     $deletePaymentId = DB::table('payments')->where('propertyId',$id)->value('id');
+    //     // get applicant table id to delete that  HAVE property Id same 
+    //     $deleteApplicantId = DB::table('applicants')->where('propertyId',$id)->value('id');
+    //     // get witness table id to delete that  HAVE property Id same 
+    //     $deleteWitnessId = DB::table('witnesses')->where('propertyId',$id)->value('id');
+    //     // get review table id to delete that  HAVE property Id same 
+    //     $deleteReviewsId = DB::table('reviews')->where('propertyId',$id)->value('id');
+    //     // get property table id to delete that  HAVE property Id same 
+    //     $deletepropertyId = DB::table('properties')->where('id',$id)->value('id');
+       
+       
+    //     // check that installment is exist or not 
+    //     if($installmentrow){
+                    
+    //         $deleteInstallmentId = DB::table('installments')->where('propertyId',$id)->value('id');
+    //         $deleteInstallmentRow = installment::find($deleteInstallmentId);
+    //         $deleteInstallmentRow->delete();
+    //     }
+    //     $payment = payment::find($deletePaymentId);
+    //     if($payment){
+    //         // if apyment is not delete then error massage will be shown 
+    //         if(!$payment->delete()){
+    //             // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+    //             return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
+    //         }
+    //     }
+    //     $applicant = applicant::find($deleteApplicantId);
+    //     if($applicant){
+    //         if(!$applicant->delete()){
+    //             // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+    //             return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
+    //         }
+    //     }
+    //     $witness = witness::find($deleteWitnessId);
+    //     if($witness){
+    //         if(!$witness->delete()){
+    //             // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+    //             return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
+    //         }
+    //     }
+    //     $review = review::find($deleteReviewsId);
+    //     if($review){
+    //         if(!$review->delete()){
+    //             // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+    //             return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
+    //         }
+    //     }
+    //     $property = property::find($deletepropertyId);
+       
+    //     if($property){
+           
+    //         if(!$property->delete()){
+
+    //             return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
+    //         }
+    //         else{
+    //             return view('displayrecord.deleterecordMessage')->with('status', 'Delted Record  !!!');  
+               
+    //         }
+
+    //     }
+    //     else{
+
+    //         return view('displayrecord.deleterecordMessage')->with('error', 'Record NOT Found or Something Wrong !!!');  
+    //     }
+
+    // }
 
     /**
      * Display the specified resource.

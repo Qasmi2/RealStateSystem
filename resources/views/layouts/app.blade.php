@@ -58,14 +58,15 @@
                             </li>
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('propertyform') }}">{{ __('Reistration Property') }}</a>
+                                <a class="nav-link" href="{{ route('formall') }}">{{ __('Regisration Form') }}</a>
                             </li>
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" href="{{ route('propertyform') }}">{{ __('Reistration Property') }}</a>
+                            </li> -->
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('properties') }}">{{ __('Diplay Properties') }}</a>
                             </li>
-                            <!-- <li class="nav-item">
-                                <a class="nav-link" href="{{ route('declarationfom') }}">{{ __('Declaration Form') }}</a>
-                            </li> -->
+                            
                             
 
                             <li class="nav-item dropdown">
