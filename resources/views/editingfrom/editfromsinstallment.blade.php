@@ -194,7 +194,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="passportNo">{{ __('Passport No') }}</label>
-                                <input id="passportNo" type="text" placeholder="Enter Passport Number " class="form-control{{ $errors->has('passportNo') ? ' is-invalid' : '' }}" name="passportNo" value="{{ $te->passportNo }}"  required>
+                                <input id="passportNo" type="text" placeholder="Enter Passport Number " class="form-control{{ $errors->has('passportNo') ? ' is-invalid' : '' }}" name="passportNo" value="{{ $te->passportNo }}"  >
                                 @if ($errors->has('passportNo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('passportNo') }}</strong>
@@ -227,7 +227,7 @@
                         <div class="form-group row">
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="email">{{ __('Email') }}</label>
-                                <input id="email" type="text" placeholder="Enter Email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $te->email }}"  required>
+                                <input id="email" type="text" placeholder="Enter Email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $te->email }}"  >
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -236,7 +236,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="phoneNO">{{ __('Phone Number') }}</label>
-                                <input id="phoneNO" type="text" placeholder="Enter Phone No" class="form-control{{ $errors->has('phoneNO') ? ' is-invalid' : '' }}" name="phoneNO" value="{{ $te->phoneNO }}"  required>
+                                <input id="phoneNO" type="text" placeholder="Enter Phone No" class="form-control{{ $errors->has('phoneNO') ? ' is-invalid' : '' }}" name="phoneNO" value="{{ $te->phoneNO }}"  >
                                 @if ($errors->has('phoneNo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('phoneNo') }}</strong>
@@ -256,7 +256,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="mobileNo2">{{ __('Phone Number (2)') }}</label>
-                                <input id="mobileNo2" type="text" placeholder="Enter Mobile Numhber 2" class="form-control{{ $errors->has('mobileNo2') ? ' is-invalid' : '' }}" name="mobileNo2" value="{{ $te->mobileNo2 }}"  required>
+                                <input id="mobileNo2" type="text" placeholder="Enter Mobile Numhber 2" class="form-control{{ $errors->has('mobileNo2') ? ' is-invalid' : '' }}" name="mobileNo2" value="{{ $te->mobileNo2 }}"  >
                                 @if ($errors->has('mobileNo2'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('mobileNo2') }}</strong>
@@ -303,7 +303,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="nomineePassportNo">{{ __('Passport No') }}</label>
-                                <input id="nomineePassportNo" type="text" placeholder="Enter Passport Number " class="form-control{{ $errors->has('nomineePassportNo') ? ' is-invalid' : '' }}" name="nomineePassportNo" value="{{ $te->nomineePassportNo }}"  required>
+                                <input id="nomineePassportNo" type="text" placeholder="Enter Passport Number " class="form-control{{ $errors->has('nomineePassportNo') ? ' is-invalid' : '' }}" name="nomineePassportNo" value="{{ $te->nomineePassportNo }}"  >
                                 @if ($errors->has('nomineePassportNo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('nomineePassportNo') }}</strong>
@@ -325,7 +325,7 @@
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                 <label for="nomineeMailingAddress">{{ __('Mailing Address') }}</label>
-                                <input id="nomineeMailingAddress" type="text" placeholder="Enter Mailing Address " class="form-control{{ $errors->has('nomineeMailingAddress') ? ' is-invalid' : '' }}" name="nomineeMailingAddress" value="{{ $te->nomineeMailingAddress }}"  required>
+                                <input id="nomineeMailingAddress" type="text" placeholder="Enter Mailing Address " class="form-control{{ $errors->has('nomineeMailingAddress') ? ' is-invalid' : '' }}" name="nomineeMailingAddress" value="{{ $te->nomineeMailingAddress }}"  >
                                 @if ($errors->has('nomineeMailingAddress'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('nomineeMailingAddress') }}</strong>
@@ -336,7 +336,7 @@
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                 <label for="nomineePermanentAddress">{{ __('Permanent Address') }}</label>
-                                <input id="nomineePermanentAddress" type="text" placeholder="Enter Permanent Address " class="form-control{{ $errors->has('nomineePermanentAddress') ? ' is-invalid' : '' }}" name="nomineePermanentAddress" value="{{ $te->nomineePermanentAddress }}"  required>
+                                <input id="nomineePermanentAddress" type="text" placeholder="Enter Permanent Address " class="form-control{{ $errors->has('nomineePermanentAddress') ? ' is-invalid' : '' }}" name="nomineePermanentAddress" value="{{ $te->nomineePermanentAddress }}"  >
                                 @if ($errors->has('nomineePermanentAddress'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('nomineePermanentAddress') }}</strong>
@@ -347,7 +347,7 @@
                         <div class="form-group row">
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="nomineeMail">{{ __('Email') }}</label>
-                                <input id="nomineeMail" type="text" placeholder="Enter Email" class="form-control{{ $errors->has('nomineeMail') ? ' is-invalid' : '' }}" name="nomineeMail" value="{{ $te->nomineeMail }}"  required>
+                                <input id="nomineeMail" type="text" placeholder="Enter Email" class="form-control{{ $errors->has('nomineeMail') ? ' is-invalid' : '' }}" name="nomineeMail" value="{{ $te->nomineeMail }}"  >
                                 @if ($errors->has('nomineeMail'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('nomineeMail') }}</strong>
@@ -356,7 +356,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="nomineePhoneNo">{{ __('Phone Number') }}</label>
-                                <input id="nomineePhoneNo" type="text" placeholder="Enter Phone No" class="form-control{{ $errors->has('nomineePhoneNo') ? ' is-invalid' : '' }}" name="nomineePhoneNo" value="{{ $te->nomineePhoneNo }}"  required>
+                                <input id="nomineePhoneNo" type="text" placeholder="Enter Phone No" class="form-control{{ $errors->has('nomineePhoneNo') ? ' is-invalid' : '' }}" name="nomineePhoneNo" value="{{ $te->nomineePhoneNo }}"  >
                                 @if ($errors->has('nomineePhoneNo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('nomineePhoneNo') }}</strong>
@@ -367,7 +367,7 @@
                         <div class="form-group row"> -->
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="nomineeMobileNo1">{{ __('Mobile Number') }}</label>
-                                <input id="nomineeMobileNo1" type="text" placeholder="Enter Mobile number" class="form-control{{ $errors->has('nomineeMobileNo1') ? ' is-invalid' : '' }}" name="nomineeMobileNo1" value="{{ $te->nomineeMobileNo1 }}"  required>
+                                <input id="nomineeMobileNo1" type="text" placeholder="Enter Mobile number" class="form-control{{ $errors->has('nomineeMobileNo1') ? ' is-invalid' : '' }}" name="nomineeMobileNo1" value="{{ $te->nomineeMobileNo1 }}"  >
                                 @if ($errors->has('nomineeMobileNo1'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('nomineeMobileNo1') }}</strong>
@@ -376,7 +376,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="nomineeMobileNo2">{{ __('Phone Number (2)') }}</label>
-                                <input id="nomineeMobileNo2" type="text" placeholder="Enter Mobile Numhber 2" class="form-control{{ $errors->has('nomineeMobileNo2') ? ' is-invalid' : '' }}" name="nomineeMobileNo2" value="{{$te->nomineeMobileNo2 }}"  required>
+                                <input id="nomineeMobileNo2" type="text" placeholder="Enter Mobile Numhber 2" class="form-control{{ $errors->has('nomineeMobileNo2') ? ' is-invalid' : '' }}" name="nomineeMobileNo2" value="{{$te->nomineeMobileNo2 }}"  >
                                 @if ($errors->has('nomineeMobileNo2'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('nomineeMobileNo2') }}</strong>

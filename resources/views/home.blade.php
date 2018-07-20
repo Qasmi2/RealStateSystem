@@ -16,7 +16,7 @@
                     
                     <p style="font-family:Roboto sans-serif;font-size:30px;">{{ Auth::user()->name }} <br>WellCome to Montrivo Booking Portal </p>
                     <br>
-                    <button class="btn btn-info btn-lg" style="background-color: #f44336 !important;"><a  style="color:white !important;" href="{{ route('propertyform') }}">Registration Property </a></button>
+                    <button class="btn btn-info btn-lg" style="background-color: #f44336 !important;"><a  style="color:white !important;" href="{{ route('formall') }}">Registration Property </a></button>
                     <button class="btn btn-info btn-lg" style="background-color: #f44336 !important;"><a  style="color:white !important;" href="{{ route('properties') }}">Display Properties </a></button>
                 </div>
             </div>

@@ -51,7 +51,7 @@ class editingControll extends Controller
             'propertyType' => 'required',
             'registrationStatus' => 'required',
             'propertySection' => 'required',
-            'propertyAddress' => 'required',
+            // 'propertyAddress' => 'required',
             'propertyLocation' => 'required',
             'propertySize' =>'required',
             // 'jointProperty'=>'required',
@@ -60,25 +60,25 @@ class editingControll extends Controller
             'name'=> 'required',
             'fatherName'=> 'required',
             'cnicNo'=> 'required',
-            'passportNo'=> 'required',
+            // 'passportNo'=> 'required',
             'mailingAddress' => 'required',
             'permanentAddress'=> 'required',
-            'email'=> 'required',
-            'phoneNO'=> 'required',
+            // 'email'=> 'required',
+            // 'phoneNO'=> 'required',
             'mobileNo1'=> 'required',
-            'mobileNo2'=> 'required',
+            // 'mobileNo2'=> 'required',
             // 'cover_image'=> 'required',
             'nomineeName'=> 'required',
             'nomineeFatherName'=> 'required',
             'relationWithApplicant'=> 'required',
             'nomineeCnicNo'=> 'required',
-            'nomineePassportNo' => 'required',
-            'nomineeMailingAddress'=> 'required',
-            'nomineePermanentAddress'=> 'required',
-            'nomineeMail'=> 'required',
-            'nomineePhoneNo'=> 'required',
-            'nomineeMobileNo1'=> 'required',
-            'nomineeMobileNo2'=> 'required',
+            // 'nomineePassportNo' => 'required',
+            // 'nomineeMailingAddress'=> 'required',
+            // 'nomineePermanentAddress'=> 'required',
+            // 'nomineeMail'=> 'required',
+            // 'nomineePhoneNo'=> 'required',
+            // 'nomineeMobileNo1'=> 'required',
+            // 'nomineeMobileNo2'=> 'required',
             
             // payment info validation 
             'propertyPrice' => 'required',
@@ -112,6 +112,8 @@ class editingControll extends Controller
         
         // get user data
         //initilization the property object 
+    try{
+   
         $property = new property;
         $property->propertyType = $request->input('propertyType');
         $property->registrationStatus = $request->input('registrationStatus');
@@ -148,6 +150,11 @@ class editingControll extends Controller
             return redirect()->back()->with('error',' Property section data is not Insert .');
         }
 
+    }catch(Exception $e){
+        return redirect()->back()->with('error',' Property section data is not Insert .');
+    }
+
+    try{
         // Handle File Upload
         if($request->hasFile('cover_image')){
             // Get filename with the extension
@@ -163,9 +170,14 @@ class editingControll extends Controller
         } else {
             $fileNameToStore = 'noimage.jpg';
         }
+    }
+    catch(Exception $e){
+        return redirect()->back()->with('error',' Picture uploading something wrong! .');
+    }    
 
-        // initilization the applicant object 
-        
+   // initilization the applicant object 
+    
+    try{
         $applicant = new applicant;
         $applicant->name = $request->input('name');
         $applicant->cover_image = $fileNameToStore;
@@ -190,8 +202,13 @@ class editingControll extends Controller
         $applicant->nomineeMobileNo1 = $request->input('nomineeMobileNo1');
         $applicant->nomineeMobileNo2 = $request->input('nomineeMobileNo2');
         $applicant->propertyId = $propertyId;
-
+    }
+    catch(Exception $e){
+        return redirect()->back()->with('error',' applicant section input something wrong! .');
+    }
         // initilization of payment object
+    try{
+
         $payment = new payment;
         $payment->paymentType = $request->input('paymentType');
         $payment->transferTo = $request->input('transferTo');
@@ -200,22 +217,32 @@ class editingControll extends Controller
         $payment->propertyPaymentProcedure = $request->input('propertyPaymentProcedure');
         $payment->propertyPrice = $request->input('propertyPrice');
         $payment->propertyId = $propertyId;
-
+    }
+    catch(Exception $e){
+        return redirect()->back()->with('error',' Payment section input something wrong .');
+    }
         // initilization the witness table object
+    try{
 
         $witness = new witness;
         $witness->witnessName = $request->input('witnessName');
         $witness->witnessCnicNo = $request->input('witnessCnicNo');
         $witness->propertyId = $propertyId;
-
+    }
+    catch(Exception $e){
+        return redirect()->back()->with('error',' witness section input something wrong .');
+    }    
         // initilization the review table object
-
+    try{
         $review = new review;
         $review->comment=$request->input('comment');
         $review->propertyId = $propertyId;
-
+    }
+    catch(Exception $e){
+        return redirect()->back()->with('error',' review section input something wrong .');
+    }    
         // installment will be changed into 2nd version 
-
+    try{
         $paymentProcedure = $payment->propertyPaymentProcedure;
         
         // save the applicant 
@@ -288,10 +315,17 @@ class editingControll extends Controller
                 } 
 
         }
+   
         // save all the property info and return successuflly message;
-        return redirect()->back()->with('success','Record successfully Added.');
+        return redirect()->back()->with('success','Record successfully Added.');   
+    }
+    catch(Exception $e){
+        return redirect()->back()->with('error',' insert input ,installment calculation , something wrong .');
     }
 
+}
+
+   
     /**
      * Remove the specified resource from storage.
      *
@@ -381,6 +415,9 @@ class editingControll extends Controller
      */
     public function show($id)
     {
+        
+    try{
+
         $property  = DB::table('properties')->where('id',$id)->first();
         $payment = DB::table('payments')->where('propertyId',$id)->first();
         $applicant = DB::table('applicants')->where('propertyId',$id)->first();
@@ -399,7 +436,10 @@ class editingControll extends Controller
             
             return view('displayrecord/singlerecordinstallment',compact('property','applicant','payment','witness','review','installment')); 
         }
-       
+    }
+    catch(Exception $e){
+        return redirect()->back()->with('error',' Show single record section something wrong .');
+    }   
         
     }
 
@@ -412,6 +452,7 @@ class editingControll extends Controller
     public function edit($id)
     {
         
+    try{    
         $property  = DB::table('properties')->where('id',$id)->first();
         $payment = DB::table('payments')->where('propertyId',$id)->first();
         $applicant = DB::table('applicants')->where('propertyId',$id)->first();
@@ -430,6 +471,10 @@ class editingControll extends Controller
             
             return view('editingfrom/editfromsinstallment',compact('property','applicant','payment','witness','review','installment')); 
         }
+    }
+    catch(Exception $e){
+        return redirect()->back()->with('error',' Editing record section , something wrong .');
+    }
         
     }
 
@@ -449,7 +494,7 @@ class editingControll extends Controller
             'propertyType' => 'required',
             'registrationStatus' => 'required',
             'propertySection' => 'required',
-            'propertyAddress' => 'required',
+            // 'propertyAddress' => 'required',
             'propertyLocation' => 'required',
             'propertySize' =>'required',
             // 'jointProperty'=>'required',
@@ -458,25 +503,25 @@ class editingControll extends Controller
             'name'=> 'required',
             'fatherName'=> 'required',
             'cnicNo'=> 'required',
-            'passportNo'=> 'required',
+            // 'passportNo'=> 'required',
             'mailingAddress' => 'required',
             'permanentAddress'=> 'required',
-            'email'=> 'required',
-            'phoneNO'=> 'required',
+            // 'email'=> 'required',
+            // 'phoneNO'=> 'required',
             'mobileNo1'=> 'required',
-            'mobileNo2'=> 'required',
+            // 'mobileNo2'=> 'required',
             // 'cover_image'=> 'required',
             'nomineeName'=> 'required',
             'nomineeFatherName'=> 'required',
             'relationWithApplicant'=> 'required',
             'nomineeCnicNo'=> 'required',
-            'nomineePassportNo' => 'required',
-            'nomineeMailingAddress'=> 'required',
-            'nomineePermanentAddress'=> 'required',
-            'nomineeMail'=> 'required',
-            'nomineePhoneNo'=> 'required',
-            'nomineeMobileNo1'=> 'required',
-            'nomineeMobileNo2'=> 'required',
+            // 'nomineePassportNo' => 'required',
+            // 'nomineeMailingAddress'=> 'required',
+            // 'nomineePermanentAddress'=> 'required',
+            // 'nomineeMail'=> 'required',
+            // 'nomineePhoneNo'=> 'required',
+            // 'nomineeMobileNo1'=> 'required',
+            // 'nomineeMobileNo2'=> 'required',
             
             // payment info validation 
             'propertyPrice' => 'required',
@@ -499,7 +544,7 @@ class editingControll extends Controller
         
           // get user data
         //initilization the property object 
-
+        try{ 
         $property = property::find($id);
         $property->propertyType = $request->input('propertyType');
         $property->registrationStatus = $request->input('registrationStatus');
@@ -509,28 +554,33 @@ class editingControll extends Controller
         $property->propertySize = $request->input('propertySize');
         $property->jointProperty = $request->input('jointProperty');
         $property->noOfJointApplicant = $request->input('noOfJointApplicant');
-
-        
-    
-       
-        // Handle File Upload
-        if($request->hasFile('cover_image')){
-            // Get filename with the extension
-            $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('cover_image')->getClientOriginalExtension();
-            // Filename to store
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            // Upload Image
-            $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
-        } else {
-            $fileNameToStore = 'noimage.jpg';
         }
-
+        catch(Exception $e){
+            return redirect()->back()->with('error','Updating property section , something wrong .');
+        }
+    
+       try{
+            // Handle File Upload
+            if($request->hasFile('cover_image')){
+                // Get filename with the extension
+                $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+                // Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                // Get just ext
+                $extension = $request->file('cover_image')->getClientOriginalExtension();
+                // Filename to store
+                $fileNameToStore= $filename.'_'.time().'.'.$extension;
+                // Upload Image
+                $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+            } else {
+                $fileNameToStore = 'noimage.jpg';
+            }
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('error',' picture section input something wrong .');
+        }
         // initilization the applicant object 
-        
+        try{
         $applicantId = DB::table('applicants')->where('propertyId',$id)->value('id');
         $applicant = applicant::find($applicantId);
         $applicant->name = $request->input('name');
@@ -556,7 +606,11 @@ class editingControll extends Controller
         $applicant->nomineeMobileNo1 = $request->input('nomineeMobileNo1');
         $applicant->nomineeMobileNo2 = $request->input('nomineeMobileNo2');
         $applicant->propertyId = $id;
-
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('error',' applicant section input something wrong .');
+        }
+        try{
         // initilization of payment object
         $paymentId = DB::table('payments')->where('propertyId',$id)->value('id');
         $payment = payment::find($paymentId);
@@ -567,26 +621,36 @@ class editingControll extends Controller
         $payment->propertyPaymentProcedure = $request->input('propertyPaymentProcedure');
         $payment->propertyPrice = $request->input('propertyPrice');
         $payment->propertyId = $id;
-
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('error',' Payment section input something wrong .');
+        }
         // initilization the witness table object
-
+        try{
         $witnessId = DB::table('witnesses')->where('propertyId',$id)->value('id');
         $witness = witness::find($witnessId);
         $witness->witnessName = $request->input('witnessName');
         $witness->witnessCnicNo = $request->input('witnessCnicNo');
         $witness->propertyId = $id;
-
+        
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('error',' witness section input something wrong .');
+        }
         // initilization the review table object
+        try{
         $reviewId = DB::table('reviews')->where('propertyId',$id)->value('id');
         $review = review::find($reviewId);
         $review->comment=$request->input('comment');
         $review->propertyId = $id;
-
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('error',' review section input something wrong .');
+        }
         // installment will be changed into 2nd version 
-
+        try{
         $paymentProcedure = $payment->propertyPaymentProcedure;
         
-
         if($property->save()){
             // save the applicant 
             $applicant->save();
@@ -595,7 +659,8 @@ class editingControll extends Controller
             // save the witness
             $witness->save();
             // save the review
-            $review->save(); 
+            $review->save();
+         
             if($paymentProcedure == "Installment"){
                 
                  // validation
@@ -683,6 +748,10 @@ class editingControll extends Controller
         else{
             return redirect()->back()->with('error',' Record is not updated Something wrong .');
         }
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('error',' updating , installment section , something wrong .');
+        }
     }
 
     /**
@@ -693,7 +762,7 @@ class editingControll extends Controller
      */
     public function destroy($id)
     { 
-        
+        try{
         $installmentrow = DB::table('installments')->where('propertyId',$id)->first();
         // get installment table id to delete that have property Id same 
         // $deleteInstallmentId = DB::table('installments')->where('propertyId',$id)->value('id');
@@ -763,6 +832,9 @@ class editingControll extends Controller
 
             return view('displayrecord.deleterecordMessage')->with('error', 'Record NOT Found or Something Wrong !!!');  
         }
-		
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('error',' Deletion section, something wrong .');
+        }
     }
 }

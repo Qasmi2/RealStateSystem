@@ -20,7 +20,7 @@ class CreatePaymentsTable extends Migration
             $table->string('bankName')->nullable();
             $table->string('propertyPurchingDate');
             $table->integer('propertyPrice');// total amount 
-            $table->string('propertyPaymentProcedure');  //instalment          
+            $table->string('propertyPaymentProcedure');  //instalment or Total amount          
             $table->string('paymentType'); 
             $table->integer('propertyId')->unsigned();
             $table->foreign('propertyId')->references('id')->on('properties');

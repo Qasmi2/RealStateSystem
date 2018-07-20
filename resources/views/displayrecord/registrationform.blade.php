@@ -377,7 +377,7 @@
                 <table style="text-align:left;">
                     <tr>
                         <td style="width:380px;"><strong>Mailing Address:</strong>&nbsp; {{$te->mailingAddress}}</td>
-                        <td style="height:100px !important ; width:100px !important;" rowspan="3"><img src="../storage/cover_images/{{$te->cover_image}}" height="100" width="100 " style="height:100px !important; width:100px !important; padding-left:175px;"></td>
+                        <td style="height:100px !important ; width:100px !important;" rowspan="3"><img src="../storage/cover_images/{{$te->cover_image}}" height="100" width="100 " style="height:100px !important; width:100px !important; padding-left:80px;"></td>
                     </tr>
                     <tr>
                         <td><strong>Permenant Address:</strong> &nbsp; {{$te->permanentAddress}}</td>
@@ -496,17 +496,17 @@
    
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
-    <script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script> -->
+    <!-- <script>
 
     let doc = new jsPDF('p','pt','letter');
     doc.addHTML(document.body,function() {
     doc.save('form1.pdf');
     });
 
-</script>
+</script> -->
 <!-- <script>
 var doc = new jsPDF();
 var specialElementHandlers = {

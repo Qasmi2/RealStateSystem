@@ -311,7 +311,7 @@
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                 <label for="nomineeMailingAddress">{{ __('Mailing Address') }}</label>
-                                <input id="nomineeMailingAddress" type="text" placeholder="Enter Mailing Address " class="form-control{{ $errors->has('nomineeMailingAddress') ? ' is-invalid' : '' }}" name="nomineeMailingAddress" value=""  required>
+                                <input id="nomineeMailingAddress" type="text" placeholder="Enter Mailing Address " class="form-control{{ $errors->has('nomineeMailingAddress') ? ' is-invalid' : '' }}" name="nomineeMailingAddress" value=""  >
                                 @if ($errors->has('nomineeMailingAddress'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('nomineeMailingAddress') }}</strong>

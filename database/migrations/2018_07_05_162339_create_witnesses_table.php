@@ -15,8 +15,8 @@ class CreateWitnessesTable extends Migration
     {
         Schema::create('witnesses', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('witnessName');
-            $table->string('witnessCnicNo');
+            $table->string('witnessName')->nullable();
+            $table->string('witnessCnicNo')->nullable();
             $table->integer('propertyId')->unsigned();
             $table->foreign('propertyId')->references('id')->on('properties');
             $table->timestamps();
