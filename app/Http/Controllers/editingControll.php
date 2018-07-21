@@ -554,6 +554,15 @@ class editingControll extends Controller
         $property->propertySize = $request->input('propertySize');
         $property->jointProperty = $request->input('jointProperty');
         $property->noOfJointApplicant = $request->input('noOfJointApplicant');
+        
+        if($property->jointProperty == "No")
+        {
+            $property->jointProperty = 0;
+        }
+        else
+        {
+            $property->jointProperty = 1;
+        }
         }
         catch(Exception $e){
             return redirect()->back()->with('error','Updating property section , something wrong .');

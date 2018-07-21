@@ -46,6 +46,7 @@
 			$propertySection = $te->propertySection;
 			$size = $te->propertySize;
 			$location = $te->propertyLocation;
+			$floor = $te->propertyAddress;
 
 		}
 		foreach($payment as $te){
@@ -89,7 +90,7 @@
 					<b>Details of Unit </b>
 					<ul>
 						<li>
-								Unit No 1: <b>{{$propertyType}} {{$propertySection}},</b> Size <b>{{$size}} Sq ft,{{$location}}</b><br>
+								Unit No 1: <b>{{$propertyType}} {{$propertySection}},</b> Size <b>{{$size}} Sq ft, Floor No.{{$location}} ,Room No. / Shop No.{{$floor}}</b><br>
 								Total Cost of unit: PKR <b>{{$totalPrice}}</b> @ PKR <b>{{$unitCost}} / Sq ft </b> <br>
 								Payment Made: Total Payment: <b> {{$totalPrice}} </b> through Post Dated CASH on <b>{{$purchingDate}}</b><br>
 								Payment Mode: <b>{{$paymentType}}</b> . <br>

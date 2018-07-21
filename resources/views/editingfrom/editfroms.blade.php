@@ -12,10 +12,17 @@
     $applicant = array($applicant);
     $review = array($review);
     $witness = array($witness);
-    // foreach($property as $pr){
-    //     echo $pr->id;
-    //     exit();
-    // }
+    foreach($property as $pr){
+        $PropertyJoint =  $pr->jointProperty;
+        if($PropertyJoint == 0)
+        {
+            $PropertyJoint = "No";
+        }
+        if($PropertyJoint == 1)
+        {
+            $PropertyJoint = "Yes";
+        }
+    }
    
 ?>
 <div class="container" style="margin-top:60px;">
@@ -39,7 +46,7 @@
                 <form method="POST"  action="{{ url('updating/'.$te->id)}}" enctype="multipart/form-data" value="PATCH">
                         {{ csrf_field() }}
                         <div class="form-group row">
-                            <div class="col-md-6 col-lg-6 col-sm-12">
+                            <div class="col-md-4 col-lg-4 col-sm-12">
                                 <label for="propertyType" >{{ __('Registion Project') }}</label>
                                 <!-- <input id="propertyType" type="propertyType" placeholder="Enter REGISTERED PROJECT " class="form-control{{ $errors->has('propertyType') ? ' is-invalid' : '' }}" name="propertyType" value="{{$te->propertyType}}" required> -->
                                 <select class="form-control" name="propertyType" id="propertyType" >
@@ -54,7 +61,7 @@
                                     </span>
                                 @endif
                             </div>
-                            <div class="col-md-6 col-lg-6 col-sm-12">
+                            <div class="col-md-4 col-lg-4 col-sm-12">
                                 <label for="registrationStatus">{{ __('Registration Status') }}</label>
                                 <!-- <input id="registrationStatus" type="text" placeholder="Select Registration Status " class="form-control{{ $errors->has('registrationStatus') ? ' is-invalid' : '' }}" name="registrationStatus" value="{{$te->registrationStatus}}" required> -->
                                 <select class="form-control" name="registrationStatus" id="registrationStatus" >
@@ -69,9 +76,9 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-12 col-lg-12 col-sm-12">
+                        <!-- </div>
+                        <div class="form-group row"> -->
+                            <div class="col-md-4 col-lg-4 col-sm-12">
                                 <label for="propertySection">{{ __('Property Section') }}</label>
                                 <!-- <input id="propertySection" type="text" placeholder="Enter property Section " class="form-control{{ $errors->has('propertySection') ? ' is-invalid' : '' }}" name="propertySection" value="{{ $te->propertySection }}"  required> -->
                                 <select class="form-control" name="propertySection" id="propertySection" >
@@ -92,20 +99,20 @@
                            
                         </div>
                         <div class="form-group row">
-                            <div class="col-md-12 col-lg-12 col-sm-12">
-                                <label for="propertyAddress">{{ __('Property Address') }}</label>
-                                <input id="Property Address" type="text" placeholder="Enter Property Address " class="form-control{{ $errors->has('propertyAddress') ? ' is-invalid' : '' }}" name="propertyAddress" value="{{ $te->propertyAddress}}" >
+                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                <label for="propertyAddress">{{ __('Property Address (Floor No.)') }}</label>
+                                <input id="Property Address" type="number" min="0" placeholder="Enter Floor No. " class="form-control{{ $errors->has('propertyAddress') ? ' is-invalid' : '' }}" name="propertyAddress" value="{{ $te->propertyAddress}}" >
                                 @if ($errors->has('propertyAddress'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertyAddress') }}</strong>
                                     </span>
                                 @endif
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-12 col-lg-12 col-sm-12">
-                                <label for="propertyLocation">{{ __('Property Location') }}</label>
-                                <input id="propertyLocation" type="text" placeholder="Enter Property Location " class="form-control{{ $errors->has('propertyLocation') ? ' is-invalid' : '' }}" name="propertyLocation" value="{{ $te->propertyLocation }}" >
+                        <!-- </div>
+                        <div class="form-group row"> -->
+                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                <label for="propertyLocation">{{ __('Property Location (Room No/Shop No.)') }}</label>
+                                <input id="propertyLocation" type="number" min="0" placeholder="Enter Room NO / Shop No " class="form-control{{ $errors->has('propertyLocation') ? ' is-invalid' : '' }}" name="propertyLocation" value="{{ $te->propertyLocation }}" >
                                 @if ($errors->has('propertyLocation'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertyLocation') }}</strong>
@@ -116,7 +123,7 @@
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertySize">{{ __('Property Size') }}</label>
-                                <input id="propertySize" type="text" placeholder="Enter Property Size  (Sqr ft)" class="form-control{{ $errors->has('propertySize') ? ' is-invalid' : '' }}" name="propertySize" value="{{ $te->propertySize}}"  required>
+                                <input id="propertySize" type="number" placeholder="Enter Property Size  (Sqr ft)" class="form-control{{ $errors->has('propertySize') ? ' is-invalid' : '' }}" name="propertySize" value="{{ $te->propertySize}}"  required>
                                 @if ($errors->has('propertySize'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertySize') }}</strong>
@@ -125,11 +132,13 @@
                             </div>
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="jointProperty">{{ __('Joint Property') }}</label>
-                                <input id="jointProperty" type="text" placeholder="Enter Joint Property" class="form-control{{ $errors->has('jointProperty') ? ' is-invalid' : '' }}" name="jointProperty" value="{{ $te->jointProperty }}"  required>
-                                <!-- <select class="form-control" name="jointProperty" id="jointProperty" >
-                                    <option value="No">No</option>
+                                <!-- <input id="jointProperty" type="text" placeholder="Enter Joint Property" class="form-control{{ $errors->has('jointProperty') ? ' is-invalid' : '' }}" name="jointProperty" value="{{ $PropertyJoint }}"  required> -->
+                                <select class="form-control" name="jointProperty" id="jointProperty" >
+                                    <option value="{{$PropertyJoint}}">{{$PropertyJoint}}</option>
                                     <option value="Yes" disabled>Yes</option>
-                                </select> -->
+                                    <option value="No">No</option>
+                                    
+                                </select>
                                 @if ($errors->has('jointProperty'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('jointProperty') }}</strong>
@@ -187,7 +196,7 @@
                         <!-- <div class="form-group row"> -->
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="cnicNo">{{ __('CNIC Number') }}</label>
-                                <input id="cnicNo" type="text" placeholder="Enter CNIC Number " class="form-control{{ $errors->has('cnicNo') ? ' is-invalid' : '' }}" name="cnicNo" value="{{ $te->cnicNo }}"  required>
+                                <input id="cnicNo" type="tel" size="15" maxlength="15" placeholder="e.g xxxxx-xxxxxxx-x" class="form-control{{ $errors->has('cnicNo') ? ' is-invalid' : '' }}" name="cnicNo" value="{{ $te->cnicNo }}" pattern="[0-9]{13}" title=" Please match the CNIC No" required>
                                 @if ($errors->has('cnicNo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('cnicNo') }}</strong>
@@ -196,7 +205,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="passportNo">{{ __('Passport No') }}</label>
-                                <input id="passportNo" type="text" placeholder="Enter Passport Number " class="form-control{{ $errors->has('passportNo') ? ' is-invalid' : '' }}" name="passportNo" value="{{ $te->passportNo }}" >
+                                <input id="passportNo" type="tel" size="8" maxlength="8" placeholder="e.g ab123456" class="form-control{{ $errors->has('passportNo') ? ' is-invalid' : '' }}" name="passportNo" value="{{ $te->passportNo }}" >
                                 @if ($errors->has('passportNo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('passportNo') }}</strong>
@@ -229,7 +238,7 @@
                         <div class="form-group row">
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="email">{{ __('Email') }}</label>
-                                <input id="email" type="text" placeholder="Enter Email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $te->email }}"  >
+                                <input id="email" type="email" placeholder="Enter Email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $te->email }}"  >
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -238,7 +247,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="phoneNO">{{ __('Phone Number') }}</label>
-                                <input id="phoneNO" type="text" placeholder="Enter Phone No" class="form-control{{ $errors->has('phoneNO') ? ' is-invalid' : '' }}" name="phoneNO" value="{{ $te->phoneNO }}"  >
+                                <input id="phoneNO" type="tel" size="11" maxlength="11" placeholder="e.g xxx-xxxxxxx" class="form-control{{ $errors->has('phoneNO') ? ' is-invalid' : '' }}" name="phoneNO" value="{{ $te->phoneNO }}"  >
                                 @if ($errors->has('phoneNo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('phoneNo') }}</strong>
@@ -249,7 +258,7 @@
                         <!-- <div class="form-group row"> -->
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="mobileNo1">{{ __('Mobile Number') }}</label>
-                                <input id="mobileNo1" type="text" placeholder="Enter Mobile number" class="form-control{{ $errors->has('mobileNo1') ? ' is-invalid' : '' }}" name="mobileNo1" value="{{ $te->mobileNo1 }}"  required>
+                                <input id="mobileNo1" type="tel" size="12" maxlength="12" placeholder="e.g 0xxx-xxxxxxx" class="form-control{{ $errors->has('mobileNo1') ? ' is-invalid' : '' }}" name="mobileNo1" value="{{ $te->mobileNo1 }}" pattern="[0-9]{11}" title=" Please match the Mobile No" required>
                                 @if ($errors->has('mobileNo1'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('mobileNo1') }}</strong>
@@ -257,8 +266,8 @@
                                 @endif
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
-                                <label for="mobileNo2">{{ __('Phone Number (2)') }}</label>
-                                <input id="mobileNo2" type="text" placeholder="Enter Mobile Numhber 2" class="form-control{{ $errors->has('mobileNo2') ? ' is-invalid' : '' }}" name="mobileNo2" value="{{ $te->mobileNo2 }}"  >
+                                <label for="mobileNo2">{{ __('Mobile Number (2)') }}</label>
+                                <input id="mobileNo2" type="tel" size="12" maxlength="12" placeholder="e.g xxxx-xxxxxxx" class="form-control{{ $errors->has('mobileNo2') ? ' is-invalid' : '' }}" name="mobileNo2" value="{{ $te->mobileNo2 }}"  >
                                 @if ($errors->has('mobileNo2'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('mobileNo2') }}</strong>
@@ -296,7 +305,7 @@
                         <!-- <div class="form-group row"> -->
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="nomineeCnicNo">{{ __('Nominee CNIC Number') }}</label>
-                                <input id="nomineeCnicNo" type="text" placeholder="Enter Mominee CNIC Number " class="form-control{{ $errors->has('nomineeCnicNo') ? ' is-invalid' : '' }}" name="nomineeCnicNo" value="{{$te->nomineeCnicNo }}"  required>
+                                <input id="nomineeCnicNo" type="tel" size="15" maxlength="15" placeholder="e.g xxxxx-xxxxxxx-x" class="form-control{{ $errors->has('nomineeCnicNo') ? ' is-invalid' : '' }}" name="nomineeCnicNo" value="{{$te->nomineeCnicNo }}" pattern="[0-9]{13}" title=" Please match the CNIC No" required>
                                 @if ($errors->has('nomineeCnicNo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('nomineeCnicNo') }}</strong>
@@ -305,7 +314,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="nomineePassportNo">{{ __('Passport No') }}</label>
-                                <input id="nomineePassportNo" type="text" placeholder="Enter Passport Number " class="form-control{{ $errors->has('nomineePassportNo') ? ' is-invalid' : '' }}" name="nomineePassportNo" value="{{ $te->nomineePassportNo }}"  >
+                                <input id="nomineePassportNo" type="tel" size="8" maxlength="8" placeholder="e.g ab123456" class="form-control{{ $errors->has('nomineePassportNo') ? ' is-invalid' : '' }}" name="nomineePassportNo" value="{{ $te->nomineePassportNo }}"  >
                                 @if ($errors->has('nomineePassportNo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('nomineePassportNo') }}</strong>
@@ -335,7 +344,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                 <label for="nomineePermanentAddress">{{ __('Permanent Address') }}</label>
                                 <input id="nomineePermanentAddress" type="text" placeholder="Enter Permanent Address " class="form-control{{ $errors->has('nomineePermanentAddress') ? ' is-invalid' : '' }}" name="nomineePermanentAddress" value="{{ $te->nomineePermanentAddress }}"  >
@@ -365,8 +374,7 @@
                                     </span>
                                 @endif
                             </div>
-                        <!-- </div>
-                        <div class="form-group row"> -->
+            
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="nomineeMobileNo1">{{ __('Mobile Number') }}</label>
                                 <input id="nomineeMobileNo1" type="text" placeholder="Enter Mobile number" class="form-control{{ $errors->has('nomineeMobileNo1') ? ' is-invalid' : '' }}" name="nomineeMobileNo1" value="{{ $te->nomineeMobileNo1 }}"  >
@@ -385,7 +393,7 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>
+                        </div> -->
                        
                     <!-- </from> -->
                     @endforeach
@@ -493,7 +501,7 @@
                             </div>
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                     <label for="witnessCnicNo">{{ __('Witness CNIC NO') }}</label>
-                                    <input id="witnessCnicNo" type="text" placeholder="Enter Witness CNIC NO " class="form-control{{ $errors->has('witnessCnicNo') ? ' is-invalid' : '' }}" name="witnessCnicNo" value="{{ $te->witnessCnicNo }}" required>
+                                    <input id="witnessCnicNo" type="text" placeholder="Enter Witness CNIC NO " class="form-control{{ $errors->has('witnessCnicNo') ? ' is-invalid' : '' }}" name="witnessCnicNo" value="{{ $te->witnessCnicNo }}" pattern="[0-9]{13}" title=" Please match the CNIC No" required>
                                     @if ($errors->has('witnessCnicNo'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('witnessCnicNo') }}</strong>

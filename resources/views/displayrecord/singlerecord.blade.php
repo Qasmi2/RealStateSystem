@@ -72,11 +72,11 @@
                                 <div class="col-md-6">   
                                        
                                        
-                                        <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Property Address') }}    :</label>
+                                        <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Property Address (Floor NO.)') }}    :</label>
                                                <b>{{$te->propertyAddress}}</b>
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Property Location') }}    :</label>
+                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Property Location (ROOM NO. / SHOP NO.') }}    :</label>
                                             <b> {{$te->propertyLocation}}</b>
                                         </div>
                                         <br>
