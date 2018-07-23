@@ -18,7 +18,7 @@
                             $('a[data-confirm]').click(function(ev) {
                             var href = $(this).attr('href');
                             if (!$('#dataConfirmModal').length) {
-                            $('body').append('<div id="dataConfirmModal" class="modal fade modal" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true"><div class="modal-dialog "><div class="modal-content"><div class=" modal-header" ><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h3 id="dataConfirmLabel" >Please Confirm</h3></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button><a class="btn btn-danger" id="dataConfirmOK">Delete</a></div></div></div></div>');
+                            $('body').append('<div id="dataConfirmModal" class="modal fade modal" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true"><div class="modal-dialog "><div class="modal-content"><div class=" modal-header" style="text-align:center;display:flow-root !important;color:white;background-color: red;"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h3 id="dataConfirmLabel" >Please Confirm</h3></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button><a class="btn btn-danger" id="dataConfirmOK">Delete</a></div></div></div></div>');
                             } 
                             $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
                             $('#dataConfirmOK').attr('href', href);
@@ -39,9 +39,10 @@
                            $property = array($property);
                            foreach($property as $key){
                             $Idkey = $key->id;
+                            $sellerId = $key->propertySellerId;
                             }
                            $payment = array($payment);
-                           $witness = array($witness);
+                        //    $witness = array($witness);
                            $review = array($review);
                            $installment = array($installment);
                            foreach($installment as $t){
@@ -50,6 +51,17 @@
                             // echo $test[0];
                             // exit();
                            }
+                           foreach($seller as $te){
+                            if( $te->id == $sellerId)
+                            {
+                                $sname =  $te->sallerName; 
+                                $sfatherName =  $te->sellerFatherName;
+                                $sdesignation = $te->sallerDesignation;
+                                $scnicNo = $te->sallerCnicNo;
+                            }
+                           
+
+                        }
                            
                            
                         //    var_dump($sizeOfInstallmentDates);
@@ -298,24 +310,24 @@
                         </div>
                     </fieldset>
                     <fieldset class="col-md-12" style="background-color:#fff; margin-top:20px;">    	
-                    <legend>Witness Infromation</legend>
+                    <legend>Seller Infromation</legend>
                         <!-- <div class="col-md-12 col-lg-12 col-sm-12">     -->
                             <div class="form-group row">
                                 <div class="col-md-6">
-                            @foreach($witness as $te)
-                                        <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Witness Name') }}    :</label>
-                                           <b>{{$te->witnessName}}</b>
+                           
+                                        <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Seller Name') }}    :</label>
+                                           <b>{{$sname}}</b>
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Witness CNIC NO.') }}    :</label>
-                                               <b>{{$te->witnessCnicNo}}</b> 
+                                        <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Seller Father Name') }}    :</label>
+                                               <b>{{$scnicNo}}</b> 
                                         </div>
                                         
                                 </div>
                                         
                             </div>
                                     
-                        @endforeach
+                        
                     </fieldset>
                     <fieldset class="col-md-12" style="background-color:#fff; margin-top:20px;">    	
                     <legend>Review</legend>

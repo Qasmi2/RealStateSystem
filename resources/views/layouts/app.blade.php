@@ -66,6 +66,18 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('properties') }}">{{ __('Diplay Properties') }}</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('sellerform') }}">{{ __('Seller Regisration Form') }}</a>
+                            </li>
+                            <!-- <li class="nav-item dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1
+                                <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Page 1-1</a></li>
+                                    <li><a href="#">Page 1-2</a></li>
+                                    <li><a href="#">Page 1-3</a></li>
+                                </ul>
+                            </li> -->
                             
                             
 
@@ -136,7 +148,7 @@
                     
                     <li class="nav-item">
                             
-                                <a class="nav-link" href="{{ route('propertyform') }}">
+                                <a class="nav-link" href="{{ route('formall') }}">
                               
                                     <span>{{__('Reistration Property')}}</span>
                                 </a>
@@ -147,12 +159,12 @@
                                     <span>{{ __('Diplay Properties') }}</span>
                                 </a>
                     </li>
-                    <!-- <li class="nav-item">
-                                <a class="nav-link" href="{{ route('declarationfom') }}">
+                    <li class="nav-item">
+                                <a class="nav-link" href="{{ route('sellerform') }}">
                                 
-                                    <span>{{ __('Declaration Form') }}</span>
+                                    <span>{{ __('Seller Registration Form') }}</span>
                                 </a>
-                    </li> -->
+                    </li>
                     
                     <!-- <li >
                         <a href="" >

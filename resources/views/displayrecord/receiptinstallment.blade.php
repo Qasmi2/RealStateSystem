@@ -37,7 +37,7 @@
                             
 			$property = array($property);
 			$payment = array($payment);
-			$witness = array($witness);
+			
 			$installments = array($installments);            
 			foreach($property as $te){
 				$propertySize = $te->propertySize;
@@ -56,11 +56,7 @@
 				$firstInstallmentDates = $intallmentDates[0];
 
 			}
-			foreach($witness as $te){
-				$witnessName = $te->witnessName;
-				$witnessCnicNo = $te->witnessCnicNo;
-
-			}
+			
 			// Reaming amount 
 			$remaningAmount = $propertyPrice-$downpayment;
 			// installment amount 
@@ -152,8 +148,8 @@
 						<div style="front-family:Calibri;font-size:12px;text-align:left;line-height:18px; padding:25px 0;">
 							<b>Witness 1:</b><br>
 							Fintial consultants (Pvt) Ltd.<br>
-							Name  : {{$witnessName}}<br>
-							CNIC NO . : {{$witnessCnicNo}}<br>
+							Name  : ___________________________<br>
+							CNIC NO . : ___________________________<br>
 							
 						</div>
 					</td>

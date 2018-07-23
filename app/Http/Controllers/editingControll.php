@@ -10,6 +10,7 @@ use App\witness;
 use App\review;
 use App\applicant;
 use Validator;
+use App\seller;
 use App\Http\Controllers\DataTime;
 use DateTime;
 use DateInterval;
@@ -54,6 +55,7 @@ class editingControll extends Controller
             // 'propertyAddress' => 'required',
             'propertyLocation' => 'required',
             'propertySize' =>'required',
+            'propertySellerId'=>'required',
             // 'jointProperty'=>'required',
             // 'noOfJointproperty'=>'required',
             // applicant info validation 
@@ -88,8 +90,8 @@ class editingControll extends Controller
             'propertyPaymentProcedure' =>'required',
             'paymentType'=>'required',
             // witness info validation 
-            'witnessName' => 'required',
-            'witnessCnicNo' => 'required',
+            // 'witnessName' => 'required',
+            // 'witnessCnicNo' => 'required',
             // 
 
         ]);
@@ -123,6 +125,7 @@ class editingControll extends Controller
         $property->propertySize = $request->input('propertySize');
         $property->tokenNo = random_string(20);
         $property->jointProperty = $request->input('jointProperty');
+        $property->propertySellerId = $request->input('propertySellerId');
         $property->noOfJointApplicant = $request->input('noOfJointApplicant');
        
         if($property->jointProperty == "No")
@@ -222,16 +225,16 @@ class editingControll extends Controller
         return redirect()->back()->with('error',' Payment section input something wrong .');
     }
         // initilization the witness table object
-    try{
+    // try{
 
-        $witness = new witness;
-        $witness->witnessName = $request->input('witnessName');
-        $witness->witnessCnicNo = $request->input('witnessCnicNo');
-        $witness->propertyId = $propertyId;
-    }
-    catch(Exception $e){
-        return redirect()->back()->with('error',' witness section input something wrong .');
-    }    
+    //     $witness = new witness;
+    //     $witness->witnessName = $request->input('witnessName');
+    //     $witness->witnessCnicNo = $request->input('witnessCnicNo');
+    //     $witness->propertyId = $propertyId;
+    // }
+    // catch(Exception $e){
+    //     return redirect()->back()->with('error',' witness section input something wrong .');
+    // }    
         // initilization the review table object
     try{
         $review = new review;
@@ -254,9 +257,9 @@ class editingControll extends Controller
             return redirect()->back()->with('error','payment record is not save, Something wrong .');
         } 
         // save the witness
-        if(!$witness->save()){
-            return redirect()->back()->with('error','witness record is not save, Something wrong .');
-        } 
+        // if(!$witness->save()){
+        //     return redirect()->back()->with('error','witness record is not save, Something wrong .');
+        // } 
         // save the review
         if(!$review->save()){
             return redirect()->back()->with('error','review record is not save, Something wrong .');
@@ -423,18 +426,19 @@ class editingControll extends Controller
         $applicant = DB::table('applicants')->where('propertyId',$id)->first();
         $installment = DB::table('installments')->where('propertyId',$id)->first();
         $review = DB::table('reviews')->where('propertyId',$id)->first();
-        $witness = DB::table('witnesses')->where('propertyId',$id)->first();
+        // $witness = DB::table('witnesses')->where('propertyId',$id)->first();
+        $seller = seller::orderBy('created_at','desc')->get();
 
          $isEmpty = json_encode($installment);
         
         if($isEmpty == "null")
         { 
             
-            return view('displayrecord/singlerecord',compact('property','applicant','payment','witness','review'));    
+            return view('displayrecord/singlerecord',compact('property','applicant','payment','review','seller'));    
         }
         else{
             
-            return view('displayrecord/singlerecordinstallment',compact('property','applicant','payment','witness','review','installment')); 
+            return view('displayrecord/singlerecordinstallment',compact('property','applicant','payment','review','installment','seller')); 
         }
     }
     catch(Exception $e){
@@ -458,18 +462,19 @@ class editingControll extends Controller
         $applicant = DB::table('applicants')->where('propertyId',$id)->first();
         $installment = DB::table('installments')->where('propertyId',$id)->first();
         $review = DB::table('reviews')->where('propertyId',$id)->first();
-        $witness = DB::table('witnesses')->where('propertyId',$id)->first();
+        // $witness = DB::table('witnesses')->where('propertyId',$id)->first();
+        $seller = seller::orderBy('created_at','desc')->get();
 
          $isEmpty = json_encode($installment);
         
         if($isEmpty == "null")
         { 
             
-            return view('editingfrom/editfroms',compact('property','applicant','payment','witness','review'));    
+            return view('editingfrom/editfroms',compact('property','applicant','payment','review','seller'));    
         }
         else{
             
-            return view('editingfrom/editfromsinstallment',compact('property','applicant','payment','witness','review','installment')); 
+            return view('editingfrom/editfromsinstallment',compact('property','applicant','payment','review','installment','seller')); 
         }
     }
     catch(Exception $e){
@@ -497,6 +502,7 @@ class editingControll extends Controller
             // 'propertyAddress' => 'required',
             'propertyLocation' => 'required',
             'propertySize' =>'required',
+            'propertySellerId'=>'required',
             // 'jointProperty'=>'required',
             // 'noOfJointproperty'=>'required',
             // applicant info validation 
@@ -531,8 +537,8 @@ class editingControll extends Controller
             'propertyPaymentProcedure' =>'required',
             'paymentType'=>'required',
             // witness info validation 
-            'witnessName' => 'required',
-            'witnessCnicNo' => 'required',
+            // 'witnessName' => 'required',
+            // 'witnessCnicNo' => 'required',
             // 
 
         ]);
@@ -552,6 +558,7 @@ class editingControll extends Controller
         $property->propertyAddress = $request->input('propertyAddress');
         $property->propertyLocation = $request->input('propertyLocation');
         $property->propertySize = $request->input('propertySize');
+        $property->propertySellerId = $request->input('propertySellerId');
         $property->jointProperty = $request->input('jointProperty');
         $property->noOfJointApplicant = $request->input('noOfJointApplicant');
         
@@ -635,17 +642,17 @@ class editingControll extends Controller
             return redirect()->back()->with('error',' Payment section input something wrong .');
         }
         // initilization the witness table object
-        try{
-        $witnessId = DB::table('witnesses')->where('propertyId',$id)->value('id');
-        $witness = witness::find($witnessId);
-        $witness->witnessName = $request->input('witnessName');
-        $witness->witnessCnicNo = $request->input('witnessCnicNo');
-        $witness->propertyId = $id;
+        // try{
+        // $witnessId = DB::table('witnesses')->where('propertyId',$id)->value('id');
+        // $witness = witness::find($witnessId);
+        // $witness->witnessName = $request->input('witnessName');
+        // $witness->witnessCnicNo = $request->input('witnessCnicNo');
+        // $witness->propertyId = $id;
         
-        }
-        catch(Exception $e){
-            return redirect()->back()->with('error',' witness section input something wrong .');
-        }
+        // }
+        // catch(Exception $e){
+        //     return redirect()->back()->with('error',' witness section input something wrong .');
+        // }
         // initilization the review table object
         try{
         $reviewId = DB::table('reviews')->where('propertyId',$id)->value('id');
@@ -666,7 +673,7 @@ class editingControll extends Controller
             // save the payment 
             $payment->save();
             // save the witness
-            $witness->save();
+            // $witness->save();
             // save the review
             $review->save();
          
@@ -780,7 +787,7 @@ class editingControll extends Controller
         // get applicant table id to delete that  HAVE property Id same 
         $deleteApplicantId = DB::table('applicants')->where('propertyId',$id)->value('id');
         // get witness table id to delete that  HAVE property Id same 
-        $deleteWitnessId = DB::table('witnesses')->where('propertyId',$id)->value('id');
+        // $deleteWitnessId = DB::table('witnesses')->where('propertyId',$id)->value('id');
         // get review table id to delete that  HAVE property Id same 
         $deleteReviewsId = DB::table('reviews')->where('propertyId',$id)->value('id');
         // get property table id to delete that  HAVE property Id same 
@@ -809,13 +816,13 @@ class editingControll extends Controller
                 return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
             }
         }
-        $witness = witness::find($deleteWitnessId);
-        if($witness){
-            if(!$witness->delete()){
-                // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
-                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
-            }
-        }
+        // $witness = witness::find($deleteWitnessId);
+        // if($witness){
+        //     if(!$witness->delete()){
+        //         // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+        //         return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
+        //     }
+        // }
         $review = review::find($deleteReviewsId);
         if($review){
             if(!$review->delete()){

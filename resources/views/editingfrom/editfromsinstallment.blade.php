@@ -12,9 +12,10 @@
     $applicant = array($applicant);
     $installment = array($installment);
     $review = array($review);
-    $witness = array($witness);
+  
     foreach($property as $pr){
         $PropertyJoint =  $pr->jointProperty;
+        $sellerId = $pr->propertySellerId;
         if($PropertyJoint == 0)
         {
             $PropertyJoint = "No";
@@ -23,6 +24,18 @@
         {
             $PropertyJoint = "Yes";
         }
+    }
+    // seller info
+    foreach($seller as $te){
+        if( $te->id == $sellerId)
+        {
+            $sname =  $te->sallerName; 
+            $sfatherName =  $te->sellerFatherName;
+            $sdesignation = $te->sallerDesignation;
+            $scnicNo = $te->sallerCnicNo;
+        }
+       
+
     }
    
     
@@ -505,30 +518,23 @@
                         
                         <!-- <div class="card-header" style="background:#f44336;color:white;margin:10px;">Witness Form</div> -->
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <div><h3>Witness Information</h3></div>
+                        <div><h3>Seller Information</h3></div>
                         <hr>
-                        @foreach($witness as $te)
+                       
                         <div class="form-group row">    
-                            <div class="col-md-6 col-lg-6 col-sm-12">
-                                    <label for="witnessName">{{ __('Witness Name') }}</label>
-                                    <input id="witnessName" type="text" placeholder="Enter Witess Name " class="form-control{{ $errors->has('witnessName') ? ' is-invalid' : '' }}" name="witnessName" value="{{ $te->witnessName }}" required>
-                                    @if ($errors->has('witnessName'))
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $errors->first('witnessName') }}</strong>
-                                        </span>
-                                    @endif
+                            <div class="col-md-12 col-lg-12 col-sm-12">
+                                    <label for="witnessName">{{ __('Seller Name') }}</label>
+                                    <select class="form-control" name="propertySellerId" id="propertySellerId" >
+                                        <option value="{{$sname}}">{{$sname}}</option>
+                                        @foreach($seller as $te)
+                                               
+                                                <option value="{{$te->id}}">{{$te->sallerName}}</option>
+                                        @endforeach
+                                    </select>
                             </div>
-                            <div class="col-md-6 col-lg-6 col-sm-12">
-                                    <label for="witnessCnicNo">{{ __('Witness CNIC NO') }}</label>
-                                    <input id="witnessCnicNo" type="text" placeholder="Enter Witness CNIC NO " class="form-control{{ $errors->has('witnessCnicNo') ? ' is-invalid' : '' }}" name="witnessCnicNo" value="{{ $te->witnessCnicNo }}" pattern="[0-9]{13}" title=" Please match the CNIC No" required>
-                                    @if ($errors->has('witnessCnicNo'))
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $errors->first('witnessCnicNo') }}</strong>
-                                        </span>
-                                    @endif
-                            </div>
+                           
                         </div>
-                        @endforeach
+                       
                         <!-- <div class="card-header" style="background:#f44336;color:white;margin:10px;">Review Form</div> -->
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <div><h3>Review</h3></div>
