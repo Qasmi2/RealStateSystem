@@ -1,23 +1,15 @@
 @extends('layouts.app')
-@include('flash')
+
 @section('content')
 <div class="container" style="margin-top:60px;">
     <div class="row justify-content-center">
         <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
             <div class="card">
                 <div class="card-header" style="background-color: #f44336;color:white;">Display Properties</div>
-<!-- <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">Property Registion Form Display</div> -->
+
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                   
                  
                     <?php $appSize = sizeof($applicanties);
                           $proSize = sizeof($properties);
@@ -51,11 +43,13 @@
                                     <td>{{$applicanties[$i]['name']}}</td>
                                     <td>{{$applicanties[$i]['cnicNo']}}</td>
                                     <td>{{$payments[$i]['propertyPrice']}}</td>
-                                    <td><a href="{{url('editingform/'.$properties[$i]['id'])}}">Edit</a></td>
-                                    <td><a href="{{url('form1/'.$properties[$i]['id'])}}">Print Form1</a>
-                                    <a href="{{url('form2/'.$properties[$i]['id'])}}">Print Form2</a>
-                                    <a href="{{url('form3/'.$properties[$i]['id'])}}">Print Form3</a>
-                                    <a href="{{url('Receptform/'.$properties[$i]['id'])}}">Recept Form</a>
+                                    <td> <a href="{{url('editingform/'.$properties[$i]['id'])}}">Edit</a></td>
+                                    
+                                    <td>
+                                    <a href="{{url('form1/'.$properties[$i]['id'])}}">Print Form1</a>,
+                                    <a href="{{url('form2/'.$properties[$i]['id'])}}">Print Form2</a>,
+                                    <a href="{{url('form3/'.$properties[$i]['id'])}}">Print Form3</a>,
+                                    <a href="{{url('Receptform/'.$properties[$i]['id'])}}">Recept Form</a>,
                                     <a href="{{url('contractform/'.$properties[$i]['id'])}}">Contract Form</a>
                                     </td>
 

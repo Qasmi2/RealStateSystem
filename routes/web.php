@@ -26,6 +26,9 @@ Route::get('/declarationfom', function () {
     return view('displayrecord.declarationform');
 })->name('declarationfom')->middleware('auth');
 
+// Route::get('/formall', function () {
+//     return view('registrationfrom.registrationform');
+// })->name('formall')->middleware('auth');
 
 
 // get reviw form 
@@ -65,8 +68,11 @@ Route::get('singlerecord/{id}','propertiesformController@show')->name('singlerec
 
 
 // complete form display and edit 
+
+
 Route::get('display/{id}','editingControll@show')->name('display')->middleware('auth');
 Route::get('editingform/{id}','editingControll@edit')->name('editingform')->middleware('auth');
+Route::post('allformdata','editingControll@store')->name('allformdata')->middleware('auth');
 Route::post('updating/{id}','editingControll@update')->name('updating')->middleware('auth');
 Route::get('deleteform/{id}','editingControll@destroy')->name('deleteform')->middleware('auth');
 
@@ -76,6 +82,22 @@ Route::get('form2/{id}','formController@showform2')->name('form2')->middleware('
 Route::get('form3/{id}','formController@showform3')->name('form3')->middleware('auth');
 Route::get('Receptform/{id}','formController@showReceptform')->name('Receptform')->middleware('auth');
 Route::get('contractform/{id}','formController@showcontractform')->name('contractform')->middleware('auth');
+
+// seller 
+
+Route::get('/sellerform', function () {
+    return view('sellerforms.register');
+})->name('sellerform')->middleware('auth');
+
+Route::get('formall','sellerController@index')->name('formall')->middleware('auth');
+
+Route::get('sellerinfos','sellerController@Display')->name('sellerinfos')->middleware('auth');
+Route::post('sellercreate','sellerController@store')->name('sellercreate')->middleware('auth');
+Route::post('sellerupdate/{id}','sellerController@update')->name('sellerupdate')->middleware('auth');
+Route::get('selleredit/{id}','sellerController@edit')->name('selleredit')->middleware('auth');
+Route::get('sellerdelete/{id}','sellerController@destroy')->name('sellerdelete')->middleware('auth');
+
+
 
 
 

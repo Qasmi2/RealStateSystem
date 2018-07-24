@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWitnessesTable extends Migration
+class CreateSellersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateWitnessesTable extends Migration
      */
     public function up()
     {
-        Schema::create('witnesses', function (Blueprint $table) {
+        Schema::create('sellers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('witnessName')->nullable();
-            $table->string('witnessCnicNo')->nullable();
-            $table->integer('propertyId')->unsigned();
-            $table->foreign('propertyId')->references('id')->on('properties');
+            $table->string('sallerName');
+            $table->string('sallerCnicNo');
+            $table->string('sallerFatherName');
+            $table->string('sallerDesignation')->nullable();
+            $table->string('sallerAddress')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateWitnessesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('witnesses');
+        Schema::dropIfExists('sellers');
     }
 }

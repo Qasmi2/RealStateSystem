@@ -31,6 +31,7 @@
 </head>
 <body>
     <div id="app">
+    
         <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-fixed-top" style="background-color:#f44336 !important;position: fixed !important;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
@@ -58,14 +59,27 @@
                             </li>
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('propertyform') }}">{{ __('Reistration Property') }}</a>
+                                <a class="nav-link" href="{{ route('formall') }}">{{ __('Regisration Form') }}</a>
                             </li>
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" href="{{ route('propertyform') }}">{{ __('Reistration Property') }}</a>
+                            </li> -->
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('properties') }}">{{ __('Diplay Properties') }}</a>
                             </li>
-                            <!-- <li class="nav-item">
-                                <a class="nav-link" href="{{ route('declarationfom') }}">{{ __('Declaration Form') }}</a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('sellerform') }}">{{ __('Seller Regisration Form') }}</a>
+                            </li>
+                            <!-- <li class="nav-item dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1
+                                <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Page 1-1</a></li>
+                                    <li><a href="#">Page 1-2</a></li>
+                                    <li><a href="#">Page 1-3</a></li>
+                                </ul>
                             </li> -->
+                            
                             
 
                             <li class="nav-item dropdown">
@@ -101,12 +115,12 @@
                 </div>
                 <div class="info-container">
                     <!-- <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</div> -->
-                    <div class=" name dropdown">
+                    <div class=" name dropdown" >
                                 <a style="color:white;"id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="top:157px !important;">
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style=" position: relative !important; top:157px !important; ">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -135,7 +149,7 @@
                     
                     <li class="nav-item">
                             
-                                <a class="nav-link" href="{{ route('propertyform') }}">
+                                <a class="nav-link" href="{{ route('formall') }}">
                               
                                     <span>{{__('Reistration Property')}}</span>
                                 </a>
@@ -146,12 +160,12 @@
                                     <span>{{ __('Diplay Properties') }}</span>
                                 </a>
                     </li>
-                    <!-- <li class="nav-item">
-                                <a class="nav-link" href="{{ route('declarationfom') }}">
+                    <li class="nav-item">
+                                <a class="nav-link" href="{{ route('sellerform') }}">
                                 
-                                    <span>{{ __('Declaration Form') }}</span>
+                                    <span>{{ __('Seller Registration Form') }}</span>
                                 </a>
-                    </li> -->
+                    </li>
                     
                     <!-- <li >
                         <a href="" >
@@ -175,6 +189,7 @@
         @endauth
 
         <main class="py-4" class="content">
+        
             @yield('content')
         </main>
     </div>

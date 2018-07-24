@@ -1,28 +1,29 @@
 
 @extends('layouts.app')
-@include('flash')
 @section('content')
 <div class="container" style="margin-top:60px;">
     <div class="row justify-content-center">
         <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
-            <!-- <div class="card">
-                <div class="card-header" style="background-color: #f44336;color:white;">Installment From</div> -->
-<!-- <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12"> -->
-            <!-- <div class="card">
-                <div class="card-header">Montviro (PVT) Ltd.<br><small>Booking Application Form (Non-refundable)</small></div>
-
-                <div class="card-body"> -->
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                        <script>
+                                $(document).ready(function() {
+                                $('a[data-confirm]').click(function(ev) {
+                                var href = $(this).attr('href');
+                                if (!$('#dataConfirmModal').length) {
+                                $('body').append('<div id="dataConfirmModal" class="modal fade modal" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true"><div class="modal-dialog "><div class="modal-content"><div class=" modal-header" style="text-align:center;display:flow-root !important;color:white;background-color: red;" ><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h3 id="dataConfirmLabel" >Please Confirm</h3></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button><a class="btn btn-danger" id="dataConfirmOK">Delete</a></div></div></div></div>');
+                                } 
+                                $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
+                                $('#dataConfirmOK').attr('href', href);
+                                $('#dataConfirmModal').modal({show:true});
+                                return false;
+                                    });
+                            });
+                        </script>
+                        <!-- End JavaScript code -->
+                   
                     <?php  $applicant = array($applicant);
                            $property = array($property);
                            $payment = array($payment);
-                           $witness = array($witness);
+                           $seller = array($seller);
                            $review = array($review);
                            $installment = array($installment);
                            $sizeOfInstallmentDates = sizeof($installmentDates);
@@ -30,12 +31,17 @@
                         //    var_dump($sizeOfInstallmentDates);
                         //    exit();
                     ?>
+                     <div>
+                     @foreach($property as $te)
+                        <button style="float:right;color:white;" class="btn btn-lg btn-warning" ><a href="{{url('editingform/'.$te->id)}}">Edit</a></button>
+                        <a href="{{ url('deleteform/'.$te->id) }}" data-confirm="Are you sure you want to delete?" class="btn btn-lg btn-danger ">Delete</a>
+                    </div> 
                     <fieldset class="col-md-12" style="background-color:#fff; margin-top:20px;">    	
                     <legend>Registration Detail</legend>
                         <!-- <div class="col-md-12 col-lg-12 col-sm-12">     -->
                             <div class="form-group row">
                                 <div class="col-md-6">
-                        @foreach($property as $te)
+                        
                                         <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Form Regisration Number') }}    :</label>
                                                
                                         </div>
@@ -265,24 +271,24 @@
                         </div>
                     </fieldset>
                     <fieldset class="col-md-12" style="background-color:#fff; margin-top:20px;">    	
-                    <legend>Witness Infromation</legend>
+                    <legend>Saller Infromation</legend>
                         <!-- <div class="col-md-12 col-lg-12 col-sm-12">     -->
                             <div class="form-group row">
                                 <div class="col-md-6">
-                            @foreach($witness as $te)
-                                        <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Witness Name') }}    :</label>
-                                           <b>{{$te->witnessName}}</b>
+                                    @foreach($seller as $te)
+                                        <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Saller Name') }}    :</label>
+                                           <b>{{$te->sallerName}}</b>
                                         </div>
-                                        <br>
-                                        <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Witness CNIC NO.') }}    :</label>
-                                               <b>{{$te->witnessCnicNo}}</b> 
-                                        </div>
-                                        
                                 </div>
-                                        
+                                <div class="col-md-6">
+                                        <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Saller CNIC NO.') }}    :</label>
+                                               <b>{{$te->sallerFatherName}}</b> 
+                                        </div>
+                                    @endforeach    
+                                </div>        
                             </div>
                                     
-                        @endforeach
+                        
                     </fieldset>
                     <fieldset class="col-md-12" style="background-color:#fff; margin-top:20px;">    	
                     <legend>Review</legend>

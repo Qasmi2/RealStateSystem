@@ -52,10 +52,16 @@ class formController extends Controller
      */
     public function show($id)
     {
+        try{
         $property  = DB::table('properties')->where('id',$id)->first();
         $payment = DB::table('payments')->where('propertyId',$id)->first();
         $applicant = DB::table('applicants')->where('propertyId',$id)->first();
         return view('displayrecord.registrationform',compact('property','payment','applicant'));
+
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('error',' show registerion form 1  section something wrong .');
+        }
     }
     /**
      * Display the specified resource.
@@ -65,6 +71,7 @@ class formController extends Controller
      */
     public function showform2($id)
     {
+        try{
         $property  = DB::table('properties')->where('id',$id)->first();
         $payment = DB::table('payments')->where('propertyId',$id)->first();
         $applicant = DB::table('applicants')->where('propertyId',$id)->first();
@@ -82,7 +89,10 @@ class formController extends Controller
             
             return view('displayrecord.declarationform21',compact('property','applicant','payment','installment')); 
         }
-   
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('error',' show Form 2 section  something wrong .');
+        }   
     }
     /**
      * Display the specified resource.
@@ -92,12 +102,15 @@ class formController extends Controller
      */
     public function showform3($id)
     {
-      
+      try{
         $applicant = DB::table('applicants')->where('propertyId',$id)->first();
         $payment = DB::table('payments')->where('propertyId',$id)->first();
 
         return view('displayrecord.declarationform3',compact('applicant','payment')); 
-   
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('error',' from 3 section input something wrong .');
+        }
     }
       /**
      * Display the specified resource.
@@ -108,6 +121,7 @@ class formController extends Controller
 
     public function showReceptform($id)
     {
+        try{
         $property = DB::table('properties')->where('id',$id)->first();
         $installments = DB::table('installments')->where('propertyId',$id)->first();
         $payment = DB::table('payments')->where('propertyId',$id)->first();
@@ -126,11 +140,16 @@ class formController extends Controller
             return view('displayrecord.receiptinstallment',compact('property','payment','installments','witness')); 
             // return view('displayrecord/singlerecordinstallment',compact('property','applicant','payment','witness','review','installment')); 
         }
-        
+
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('error',' Recept From section  something wrong .');
+        }
    
     }
     public function showcontractform($id)
     {
+        try{
         $property = DB::table('properties')->where('id',$id)->first();
         $installments = DB::table('installments')->where('propertyId',$id)->first();
         $payment = DB::table('payments')->where('propertyId',$id)->first();
@@ -152,6 +171,10 @@ class formController extends Controller
             // return view('displayrecord/singlerecordinstallment',compact('property','applicant','payment','witness','review','installment')); 
         }
         
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('error',' contract from  section something wrong .');
+        }
    
     }
     

@@ -18,10 +18,11 @@ class CreatePropertiesTable extends Migration
             $table->string('propertyType');
             $table->string('registrationStatus');
             $table->string('propertySection');
-            $table->string('propertyAddress')->nullable();
-            $table->string('propertyLocation')->nullable();
+            $table->integer('propertyAddress')->nullable();
+            $table->integer('propertyLocation')->nullable();
             $table->string('propertySize');
             $table->string('tokenNo');
+            $table->integer('propertySellerId');
             $table->tinyInteger('jointProperty')->default(0)->nullable();
             $table->integer('noOfJointApplicant')->unsigned()->nullable();
             $table->timestamps();

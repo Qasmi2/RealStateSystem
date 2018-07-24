@@ -164,7 +164,7 @@
         @foreach($applicant as $te)
         <div style="width:800px; margin:10px auto; font-size:20px; line-height:40px; display:table;">
             <center><strong style="font-size:18px;">DECLARATION</strong></center>
-            <div style="width:800px; margin:-35px 20px 20px 20px;">
+            <div style="width:800px; margin:20px 20px 20px 20px;">
                 <div style="margin-top:100px; margin-right:20px;">
                 I/ We, Mr. /Mrs. /Ms. /M/s.   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong> {{$te->name}}</strong>
                 </div>
@@ -177,14 +177,14 @@
                     do hereby, confirm that I have fully read/understood the above terms and conditions and do hereby agree to abide the same. I further declare that I shall abide by the existing rules, regulations terms and conditions, requirement etc. laid down by the company and, furthermore, any condition of common interest should be promulgated by the company must be accomplished.
                 </div>               
 
-                <div style="margin-top:60px; margin-right:160px;">
+                <div style="margin-top:100px; margin-right:160px;">
                     <strong>Authorized Signature: </strong> &nbsp; <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
                 </div>
                 <div style="margin-top:5px; margin-right:160px;">
                     <strong>Booking Date: </strong> &nbsp; {{$bookingData}}
                 </div>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <div style="margin-top:70px;margin-left:170px;   border-top:solid 1px #000; width:400px; text-align:center;">
+                <div style="margin-top:100px;margin-left:170px;   border-top:solid 1px #000; width:400px; text-align:center;">
                     Siganture of Applicant
                 </div>
             </div>
@@ -192,6 +192,6 @@
     </div>
     @endforeach
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <img src="..\..\public\images\footer.jpg" class="footerprop" />
+    <img src="..\..\public\images\footer.jpg" class="footerprop" style="margin-top:130px;"/>
 </body>
 </html>

@@ -1,23 +1,15 @@
 @extends('layouts.app')
-@include('flash')
 @section('content')
 <div class="container" style="margin-top:60px;">
     <div class="row justify-content-center">
         <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
-            <!-- <div class="card">
-                <div class="card-header" style="background-color: #f44336;color:white;">Installment From</div> -->
-<!-- <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12"> -->
-            <!-- <div class="card">
-                <div class="card-header">Montviro (PVT) Ltd.<br><small>Booking Application Form (Non-refundable)</small></div> -->
-                        <!-- javaScript delete confirmation -->
+        @include('flash-message')
                         <script>
                                 $(document).ready(function() {
                                 $('a[data-confirm]').click(function(ev) {
                                 var href = $(this).attr('href');
                                 if (!$('#dataConfirmModal').length) {
-                                $('body').append('<div id="dataConfirmModal" class="modal fade modal" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true"><div class="modal-dialog "><div class="modal-content"><div class=" modal-header" ><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><br><h3 id="dataConfirmLabel" >Please Confirm</h3></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button><a class="btn btn-danger" id="dataConfirmOK">Delete</a></div></div></div></div>');
+                                $('body').append('<div id="dataConfirmModal" class="modal fade modal" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true"><div class="modal-dialog "><div class="modal-content"><div class=" modal-header" style="text-align:center;display:flow-root !important;color:white;background-color: red;" ><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h3 id="dataConfirmLabel" >Please Confirm</h3></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button><a class="btn btn-danger" id="dataConfirmOK">Delete</a></div></div></div></div>');
                                 } 
                                 $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
                                 $('#dataConfirmOK').attr('href', href);
@@ -28,22 +20,36 @@
                         </script>
                         <!-- End JavaScript code -->
                 <!-- <div class="card-body"> -->
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                   
                     <?php  $applicant = array($applicant);
                            
                            $property = array($property);
                            foreach($property as $key){
                             $Idkey = $key->id;
+                            $sellerId = $key->propertySellerId;
                             }
+                          
                            $payment = array($payment);
-                           $witness = array($witness);
+                            // $seller = array($seller);
                            $review = array($review);
+                           foreach($seller as $te){
+                               if( $te->id == $sellerId)
+                               {
+                                   $sname =  $te->sallerName; 
+                                   $sfatherName =  $te->sallerFatherName;
+                                   $sdesignation = $te->sallerDesignation;
+                                   $scnicNo = $te->sallerCnicNo;
+                                   
+                               }
+                              
+
+                           }
+                          
+                            
+                           
                           
                     ?>
+                    
                      <div>
                         <button class="btn btn-lg btn-default" onclick="window.history.go(-1)">Back</button>
                         <button style="float:right;color:white;" class="btn btn-lg btn-warning" ><a href="{{url('editingform/'.$Idkey)}}">Edit</a></button>
@@ -72,11 +78,11 @@
                                 <div class="col-md-6">   
                                        
                                        
-                                        <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Property Address') }}    :</label>
+                                        <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Property Address (Floor NO.)') }}    :</label>
                                                <b>{{$te->propertyAddress}}</b>
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Property Location') }}    :</label>
+                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Property Location (ROOM NO. / SHOP NO.') }}    :</label>
                                             <b> {{$te->propertyLocation}}</b>
                                         </div>
                                         <br>
@@ -240,24 +246,25 @@
                         @endforeach
                     </fieldset>
                     <fieldset class="col-md-12" style="background-color:#fff; margin-top:20px;">    	
-                    <legend>Witness Infromation</legend>
+                    <legend>Seller  Infromation</legend>
                         <!-- <div class="col-md-12 col-lg-12 col-sm-12">     -->
                             <div class="form-group row">
                                 <div class="col-md-6">
-                            @foreach($witness as $te)
-                                        <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Witness Name') }}    :</label>
-                                           <b>{{$te->witnessName}}</b>
+                           
+                                        <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Seller Name') }}    :</label>
+                                           <b>{{$sname}}</b>
                                         </div>
-                                        <br>
-                                        <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Witness CNIC NO.') }}    :</label>
-                                               <b>{{$te->witnessCnicNo}}</b> 
+                                </div>
+                                <div class="col-md-6">
+                                        <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Seller CNIC NO ') }}    :</label>
+                                               <b>{{$sfatherName}}</b> 
                                         </div>
                                         
                                 </div>
                                         
                             </div>
                                     
-                        @endforeach
+                       
                     </fieldset>
                     <fieldset class="col-md-12" style="background-color:#fff; margin-top:20px;">    	
                     <legend>Review</legend>

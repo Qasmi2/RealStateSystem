@@ -18,11 +18,11 @@ class CreateApplicantsTable extends Migration
             $table->string('name');
             $table->string('fatherName');
             $table->string('cnicNo');
-            $table->string('passportNo');
+            $table->string('passportNo')->nullable();
             $table->string('mailingAddress');
             $table->string('permanentAddress');
-            $table->string('email');
-            $table->string('phoneNO');
+            $table->string('email')->nullable();
+            $table->string('phoneNO')->nullable();
             $table->string('mobileNo1');
             $table->string('mobileNo2')->nullable();
             $table->string('cover_image')->nullable();
