@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+Use Redirect;
 use App\seller;
 use App\installment;
 use App\payment;
@@ -83,7 +84,8 @@ class sellerController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);            
+            return Redirect::back()->withErrors($validator); 
+            // return response()->json(['error'=>$validator->errors()], 401);            
         }  
         try{
             $seller = new seller;
@@ -171,7 +173,8 @@ class sellerController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);            
+            return Redirect::back()->withErrors($validator); 
+            //return response()->json(['error'=>$validator->errors()], 401);            
         }  
         try{
 

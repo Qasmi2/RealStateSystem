@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+Use Redirect;
 use App\installment;
 use App\payment;
 use App\property;
@@ -97,7 +98,8 @@ class editingControll extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);            
+            // return response()->json(['error'=>$validator->errors()], 401);   
+            return Redirect::back()->withErrors($validator);         
         }   
 
         // function to Generate the random number
@@ -273,7 +275,8 @@ class editingControll extends Controller
                     'downpayment' => 'required',
                 ]);
                 if ($validator->fails()) {
-                    return response()->json(['error'=>$validator->errors()], 401);            
+                    return Redirect::back()->withErrors($validator); 
+                    //return response()->json(['error'=>$validator->errors()], 401);            
                 }
 
                 // property Id , down payment , No of installment require for calculation so get all the variables 
@@ -569,7 +572,8 @@ class editingControll extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);            
+            return Redirect::back()->withErrors($validator); 
+            //return response()->json(['error'=>$validator->errors()], 401);            
         }   
 
         
@@ -712,7 +716,8 @@ class editingControll extends Controller
                     
                 ]);
                 if ($validator->fails()) {
-                    return response()->json(['error'=>$validator->errors()], 401);            
+                    return Redirect::back()->withErrors($validator);      
+                    // return response()->json(['error'=>$validator->errors()], 401);            
                 }
 
                 // property Id , down payment , No of installment require for calculation so get all the variables 
