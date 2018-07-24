@@ -1,43 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-@if (session('status'))
-    <div class="alert alert-success">
-        {{ session('status') }}
-    </div>
-@endif
+
 <?php 
   $numberOfSellers = sizeof($seller);
-// echo "size of seller peoper si ",sizeof($seller);
-// exit();
-// foreach($seller as $te){
-//     echo $te->id;
-//     exit();
-// }
-// var_dump($sellerInfo);
-// exit();
-    // $seller = array($seller);
-    // var_dump(json_encode($seller));
-    // exit();
-    // foreach($seller as $te){
-    //     echo $te->id; echo "<br>";
-    //     echo $te->sellerName; echo "<br>";
-    // }
-//     $numberOfSellers = sizeof($seller);
-//    exit();
+
 ?>
 <div class="container" style="margin-top:60px;">
     <div class="row justify-content-center">
         <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
+        @include('flash-message')
             <div class="card">
                 <div class="card-header" style="background-color: #f44336;color:white;"> Registion Form </div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                   
                     <div><h3>Property Information</h3></div>
                     <hr>
                     &nbsp;&nbsp;

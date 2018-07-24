@@ -313,14 +313,40 @@ class editingControll extends Controller
                 $installment->amountOfOneInstallment = $amountOfOneInstallment; 
                 $installment->installmentDates = json_encode($installmentDates);
                 // save the installment info
-                if(!$installment->save()){
-                    return redirect()->back()->with('error','installment record is not save, Something wrong .');
-                } 
+                if($installment->save()){
 
+                    $property = DB::table('properties')->where('id',$propertyId)->first();
+                    $applicant = DB::table('applicants')->where('propertyId',$propertyId)->first();
+                    $payment = DB::table('payments')->where('propertyId',$propertyId)->first();
+                    $installment = DB::table('installments')->where('propertyId',$propertyId)->first();
+                    $review = DB::table('reviews')->where('propertyId',$propertyId)->first();
+                    // get seller Id from property table 
+                    $sellerId = DB::table('properties')->where('id',$propertyId)->value('propertySellerId');
+                    $seller = DB::table('sellers')->where('id',$sellerId)->first();
+                
+                    return view('registrationfrom/submitforminstallment ',compact('property','applicant','payment','installment','installmentDates','review','seller')); 
+                    
+                } 
+                else{
+                    return redirect()->back()->with('error','installment record is not save, Something wrong .');
+                }
+
+        }
+        else{
+
+                $property = DB::table('properties')->where('id',$propertyId)->first();
+                $applicant = DB::table('applicants')->where('propertyId',$propertyId)->first();
+                $payment = DB::table('payments')->where('propertyId',$propertyId)->first();
+                $review = DB::table('reviews')->where('propertyId',$propertyId)->first();
+                 // get seller Id from property table 
+                 $sellerId = DB::table('properties')->where('id',$propertyId)->value('propertySellerId');
+                 $seller = DB::table('sellers')->where('id',$sellerId)->first();
+                
+                return view('registrationfrom/submitform',compact('property','applicant','payment','review','seller'));   
         }
    
         // save all the property info and return successuflly message;
-        return redirect()->back()->with('success','Record successfully Added.');   
+        // return redirect()->back()->with('success','Record successfully Added.');   
     }
     catch(Exception $e){
         return redirect()->back()->with('error',' insert input ,installment calculation , something wrong .');
@@ -328,7 +354,6 @@ class editingControll extends Controller
 
 }
 
-   
     /**
      * Remove the specified resource from storage.
      *
@@ -805,14 +830,14 @@ class editingControll extends Controller
         if($payment){
             // if apyment is not delete then error massage will be shown 
             if(!$payment->delete()){
-                // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+                //return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
                 return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
             }
         }
         $applicant = applicant::find($deleteApplicantId);
         if($applicant){
             if(!$applicant->delete()){
-                // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+                 //return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
                 return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
             }
         }
@@ -826,8 +851,8 @@ class editingControll extends Controller
         $review = review::find($deleteReviewsId);
         if($review){
             if(!$review->delete()){
-                // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
-                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
+                //return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+                 return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
             }
         }
         $property = property::find($deletepropertyId);
@@ -835,17 +860,20 @@ class editingControll extends Controller
         if($property){
            
             if(!$property->delete()){
-
-                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
+                
+                //return redirect()->back()->with('error','NOT Removed, Id is wrong  !!!');
+                 return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
             }
             else{
-                return view('displayrecord.deleterecordMessage')->with('status', 'Delted Record  !!!');  
+                //return redirect()->back()->with('success','Delted Record  !!!');
+                 return view('displayrecord.deleterecordMessage')->with('status', 'Delted Record  !!!');  
                
             }
 
         }
         else{
 
+            //return redirect()->back()->with('error','Record NOT Found or Something Wrong !!!');
             return view('displayrecord.deleterecordMessage')->with('error', 'Record NOT Found or Something Wrong !!!');  
         }
         }

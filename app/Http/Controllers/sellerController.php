@@ -184,6 +184,7 @@ class sellerController extends Controller
 
             if($seller->save()){
                 return redirect()->back()->with('success','Successfully Added Seller info!');
+                
             }
             else{
                 return redirect()->back()->with('error',' Seller info is not inserted , Something wrong.');

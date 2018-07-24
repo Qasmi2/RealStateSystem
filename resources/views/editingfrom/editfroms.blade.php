@@ -1,11 +1,6 @@
 @extends('layouts.app')
-@include('flash')
 @section('content')
-@if (session('status'))
-<div class="alert alert-success">
-{{ session('status') }}
-</div>
-@endif
+
 <?php 
     $property = array($property);
     $payment = array($payment);
@@ -28,34 +23,29 @@
     foreach($seller as $te){
         if( $te->id == $sellerId)
         {
+            $id =  $te->id;
             $sname =  $te->sallerName; 
             $sfatherName =  $te->sellerFatherName;
             $sdesignation = $te->sallerDesignation;
             $scnicNo = $te->sallerCnicNo;
         }
        
-
     }
    
 ?>
 <div class="container" style="margin-top:60px;">
     <div class="row justify-content-center">
         <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
+        @include('flash-message')
             <div class="card">
                 <div class="card-header" style="background-color: #f44336;color:white;"> Registion Form Updating</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                   
                     <div><h3>Property Information</h3></div>
                     <hr>
                     &nbsp;&nbsp;
                     &nbsp;
-                    @foreach($property as $te)
+                @foreach($property as $te)
                 <form method="POST"  action="{{ url('updating/'.$te->id)}}" enctype="multipart/form-data" value="PATCH">
                         {{ csrf_field() }}
                         <div class="form-group row">
@@ -506,7 +496,7 @@
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                     <label for="witnessName">{{ __('Saller Name') }}</label>
                                     <select class="form-control" name="propertySellerId" id="propertySellerId" >
-                                        <option value="{{$sname}}">{{$sname}}</option>
+                                        <option value="{{$id}}">{{$sname}}</option>
                                         @foreach($seller as $te)
                                                
                                                 <option value="{{$te->id}}">{{$te->sallerName}}</option>

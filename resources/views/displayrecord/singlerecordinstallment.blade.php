@@ -1,18 +1,10 @@
 
 @extends('layouts.app')
-@include('flash')
 @section('content')
 <div class="container" style="margin-top:60px;">
     <div class="row justify-content-center">
         <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
-            <!-- <div class="card">
-                <div class="card-header" style="background-color: #f44336;color:white;">Installment From</div> -->
-<!-- <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12"> -->
-            <!-- <div class="card">
-                <div class="card-header">Montviro (PVT) Ltd.<br><small>Booking Application Form (Non-refundable)</small></div> -->
-                 <!-- javaScript delete confirmation -->
+        @include('flash-message')
                     <script>
                             $(document).ready(function() {
                             $('a[data-confirm]').click(function(ev) {
@@ -29,11 +21,7 @@
                     </script>
                         <!-- End JavaScript code -->
                 <div class="card-body"> 
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                   
                     <?php  $applicant = array($applicant);
                            
                            $property = array($property);
@@ -55,7 +43,7 @@
                             if( $te->id == $sellerId)
                             {
                                 $sname =  $te->sallerName; 
-                                $sfatherName =  $te->sellerFatherName;
+                                $sfatherName =  $te->sallerFatherName;
                                 $sdesignation = $te->sallerDesignation;
                                 $scnicNo = $te->sallerCnicNo;
                             }
@@ -301,7 +289,7 @@
                                 
                                   @for($i= 0; $i < $sizeofDates; $i++)
                                     <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Installmens DATE ') }}    :</label>
-                                        <b>NO.</b>{{$i}}<b> :{{$test[$i]}}</b>
+                                        <b> {{$test[$i]}}</b>
                                         
                                     </div>
                                    @endfor
@@ -318,9 +306,10 @@
                                         <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Seller Name') }}    :</label>
                                            <b>{{$sname}}</b>
                                         </div>
-                                        <br>
+                                </div>
+                                <div class="col-md-6">
                                         <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Seller Father Name') }}    :</label>
-                                               <b>{{$scnicNo}}</b> 
+                                               <b>{{$sfatherName}}</b> 
                                         </div>
                                         
                                 </div>

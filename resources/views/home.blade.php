@@ -18,6 +18,7 @@
                     <br>
                     <button class="btn btn-info btn-lg" style="background-color: #f44336 !important;"><a  style="color:white !important;" href="{{ route('formall') }}">Registration Property </a></button>
                     <button class="btn btn-info btn-lg" style="background-color: #f44336 !important;"><a  style="color:white !important;" href="{{ route('properties') }}">Display Properties </a></button>
+                    <button class="btn btn-info btn-lg" style="background-color: #f44336 !important;"><a  style="color:white !important;" href="{{ route('sellerform') }}">Seller Registration </a></button>
                 </div>
             </div>
         </div>

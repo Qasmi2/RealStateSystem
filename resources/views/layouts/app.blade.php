@@ -31,6 +31,7 @@
 </head>
 <body>
     <div id="app">
+    
         <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-fixed-top" style="background-color:#f44336 !important;position: fixed !important;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
@@ -114,12 +115,12 @@
                 </div>
                 <div class="info-container">
                     <!-- <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</div> -->
-                    <div class=" name dropdown">
+                    <div class=" name dropdown" >
                                 <a style="color:white;"id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="top:157px !important;">
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style=" position: relative !important; top:157px !important; ">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -188,6 +189,7 @@
         @endauth
 
         <main class="py-4" class="content">
+        
             @yield('content')
         </main>
     </div>

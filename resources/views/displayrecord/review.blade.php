@@ -8,11 +8,7 @@
                 <div class="card-header">Review Form</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                  
                     <form method="POST"  action="{{route('review')}}" enctype="multipart/form-data" value="PATCH">
                         {{ csrf_field() }}
                         <div class="form-group row">
