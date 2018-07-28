@@ -27,4 +27,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // // Route for payment table
 // Route::post('insertpayment','paymentcontroller@store');
 
+// Route::post('estimatedTime' ,'driverController@store');
+
 

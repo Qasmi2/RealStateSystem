@@ -10,6 +10,7 @@ use App\property;
 use App\witness;
 use App\review;
 use App\applicant;
+use App\token;
 use Validator;
 use App\seller;
 use App\Http\Controllers\DataTime;
@@ -268,7 +269,7 @@ class editingControll extends Controller
         } 
         // payment procedure installment headling  
         if($paymentProcedure == "Installment"){
-                
+              
                  // validation
                 $validator = Validator::make($request->all(), [
                     'noOfInstallments' => 'required',
@@ -335,8 +336,8 @@ class editingControll extends Controller
                 }
 
         }
-        else{
-
+        elseif($paymentProcedure == "Total Amount"){
+          
                 $property = DB::table('properties')->where('id',$propertyId)->first();
                 $applicant = DB::table('applicants')->where('propertyId',$propertyId)->first();
                 $payment = DB::table('payments')->where('propertyId',$propertyId)->first();
@@ -346,6 +347,43 @@ class editingControll extends Controller
                  $seller = DB::table('sellers')->where('id',$sellerId)->first();
                 
                 return view('registrationfrom/submitform',compact('property','applicant','payment','review','seller'));   
+        }
+        elseif($paymentProcedure == "Token"){
+           
+            // validation
+            $validator = Validator::make($request->all(), [
+                'tokenPayment' => 'required',
+                'remaningPaymentDate' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return Redirect::back()->withErrors($validator); 
+                //return response()->json(['error'=>$validator->errors()], 401);            
+            }
+            // initilization token table object
+            $token = new token;
+            $token->tokenPayment = $request->input('tokenPayment');
+            $token->remaningPaymentDate = $request->input('remaningPaymentDate');
+            $token->propertyId = $propertyId;
+            if($token->save()){
+
+                $property = DB::table('properties')->where('id',$propertyId)->first();
+                $applicant = DB::table('applicants')->where('propertyId',$propertyId)->first();
+                $payment = DB::table('payments')->where('propertyId',$propertyId)->first();
+                $review = DB::table('reviews')->where('propertyId',$propertyId)->first();
+                $token = DB::table('tokens')->where('propertyId',$propertyId)->first();
+                 // get seller Id from property table 
+                 $sellerId = DB::table('properties')->where('id',$propertyId)->value('propertySellerId');
+                 $seller = DB::table('sellers')->where('id',$sellerId)->first();
+                
+                return view('registrationfrom/submitformtoken',compact('property','applicant','payment','review','seller','token'));
+            }
+            else{
+                return redirect()->back()->with('error','token record is not save, Something wrong .');
+            }
+
+        }
+        else{
+            return redirect()->back()->with('error','Section Payment Procedure  input something wrong .');
         }
    
         // save all the property info and return successuflly message;
@@ -357,86 +395,6 @@ class editingControll extends Controller
 
 }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function destroy($id)
-    // { 
-        
-    //     $installmentrow = DB::table('installments')->where('propertyId',$id)->first();
-    //     // get installment table id to delete that have property Id same 
-    //     // $deleteInstallmentId = DB::table('installments')->where('propertyId',$id)->value('id');
-    //     // get payment table id to delete that  HAVE property Id same 
-    //     $deletePaymentId = DB::table('payments')->where('propertyId',$id)->value('id');
-    //     // get applicant table id to delete that  HAVE property Id same 
-    //     $deleteApplicantId = DB::table('applicants')->where('propertyId',$id)->value('id');
-    //     // get witness table id to delete that  HAVE property Id same 
-    //     $deleteWitnessId = DB::table('witnesses')->where('propertyId',$id)->value('id');
-    //     // get review table id to delete that  HAVE property Id same 
-    //     $deleteReviewsId = DB::table('reviews')->where('propertyId',$id)->value('id');
-    //     // get property table id to delete that  HAVE property Id same 
-    //     $deletepropertyId = DB::table('properties')->where('id',$id)->value('id');
-       
-       
-    //     // check that installment is exist or not 
-    //     if($installmentrow){
-                    
-    //         $deleteInstallmentId = DB::table('installments')->where('propertyId',$id)->value('id');
-    //         $deleteInstallmentRow = installment::find($deleteInstallmentId);
-    //         $deleteInstallmentRow->delete();
-    //     }
-    //     $payment = payment::find($deletePaymentId);
-    //     if($payment){
-    //         // if apyment is not delete then error massage will be shown 
-    //         if(!$payment->delete()){
-    //             // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
-    //             return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
-    //         }
-    //     }
-    //     $applicant = applicant::find($deleteApplicantId);
-    //     if($applicant){
-    //         if(!$applicant->delete()){
-    //             // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
-    //             return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
-    //         }
-    //     }
-    //     $witness = witness::find($deleteWitnessId);
-    //     if($witness){
-    //         if(!$witness->delete()){
-    //             // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
-    //             return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
-    //         }
-    //     }
-    //     $review = review::find($deleteReviewsId);
-    //     if($review){
-    //         if(!$review->delete()){
-    //             // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
-    //             return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
-    //         }
-    //     }
-    //     $property = property::find($deletepropertyId);
-       
-    //     if($property){
-           
-    //         if(!$property->delete()){
-
-    //             return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
-    //         }
-    //         else{
-    //             return view('displayrecord.deleterecordMessage')->with('status', 'Delted Record  !!!');  
-               
-    //         }
-
-    //     }
-    //     else{
-
-    //         return view('displayrecord.deleterecordMessage')->with('error', 'Record NOT Found or Something Wrong !!!');  
-    //     }
-
-    // }
 
     /**
      * Display the specified resource.
@@ -454,18 +412,24 @@ class editingControll extends Controller
         $applicant = DB::table('applicants')->where('propertyId',$id)->first();
         $installment = DB::table('installments')->where('propertyId',$id)->first();
         $review = DB::table('reviews')->where('propertyId',$id)->first();
+        $token = DB::table('tokens')->where('propertyId',$id)->first();
         // $witness = DB::table('witnesses')->where('propertyId',$id)->first();
         $seller = seller::orderBy('created_at','desc')->get();
 
-         $isEmpty = json_encode($installment);
-        
-        if($isEmpty == "null")
+        $isEmptyinstallment = json_encode($installment);
+        $isEmptytoken = json_encode($token);
+       
+        if($isEmptytoken == "null" && $isEmptyinstallment == "null")
         { 
-            
+            // total payment
             return view('displayrecord/singlerecord',compact('property','applicant','payment','review','seller'));    
         }
+        elseif($isEmptytoken != "null" && $isEmptyinstallment == "null"){
+            // token
+            return view('displayrecord/singlerecordtoken',compact('property','applicant','payment','review','token','seller')); 
+        }
         else{
-            
+            // installment
             return view('displayrecord/singlerecordinstallment',compact('property','applicant','payment','review','installment','seller')); 
         }
     }
@@ -490,20 +454,34 @@ class editingControll extends Controller
         $applicant = DB::table('applicants')->where('propertyId',$id)->first();
         $installment = DB::table('installments')->where('propertyId',$id)->first();
         $review = DB::table('reviews')->where('propertyId',$id)->first();
+        $token = DB::table('tokens')->where('propertyId',$id)->first();
         // $witness = DB::table('witnesses')->where('propertyId',$id)->first();
         $seller = seller::orderBy('created_at','desc')->get();
 
-         $isEmpty = json_encode($installment);
-        
-        if($isEmpty == "null")
+         $isEmptyinstallment = json_encode($installment);
+         $isEmptytoken = json_encode($token);
+        if($isEmptytoken == "null" && $isEmptyinstallment == "null")
         { 
-            
+            // total payment
             return view('editingfrom/editfroms',compact('property','applicant','payment','review','seller'));    
         }
+        elseif($isEmptytoken != "null" && $isEmptyinstallment == "null"){
+            // token
+            return view('editingfrom/editfromstoken',compact('property','applicant','payment','review','token','seller')); 
+        }
         else{
-            
+            // installment
             return view('editingfrom/editfromsinstallment',compact('property','applicant','payment','review','installment','seller')); 
         }
+        // if($isEmpty == "null")
+        // { 
+            
+        //     return view('editingfrom/editfroms',compact('property','applicant','payment','review','seller'));    
+        // }
+        // else{
+            
+        //     return view('editingfrom/editfromsinstallment',compact('property','applicant','payment','review','installment','seller')); 
+        // }
     }
     catch(Exception $e){
         return redirect()->back()->with('error',' Editing record section , something wrong .');

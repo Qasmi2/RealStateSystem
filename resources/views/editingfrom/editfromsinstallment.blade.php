@@ -468,7 +468,7 @@
                                 <!-- <input id="propertyPaymentProcedure" type="text" placeholder="Enter Total Amount " class="form-control{{ $errors->has('propertyPaymentProcedure') ? ' is-invalid' : '' }}" name="propertyPaymentProcedure" value="{{ $te->propertyPaymentProcedure }}" required> -->
                                 <select class="form-control" name="propertyPaymentProcedure" id="propertyPaymentProcedure" onchange="paymentProcedure(this);" >
                                     <option value="{{ $te->propertyPaymentProcedure }}">{{ $te->propertyPaymentProcedure }}</option>
-                                    <option value="Installment">Installment</option>
+                                    <option value="Token">Token</option>
                                     <option value="Total Amount">Total Amount</option>
                                     
                                 </select>
@@ -480,10 +480,11 @@
                             </div>
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <div><h3>Installment Info</h3></div>
-                            <hr>
+                       
                         @foreach($installment as $te)
-                            <div id="addinstallment">
+                            <div id="addinstallment" style="display:inline;">
+                            <div><h3>Installment Info</h3></div>
+                            <hr>
                             <div class="form-group row">
                                 <div class="col-md-6 col-lg-6 col-sm-12">
                                     <label for="noOfInstallments">{{ __('Number of Installments') }}</label>
@@ -507,6 +508,13 @@
                             </div>
                         </div>
                         @endforeach
+            
+                        &nbsp;&nbsp;
+                        <div id="addtoken1" style="display:inline;">
+                            
+                            
+                        </div>
+
                         
                         <!-- <div class="card-header" style="background:#f44336;color:white;margin:10px;">Witness Form</div> -->
                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -547,9 +555,6 @@
                         @endforeach
                        
                     
-                   
-                       
-                        
                         <div class="col-md-12 col-lg-12 col-sm-12" style="margin-top:30px;">
                             <div class="form-group row mb-0">
                                 <div class="col-md-12 ">
@@ -573,46 +578,35 @@ function paymentProcedure(val){
 
     
 var paymentProcedure = val.value;
-var parent = document.getElementById('addinstallment');
-if( paymentProcedure == "Total Amount"){
+var parent1 = document.getElementById('addtoken1');
 
-    document.getElementById("noOfInstallments").value ="";
-    document.getElementById("downpayment").value ="";
-
-    document.getElementById("noOfInstallments").type ="hidden";
-    document.getElementById("downpayment").type ="hidden";
+if( paymentProcedure == "Token"){
     
-   
-}
-if( paymentProcedure == "Installment"){
-
-  var added = 
-                            '<div class="col-md-12 col-lg-12 col-sm-12">'+
-                                '<label for="noOfInstallments" >No Of installment</label>'+
-                              
-                                  '<select class="form-control" name="noOfInstallments" id="noOfInstallments" >'+
-                                    '<option value="">Select No of Installments</option>'+
-                                    '<option value="1">1</option>'+
-                                    '<option value="2">2</option>'+
-                                    '<option value="3">3</option>'+
-                                    '<option value="4">4</option>'+
-                                    '<option value="5">5</option>'+
-                                    '<option value="6">6</option>'+
-                                    '<option value="7">7</option>'+
-                                    '<option value="8">8</option>'+
-                                    '<option value="9">9</option>'+
-                                    '<option value="10">10</option>'+
-                                    
-                                '</select>'+
+    document.getElementById("addinstallment").style.display ="none";
+    var added1 = '<div><h3>Token Information</h3></div>'+
+                        '<div class="form-group row">'+
+                            '<div class="col-md-6 col-lg-6 col-sm-12">'+
+                                '<label for="tokenPayment" >Token Payment </label>'+
+                                '<input id="tokenPayment" type="number" min="0" placeholder="Enter token Payment" class="form-control" name="tokenPayment" value="" >'+
+                                 
                               
                             '</div>'+       
-                            '<div class="col-md-12 col-lg-12 col-sm-12">'+
-                                '<label for="downpayment">Down Payment</label>'+
-                                '<input id="downpayment" type="number" min="0" placeholder="Enter down payment" class="form-control" name="downpayment" value="" >'+
+                            '<div class="col-md-6 col-lg-6 col-sm-12">'+
+                                '<label for="remaningPaymentDate">Down Payment</label>'+
+                                '<input id="remaningPaymentDate" type="number" min="0" placeholder="Enter Reaming Payment Date" class="form-control" name="remaningPaymentDate" value="" >'+
                                
-                            '</div>';                
+                            '</div>'+
+                        '</div>'+
+                    '</div>';         
                         
-        parent.insertAdjacentHTML('beforeend', added);
+        parent1.insertAdjacentHTML('beforeend', added1);
+        document.getElementById("addtoken").style.display ="inline";
+}
+if( paymentProcedure == "Total Amount"){
+
+document.getElementById("addtoken1").style.display ="none";
+document.getElementById("addinstallment").style.display ="none";
+
 }
 
 
