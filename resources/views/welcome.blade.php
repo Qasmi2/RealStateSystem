@@ -52,7 +52,7 @@ body, html {
 
                             <div class="card-body">
             <!-- -->
-                 <div class="text-center" style="color:#007bff;">
+                 <div class="text-center" style="color:#a6468c">
                     <h1>Montrivo Booking Portal </h1>
                 </div>
 

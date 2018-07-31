@@ -38,30 +38,30 @@
                             <div class="form-group row">
                                 <div class="col-md-6">
                        
-                                        <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Form Regisration Number') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Form Regisration Number') }}    :</label>
                                                
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Registered Project') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Registered Project') }}    :</label>
                                                <b>{{$te->propertyType}}</b> 
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Registion Status') }}   :</label>
+                                        <div class="p-3 bg-secondary mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Registion Status') }}   :</label>
                                             <b>{{$te->registrationStatus}}</b>
                                         </div>
                                 </div>
                                 <div class="col-md-6">   
                                        
                                        
-                                        <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Property Address') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Property Address') }}    :</label>
                                                <b>{{$te->propertyAddress}}</b>
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Property Location') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Property Location') }}    :</label>
                                             <b> {{$te->propertyLocation}}</b>
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Property Size') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Property Size') }}    :</label>
                                             <b> {{$te->propertySize}}</b>
                                         </div>
                                 </div>            
@@ -76,48 +76,48 @@
                             <div class="col-md-6">
                             @foreach($applicant as $te)
                         
-                                        <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Picture') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Picture') }}    :</label>
                                                 <img src="../storage/cover_images/{{$te->cover_image}}" height="100" width="100">
                                         </div>
-                                        <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Name') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Name') }}    :</label>
                                                 <b>{{$te->name}}</b> 
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Father Name') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Father Name') }}    :</label>
                                                <b>{{$te->fatherName}}</b> 
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info  mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('CNIC NO.') }}   :</label>
+                                        <div class="p-3 bg-secondary  mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('CNIC NO.') }}   :</label>
                                             <b>{{$te->cnicNo}}</b>
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info  mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Mailing Address') }}   :</label>
+                                        <div class="p-3 bg-secondary  mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Mailing Address') }}   :</label>
                                             <b>{{$te->mailingAddress}}</b>
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Permanent Address') }}   :</label>
+                                        <div class="p-3 bg-secondary mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Permanent Address') }}   :</label>
                                             <b>{{$te->permanentAddress}}</b>
                                         </div>
                             </div>
                                 <div class="col-md-6">   
 
-                                        <div class="p-3 bg-info  mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Passport No. ') }}   :</label>
+                                        <div class="p-3 bg-secondary  mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Passport No. ') }}   :</label>
                                             <b>{{$te->passportNo}}</b>
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Email') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Email') }}    :</label>
                                                <b>{{$te->email}}</b>
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Phone NO.') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Phone NO.') }}    :</label>
                                             <b> {{$te->phoneNO}}</b>
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Mobile No. 1') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Mobile No. 1') }}    :</label>
                                             <b>{{$te->mobileNo1}}</b>
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Mobile No. 2 ') }}   :</label>
+                                        <div class="p-3 bg-secondary mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Mobile No. 2 ') }}   :</label>
                                             <b>{{$te->mobileNo2}}</b>
                                         </div>
                                         
@@ -130,45 +130,45 @@
                         <div class="form-group row">
                             <div class="col-md-6">
                             @foreach($applicant as $te)
-                                        <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Name') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Name') }}    :</label>
                                                 <b>{{$te->nomineeName}}</b> 
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Father Name') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Father Name') }}    :</label>
                                                <b>{{$te->nomineeFatherName}}</b> 
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('CNIC NO.') }}   :</label>
+                                        <div class="p-3 bg-secondary mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('CNIC NO.') }}   :</label>
                                             <b>{{$te->nomineeCnicNo}}</b>
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Mailing Address') }}   :</label>
+                                        <div class="p-3 bg-secondary mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Mailing Address') }}   :</label>
                                             <b>{{$te->nomineeMailingAddress}}</b>
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Permanent Address') }}   :</label>
+                                        <div class="p-3 bg-secondary mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Permanent Address') }}   :</label>
                                             <b>{{$te->nomineePermanentAddress}}</b>
                                         </div>
                             </div>
                                 <div class="col-md-6">   
 
-                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Passport No. ') }}   :</label>
+                                        <div class="p-3 bg-secondary mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Passport No. ') }}   :</label>
                                             <b>{{$te->nomineePassportNo}}</b>
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Email') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Email') }}    :</label>
                                                <b>{{$te->nomineeMail}}</b>
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Phone NO.') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Phone NO.') }}    :</label>
                                             <b> {{$te->nomineePhoneNo}}</b>
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Mobile No. 1') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Mobile No. 1') }}    :</label>
                                             <b>{{$te->nomineeMobileNo1}}</b>
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Mobile No. 2 ') }}   :</label>
+                                        <div class="p-3 bg-secondary mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Mobile No. 2 ') }}   :</label>
                                             <b>{{$te->nomineeMobileNo2}}</b>
                                         </div>
                                         
@@ -184,29 +184,29 @@
                             <div class="form-group row">
                                 <div class="col-md-6">
                             @foreach($payment as $te)
-                                        <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Cash / Pay Order / Cheque / Adjustment') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Cash / Pay Order / Cheque / Adjustment') }}    :</label>
                                            <b>{{$te->paymentType}}</b>
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('In Favor Of') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('In Favor Of') }}    :</label>
                                                <b>{{$te->transferTo}}</b> 
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Bank Name') }}   :</label>
+                                        <div class="p-3 bg-secondary mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Bank Name') }}   :</label>
                                             <b>{{$te->bankName}}</b>
                                         </div>
                                 </div>
                                 <div class="col-md-6">   
                                        
-                                        <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Total Amount') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Total Amount') }}    :</label>
                                                <b>{{$te->propertyPrice}}</b>
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Date') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Date') }}    :</label>
                                             <b>{{$te->propertyPurchingDate}}</b>
                                         </div>
                                         <br>
-                                        <div class="p-3 bg-info mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Total Payment / Installment') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2 "> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Total Payment / Installment') }}    :</label>
                                             <b> {{$te->propertyPaymentProcedure}}</b>
                                         </div>
                                 </div>            
@@ -220,12 +220,12 @@
                             <div class="form-group row">
                                 <div class="col-md-6">
                             @foreach($token as $te)
-                                    <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Token Payment') }}    :</label>
+                                    <div class="p-3 bg-secondary mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Token Payment') }}    :</label>
                                         <b>{{$te->tokenPayment}}</b>
                                     </div>
                                 </div>
                                 <div class="col-md-6">                              
-                                    <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Remain Payment Data') }}    :</label>
+                                    <div class="p-3 bg-secondary mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Remain Payment Data') }}    :</label>
                                             <b>{{$te->remaningPaymentDate}}</b>
                                     </div>
                 
@@ -240,12 +240,12 @@
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     @foreach($seller as $te)
-                                        <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Saller Name') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Saller Name') }}    :</label>
                                            <b>{{$te->sallerName}}</b>
                                         </div>
                                 </div>
                                 <div class="col-md-6">
-                                        <div class="p-3 bg-info mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Saller CNIC NO.') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Saller CNIC NO.') }}    :</label>
                                                <b>{{$te->sallerFatherName}}</b> 
                                         </div>
                                     @endforeach    
@@ -259,7 +259,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12">
                             @foreach($review as $te)
-                                        <div class="p-3 bg-info mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Your Comment') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Your Comment') }}    :</label>
                                            <b><br>{{$te->comment}}</b>
                                         </div>
                                 </div>

@@ -279,11 +279,14 @@ class editingControll extends Controller
                     return Redirect::back()->withErrors($validator); 
                     //return response()->json(['error'=>$validator->errors()], 401);            
                 }
-
+                
+               
                 // property Id , down payment , No of installment require for calculation so get all the variables 
                 $propertyId = $propertyId;
                 $downpayment = $request->input('downpayment');
                 $noOfinstallments = $request->input('noOfInstallments');
+
+               
 
                 //get the total amount
                 $propertyprice  = DB::table('payments')->where('propertyId',$propertyId)->value('propertyPrice');
@@ -428,7 +431,7 @@ class editingControll extends Controller
             // token
             return view('displayrecord/singlerecordtoken',compact('property','applicant','payment','review','token','seller')); 
         }
-        else{
+        elseif($isEmptyinstallment != "null"){
             // installment
             return view('displayrecord/singlerecordinstallment',compact('property','applicant','payment','review','installment','seller')); 
         }
@@ -469,7 +472,7 @@ class editingControll extends Controller
             // token
             return view('editingfrom/editfromstoken',compact('property','applicant','payment','review','token','seller')); 
         }
-        else{
+        elseif($isEmptyinstallment != "null"){
             // installment
             return view('editingfrom/editfromsinstallment',compact('property','applicant','payment','review','installment','seller')); 
         }
@@ -643,6 +646,8 @@ class editingControll extends Controller
         $payment->propertyPurchingDate = $request->input('propertyPurchingDate');
         $payment->propertyPaymentProcedure = $request->input('propertyPaymentProcedure');
         $payment->propertyPrice = $request->input('propertyPrice');
+        // property total amount 
+        $totalAmount = $request->input('propertyPrice');
         $payment->propertyId = $id;
         }
         catch(Exception $e){
@@ -673,6 +678,20 @@ class editingControll extends Controller
         // installment will be changed into 2nd version 
         try{
         $paymentProcedure = $payment->propertyPaymentProcedure;
+
+        // check and get the token payment 
+    //     try{
+    //     $token = DB::table('tokens')->where('propertyId',$id)->first();
+    //     $isEmptyToken = json_encode($token);
+    //     if($isEmptyToken != "null"){
+    //         $token = array($token);
+    //         foreach($token as $te){
+    //            $tokenPayment = $te->tokenPayment;
+    //         }
+    //     }
+    // } catch(Exception $e){
+    //     return redirect()->back()->with('error',' something wrong with the token payment or token payment.');
+    // }
         
         if($property->save()){
             // save the applicant 
@@ -704,52 +723,80 @@ class editingControll extends Controller
                 $noOfinstallments = $request->input('noOfInstallments');
 
                 //get the total amount
-                $propertyprice  = DB::table('payments')->where('propertyId',$propertyId)->value('propertyPrice');
-                // Total amount , down payment , No of installment (calculation of installment throught these three variables)
-                $remaningAmount = $propertyprice - $downpayment ;
-                // total Amount divided into Number of installment to get the one installments
-                $amountOfOneInstallment = $remaningAmount/$noOfinstallments;
-                
-                // get today data and add 3 months ( 90 days ) to calculat the next installment date
-                $todayDate = date("Y-m-d");
-                $data1 = $todayDate;
-                // var_dump($data1);
-                $installmentDates = []; 
-                for($i=0; $i < $noOfinstallments; $i++)
-                {
+                try{
+                    $token = DB::table('tokens')->where('propertyId',$id)->first();
+                    $isEmptyToken = json_encode($token);
+                    if($isEmptyToken != "null"){
+                        $token = array($token);
+                        foreach($token as $te){
+                           $tokenPayment = $te->tokenPayment;
+                           $downpayment = $downpayment + $tokenPayment;
+                        }
+                        if($token){
                     
-                    $date2 = new DateTime($data1);
-                    $date2->add(new DateInterval('P90D')); // P90D means a period of 90 day
-                    $installmentDates[$i] = $date2->format('Y-m-d');
-                    $data1 = $installmentDates[$i];         
-                    
+                            $deleteTokenId = DB::table('tokens')->where('propertyId',$id)->value('id');
+                            $deleteTokenRow = token::find($deleteTokenId);
+                            $deleteTokenRow->delete();
+                        }
+
+                    }
+                } catch(Exception $e){
+                    return redirect()->back()->with('error',' something wrong with the token payment or token payment.');
                 }
-                // get all user data
-                //initilization the property object 
-                $installmentId  = DB::table('installments')->where('propertyId',$id)->value('id');
-               
-                $isEmpty = json_encode($installmentId);
                 
-                if($isEmpty == "null")
-                {
-                    // var_dump("No",$isEmpty);
-                    // exit();
-                    $installment = new installment;
-                }
+                $propertyprice  = DB::table('payments')->where('propertyId',$id)->value('propertyPrice');
+                // to calculat the 20 % of the total amount 
+                $atleastDownpayment = ($propertyprice * 0.2) ;
+                if( $downpayment >=$atleastDownpayment ){
+
+                    // Total amount , down payment , No of installment (calculation of installment throught these three variables)
+                    $remaningAmount = $propertyprice - $downpayment ;
+                    // total Amount divided into Number of installment to get the one installments
+                    $amountOfOneInstallment = $remaningAmount/$noOfinstallments;
+                    
+                    // get today data and add 3 months ( 90 days ) to calculat the next installment date
+                    $todayDate = date("Y-m-d");
+                    $data1 = $todayDate;
+                    // var_dump($data1);
+                    $installmentDates = []; 
+                    for($i=0; $i < $noOfinstallments; $i++)
+                    {
+                        
+                        $date2 = new DateTime($data1);
+                        $date2->add(new DateInterval('P90D')); // P90D means a period of 90 day
+                        $installmentDates[$i] = $date2->format('Y-m-d');
+                        $data1 = $installmentDates[$i];         
+                        
+                    }
+                    // get all user data
+                    //initilization the property object 
+                    $installmentId  = DB::table('installments')->where('propertyId',$id)->value('id');
+                
+                    $isEmpty = json_encode($installmentId);
+                    
+                    if($isEmpty == "null")
+                    {
+                        // var_dump("No",$isEmpty);
+                        // exit();
+                        $installment = new installment;
+                    }
+                    else{
+                        // var_dump("yes ",$installmentId);
+                        // exit();
+                        $installment = installment::find($installmentId);
+                    }
+
+                    $installment->noOfInstallments = $noOfinstallments; 
+                    $installment->downpayment = $downpayment;
+                    $installment->propertyId = $propertyId;
+                    $installment->amountOfOneInstallment = $amountOfOneInstallment; 
+                    $installment->installmentDates = json_encode($installmentDates);
+                    // save the installment info
+                    $installment->save();
+                }    
                 else{
-                    // var_dump("yes ",$installmentId);
-                    // exit();
-                    $installment = installment::find($installmentId);
+                    return redirect()->back()->with('error','Down Payment is less then 20% .');
                 }
-
-                $installment->noOfInstallments = $noOfinstallments; 
-                $installment->downpayment = $downpayment;
-                $installment->propertyId = $propertyId;
-                $installment->amountOfOneInstallment = $amountOfOneInstallment; 
-                $installment->installmentDates = json_encode($installmentDates);
-                // save the installment info
-                $installment->save();
-
             }
             elseif($paymentProcedure == "Total Amount"){
                
@@ -764,6 +811,33 @@ class editingControll extends Controller
                     $deleteInstallmentRow = installment::find($deleteInstallmentId);
                     $deleteInstallmentRow->delete();
                 }
+                //get the total amount
+                // $propertyprice  = DB::table('payments')->where('propertyId',$id)->value('propertyPrice');
+                
+                    $token = DB::table('tokens')->where('propertyId',$id)->first();
+                    $isEmptyToken = json_encode($token);
+                    
+                    if($isEmptyToken != "null"){
+                        $token = array($token);
+                        foreach($token as $te){
+                           $tokenPayment = $te->tokenPayment;
+                           $propertyprice  = DB::table('payments')->where('propertyId',$id)->value('propertyPrice');
+                           $propertyprice = $propertyprice - $tokenPayment;
+                            // initilization the payment table's object to update the total price 
+                            $paymentId = DB::table('payments')->where('propertyId',$id)->value('id');
+                            $payment = payment::find($paymentId);
+                            $payment->propertyPrice = $propertyprice;
+                            $payment->save();
+                        }
+                        if($token){
+                    
+                            $deleteTokenId = DB::table('tokens')->where('propertyId',$id)->value('id');
+                            $deleteTokenRow = token::find($deleteTokenId);
+                            $deleteTokenRow->delete();
+                        }
+                    }
+                
+                
             }
            
             // save all the property info and return successuflly message;
@@ -800,14 +874,24 @@ class editingControll extends Controller
         $deleteReviewsId = DB::table('reviews')->where('propertyId',$id)->value('id');
         // get property table id to delete that  HAVE property Id same 
         $deletepropertyId = DB::table('properties')->where('id',$id)->value('id');
+        // get the token table id to delete the have property Id same
+        $deletetoken = DB::table('tokens')->where('propertyId',$id)->first();
        
-       
+       if($deletetoken){
+            $deleteTokenId = DB::table('tokens')->where('propertyId',$id)->value('id');
+            $deleteTokenRow = token::find($deleteTokenId);
+            if(!$deleteTokenRow->delete()){
+                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  token row have something worng  !!!');
+            }
+       }
         // check that installment is exist or not 
         if($installmentrow){
                     
             $deleteInstallmentId = DB::table('installments')->where('propertyId',$id)->value('id');
             $deleteInstallmentRow = installment::find($deleteInstallmentId);
-            $deleteInstallmentRow->delete();
+            if(!$deleteInstallmentRow->delete()){
+                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  installment row have something worng  !!!');
+            }
         }
         $payment = payment::find($deletePaymentId);
         if($payment){

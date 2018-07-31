@@ -599,8 +599,8 @@ function paymentProcedure(val){
                               
                             '</div>'+       
                             '<div class="col-md-6 col-lg-6 col-sm-12">'+
-                                '<label for="remaningPaymentDate">Down Payment</label>'+
-                                '<input id="remaningPaymentDate" type="number" min="0" placeholder="Enter Reaming Payment Date" class="form-control" name="remaningPaymentDate" value="" >'+
+                                '<label for="remaningPaymentDate">Remaning Down Payment Date</label>'+
+                                '<input id="remaningPaymentDate" type="Date" placeholder="Enter Reaming Payment Date" class="form-control" name="remaningPaymentDate" value="" >'+
                                
                             '</div>'+
                         '</div>'+

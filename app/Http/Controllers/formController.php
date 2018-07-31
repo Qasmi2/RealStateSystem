@@ -147,6 +147,35 @@ class formController extends Controller
         }
    
     }
+    
+      /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function showReceptformtoken($id)
+    {
+       
+        try{
+
+        $property = DB::table('properties')->where('id',$id)->first();
+        $installments = DB::table('installments')->where('propertyId',$id)->first();
+        $payment = DB::table('payments')->where('propertyId',$id)->first();
+        $witness =DB::table('witnesses')->where('propertyId',$id)->first();
+        $token = DB::table('tokens')->where('propertyId',$id)->first();
+        
+        $isEmpty = json_encode($installments);
+           
+        return view('displayrecord.receipttoken',compact('property','payment','token')); 
+        
+    }
+        catch(Exception $e){
+            return redirect()->back()->with('error',' Recept From section  something wrong .');
+        }
+   
+    }
     public function showcontractform($id)
     {
         try{

@@ -32,7 +32,7 @@
 <body>
     <div id="app">
     
-        <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-fixed-top" style="background-color:#f44336 !important;position: fixed !important;">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-fixed-top" style="background-color:#a6468c !important;position: fixed !important;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'Montviro-BookingPortal') }}
