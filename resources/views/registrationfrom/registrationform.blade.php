@@ -28,7 +28,7 @@
                                
                                 <select class="form-control" name="propertyType" id="propertyType" >
                                     <option value="">Select Title</option>
-                                    <option value="Montviro Hotal">Montviro Hotal</option>
+                                    <option value="Montviro Hotel">Montviro Hotal</option>
                                     <option value="Montviro Mall">Montviro Mall</option>
                                     <option value="Montviro Theme Park">Montviro Theme Park</option>
                                 </select>

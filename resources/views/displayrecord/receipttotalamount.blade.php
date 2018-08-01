@@ -12,7 +12,7 @@
             font-family:'Gotham Book',GothamBlack;
             font-size:12px;
             height: auto;
-            width: 800px;
+            width: 770px;
             position: relative;
             margin: 0 auto;
             color: #000;
@@ -56,7 +56,7 @@
 </head>
 <body>
     
-        <div style="width:800px; margin:0px auto; font-size:20px; line-height:40px; display:table;">
+        <div style="width:750px; margin:0px auto; font-size:20px; line-height:25px; display:table;">
 			
             <div style="font-family:Calibri;font-size:30px; font-weight:bold;margin-top:30px;">RECEIPT</div>
 			&nbsp;
@@ -81,18 +81,18 @@
 				  </tr>
 				  <tr>
 					<td>1</td>
-					<td>{{$item1}} <br /> {{$item2}}</td>
+					<td>Floor No. {{$item1}} <br /> Room No./Shop No.{{$item2}}</td>
 					<td>{{$propertySize}} sq ft</td>
 					<td>RS.{{$unitCost}}/- </td>
 					<td>Total Price: {{$propertyPrice}}</td>
 				  </tr>
-				  <tr style="border:none !important;">
+				  <tr style="border:none !important; line-height:15px;">
 					 <td colspan="5" style="text-align: right;"> Payment Amount Paid through CASH  RS.{{$propertyPrice}}/-</td>
 				  </tr>
-				  <tr style="border:none !important;">
+				  <tr style="border:none !important;line-height:15px;">
 					<td colspan="5" style="text-align: right;">Total Received Amount  RS.{{$propertyPrice}}/-</td> 
 				  </tr>
-				  <tr style="border:none !important;">
+				  <tr style="border:none !important;line-height:15px;">
 				  <td colspan="5" style="text-align: right;">Total Remaining Amount  RS.0/-</td>
 				  </tr>
 				</table>

@@ -59,16 +59,16 @@
                             </li>
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('formall') }}">{{ __('Regisration Form') }}</a>
+                                <a class="nav-link" href="{{ route('formall') }}">{{ __('Registration Form') }}</a>
                             </li>
                             <!-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('propertyform') }}">{{ __('Reistration Property') }}</a>
                             </li> -->
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('properties') }}">{{ __('Diplay Properties') }}</a>
+                                <a class="nav-link" href="{{ route('properties') }}">{{ __('Display Properties') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('sellerform') }}">{{ __('Seller Regisration Form') }}</a>
+                                <a class="nav-link" href="{{ route('sellerform') }}">{{ __('Seller Registration Form') }}</a>
                             </li>
                             <!-- <li class="nav-item dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1
@@ -151,13 +151,13 @@
                             
                                 <a class="nav-link" href="{{ route('formall') }}">
                               
-                                    <span>{{__('Reistration Property')}}</span>
+                                    <span>{{__('Registration Property')}}</span>
                                 </a>
                     </li>
                     <li class="nav-item">
                                 <a class="nav-link" href="{{ route('properties') }}">
                               
-                                    <span>{{ __('Diplay Properties') }}</span>
+                                    <span>{{ __('Display Properties') }}</span>
                                 </a>
                     </li>
                     <li class="nav-item">

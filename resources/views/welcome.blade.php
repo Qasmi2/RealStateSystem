@@ -52,7 +52,7 @@ body, html {
 
                             <div class="card-body">
             <!-- -->
-                 <div class="text-center" style="color:#a6468c">
+                 <div class="text-center" style="color:#a6468c !important;">
                     <h1>Montrivo Booking Portal </h1>
                 </div>
 
@@ -103,11 +103,11 @@ body, html {
 
                         <div class="form-group row mb-0">
                             <div class="col-md-12 offset-md-4">
-                                <button type="submit" class="btn btn-default" style="color:#007bff;">
+                                <button type="submit" class="btn btn-default" style="background-color:#a6468c !important;color:white;">
                                     {{ __('Login') }}
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                <a class="btn btn-link" style="color:#a6468c !important;" href="{{ route('password.request') }}">
                                     {{ __('Forgot Your Password?') }}
                                 </a>
                             </div>
