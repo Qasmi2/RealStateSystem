@@ -17,6 +17,7 @@ use App\Http\Controllers\DataTime;
 use DateTime;
 use DateInterval;
 use DB;
+use Storage;
 
 class editingControll extends Controller
 {
@@ -585,10 +586,38 @@ class editingControll extends Controller
             return redirect()->back()->with('error','Updating property section , something wrong .');
         }
     
-       try{
+    //    try{
+    //         // Handle File Upload
+    //         if($request->hasFile('cover_image')){
+    //             // Get filename with the extension
+    //             Storage::delete($Provider->avatar);
+    //             $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+    //             // Get just filename
+    //             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+    //             // Get just ext
+    //             $extension = $request->file('cover_image')->getClientOriginalExtension();
+    //             // Filename to store
+    //             $fileNameToStore= $filename.'_'.time().'.'.$extension;
+    //             // Upload Image
+    //             $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+    //         } 
+    //         else {
+    //             $fileNameToStore = 'noimage.jpg';
+    //         }
+    //     }
+    //     catch(Exception $e){
+    //         return redirect()->back()->with('error',' picture section input something wrong .');
+    //     }
+        // initilization the applicant object 
+        try{
+        $applicantId = DB::table('applicants')->where('propertyId',$id)->value('id');
+        $applicant = applicant::find($applicantId);
+        $applicant->name = $request->input('name');
+        try{
             // Handle File Upload
             if($request->hasFile('cover_image')){
                 // Get filename with the extension
+                Storage::delete($applicant->cover_image);
                 $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
                 // Get just filename
                 $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
@@ -598,19 +627,17 @@ class editingControll extends Controller
                 $fileNameToStore= $filename.'_'.time().'.'.$extension;
                 // Upload Image
                 $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
-            } else {
-                $fileNameToStore = 'noimage.jpg';
-            }
+                // image update
+                $applicant->cover_image = $fileNameToStore;
+            } 
+            // else {
+            //     $fileNameToStore = 'noimage.jpg';
+            // }
         }
         catch(Exception $e){
             return redirect()->back()->with('error',' picture section input something wrong .');
         }
-        // initilization the applicant object 
-        try{
-        $applicantId = DB::table('applicants')->where('propertyId',$id)->value('id');
-        $applicant = applicant::find($applicantId);
-        $applicant->name = $request->input('name');
-        $applicant->cover_image = $fileNameToStore;
+       
         $applicant->fatherName = $request->input('fatherName');
         $applicant->cnicNo = $request->input('cnicNo');
         $applicant->passportNo = $request->input('passportNo');

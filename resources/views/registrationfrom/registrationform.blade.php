@@ -8,7 +8,7 @@
 ?>
 <div class="container" style="margin-top:60px;">
     <div class="row justify-content-center">
-        <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
+        <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
         @include('flash-message')
             <div class="card">
                 <div class="card-header" style="background-color: #f44336;color:white;"> Registion Form </div>
@@ -28,7 +28,7 @@
                                
                                 <select class="form-control" name="propertyType" id="propertyType" >
                                     <option value="">Select Title</option>
-                                    <option value="Montviro Hotel">Montviro Hotal</option>
+                                    <option value="Montviro Hotel">Montviro Hotel</option>
                                     <option value="Montviro Mall">Montviro Mall</option>
                                     <option value="Montviro Theme Park">Montviro Theme Park</option>
                                 </select>
@@ -134,7 +134,7 @@
                             
                                 <label>Please choose your Picture</label>
                                 <br>
-                                <input type="file" name="cover_image" id="cover_image" class="btn btn-primary" style="color:white;"/>
+                                <input type="file" name="cover_image" id="cover_image" class="btn btn-danger" style="color:white;"/>
                                     @if ($errors->has('cover_image'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('cover_image') }}</strong>

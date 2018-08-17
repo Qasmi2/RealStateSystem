@@ -5,13 +5,12 @@
 <div class="container" style="margin-top:60px;">
     <div class="row justify-content-center">
 
-        <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
+        <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
         @include('flash-message')
         <div>
             <button class="btn btn-lg btn-default" onclick="window.history.go(-1)">Back</button>
             <a href="{{ url('sellerinfos') }}" class="btn btn-lg btn-primary " style="float: right; background-color:#f44336 !important; color:white;">View All Seller</a>
         </div> 
-        <br>
         <hr>    
         
             <div class="card">

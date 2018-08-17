@@ -3,7 +3,7 @@
 @section('content')
 <div class="container" style="margin-top:60px;">
     <div class="row justify-content-center">
-        <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
+        <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
             <div class="card">
                 <div class="card-header" style="background-color: #f44336;color:white;">Display Properties</div>
 
@@ -28,10 +28,10 @@
                                <a href="#"> <th>Property Type</th></a>
                                <th>Address</th>
                                <th>Location</th>
-                               <th>Size</th>
+                               <th>Size (sqr /ft )</th>
                                <th>Owner</th>
                                <th>Owner CNIC NO</th>
-                               <th>Total Amount</th>
+                               <th>Payment Procedure</th>
                                <th>Actions</th>
                                <th>Download</th>
                                
@@ -42,12 +42,12 @@
                                 <tr>
                                 
                                     <td><a href="{{url('display/'.$properties[$i]['id'])}}">{{$properties[$i]['propertyType']}}</a></td>
-                                    <td>{{$properties[$i]['propertyAddress']}}</td>
-                                    <td>{{$properties[$i]['propertyLocation']}}</td>
-                                    <td>{{$properties[$i]['propertySize']}}</td>
+                                    <td>Floor No. :{{$properties[$i]['propertyAddress']}}</td>
+                                    <td>Room No./Shop No. :{{$properties[$i]['propertyLocation']}}</td>
+                                    <td>{{$properties[$i]['propertySize']}} sqr/ft</td>
                                     <td>{{$applicanties[$i]['name']}}</td>
                                     <td>{{$applicanties[$i]['cnicNo']}}</td>
-                                    <td>{{$payments[$i]['propertyPrice']}}</td>
+                                    <td>{{$payments[$i]['propertyPaymentProcedure']}}</td>
                                     <td> <a href="{{url('editingform/'.$properties[$i]['id'])}}">Edit</a></td>
                                    
                                     <td>

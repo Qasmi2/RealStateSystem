@@ -74,7 +74,7 @@
 </head>
 <body>
     
-        <div style="font-family:Arial; font-size:13px; width:800px; margin:20px; font-size:20px; line-height:17px; display:table;">
+        <div style="font-family:Arial; font-size:13px; width:800px; margin:20px; font-size:20px; line-height:20px; display:table;">
 			
             <div style="font-family:Arial;font-size:30px; font-weight:bold;margin-top:30px;">CONTRACT</div>
 			&nbsp;

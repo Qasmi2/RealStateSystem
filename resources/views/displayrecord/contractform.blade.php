@@ -66,7 +66,7 @@
 </head>
 <body>
     
-        <div style="width:800px; margin:0px auto; font-size:20px; line-height:40px; display:table;">
+        <div style="width:800px; margin:0px auto; font-size:20px; line-height:20px; display:table;">
 			
             <div style="font-family:Calibri;font-size:30px; font-weight:bold;margin-top:30px;">CONTRACT</div>
 			&nbsp;
