@@ -8,7 +8,7 @@
 ?>
 <div class="container" style="margin-top:60px;">
     <div class="row justify-content-center">
-        <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
+        <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
         @include('flash-message')
             <div class="card">
                 <div class="card-header" style="background-color: #f44336;color:white;"> Registion Form </div>
@@ -28,7 +28,7 @@
                                
                                 <select class="form-control" name="propertyType" id="propertyType" >
                                     <option value="">Select Title</option>
-                                    <option value="Montviro Hotal">Montviro Hotal</option>
+                                    <option value="Montviro Hotel">Montviro Hotel</option>
                                     <option value="Montviro Mall">Montviro Mall</option>
                                     <option value="Montviro Theme Park">Montviro Theme Park</option>
                                 </select>
@@ -134,7 +134,7 @@
                             
                                 <label>Please choose your Picture</label>
                                 <br>
-                                <input type="file" name="cover_image" id="cover_image" class="btn btn-primary" style="color:white;"/>
+                                <input type="file" name="cover_image" id="cover_image" class="btn btn-danger" style="color:white;"/>
                                     @if ($errors->has('cover_image'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('cover_image') }}</strong>
@@ -373,7 +373,6 @@
                     <div><h3>Payment Information</h3></div>
                         <hr>
                     
-                   
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="paymentType" >{{ __('Cash / Pay Order / Cheque / Adjustment') }}</label>
@@ -435,8 +434,9 @@
                               
                                 <select class="form-control" name="propertyPaymentProcedure" id="propertyPaymentProcedure" onchange="paymentProcedure(this);" >
                                     <option value="">Choice Payment Procedure</option>
-                                    <option value="Installment">Installment</option>
                                     <option value="Total Amount">Total Amount</option>
+                                    <option value="Installment">Installment</option>
+                                    <option value="Token">Token</option>
                                     
                                 </select>
                                 @if ($errors->has('propertyPaymentProcedure'))
@@ -446,16 +446,67 @@
                                 @endif
                             </div>
                         </div>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        
-                            <hr>
-                        
-                            <div id="addinstallment" style="display:">
-                           
-                            <!-- <div class="form-group row">
-                                                
-                            </div> -->
+                        &nbsp;&nbsp;
+                        <div id="addinstallment">
+                        <div><h3>Installment Information</h3></div>
+                        <div class="form-group row">
+                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                <label for="">{{ __('No of Installments ') }}</label>
+                              
+                            
+                              
+                                  <select id="noOfInstallments" class="form-control" name="noOfInstallments"    >
+                                    <option value="">Select No of Installments</option>'+
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    
+                                </select>
+                                @if ($errors->has('propertyPaymentProcedure'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('propertyPaymentProcedure') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                <label for="downpayment">Down Payment</label>
+                                <input id="downpayment" type="number" min="0" placeholder="Enter down payment" class="form-control" name="downpayment" value="" style="border: 1px solid red;">
+                               
+                            </div>
                         </div>
+                        </div>
+                        <hr>
+                        &nbsp;&nbsp;
+                        <div id="addtoken">
+                        <div><h3>Token Information</h3></div>
+                        <div class="form-group row">
+                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                <label id="tokenPayment" for="tokenPayment" >Token Payment</label>
+                                <input id="tokenPayment" type="number" min="0" placeholder="Enter Token payment" class="form-control" name="tokenPayment" value="" style="border: 1px solid red;">
+                              
+                            </div>       
+                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                <label for="remaningPaymentDate">Remaning Payment Date</label>
+                                <input id="remaningPaymentDate" type="Date" placeholder="Enter Remaning Payment Date" class="form-control" name="remaningPaymentDate" value="" style="border: 1px solid red;">
+                               
+                            </div>
+                        </div>
+                        </div>
+                            <!-- <div id="addinstallment">
+                            
+                           
+                            </div>
+                            <div id="addtoken">
+                           
+                           
+                            </div> -->
                         
                         
                         <!-- <div class="card-header" style="background:#f44336;color:white;margin:10px;">Witness Form</div> -->
@@ -522,47 +573,22 @@ function paymentProcedure(val){
     
 var paymentProcedure = val.value;
 var parent = document.getElementById('addinstallment');
-if( paymentProcedure == "Total Amount"){
+var parent = document.getElementById('addtoken');
+    if( paymentProcedure == "Total Amount"){
 
-    // document.getElementById("noOfInstallments").value ="";
-    // document.getElementById("downpayment").value ="";
-    
-    document.getElementById("addinstallment").style.display ="none";
-   
+        document.getElementById("addinstallment").style.display ="none";
+        document.getElementById("addtoken").style.display ="none";
 
-}
-if( paymentProcedure == "Installment"){
-    
-  var added =               '<div><h3>Installment Info</h3></div>'+
-                            '<div class="col-md-12 col-lg-12 col-sm-12">'+
-                                '<label id="noOfInstallments" for="noOfInstallments" >No Of installment</label>'+
-                              
-                                  '<select id="downpayment" class="form-control" name="noOfInstallments"  style="border: 1px solid red;" >'+
-                                    '<option value="">Select No of Installments</option>'+
-                                    '<option value="1">1</option>'+
-                                    '<option value="2">2</option>'+
-                                    '<option value="3">3</option>'+
-                                    '<option value="4">4</option>'+
-                                    '<option value="5">5</option>'+
-                                    '<option value="6">6</option>'+
-                                    '<option value="7">7</option>'+
-                                    '<option value="8">8</option>'+
-                                    '<option value="9">9</option>'+
-                                    '<option value="10">10</option>'+
-                                    
-                                '</select>'+
-                              
-                            '</div>'+       
-                            '<div class="col-md-12 col-lg-12 col-sm-12">'+
-                                '<label for="downpayment">Down Payment</label>'+
-                                '<input id="downpayment" type="number" min="0" placeholder="Enter down payment" class="form-control" name="downpayment" value="" style="border: 1px solid red;">'+
-                               
-                            '</div>';                
-                        
-        parent.insertAdjacentHTML('beforeend', added);
-        document.getElementById("addinstallment").style.display ="block";
-}
-
+    }
+    else if( paymentProcedure == "Installment"){
+        
+        document.getElementById("addinstallment").style.display ="block";  
+        document.getElementById("addtoken").style.display ="none";
+    }
+    else if( paymentProcedure == "Token"){
+        document.getElementById("addtoken").style.display ="block";                               
+        document.getElementById("addinstallment").style.display ="none";
+    }
 
 return 0;
 }

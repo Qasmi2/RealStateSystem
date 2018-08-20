@@ -7,7 +7,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Montviro-BookingPortal') }}</title>
+    <title>{{ config('app.name', 'MontviroBookingPortal') }}</title>
 
     <!-- external ------->
 
@@ -32,10 +32,10 @@
 <body>
     <div id="app">
     
-        <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-fixed-top" style="background-color:#f44336 !important;position: fixed !important;">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-fixed-top" style="background-color:#a6468c !important;position: fixed !important;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
-                    {{ config('app.name', 'Montviro-BookingPortal') }}
+                    {{ config('app.name', 'MontviroBookingPortal  BETA') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -59,16 +59,16 @@
                             </li>
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('formall') }}">{{ __('Regisration Form') }}</a>
+                                <a class="nav-link" href="{{ route('formall') }}">{{ __('Registration Form') }}</a>
                             </li>
                             <!-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('propertyform') }}">{{ __('Reistration Property') }}</a>
                             </li> -->
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('properties') }}">{{ __('Diplay Properties') }}</a>
+                                <a class="nav-link" href="{{ route('properties') }}">{{ __('Display Properties') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('sellerform') }}">{{ __('Seller Regisration Form') }}</a>
+                                <a class="nav-link" href="{{ route('sellerform') }}">{{ __('Seller Registration Form') }}</a>
                             </li>
                             <!-- <li class="nav-item dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1
@@ -151,13 +151,13 @@
                             
                                 <a class="nav-link" href="{{ route('formall') }}">
                               
-                                    <span>{{__('Reistration Property')}}</span>
+                                    <span>{{__('Registration Property')}}</span>
                                 </a>
                     </li>
                     <li class="nav-item">
                                 <a class="nav-link" href="{{ route('properties') }}">
                               
-                                    <span>{{ __('Diplay Properties') }}</span>
+                                    <span>{{ __('Display Properties') }}</span>
                                 </a>
                     </li>
                     <li class="nav-item">

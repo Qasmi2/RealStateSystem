@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+Use Redirect;
 use App\installment;
 use App\payment;
 use App\property;
 use App\witness;
 use App\review;
 use App\applicant;
+use App\token;
 use Validator;
 use App\seller;
 use App\Http\Controllers\DataTime;
 use DateTime;
 use DateInterval;
 use DB;
+use Storage;
 
 class editingControll extends Controller
 {
@@ -97,7 +100,8 @@ class editingControll extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);            
+            // return response()->json(['error'=>$validator->errors()], 401);   
+            return Redirect::back()->withErrors($validator);         
         }   
 
         // function to Generate the random number
@@ -266,20 +270,24 @@ class editingControll extends Controller
         } 
         // payment procedure installment headling  
         if($paymentProcedure == "Installment"){
-                
+              
                  // validation
                 $validator = Validator::make($request->all(), [
                     'noOfInstallments' => 'required',
                     'downpayment' => 'required',
                 ]);
                 if ($validator->fails()) {
-                    return response()->json(['error'=>$validator->errors()], 401);            
+                    return Redirect::back()->withErrors($validator); 
+                    //return response()->json(['error'=>$validator->errors()], 401);            
                 }
-
+                
+               
                 // property Id , down payment , No of installment require for calculation so get all the variables 
                 $propertyId = $propertyId;
                 $downpayment = $request->input('downpayment');
                 $noOfinstallments = $request->input('noOfInstallments');
+
+               
 
                 //get the total amount
                 $propertyprice  = DB::table('payments')->where('propertyId',$propertyId)->value('propertyPrice');
@@ -332,8 +340,8 @@ class editingControll extends Controller
                 }
 
         }
-        else{
-
+        elseif($paymentProcedure == "Total Amount"){
+          
                 $property = DB::table('properties')->where('id',$propertyId)->first();
                 $applicant = DB::table('applicants')->where('propertyId',$propertyId)->first();
                 $payment = DB::table('payments')->where('propertyId',$propertyId)->first();
@@ -343,6 +351,43 @@ class editingControll extends Controller
                  $seller = DB::table('sellers')->where('id',$sellerId)->first();
                 
                 return view('registrationfrom/submitform',compact('property','applicant','payment','review','seller'));   
+        }
+        elseif($paymentProcedure == "Token"){
+           
+            // validation
+            $validator = Validator::make($request->all(), [
+                'tokenPayment' => 'required',
+                'remaningPaymentDate' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return Redirect::back()->withErrors($validator); 
+                //return response()->json(['error'=>$validator->errors()], 401);            
+            }
+            // initilization token table object
+            $token = new token;
+            $token->tokenPayment = $request->input('tokenPayment');
+            $token->remaningPaymentDate = $request->input('remaningPaymentDate');
+            $token->propertyId = $propertyId;
+            if($token->save()){
+
+                $property = DB::table('properties')->where('id',$propertyId)->first();
+                $applicant = DB::table('applicants')->where('propertyId',$propertyId)->first();
+                $payment = DB::table('payments')->where('propertyId',$propertyId)->first();
+                $review = DB::table('reviews')->where('propertyId',$propertyId)->first();
+                $token = DB::table('tokens')->where('propertyId',$propertyId)->first();
+                 // get seller Id from property table 
+                 $sellerId = DB::table('properties')->where('id',$propertyId)->value('propertySellerId');
+                 $seller = DB::table('sellers')->where('id',$sellerId)->first();
+                
+                return view('registrationfrom/submitformtoken',compact('property','applicant','payment','review','seller','token'));
+            }
+            else{
+                return redirect()->back()->with('error','token record is not save, Something wrong .');
+            }
+
+        }
+        else{
+            return redirect()->back()->with('error','Section Payment Procedure  input something wrong .');
         }
    
         // save all the property info and return successuflly message;
@@ -354,86 +399,6 @@ class editingControll extends Controller
 
 }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function destroy($id)
-    // { 
-        
-    //     $installmentrow = DB::table('installments')->where('propertyId',$id)->first();
-    //     // get installment table id to delete that have property Id same 
-    //     // $deleteInstallmentId = DB::table('installments')->where('propertyId',$id)->value('id');
-    //     // get payment table id to delete that  HAVE property Id same 
-    //     $deletePaymentId = DB::table('payments')->where('propertyId',$id)->value('id');
-    //     // get applicant table id to delete that  HAVE property Id same 
-    //     $deleteApplicantId = DB::table('applicants')->where('propertyId',$id)->value('id');
-    //     // get witness table id to delete that  HAVE property Id same 
-    //     $deleteWitnessId = DB::table('witnesses')->where('propertyId',$id)->value('id');
-    //     // get review table id to delete that  HAVE property Id same 
-    //     $deleteReviewsId = DB::table('reviews')->where('propertyId',$id)->value('id');
-    //     // get property table id to delete that  HAVE property Id same 
-    //     $deletepropertyId = DB::table('properties')->where('id',$id)->value('id');
-       
-       
-    //     // check that installment is exist or not 
-    //     if($installmentrow){
-                    
-    //         $deleteInstallmentId = DB::table('installments')->where('propertyId',$id)->value('id');
-    //         $deleteInstallmentRow = installment::find($deleteInstallmentId);
-    //         $deleteInstallmentRow->delete();
-    //     }
-    //     $payment = payment::find($deletePaymentId);
-    //     if($payment){
-    //         // if apyment is not delete then error massage will be shown 
-    //         if(!$payment->delete()){
-    //             // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
-    //             return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
-    //         }
-    //     }
-    //     $applicant = applicant::find($deleteApplicantId);
-    //     if($applicant){
-    //         if(!$applicant->delete()){
-    //             // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
-    //             return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
-    //         }
-    //     }
-    //     $witness = witness::find($deleteWitnessId);
-    //     if($witness){
-    //         if(!$witness->delete()){
-    //             // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
-    //             return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
-    //         }
-    //     }
-    //     $review = review::find($deleteReviewsId);
-    //     if($review){
-    //         if(!$review->delete()){
-    //             // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
-    //             return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
-    //         }
-    //     }
-    //     $property = property::find($deletepropertyId);
-       
-    //     if($property){
-           
-    //         if(!$property->delete()){
-
-    //             return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
-    //         }
-    //         else{
-    //             return view('displayrecord.deleterecordMessage')->with('status', 'Delted Record  !!!');  
-               
-    //         }
-
-    //     }
-    //     else{
-
-    //         return view('displayrecord.deleterecordMessage')->with('error', 'Record NOT Found or Something Wrong !!!');  
-    //     }
-
-    // }
 
     /**
      * Display the specified resource.
@@ -451,18 +416,24 @@ class editingControll extends Controller
         $applicant = DB::table('applicants')->where('propertyId',$id)->first();
         $installment = DB::table('installments')->where('propertyId',$id)->first();
         $review = DB::table('reviews')->where('propertyId',$id)->first();
+        $token = DB::table('tokens')->where('propertyId',$id)->first();
         // $witness = DB::table('witnesses')->where('propertyId',$id)->first();
         $seller = seller::orderBy('created_at','desc')->get();
 
-         $isEmpty = json_encode($installment);
-        
-        if($isEmpty == "null")
+        $isEmptyinstallment = json_encode($installment);
+        $isEmptytoken = json_encode($token);
+       
+        if($isEmptytoken == "null" && $isEmptyinstallment == "null")
         { 
-            
+            // total payment
             return view('displayrecord/singlerecord',compact('property','applicant','payment','review','seller'));    
         }
-        else{
-            
+        elseif($isEmptytoken != "null" && $isEmptyinstallment == "null"){
+            // token
+            return view('displayrecord/singlerecordtoken',compact('property','applicant','payment','review','token','seller')); 
+        }
+        elseif($isEmptyinstallment != "null"){
+            // installment
             return view('displayrecord/singlerecordinstallment',compact('property','applicant','payment','review','installment','seller')); 
         }
     }
@@ -487,20 +458,34 @@ class editingControll extends Controller
         $applicant = DB::table('applicants')->where('propertyId',$id)->first();
         $installment = DB::table('installments')->where('propertyId',$id)->first();
         $review = DB::table('reviews')->where('propertyId',$id)->first();
+        $token = DB::table('tokens')->where('propertyId',$id)->first();
         // $witness = DB::table('witnesses')->where('propertyId',$id)->first();
         $seller = seller::orderBy('created_at','desc')->get();
 
-         $isEmpty = json_encode($installment);
-        
-        if($isEmpty == "null")
+         $isEmptyinstallment = json_encode($installment);
+         $isEmptytoken = json_encode($token);
+        if($isEmptytoken == "null" && $isEmptyinstallment == "null")
         { 
-            
+            // total payment
             return view('editingfrom/editfroms',compact('property','applicant','payment','review','seller'));    
         }
-        else{
-            
+        elseif($isEmptytoken != "null" && $isEmptyinstallment == "null"){
+            // token
+            return view('editingfrom/editfromstoken',compact('property','applicant','payment','review','token','seller')); 
+        }
+        elseif($isEmptyinstallment != "null"){
+            // installment
             return view('editingfrom/editfromsinstallment',compact('property','applicant','payment','review','installment','seller')); 
         }
+        // if($isEmpty == "null")
+        // { 
+            
+        //     return view('editingfrom/editfroms',compact('property','applicant','payment','review','seller'));    
+        // }
+        // else{
+            
+        //     return view('editingfrom/editfromsinstallment',compact('property','applicant','payment','review','installment','seller')); 
+        // }
     }
     catch(Exception $e){
         return redirect()->back()->with('error',' Editing record section , something wrong .');
@@ -569,7 +554,8 @@ class editingControll extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);            
+            return Redirect::back()->withErrors($validator); 
+            //return response()->json(['error'=>$validator->errors()], 401);            
         }   
 
         
@@ -600,10 +586,38 @@ class editingControll extends Controller
             return redirect()->back()->with('error','Updating property section , something wrong .');
         }
     
-       try{
+    //    try{
+    //         // Handle File Upload
+    //         if($request->hasFile('cover_image')){
+    //             // Get filename with the extension
+    //             Storage::delete($Provider->avatar);
+    //             $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+    //             // Get just filename
+    //             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+    //             // Get just ext
+    //             $extension = $request->file('cover_image')->getClientOriginalExtension();
+    //             // Filename to store
+    //             $fileNameToStore= $filename.'_'.time().'.'.$extension;
+    //             // Upload Image
+    //             $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+    //         } 
+    //         else {
+    //             $fileNameToStore = 'noimage.jpg';
+    //         }
+    //     }
+    //     catch(Exception $e){
+    //         return redirect()->back()->with('error',' picture section input something wrong .');
+    //     }
+        // initilization the applicant object 
+        try{
+        $applicantId = DB::table('applicants')->where('propertyId',$id)->value('id');
+        $applicant = applicant::find($applicantId);
+        $applicant->name = $request->input('name');
+        try{
             // Handle File Upload
             if($request->hasFile('cover_image')){
                 // Get filename with the extension
+                Storage::delete($applicant->cover_image);
                 $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
                 // Get just filename
                 $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
@@ -613,19 +627,17 @@ class editingControll extends Controller
                 $fileNameToStore= $filename.'_'.time().'.'.$extension;
                 // Upload Image
                 $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
-            } else {
-                $fileNameToStore = 'noimage.jpg';
-            }
+                // image update
+                $applicant->cover_image = $fileNameToStore;
+            } 
+            // else {
+            //     $fileNameToStore = 'noimage.jpg';
+            // }
         }
         catch(Exception $e){
             return redirect()->back()->with('error',' picture section input something wrong .');
         }
-        // initilization the applicant object 
-        try{
-        $applicantId = DB::table('applicants')->where('propertyId',$id)->value('id');
-        $applicant = applicant::find($applicantId);
-        $applicant->name = $request->input('name');
-        $applicant->cover_image = $fileNameToStore;
+       
         $applicant->fatherName = $request->input('fatherName');
         $applicant->cnicNo = $request->input('cnicNo');
         $applicant->passportNo = $request->input('passportNo');
@@ -661,6 +673,8 @@ class editingControll extends Controller
         $payment->propertyPurchingDate = $request->input('propertyPurchingDate');
         $payment->propertyPaymentProcedure = $request->input('propertyPaymentProcedure');
         $payment->propertyPrice = $request->input('propertyPrice');
+        // property total amount 
+        $totalAmount = $request->input('propertyPrice');
         $payment->propertyId = $id;
         }
         catch(Exception $e){
@@ -691,6 +705,20 @@ class editingControll extends Controller
         // installment will be changed into 2nd version 
         try{
         $paymentProcedure = $payment->propertyPaymentProcedure;
+
+        // check and get the token payment 
+    //     try{
+    //     $token = DB::table('tokens')->where('propertyId',$id)->first();
+    //     $isEmptyToken = json_encode($token);
+    //     if($isEmptyToken != "null"){
+    //         $token = array($token);
+    //         foreach($token as $te){
+    //            $tokenPayment = $te->tokenPayment;
+    //         }
+    //     }
+    // } catch(Exception $e){
+    //     return redirect()->back()->with('error',' something wrong with the token payment or token payment.');
+    // }
         
         if($property->save()){
             // save the applicant 
@@ -712,7 +740,8 @@ class editingControll extends Controller
                     
                 ]);
                 if ($validator->fails()) {
-                    return response()->json(['error'=>$validator->errors()], 401);            
+                    return Redirect::back()->withErrors($validator);      
+                    // return response()->json(['error'=>$validator->errors()], 401);            
                 }
 
                 // property Id , down payment , No of installment require for calculation so get all the variables 
@@ -721,52 +750,80 @@ class editingControll extends Controller
                 $noOfinstallments = $request->input('noOfInstallments');
 
                 //get the total amount
-                $propertyprice  = DB::table('payments')->where('propertyId',$propertyId)->value('propertyPrice');
-                // Total amount , down payment , No of installment (calculation of installment throught these three variables)
-                $remaningAmount = $propertyprice - $downpayment ;
-                // total Amount divided into Number of installment to get the one installments
-                $amountOfOneInstallment = $remaningAmount/$noOfinstallments;
-                
-                // get today data and add 3 months ( 90 days ) to calculat the next installment date
-                $todayDate = date("Y-m-d");
-                $data1 = $todayDate;
-                // var_dump($data1);
-                $installmentDates = []; 
-                for($i=0; $i < $noOfinstallments; $i++)
-                {
+                try{
+                    $token = DB::table('tokens')->where('propertyId',$id)->first();
+                    $isEmptyToken = json_encode($token);
+                    if($isEmptyToken != "null"){
+                        $token = array($token);
+                        foreach($token as $te){
+                           $tokenPayment = $te->tokenPayment;
+                           $downpayment = $downpayment + $tokenPayment;
+                        }
+                        if($token){
                     
-                    $date2 = new DateTime($data1);
-                    $date2->add(new DateInterval('P90D')); // P90D means a period of 90 day
-                    $installmentDates[$i] = $date2->format('Y-m-d');
-                    $data1 = $installmentDates[$i];         
-                    
+                            $deleteTokenId = DB::table('tokens')->where('propertyId',$id)->value('id');
+                            $deleteTokenRow = token::find($deleteTokenId);
+                            $deleteTokenRow->delete();
+                        }
+
+                    }
+                } catch(Exception $e){
+                    return redirect()->back()->with('error',' something wrong with the token payment or token payment.');
                 }
-                // get all user data
-                //initilization the property object 
-                $installmentId  = DB::table('installments')->where('propertyId',$id)->value('id');
-               
-                $isEmpty = json_encode($installmentId);
                 
-                if($isEmpty == "null")
-                {
-                    // var_dump("No",$isEmpty);
-                    // exit();
-                    $installment = new installment;
-                }
+                $propertyprice  = DB::table('payments')->where('propertyId',$id)->value('propertyPrice');
+                // to calculat the 20 % of the total amount 
+                $atleastDownpayment = ($propertyprice * 0.2) ;
+                if( $downpayment >=$atleastDownpayment ){
+
+                    // Total amount , down payment , No of installment (calculation of installment throught these three variables)
+                    $remaningAmount = $propertyprice - $downpayment ;
+                    // total Amount divided into Number of installment to get the one installments
+                    $amountOfOneInstallment = $remaningAmount/$noOfinstallments;
+                    
+                    // get today data and add 3 months ( 90 days ) to calculat the next installment date
+                    $todayDate = date("Y-m-d");
+                    $data1 = $todayDate;
+                    // var_dump($data1);
+                    $installmentDates = []; 
+                    for($i=0; $i < $noOfinstallments; $i++)
+                    {
+                        
+                        $date2 = new DateTime($data1);
+                        $date2->add(new DateInterval('P90D')); // P90D means a period of 90 day
+                        $installmentDates[$i] = $date2->format('Y-m-d');
+                        $data1 = $installmentDates[$i];         
+                        
+                    }
+                    // get all user data
+                    //initilization the property object 
+                    $installmentId  = DB::table('installments')->where('propertyId',$id)->value('id');
+                
+                    $isEmpty = json_encode($installmentId);
+                    
+                    if($isEmpty == "null")
+                    {
+                        // var_dump("No",$isEmpty);
+                        // exit();
+                        $installment = new installment;
+                    }
+                    else{
+                        // var_dump("yes ",$installmentId);
+                        // exit();
+                        $installment = installment::find($installmentId);
+                    }
+
+                    $installment->noOfInstallments = $noOfinstallments; 
+                    $installment->downpayment = $downpayment;
+                    $installment->propertyId = $propertyId;
+                    $installment->amountOfOneInstallment = $amountOfOneInstallment; 
+                    $installment->installmentDates = json_encode($installmentDates);
+                    // save the installment info
+                    $installment->save();
+                }    
                 else{
-                    // var_dump("yes ",$installmentId);
-                    // exit();
-                    $installment = installment::find($installmentId);
+                    return redirect()->back()->with('error','Down Payment is less then 20% .');
                 }
-
-                $installment->noOfInstallments = $noOfinstallments; 
-                $installment->downpayment = $downpayment;
-                $installment->propertyId = $propertyId;
-                $installment->amountOfOneInstallment = $amountOfOneInstallment; 
-                $installment->installmentDates = json_encode($installmentDates);
-                // save the installment info
-                $installment->save();
-
             }
             elseif($paymentProcedure == "Total Amount"){
                
@@ -781,6 +838,33 @@ class editingControll extends Controller
                     $deleteInstallmentRow = installment::find($deleteInstallmentId);
                     $deleteInstallmentRow->delete();
                 }
+                //get the total amount
+                // $propertyprice  = DB::table('payments')->where('propertyId',$id)->value('propertyPrice');
+                
+                    $token = DB::table('tokens')->where('propertyId',$id)->first();
+                    $isEmptyToken = json_encode($token);
+                    
+                    if($isEmptyToken != "null"){
+                        $token = array($token);
+                        foreach($token as $te){
+                           $tokenPayment = $te->tokenPayment;
+                           $propertyprice  = DB::table('payments')->where('propertyId',$id)->value('propertyPrice');
+                           $propertyprice = $propertyprice - $tokenPayment;
+                            // initilization the payment table's object to update the total price 
+                            $paymentId = DB::table('payments')->where('propertyId',$id)->value('id');
+                            $payment = payment::find($paymentId);
+                            $payment->propertyPrice = $propertyprice;
+                            $payment->save();
+                        }
+                        if($token){
+                    
+                            $deleteTokenId = DB::table('tokens')->where('propertyId',$id)->value('id');
+                            $deleteTokenRow = token::find($deleteTokenId);
+                            $deleteTokenRow->delete();
+                        }
+                    }
+                
+                
             }
            
             // save all the property info and return successuflly message;
@@ -817,14 +901,24 @@ class editingControll extends Controller
         $deleteReviewsId = DB::table('reviews')->where('propertyId',$id)->value('id');
         // get property table id to delete that  HAVE property Id same 
         $deletepropertyId = DB::table('properties')->where('id',$id)->value('id');
+        // get the token table id to delete the have property Id same
+        $deletetoken = DB::table('tokens')->where('propertyId',$id)->first();
        
-       
+       if($deletetoken){
+            $deleteTokenId = DB::table('tokens')->where('propertyId',$id)->value('id');
+            $deleteTokenRow = token::find($deleteTokenId);
+            if(!$deleteTokenRow->delete()){
+                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  token row have something worng  !!!');
+            }
+       }
         // check that installment is exist or not 
         if($installmentrow){
                     
             $deleteInstallmentId = DB::table('installments')->where('propertyId',$id)->value('id');
             $deleteInstallmentRow = installment::find($deleteInstallmentId);
-            $deleteInstallmentRow->delete();
+            if(!$deleteInstallmentRow->delete()){
+                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  installment row have something worng  !!!');
+            }
         }
         $payment = payment::find($deletePaymentId);
         if($payment){

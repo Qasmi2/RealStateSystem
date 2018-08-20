@@ -35,7 +35,7 @@
 ?>
 <div class="container" style="margin-top:60px;">
     <div class="row justify-content-center">
-        <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
+        <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
         @include('flash-message')
             <div class="card">
                 <div class="card-header" style="background-color: #f44336;color:white;"> Registion Form Updating</div>
@@ -467,7 +467,7 @@
                                 <select class="form-control" name="propertyPaymentProcedure" id="propertyPaymentProcedure" onchange="paymentProcedure(this);">
                                     <option value="{{ $te->propertyPaymentProcedure }}">{{ $te->propertyPaymentProcedure }}</option>
                                     <option value="Installment">Installment</option>
-                                    <option value="Total Amount">Total Amount</option>
+                                    <option value="Token">Token</option>
                                     
                                 </select>
                                 @if ($errors->has('propertyPaymentProcedure'))
@@ -477,16 +477,19 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group row">
-                            
-                                <div id="addinstallment">
+                        &nbsp;&nbsp;
+                                <div id="addinstallment" style="display:inline;">
+                                
+                                
                             
                                 </div>
+                        &nbsp;&nbsp;
+                                <div id="addtoken" style="display:inline;">
+                                
+                                
                             
-                        </div>
-
-                        
-                        
+                                </div>
+                          
                         <!-- <div class="card-header" style="background:#f44336;color:white;margin:10px;">Witness Form</div> -->
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <div><h3>Seller Information</h3></div>
@@ -550,10 +553,13 @@ function paymentProcedure(val){
     
     var paymentProcedure = val.value;
     var parent = document.getElementById('addinstallment');
+    var parent1 = document.getElementById('addtoken');
     if( paymentProcedure == "Installment"){
         
-        var added = 
-                            '<div class="col-md-12 col-lg-12 col-sm-12">'+
+        var added =   '<div><h3>Installment Information</h3></div>'+
+                      '<hr>'+
+                        '<div class="form-group row">'+
+                            '<div class="col-md-6 col-lg-6 col-sm-12">'+
                                 '<label for="noOfInstallments" >No Of installment</label>'+
                               
                                   '<select class="form-control" name="noOfInstallments" id="noOfInstallments" >'+
@@ -572,7 +578,7 @@ function paymentProcedure(val){
                                 '</select>'+
                               
                             '</div>'+       
-                            '<div class="col-md-12 col-lg-12 col-sm-12">'+
+                            '<div class="col-md-6 col-lg-6 col-sm-12">'+
                                 '<label for="downpayment">Down Payment</label>'+
                                 '<input id="downpayment" type="number" min="0" placeholder="Enter down payment" class="form-control" name="downpayment" value="" >'+
                                
@@ -580,10 +586,29 @@ function paymentProcedure(val){
                         
         parent.insertAdjacentHTML('beforeend', added);
     }
-    if(paymentProcedure == "Total Amount"){
 
-           document.getElementById("noOfInstallments").value ="";
-           document.getElementById("downpayment").value ="";
+    if( paymentProcedure == "Token"){
+
+                    var added1 = '<div><h3>Token Information</h3></div>'+
+                        '<div class="form-group row">'+
+                         '<hr>'+
+                            '<div class="col-md-6 col-lg-6 col-sm-12">'+
+                                '<label for="tokenPayment" >Token Payment </label>'+
+                                '<input id="tokenPayment" type="number" min="0" placeholder="Enter token Payment" class="form-control" name="tokenPayment" value="" >'+
+                                 
+                              
+                            '</div>'+       
+                            '<div class="col-md-6 col-lg-6 col-sm-12">'+
+                                '<label for="remaningPaymentDate">Remaning Down Payment Date</label>'+
+                                '<input id="remaningPaymentDate" type="Date" placeholder="Enter Reaming Payment Date" class="form-control" name="remaningPaymentDate" value="" >'+
+                               
+                            '</div>'+
+                        '</div>'+
+                    '</div>'; 
+                         
+                      
+                parent1.insertAdjacentHTML('beforeend', added1);
+                document.getElementById("addinstallment").style.display ="none";
     }
     
     return 0;

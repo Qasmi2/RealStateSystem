@@ -81,6 +81,7 @@ Route::get('form1/{id}','formController@show')->name('form1')->middleware('auth'
 Route::get('form2/{id}','formController@showform2')->name('form2')->middleware('auth');
 Route::get('form3/{id}','formController@showform3')->name('form3')->middleware('auth');
 Route::get('Receptform/{id}','formController@showReceptform')->name('Receptform')->middleware('auth');
+Route::get('Receptformtoken/{id}','formController@showReceptformtoken')->name('Receptformtoken')->middleware('auth');
 Route::get('contractform/{id}','formController@showcontractform')->name('contractform')->middleware('auth');
 
 // seller 

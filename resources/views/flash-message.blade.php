@@ -31,8 +31,8 @@
 
 
 @if ($errors->any())
-<div class="alert alert-danger">
+<div class="alert alert-warning">
 	<button type="button" class="close" data-dismiss="alert">×</button>	
-	<span style="color:black;">Please check the form below for errors</span>
+	<span style="color:black;">Please check the form below for errors </span>
 </div>
 @endif
