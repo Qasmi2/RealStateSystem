@@ -32,7 +32,7 @@
                     ?>
 
                    
-                    <table class="table table-bordered table-striped table-hover">
+                    <table class="table table-bordered table-striped table-hover table-responsive">
                         <thead bgcolor="#a6468c" style="color:white;">
                             <tr>
                                <th>Seller ID</th>

@@ -150,14 +150,16 @@
                            foreach($payment as $te){
                                $totalPrice = $te->propertyPrice;
                                $data = $te->propertyPurchingDate;
+                               $paymentType = $te->paymentType;
+                             
                            }
                            foreach($installment as $te){
                             $installmentDates = json_decode($te->installmentDates);
                             $sizeofDates = sizeof($installmentDates);
                             $temp = 0;
-                            // echo $test[0];
-                            // exit();
+                           
                            }
+
                     ?>
 </head>
 <body>
@@ -238,7 +240,7 @@
         </section>
         @foreach($installment as $te)
         <div style="margin:30px 0px;">
-            Total Cost of Unit: {{$totalPrice}}/- &nbsp;Amount Paid: PKR {{$te->downpayment}}/-
+           <b> Total Cost of Unit:</b><u> {{$totalPrice}}/-</u> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Amount Paid:</b><u> PKR {{$te->downpayment}}/-</u> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Payment Throught:</b><u>{{$paymentType}}</u>
         </div>
 
         <section class="comptable">
@@ -247,12 +249,15 @@
             <table>
                 <tr>
                     <td class="tdprop">Down Payment on Booking</td>
+                    
                     <td class="tdprop">{{$te->downpayment}}</td>
+                    
                     <td class="tdprop">{{$data}}</td>
                 </tr>
                 <tr>
                     <td class="tdprop">1st Installment</td>
                     <td class="tdprop">{{$te->amountOfOneInstallment}}</td>
+                    
                     <td class="tdprop">{{$installmentDates[$temp]}}</td>
                 </tr>
                 <tr>

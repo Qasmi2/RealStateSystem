@@ -66,6 +66,7 @@ class installmentsController extends Controller
         // get today data and add 3 months ( 90 days ) to calculat the next installment date
        
         $todayDate = date("Y-m-d");
+       
         $data1 = $todayDate;
         // var_dump($data1);
         $installmentDates = []; 

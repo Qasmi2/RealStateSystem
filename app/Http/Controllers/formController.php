@@ -9,6 +9,7 @@ use App\property;
 use App\witness;
 use App\review;
 use App\applicant;
+use App\seller;
 use DB;
 
 class formController extends Controller
@@ -105,7 +106,14 @@ class formController extends Controller
       try{
         $applicant = DB::table('applicants')->where('propertyId',$id)->first();
         $payment = DB::table('payments')->where('propertyId',$id)->first();
+        $property = DB::table('properties')->where('id',$id)->first();
 
+        $property = array($property);       
+        foreach($property as $te){
+            $id = $te->propertySellerId;
+        }  
+      
+        
         return view('displayrecord.declarationform3',compact('applicant','payment')); 
         }
         catch(Exception $e){

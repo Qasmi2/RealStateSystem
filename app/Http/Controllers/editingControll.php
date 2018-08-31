@@ -296,17 +296,22 @@ class editingControll extends Controller
                 // total Amount divided into Number of installment to get the one installments
                 $amountOfOneInstallment = $remaningAmount/$noOfinstallments;
                 
-                // get today data and add 3 months ( 90 days ) to calculat the next installment date
-                $todayDate = date("Y-m-d");
-                $data1 = $todayDate;
-                // var_dump($data1);
-                $installmentDates = []; 
+                 // get lunching (project) data and add 3 months or ( 90 days ) to calculat the next installment date
+                 $todayDate = date("2018-09-10");
+                 $data1 = $todayDate;
+                 //  var_dump(json_encode($data1));
+                 //  exit();
+                 // jogarr to show data in month name
+               
+
+                 $installmentDates[0] = "10-Sep-2018"; 
+               
                 for($i=0; $i < $noOfinstallments; $i++)
                 {
                     
                     $date2 = new DateTime($data1);
                     $date2->add(new DateInterval('P90D')); // P90D means a period of 90 day
-                    $installmentDates[$i] = $date2->format('Y-m-d');
+                    $installmentDates[$i] = $date2->format('d-M-Y');
                     $data1 = $installmentDates[$i];         
                     
                 }
@@ -419,6 +424,7 @@ class editingControll extends Controller
         $token = DB::table('tokens')->where('propertyId',$id)->first();
         // $witness = DB::table('witnesses')->where('propertyId',$id)->first();
         $seller = seller::orderBy('created_at','desc')->get();
+   
 
         $isEmptyinstallment = json_encode($installment);
         $isEmptytoken = json_encode($token);
@@ -781,17 +787,21 @@ class editingControll extends Controller
                     // total Amount divided into Number of installment to get the one installments
                     $amountOfOneInstallment = $remaningAmount/$noOfinstallments;
                     
-                    // get today data and add 3 months ( 90 days ) to calculat the next installment date
-                    $todayDate = date("Y-m-d");
+                    // get lunching (project) data and add 3 months or ( 90 days ) to calculat the next installment date
+                    $todayDate = date("2018-09-10");
                     $data1 = $todayDate;
-                    // var_dump($data1);
-                    $installmentDates = []; 
-                    for($i=0; $i < $noOfinstallments; $i++)
+                    //  var_dump(json_encode($data1));
+                    //  exit();
+                    // jogarr to show data in month name
+                  
+
+                    $installmentDates[0] = "10-Sep-2018"; 
+                    for($i=1; $i < $noOfinstallments; $i++)
                     {
                         
                         $date2 = new DateTime($data1);
-                        $date2->add(new DateInterval('P90D')); // P90D means a period of 90 day
-                        $installmentDates[$i] = $date2->format('Y-m-d');
+                        $date2->add(new DateInterval('P3M')); // P3M means a 3 month and  P90D means a period of 90 day
+                        $installmentDates[$i] = $date2->format('d-M-Y');
                         $data1 = $installmentDates[$i];         
                         
                     }

@@ -144,11 +144,14 @@
         }
     </style>
     <?php  
+      
         $applicant = array($applicant);        
         $payment = array($payment);
         foreach($payment as $te){
           $bookingData = $te->propertyPurchingDate;
-        }            
+        }   
+     
+        
     ?>
 </head>
 <body>
@@ -163,9 +166,9 @@
         </div>
         @foreach($applicant as $te)
         <div style="width:800px; margin:10px auto; font-size:20px; line-height:40px; display:table;">
-            <center><strong style="font-size:18px;">DECLARATION</strong></center>
+            <center><strong style="font-size:24px;">DECLARATION</strong></center>
             <div style="width:800px; margin:20px 20px 20px 20px;">
-                <div style="margin-top:100px; margin-right:20px;">
+                <div style="margin-top:20px; margin-right:20px;">
                 I/ We, Mr. /Mrs. /Ms. /M/s.   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong> {{$te->name}}</strong>
                 </div>
                 <div style="margin-top:5px; margin-right:20px;">                    
@@ -175,7 +178,13 @@
                 <div style="margin-top:5px; margin-right:20px;">
                     Resident of / situated at &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong> {{$te->mailingAddress}}</strong>,<br/><br/>
                     do hereby, confirm that I have fully read/understood the above terms and conditions and do hereby agree to abide the same. I further declare that I shall abide by the existing rules, regulations terms and conditions, requirement etc. laid down by the company and, furthermore, any condition of common interest should be promulgated by the company must be accomplished.
-                </div>               
+                </div> 
+                <br/>
+                <div style="margin-top:10px; margin-right:20px;">
+                    Name of Booking Person <strong> </strong><br>
+                    Read, understood and accepted above terms and conditions of application form
+
+                </div>                
 
                 <div style="margin-top:100px; margin-right:160px;">
                     <strong>Authorized Signature: </strong> &nbsp; <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
@@ -192,6 +201,6 @@
     </div>
     @endforeach
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <img src="..\..\public\images\footer.jpg" class="footerprop" style="margin-top:130px;"/>
+    <!-- <img src="..\..\public\images\footer.jpg" class="footerprop" style="margin-top:130px;"/> -->
 </body>
 </html>
