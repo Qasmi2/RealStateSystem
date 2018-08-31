@@ -145,12 +145,17 @@
     </style>
     <?php  
       
-        $applicant = array($applicant);        
+        $applicant = array($applicant);       
+        $seller = array($seller); 
         $payment = array($payment);
         foreach($payment as $te){
           $bookingData = $te->propertyPurchingDate;
         }   
-     
+        foreach($seller as $te){
+            $bookingPerson = $te->sallerName;
+           
+            
+        }
         
     ?>
 </head>
@@ -181,19 +186,19 @@
                 </div> 
                 <br/>
                 <div style="margin-top:10px; margin-right:20px;">
-                    Name of Booking Person <strong> </strong><br>
+                    Name of Booking Person &nbsp;&nbsp; &nbsp; &nbsp;<strong>{{$bookingPerson}} </strong><br>
                     Read, understood and accepted above terms and conditions of application form
 
                 </div>                
 
-                <div style="margin-top:100px; margin-right:160px;">
+                <div style="margin-top:50px; margin-right:160px;">
                     <strong>Authorized Signature: </strong> &nbsp; <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
                 </div>
                 <div style="margin-top:5px; margin-right:160px;">
                     <strong>Booking Date: </strong> &nbsp; {{$bookingData}}
                 </div>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <div style="margin-top:100px;margin-left:170px;   border-top:solid 1px #000; width:400px; text-align:center;">
+                <div style="margin-top:50px;margin-left:170px;   border-top:solid 1px #000; width:400px; text-align:center;">
                     Siganture of Applicant
                 </div>
             </div>

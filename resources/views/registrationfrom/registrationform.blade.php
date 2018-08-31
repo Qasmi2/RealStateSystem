@@ -24,7 +24,7 @@
                         {{ csrf_field() }}
                         <div class="form-group row">
                             <div class="col-md-4 col-lg-4 col-sm-12">
-                                <label for="propertyType" >{{ __('Registion Project') }}</label>
+                                <label for="propertyType" >{{ __('Registion Project') }} </label>
                                
                                 <select class="form-control" name="propertyType" id="propertyType" >
                                     <option value="">Select Title</option>
@@ -39,7 +39,7 @@
                                 @endif
                             </div>
                             <div class="col-md-4 col-lg-4 col-sm-12">
-                                <label for="registrationStatus">{{ __('Registration Status') }}</label>
+                                <label for="registrationStatus">{{ __('Registration Status') }} </label>
                                
                                 <select class="form-control" name="registrationStatus" id="registrationStatus" >
                                     <option value="">choice Projecty Status</option>
@@ -56,7 +56,7 @@
                         <!-- </div>
                         <div class="form-group row"> -->
                             <div class="col-md-4 col-lg-4 col-sm-12">
-                                <label for="propertySection">{{ __('Property Section') }}</label>
+                                <label for="propertySection">{{ __('Property Section') }} </label>
                               
                                 <select class="form-control" name="propertySection" id="propertySection" >
                                     <option value="">Choice the Selection</option>
@@ -177,7 +177,7 @@
                                 @endif
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
-                                <label for="passportNo">{{ __('Passport No') }}</label>
+                                <label for="passportNo">{{ __('Passport No') }} (Optional)</label>
                                 <input id="passportNo" type="tel" size="8" maxlength="8" placeholder="e.g ab123456" class="form-control{{ $errors->has('passportNo') ? ' is-invalid' : '' }}" name="passportNo" value=""  >
                                 @if ($errors->has('passportNo'))
                                     <span class="invalid-feedback">
@@ -210,7 +210,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-3 col-lg-3 col-sm-12">
-                                <label for="email">{{ __('Email') }}</label>
+                                <label for="email">{{ __('Email') }} (Optional)</label>
                                 <input id="email" type="email" placeholder="Enter Email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="" >
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback">
@@ -219,7 +219,7 @@
                                 @endif
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
-                                <label for="phoneNO">{{ __('Phone Number') }}</label>
+                                <label for="phoneNO">{{ __('Phone Number') }}(Optional)</label>
                                 <input id="phoneNO" type="tel" size="11" maxlength="11" placeholder="e.g 051xxxxxxx" class="form-control{{ $errors->has('phoneNO') ? ' is-invalid' : '' }}" name="phoneNO" value=""  >
                                 @if ($errors->has('phoneNo'))
                                     <span class="invalid-feedback">
@@ -239,7 +239,7 @@
                                 @endif
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
-                                <label for="mobileNo2">{{ __('Mobile Number (2)') }}</label>
+                                <label for="mobileNo2">{{ __('Mobile Number (Opt)') }}</label>
                                 <input id="mobileNo2"  type="tel" size="12" maxlength="12" placeholder="e.g 0305xxxxxxx" class="form-control{{ $errors->has('mobileNo2') ? ' is-invalid' : '' }}" name="mobileNo2" value="" >
                                 @if ($errors->has('mobileNo2'))
                                     <span class="invalid-feedback">
@@ -286,7 +286,7 @@
                                 @endif
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
-                                <label for="nomineePassportNo">{{ __('Passport No') }}</label>
+                                <label for="nomineePassportNo">{{ __('Passport No') }}&nbsp;&nbsp;(Optional)</label>
                                 <input id="nomineePassportNo"  type="tel" size="8" maxlength="8" placeholder="e.g ab123456" class="form-control{{ $errors->has('nomineePassportNo') ? ' is-invalid' : '' }}" name="nomineePassportNo" value=""  >
                                 @if ($errors->has('nomineePassportNo'))
                                     <span class="invalid-feedback">
@@ -397,7 +397,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
-                                <label for="bankName">{{ __('Bank Name') }}</label>
+                                <label for="bankName">{{ __('Bank Name') }} &nbsp; &nbsp; (Optional)</label>
                                 <input id="bankName" type="text" placeholder="Enter bankName " class="form-control{{ $errors->has('bankName') ? ' is-invalid' : '' }}" name="bankName" value="" >
                                
                                 @if ($errors->has('bankName'))
@@ -488,12 +488,12 @@
                         <div><h3>Token Information</h3></div>
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
-                                <label id="tokenPayment" for="tokenPayment" >Token Payment</label>
+                                <label id="tokenPayment" for="tokenPayment" >Token Payment </label>
                                 <input id="tokenPayment" type="number" min="0" placeholder="Enter Token payment" class="form-control" name="tokenPayment" value="" style="border: 1px solid red;">
                               
                             </div>       
                             <div class="col-md-6 col-lg-6 col-sm-12">
-                                <label for="remaningPaymentDate">Remaning Payment Date</label>
+                                <label for="remaningPaymentDate">Remaning Payment Date </label>
                                 <input id="remaningPaymentDate" type="Date" placeholder="Enter Remaning Payment Date" class="form-control" name="remaningPaymentDate" value="" style="border: 1px solid red;">
                                
                             </div>
@@ -536,7 +536,7 @@
                         
                         <div class="form-group row">   
                             <div class="col-md-12 col-lg-12 col-sm-12">
-                                <label for="comment">{{ __('Write your Comments') }}</label>
+                                <label for="comment">{{ __('Write your Comments') }}&nbsp; &nbsp; (Optional)</label>
                                
                                 <textarea rows="4" cols="100" id="comment" name="comment" placeholder="Enter your comment" class="form-control{{ $errors->has('comment') ? ' is-invalid' : '' }}" name="comment" ></textarea>
                                 @if ($errors->has('comment'))

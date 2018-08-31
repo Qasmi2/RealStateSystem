@@ -37,12 +37,30 @@
                             
 			$property = array($property);
             $payment = array($payment);
-            $token = array($token);
+			$token = array($token);
+			$seller = array($seller);
+			foreach($seller as $te){
+				
+				$sallerName = $te->sallerName;
+				$sallerCnicNo = $te->sallerCnicNo;
+			
+			}  
+			$applicant = array($applicant);
+			foreach($applicant as $te){
+				$pic = $te->cover_image;
+				$appName = $te->name;
+				$cnicNo = $te->cnicNo;
+			
+			}  
 			        
 			foreach($property as $te){
+			
+				
 				$propertySize = $te->propertySize;
 				$item1 = $te->propertySection;
-				$item2 = $te->propertyLocation;
+				$roomShopNO = $te->propertyLocation;
+				$floor = $te->propertyAddress;
+				$type = $te->propertyType;
 				
 			}   
 			foreach($payment as $te){
@@ -92,8 +110,8 @@
 				  </tr>
 				  <tr>
 					<td>1</td>
-					<td>Floor No. {{$item1}} <br /> Room No./Shop No.{{$item2}}</td>
-					<td>{{$propertySize}} sq ft</td>
+					<td>{{$type}}</td>
+					<td>{{$propertySize}} sq ft,  Floor NO. {{$floor}} <br> Room No. / Shop No. {{$roomShopNO}}</td>
 					<td>RS.{{$unitCost}}/- </td>
 					<td>Total Price: {{$propertyPrice}}</td>
 				  </tr>
@@ -122,16 +140,17 @@
 							Signature:___________________________<br>
 							MONTVIRO (Pvt) Ltd.<br>
 							Name:Mohsin Ali Khan<br>
-							CNIC # 6110139839393<br>
+							CNIC # 13101-9506840-5<br>
 							
 						</div>
 					</td>
 					<td style="border:none !important;">
 						<div style="front-family:Calibri;font-size:12px;text-align:right;line-height:18px; padding:25px 0;">
 							<b>Purchaser</b><br>
+							<img src="../storage/cover_images/{{$pic}}" height="70" width="70">
+							Name: {{$appName}}<br>
+							CNIC # {{$cnicNo}}<br><br>
 							Signature:___________________________<br>
-							Name:Mohsin Ali Khan<br>
-							CNIC # 6110139839393<br>
 						
 						</div>
 					</td>
@@ -145,8 +164,8 @@
 						<div style="front-family:Calibri;font-size:12px;text-align:left;line-height:18px; padding:25px 0;">
 							<b>Witness 1:___________________</b><br>
 							Fintial consultants (Pvt) Ltd.<br>
-							Name:Muhammad Shoaib<br>
-							CNIC # 6110139839393<br>
+							Name:Kashif Malik<br>
+							CNIC # 37405-4588246-1<br>
 							
 						</div>
 					</td>
@@ -154,8 +173,8 @@
 						<div style="front-family:Calibri;font-size:12px;text-align:right;line-height:18px; padding:25px 0;">
 							<b>Witness 2:___________________</b><br>
 							Fintial consultants (Pvt) Ltd.<br>
-							Name:Muhammad Shoaib<br>
-							CNIC # 6110139839393<br>
+							Name: {{$sallerName}}<br>
+							CNIC # {{$sallerCnicNo}}<br>
 							
 						</div>
 					</td>
