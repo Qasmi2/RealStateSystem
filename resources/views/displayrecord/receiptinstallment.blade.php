@@ -139,7 +139,7 @@
 					<td style="border:none !important;">
 						<div style="front-family:Calibri;font-size:12px;text-align:left;line-height:18px; padding:25px 0;">
 							<b>Saller</b><br>
-							Signature:___________________________<br>
+							Signature:____________<br>
 							MONTVIRO (Pvt) Ltd.<br>
 							Name:Mohsin Ali Khan<br>
 							CNIC # 6110139839393<br>
@@ -149,11 +149,15 @@
 					<td style="border:none !important;">
 						<div style="front-family:Calibri;font-size:12px;text-align:right;line-height:18px; padding:25px 0;">
 							<b>Purchaser</b><br>
-							<img src="../storage/cover_images/{{$pic}}" height="70" width="70">
-							Name: {{$appName}}<br>
-							CNIC # {{$cnicNo}}<br><br>
-							Signature:___________________________<br>
-						
+							
+							<div style="float:left;padding-left:333px;">
+								<img src="../storage/cover_images/{{$pic}}" height="70" width="70">
+							</div>
+							<div style="float:right;">
+								Name: {{$appName}}<br>
+								CNIC # {{$cnicNo}}<br><br>
+								Signature:____________<br>
+							</div>
 						</div>
 					</td>
 				<tr>

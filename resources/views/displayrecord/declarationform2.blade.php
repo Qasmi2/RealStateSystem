@@ -173,7 +173,7 @@
                 </div>
                 <table style="text-align:left;">
                     <tr>
-                        <td style="width:380px;"><strong>Name of Applicant:</strong>&nbsp;N/A </td>
+                        <td style="width:380px;"><strong>Name of Applicant:</strong>&nbsp; </td>
                         <td><strong>S/O D/O W/O:</strong> &nbsp;N/A</td>
                     </tr>
                     <tr><td><br /></td></tr>
