@@ -50,6 +50,7 @@
 				$pic = $te->cover_image;
 				$appName = $te->name;
 				$cnicNo = $te->cnicNo;
+				$address = $te->mailingAddress;
 			
 			}  
 			        
@@ -146,12 +147,26 @@
 					</td>
 					<td style="border:none !important;">
 						<div style="front-family:Calibri;font-size:12px;text-align:right;line-height:18px; padding:25px 0;">
-							<b>Purchaser</b><br>
-							<img src="../storage/cover_images/{{$pic}}" height="70" width="70">
-							Name: {{$appName}}<br>
-							CNIC # {{$cnicNo}}<br><br>
-							Signature:___________________________<br>
-						
+							<b style="padding-right: 160px;">Purchaser</b><br>
+							<span>Signature:_____________________<br></span>
+							<div style="float:left;padding-left:333px;">
+								<img src="../storage/cover_images/{{$pic}}" height="70" width="70">
+							</div>
+							<div style="float:right;padding-right:15px;">
+								Name: {{$appName}}<br>
+							
+								
+								
+							</div>
+							<div style="float:right;padding-right:5px;">
+								
+								CNIC # {{$cnicNo}}<br>
+								
+								
+							</div>
+							<div style="padding-right: 30px;">
+							Address: {{$address}}
+							</div>
 						</div>
 					</td>
 				<tr>
@@ -169,12 +184,29 @@
 							
 						</div>
 					</td>
-					<td style="border:none !important;">
+					<!-- <td style="border:none !important;">
 						<div style="front-family:Calibri;font-size:12px;text-align:right;line-height:18px; padding:25px 0;">
 							<b>Witness 2:___________________</b><br>
 							Fintial consultants (Pvt) Ltd.<br>
 							Name: {{$sallerName}}<br>
 							CNIC # {{$sallerCnicNo}}<br>
+							
+						</div>
+					</td> -->
+					<td style="border:none !important;">
+						<div style="front-family:Calibri;font-size:12px;text-align:right;line-height:18px; padding:25px 0;">
+							<b style="padding-right:160px;">Witness 2:</b><br>
+							<div style="padding-right: 52px;">
+								Fintial consultants (Pvt) Ltd.<br>
+							</div>
+							<div style="padding-right: 70px;">
+								Name: {{$sallerName}}<br>
+							</div>
+							<div style="padding-right: 58px;">
+								CNIC NO # {{$sallerCnicNo}}<br>
+							</div>
+							
+							
 							
 						</div>
 					</td>
