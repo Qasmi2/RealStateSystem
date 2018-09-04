@@ -149,6 +149,7 @@
                            foreach($payment as $te){
                                $totalPrice = $te->propertyPrice;
                                $data = $te->propertyPurchingDate;
+                               $paymenttype = $te->paymentType;
                            }
                     ?>
 </head>
@@ -172,7 +173,7 @@
                 </div>
                 <table style="text-align:left;">
                     <tr>
-                        <td style="width:380px;"><strong>Name of Applicant:</strong>&nbsp;N/A </td>
+                        <td style="width:380px;"><strong>Name of Applicant:</strong>&nbsp; </td>
                         <td><strong>S/O D/O W/O:</strong> &nbsp;N/A</td>
                     </tr>
                     <tr><td><br /></td></tr>
@@ -230,7 +231,7 @@
         </section>
         
         <div style="margin:30px 0px;">
-            Total Cost of Unit: {{$totalPrice}}/- &nbsp;Amount Paid: PKR {{$totalPrice}}/-
+            <b>Total Cost of Unit</b>:<u>{{$totalPrice}}/-</u> &nbsp;&nbsp; <b>Amount Paid</b>: <u>PKR {{$totalPrice}}/-</u> &nbsp;&nbsp;<b>Payment Through</b>:<u>{{$paymenttype}}</u>
         </div>
        
         <section class="comptable">

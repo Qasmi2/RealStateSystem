@@ -165,15 +165,29 @@ class editingControll extends Controller
         // Handle File Upload
         if($request->hasFile('cover_image')){
             // Get filename with the extension
-            $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('cover_image')->getClientOriginalExtension();
-            // Filename to store
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            // Upload Image
-            $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+            // $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+            // // Get just filename
+            // $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // // Get just ext
+            // $extension = $request->file('cover_image')->getClientOriginalExtension();
+            // // Filename to store
+            // $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // // Upload Image
+            // $s3_url = url('/').'/public/uploads/'.$local_url;
+            // $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+
+
+            $file_name = time();
+            $file_name .= rand();
+            $file_name = sha1($file_name);
+            if ($request->file('cover_image')) {
+                $ext = $request->file('cover_image')->getClientOriginalExtension();
+                $request->file('cover_image')->move(public_path() . "/uploads", $file_name . "." . $ext);
+                $local_url = $file_name . "." . $ext;
+    
+                $s3_url = url('/').'/uploads/'.$local_url;
+            }
+           
         } else {
             $fileNameToStore = 'noimage.jpg';
         }
@@ -187,7 +201,7 @@ class editingControll extends Controller
     try{
         $applicant = new applicant;
         $applicant->name = $request->input('name');
-        $applicant->cover_image = $fileNameToStore;
+        $applicant->cover_image = $s3_url;
         $applicant->fatherName = $request->input('fatherName');
         $applicant->cnicNo = $request->input('cnicNo');
         $applicant->passportNo = $request->input('passportNo');
@@ -296,17 +310,22 @@ class editingControll extends Controller
                 // total Amount divided into Number of installment to get the one installments
                 $amountOfOneInstallment = $remaningAmount/$noOfinstallments;
                 
-                // get today data and add 3 months ( 90 days ) to calculat the next installment date
-                $todayDate = date("Y-m-d");
-                $data1 = $todayDate;
-                // var_dump($data1);
-                $installmentDates = []; 
+                 // get lunching (project) data and add 3 months or ( 90 days ) to calculat the next installment date
+                 $todayDate = date("2018-09-10");
+                 $data1 = $todayDate;
+                 //  var_dump(json_encode($data1));
+                 //  exit();
+                 // jogarr to show data in month name
+               
+
+                 $installmentDates[0] = "10-Sep-2018"; 
+               
                 for($i=0; $i < $noOfinstallments; $i++)
                 {
                     
                     $date2 = new DateTime($data1);
                     $date2->add(new DateInterval('P90D')); // P90D means a period of 90 day
-                    $installmentDates[$i] = $date2->format('Y-m-d');
+                    $installmentDates[$i] = $date2->format('d-M-Y');
                     $data1 = $installmentDates[$i];         
                     
                 }
@@ -419,6 +438,7 @@ class editingControll extends Controller
         $token = DB::table('tokens')->where('propertyId',$id)->first();
         // $witness = DB::table('witnesses')->where('propertyId',$id)->first();
         $seller = seller::orderBy('created_at','desc')->get();
+   
 
         $isEmptyinstallment = json_encode($installment);
         $isEmptytoken = json_encode($token);
@@ -615,21 +635,33 @@ class editingControll extends Controller
         $applicant->name = $request->input('name');
         try{
             // Handle File Upload
-            if($request->hasFile('cover_image')){
-                // Get filename with the extension
-                Storage::delete($applicant->cover_image);
-                $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
-                // Get just filename
-                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-                // Get just ext
-                $extension = $request->file('cover_image')->getClientOriginalExtension();
-                // Filename to store
-                $fileNameToStore= $filename.'_'.time().'.'.$extension;
-                // Upload Image
-                $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
-                // image update
-                $applicant->cover_image = $fileNameToStore;
-            } 
+            // if($request->hasFile('cover_image')){
+            //     // Get filename with the extension
+            //     Storage::delete($applicant->cover_image);
+            //     $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+            //     // Get just filename
+            //     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            //     // Get just ext
+            //     $extension = $request->file('cover_image')->getClientOriginalExtension();
+            //     // Filename to store
+            //     $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            //     // Upload Image
+            //     $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+            //     // image update
+            //     $applicant->cover_image = $fileNameToStore;
+            // } 
+
+            $file_name = time();
+            $file_name .= rand();
+            $file_name = sha1($file_name);
+            if ($request->file('cover_image')) {
+                $ext = $request->file('cover_image')->getClientOriginalExtension();
+                $request->file('cover_image')->move(public_path() . "/uploads", $file_name . "." . $ext);
+                $local_url = $file_name . "." . $ext;
+    
+                $s3_url = url('/').'/uploads/'.$local_url;
+                $applicant->cover_image = $s3_url;
+            }
             // else {
             //     $fileNameToStore = 'noimage.jpg';
             // }
@@ -781,17 +813,21 @@ class editingControll extends Controller
                     // total Amount divided into Number of installment to get the one installments
                     $amountOfOneInstallment = $remaningAmount/$noOfinstallments;
                     
-                    // get today data and add 3 months ( 90 days ) to calculat the next installment date
-                    $todayDate = date("Y-m-d");
+                    // get lunching (project) data and add 3 months or ( 90 days ) to calculat the next installment date
+                    $todayDate = date("2018-09-10");
                     $data1 = $todayDate;
-                    // var_dump($data1);
-                    $installmentDates = []; 
-                    for($i=0; $i < $noOfinstallments; $i++)
+                    //  var_dump(json_encode($data1));
+                    //  exit();
+                    // jogarr to show data in month name
+                  
+
+                    $installmentDates[0] = "10-Sep-2018"; 
+                    for($i=1; $i < $noOfinstallments; $i++)
                     {
                         
                         $date2 = new DateTime($data1);
-                        $date2->add(new DateInterval('P90D')); // P90D means a period of 90 day
-                        $installmentDates[$i] = $date2->format('Y-m-d');
+                        $date2->add(new DateInterval('P3M')); // P3M means a 3 month and  P90D means a period of 90 day
+                        $installmentDates[$i] = $date2->format('d-M-Y');
                         $data1 = $installmentDates[$i];         
                         
                     }

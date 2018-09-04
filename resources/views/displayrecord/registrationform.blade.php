@@ -164,32 +164,43 @@
         $applicant = array($applicant);            
         foreach($applicant as $te){
             //applicant CNIC NO 
-            $charsArrayCnic = str_split($te->cnicNo);
-            $sizeofCNiC = sizeof($charsArrayCnic);
+            $charsArrayCnica = str_split($te->cnicNo);
+            $sizeofCNiCa = sizeof($charsArrayCnica);
+            // applicant passport 
+            $isEmptyPassporta = $te->passportNo;
+           
+            $charsArrayPassporta = str_split($te->passportNo);
+            $sizeofPassporta = sizeof($charsArrayPassporta);
             //Nominee Applicnat CNIC NO
-            $charsArraynCnic = Str_split($te->nomineeCnicNo);
-            $sizeofCNICn = sizeof($charsArraynCnic);
+            $charsArraynCnicn = Str_split($te->nomineeCnicNo);
+            $sizeofCNICn = sizeof($charsArraynCnicn);
+            // Nominee passport 
+            $isEmptyPassportn = $te->nomineePassportNo;
+            $charsArrayPassportn = str_split($te->nomineePassportNo);
+            $sizeofPassportn = sizeof($charsArrayPassportn);
         }           
     ?>
 <body>
     <div id="content">
         <div style="width:800px;">
+        @foreach($property as $te)
             <div class="compname">
                 <h1>MONTVIRO <span>(Pvt) Ltd</span></h1>
                 <h5>Booking Application Form (Non-Refundable)</h5>
-                <h3>CUSTOMER COPY  <span> APP NO:</span></h3>
+                <h3>CUSTOMER COPY  <span> APP NO: <u>&nbsp;&nbsp;&nbsp;{{$te->id}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></span></h3>
             </div>
             <div class="complogo">
                 <img src="..\..\public\images\mlogo.png" />
             </div>
         </div>
-        @foreach($property as $te)
+      
         <section class="comptable">
             <img src="..\..\public\images\tabletop.jpg" />
             <h3>REGISTRATION DETAIL</h3>
             <div class="h3prop">
                 REGISTRATION NUMBER
                 <span class="spanprop">(as per submitted registration form):&nbsp; </span>
+                <u>&nbsp;&nbsp;&nbsp;&nbsp;{{$te->id}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
             </div>
             <div class="h3prop">
                 REGISTRATION PROJECT: &nbsp; &nbsp; &nbsp; 
@@ -338,21 +349,28 @@
             <div class="h3prop2">
                 <table style="text-align:left;">
                     <tr>
-                        <td style="width:380px;"><strong>Name of Applicant:</strong>&nbsp; {{$te->name}} </td>
-                        <td><strong>S/O:</strong> &nbsp; {{$te->fatherName}}</td>
+                        <td style="width:380px;"><strong>Name of Applicant:</strong>&nbsp;<u> {{$te->name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u> </td>
+                        <td><strong>S/O:</strong> &nbsp; <u>{{$te->fatherName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
                     </tr>
                     <tr><td><br /></td></tr>
                     <tr>
                         <td>
                             <strong>CNIC:</strong> &nbsp;
                             
-                            @for($i=0; $i< $sizeofCNiC; $i++)
-                            <span class="block">{{$charsArrayCnic[$i]}}</span>
+                            @for($i=0; $i< $sizeofCNiCa; $i++)
+                            <span class="block">{{$charsArrayCnica[$i]}}</span>
                             @endfor
                         </td>
                         <td>
                             <strong>Passport No:</strong>&nbsp;
-                            {{$te->passportNo}}
+                         
+                            
+                                @for($i=0; $i< $sizeofPassporta; $i++)
+                             
+                                <span class="block">{{$charsArrayPassporta[$i]}}</span>
+                             
+                                @endfor
+                               
                             <!-- <span class="block">&nbsp;</span>
                             <span class="block">&nbsp;</span>
                             <span class="block">&nbsp;</span>
@@ -376,22 +394,22 @@
                 <br />
                 <table style="text-align:left;">
                     <tr>
-                        <td style="width:380px;"><strong>Mailing Address:</strong>&nbsp; {{$te->mailingAddress}}</td>
-                        <td style="height:100px !important ; width:100px !important;" rowspan="3"><img src="../storage/cover_images/{{$te->cover_image}}" height="100" width="100 " style="height:100px !important; width:100px !important; padding-left:80px;"></td>
+                        <td style="width:500px;"><strong>Mailing Address:</strong>&nbsp; <u>{{$te->mailingAddress}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                        <td style="height:100px !important ; width:100px !important;" rowspan="3"><img src="{{$te->cover_image}}" height="100" width="100 " style="height:100px !important; width:100px !important; padding-left:30px;"></td>
                     </tr>
                     <tr>
-                        <td><strong>Permenant Address:</strong> &nbsp; {{$te->permanentAddress}}</td>
+                        <td><strong>Permenant Address:</strong> &nbsp;  <u>{{$te->permanentAddress}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
                     </tr>
                     <tr>
-                        <td><strong>Email:</strong> &nbsp; {{$te->email}}</td>
+                        <td><strong>Email:</strong> &nbsp;  <u>{{$te->email}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
                     </tr>
                 </table>
                 <br />
                 <table style="text-align:left;">
                     <tr>
-                        <td style="width:266px;"><strong>Phone No Res:</strong>&nbsp; {{$te->phoneNO}}<!--<u> </u>--></td>
-                        <td style="width:266px;"><strong>Mobile 1: </strong>&nbsp; {{$te->mobileNo1}} <!--<u> Kotli</u>--></td>
-                        <td style="width:266px;"><strong>Mobile 2:</strong>&nbsp; {{$te->mobileNo2}}</td>
+                        <td style="width:266px;"><strong>Phone No Res:</strong>&nbsp;<u> {{$te->phoneNO}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                        <td style="width:266px;"><strong>Mobile 1: </strong>&nbsp; <u>{{$te->mobileNo1}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u></td>
+                        <td style="width:204px;"><strong>Mobile 2:</strong>&nbsp;  <u>{{$te->mobileNo2}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
                     </tr>
                 </table>
             </div>
@@ -403,15 +421,15 @@
             <div class="h3prop2">
                 <table style="text-align:left;">
                     <tr>
-                        <td style="width:380px;"><strong>Nominee Name:</strong>&nbsp; {{$te->nomineeName}}</td>
-                        <td><strong> S/O:</strong> &nbsp; {{$te->nomineeFatherName}} </td>
+                        <td style="width:380px;"><strong>Nominee Name:</strong>&nbsp;<u> {{$te->nomineeName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                        <td><strong> S/O:</strong> &nbsp; <u>{{$te->nomineeFatherName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u> </td>
                     </tr>
                     <tr><td colspan="2"><br /></td></tr>
                     <tr>
                         <td>
                             <strong>CNIC:</strong> &nbsp;
                             @for($i=0; $i < $sizeofCNICn; $i++)
-                            <span class="block">{{$charsArraynCnic[$i]}}</span>
+                            <span class="block">{{$charsArraynCnicn[$i]}}</span>
                           
                             @endfor
                             <br />
@@ -419,7 +437,10 @@
                         <!-- 61101-0588104-7 -->
                         <td>
                             <strong>Passport No:</strong>
-                            {{$te->nomineePassportNo}}
+                            @for($i=0; $i< $sizeofPassportn; $i++)
+                            <span class="block">{{$charsArrayPassportn[$i]}}</span>
+                            @endfor
+                           
                             <!-- <span class="block">&nbsp;</span>
                             <span class="block">&nbsp;</span>
                             <span class="block">&nbsp;</span>
@@ -435,11 +456,11 @@
                 <br />
                 <table style="text-align:left;">
                     <tr>
-                        <td><strong>Relationship with Applicant:</strong> &nbsp; {{$te->relationWithApplicant}}</td>
+                        <td><strong>Relationship with Applicant:</strong> &nbsp; <u>{{$te->relationWithApplicant}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
                     </tr>
                     <tr><td><br /></td></tr>
                     <tr>
-                        <td><strong>Mailing Address:</strong>&nbsp; {{$te->nomineeMailingAddress}}</td>
+                        <td ><strong>Mailing Address:</strong>&nbsp; <u>{{$te->nomineeMailingAddress}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
                     </tr>
                 </table>
             </div>
@@ -452,18 +473,18 @@
             <div class="h3prop2">
                 <table style="text-align:left;">
                     <tr>
-                        <td style="width:360px;"><strong>Cash/Pay Order /Cheque/Adjustment:</strong>&nbsp; {{$te->paymentType}}</td>
-                        <td style="width:160px;"><strong>Date:</strong>&nbsp;  {{$te->propertyPurchingDate}}</td>
-                        <td><strong>In Favor of:</strong>&nbsp; Montviro Pvt Limited</td>
+                        <td style="width:360px;"><strong>Cash/Pay Order /Cheque/Adjustment:</strong>&nbsp; <u>{{$te->paymentType}}&nbsp;&nbsp;</u></td>
+                        <td style="width:150px;"><strong>Date:</strong>&nbsp;  <u>{{$te->propertyPurchingDate}}&nbsp;&nbsp;</u></td>
+                        <td><strong>In Favor of:</strong>&nbsp; <u>Montviro Pvt Limited</u></td>
                     </tr>
                 </table>
                 <br />
                 <table style="text-align:left;">
                     <tr>
-                        <td style="width:360px;"><strong>Bank:</strong>&nbsp;{{$te->bankName}}</td>
+                        <td style="width:360px;"><strong>Bank:</strong>&nbsp;<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$te->bankName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
                         <td>
                             <strong>Total Amount(PKR):</strong>&nbsp;
-                            {{$te->propertyPrice}}/-
+                           <u> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$te->propertyPrice}}/-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
                         </td>
                     </tr>
                 </table>

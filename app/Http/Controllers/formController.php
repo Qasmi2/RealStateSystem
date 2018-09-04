@@ -9,6 +9,7 @@ use App\property;
 use App\witness;
 use App\review;
 use App\applicant;
+use App\seller;
 use DB;
 
 class formController extends Controller
@@ -105,8 +106,15 @@ class formController extends Controller
       try{
         $applicant = DB::table('applicants')->where('propertyId',$id)->first();
         $payment = DB::table('payments')->where('propertyId',$id)->first();
+        $property = DB::table('properties')->where('id',$id)->first();
 
-        return view('displayrecord.declarationform3',compact('applicant','payment')); 
+        $property = array($property);       
+        foreach($property as $te){
+            $id = $te->propertySellerId;
+        }  
+        $seller = DB::table('sellers')->where('id',$id)->first();
+        
+        return view('displayrecord.declarationform3',compact('applicant','payment','seller')); 
         }
         catch(Exception $e){
             return redirect()->back()->with('error',' from 3 section input something wrong .');
@@ -125,19 +133,25 @@ class formController extends Controller
         $property = DB::table('properties')->where('id',$id)->first();
         $installments = DB::table('installments')->where('propertyId',$id)->first();
         $payment = DB::table('payments')->where('propertyId',$id)->first();
-        $witness =DB::table('witnesses')->where('propertyId',$id)->first();
+        $applicant = DB::table('applicants')->where('propertyId',$id)->first();
+        
+        $property1 = array($property);       
+        foreach($property1 as $te){
+            $id = $te->propertySellerId;
+        }  
+        $seller = DB::table('sellers')->where('id',$id)->first();
         
         $isEmpty = json_encode($installments);
         
         if($isEmpty == "null")
         { 
            
-            return view('displayrecord.receipttotalamount',compact('property','payment','witness')); 
+            return view('displayrecord.receipttotalamount',compact('property','payment','applicant','seller')); 
             
         }
         else{
            
-            return view('displayrecord.receiptinstallment',compact('property','payment','installments','witness')); 
+            return view('displayrecord.receiptinstallment',compact('property','payment','installments','applicant','seller')); 
             // return view('displayrecord/singlerecordinstallment',compact('property','applicant','payment','witness','review','installment')); 
         }
 
@@ -165,10 +179,17 @@ class formController extends Controller
         $payment = DB::table('payments')->where('propertyId',$id)->first();
         $witness =DB::table('witnesses')->where('propertyId',$id)->first();
         $token = DB::table('tokens')->where('propertyId',$id)->first();
+        $applicant = DB::table('applicants')->where('propertyId',$id)->first();
+
+        $property1 = array($property);       
+        foreach($property1 as $te){
+            $id = $te->propertySellerId;
+        }  
+        $seller = DB::table('sellers')->where('id',$id)->first();
         
         $isEmpty = json_encode($installments);
            
-        return view('displayrecord.receipttoken',compact('property','payment','token')); 
+        return view('displayrecord.receipttoken',compact('property','payment','token','applicant','seller')); 
         
     }
         catch(Exception $e){

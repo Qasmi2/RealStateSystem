@@ -144,11 +144,19 @@
         }
     </style>
     <?php  
-        $applicant = array($applicant);        
+      
+        $applicant = array($applicant);       
+        $seller = array($seller); 
         $payment = array($payment);
         foreach($payment as $te){
           $bookingData = $te->propertyPurchingDate;
-        }            
+        }   
+        foreach($seller as $te){
+            $bookingPerson = $te->sallerName;
+           
+            
+        }
+        
     ?>
 </head>
 <body>
@@ -163,9 +171,9 @@
         </div>
         @foreach($applicant as $te)
         <div style="width:800px; margin:10px auto; font-size:20px; line-height:40px; display:table;">
-            <center><strong style="font-size:18px;">DECLARATION</strong></center>
+            <center><strong style="font-size:24px;">DECLARATION</strong></center>
             <div style="width:800px; margin:20px 20px 20px 20px;">
-                <div style="margin-top:100px; margin-right:20px;">
+                <div style="margin-top:20px; margin-right:20px;">
                 I/ We, Mr. /Mrs. /Ms. /M/s.   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong> {{$te->name}}</strong>
                 </div>
                 <div style="margin-top:5px; margin-right:20px;">                    
@@ -175,16 +183,22 @@
                 <div style="margin-top:5px; margin-right:20px;">
                     Resident of / situated at &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong> {{$te->mailingAddress}}</strong>,<br/><br/>
                     do hereby, confirm that I have fully read/understood the above terms and conditions and do hereby agree to abide the same. I further declare that I shall abide by the existing rules, regulations terms and conditions, requirement etc. laid down by the company and, furthermore, any condition of common interest should be promulgated by the company must be accomplished.
-                </div>               
+                </div> 
+                <br/>
+                <div style="margin-top:10px; margin-right:20px;">
+                    Name of Booking Person &nbsp;&nbsp; &nbsp; &nbsp;<strong>{{$bookingPerson}} </strong><br>
+                    Read, understood and accepted above terms and conditions of application form
 
-                <div style="margin-top:100px; margin-right:160px;">
+                </div>                
+
+                <div style="margin-top:50px; margin-right:160px;">
                     <strong>Authorized Signature: </strong> &nbsp; <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
                 </div>
                 <div style="margin-top:5px; margin-right:160px;">
                     <strong>Booking Date: </strong> &nbsp; {{$bookingData}}
                 </div>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <div style="margin-top:100px;margin-left:170px;   border-top:solid 1px #000; width:400px; text-align:center;">
+                <div style="margin-top:50px;margin-left:170px;   border-top:solid 1px #000; width:400px; text-align:center;">
                     Siganture of Applicant
                 </div>
             </div>
@@ -192,6 +206,6 @@
     </div>
     @endforeach
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <img src="..\..\public\images\footer.jpg" class="footerprop" style="margin-top:130px;"/>
+    <!-- <img src="..\..\public\images\footer.jpg" class="footerprop" style="margin-top:130px;"/> -->
 </body>
 </html>
