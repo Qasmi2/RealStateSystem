@@ -165,15 +165,29 @@ class editingControll extends Controller
         // Handle File Upload
         if($request->hasFile('cover_image')){
             // Get filename with the extension
-            $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('cover_image')->getClientOriginalExtension();
-            // Filename to store
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            // Upload Image
-            $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+            // $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+            // // Get just filename
+            // $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // // Get just ext
+            // $extension = $request->file('cover_image')->getClientOriginalExtension();
+            // // Filename to store
+            // $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // // Upload Image
+            // $s3_url = url('/').'/public/uploads/'.$local_url;
+            // $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+
+
+            $file_name = time();
+            $file_name .= rand();
+            $file_name = sha1($file_name);
+            if ($request->file('cover_image')) {
+                $ext = $request->file('cover_image')->getClientOriginalExtension();
+                $request->file('cover_image')->move(public_path() . "/uploads", $file_name . "." . $ext);
+                $local_url = $file_name . "." . $ext;
+    
+                $s3_url = url('/').'/uploads/'.$local_url;
+            }
+           
         } else {
             $fileNameToStore = 'noimage.jpg';
         }
@@ -187,7 +201,7 @@ class editingControll extends Controller
     try{
         $applicant = new applicant;
         $applicant->name = $request->input('name');
-        $applicant->cover_image = $fileNameToStore;
+        $applicant->cover_image = $s3_url;
         $applicant->fatherName = $request->input('fatherName');
         $applicant->cnicNo = $request->input('cnicNo');
         $applicant->passportNo = $request->input('passportNo');
@@ -621,21 +635,33 @@ class editingControll extends Controller
         $applicant->name = $request->input('name');
         try{
             // Handle File Upload
-            if($request->hasFile('cover_image')){
-                // Get filename with the extension
-                Storage::delete($applicant->cover_image);
-                $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
-                // Get just filename
-                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-                // Get just ext
-                $extension = $request->file('cover_image')->getClientOriginalExtension();
-                // Filename to store
-                $fileNameToStore= $filename.'_'.time().'.'.$extension;
-                // Upload Image
-                $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
-                // image update
-                $applicant->cover_image = $fileNameToStore;
-            } 
+            // if($request->hasFile('cover_image')){
+            //     // Get filename with the extension
+            //     Storage::delete($applicant->cover_image);
+            //     $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+            //     // Get just filename
+            //     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            //     // Get just ext
+            //     $extension = $request->file('cover_image')->getClientOriginalExtension();
+            //     // Filename to store
+            //     $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            //     // Upload Image
+            //     $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+            //     // image update
+            //     $applicant->cover_image = $fileNameToStore;
+            // } 
+
+            $file_name = time();
+            $file_name .= rand();
+            $file_name = sha1($file_name);
+            if ($request->file('cover_image')) {
+                $ext = $request->file('cover_image')->getClientOriginalExtension();
+                $request->file('cover_image')->move(public_path() . "/uploads", $file_name . "." . $ext);
+                $local_url = $file_name . "." . $ext;
+    
+                $s3_url = url('/').'/uploads/'.$local_url;
+                $applicant->cover_image = $s3_url;
+            }
             // else {
             //     $fileNameToStore = 'noimage.jpg';
             // }

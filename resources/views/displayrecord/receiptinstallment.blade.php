@@ -152,7 +152,7 @@
 							<b style="padding-right: 160px;">Purchaser</b><br>
 							<span>Signature:_____________________<br></span>
 							<div style="float:left;padding-left:333px;">
-								<img src="../storage/cover_images/{{$pic}}" height="70" width="70">
+								<img src="{{$pic}}" height="70" width="70">
 							</div>
 							<div style="float:right;padding-right:15px;">
 								Name: {{$appName}}<br>
@@ -198,8 +198,6 @@
 							<div style="padding-right: 58px;">
 								CNIC NO # {{$sallerCnicNo}}<br>
 							</div>
-							
-							
 							
 						</div>
 					</td>
