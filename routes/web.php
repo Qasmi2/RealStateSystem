@@ -98,6 +98,9 @@ Route::post('sellerupdate/{id}','sellerController@update')->name('sellerupdate')
 Route::get('selleredit/{id}','sellerController@edit')->name('selleredit')->middleware('auth');
 Route::get('sellerdelete/{id}','sellerController@destroy')->name('sellerdelete')->middleware('auth');
 
+// updated paymenty history
+Route::get('paymenthistory/{id}','paymentHistoryController@edit')->name('paymenthistory')->middleware('auth');
+
 
 
 

@@ -56,7 +56,8 @@ class paymentHistoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        echo $id;
+        exit();
     }
 
     /**
