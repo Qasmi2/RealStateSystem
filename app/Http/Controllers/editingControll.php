@@ -11,6 +11,9 @@ use App\witness;
 use App\review;
 use App\applicant;
 use App\token;
+use App\tokenHistory;
+use App\paymentHistory;
+use App\installmentHistory;
 use Validator;
 use App\seller;
 use App\Http\Controllers\DataTime;
@@ -295,13 +298,10 @@ class editingControll extends Controller
                     //return response()->json(['error'=>$validator->errors()], 401);            
                 }
                 
-               
                 // property Id , down payment , No of installment require for calculation so get all the variables 
                 $propertyId = $propertyId;
                 $downpayment = $request->input('downpayment');
                 $noOfinstallments = $request->input('noOfInstallments');
-
-               
 
                 //get the total amount
                 $propertyprice  = DB::table('payments')->where('propertyId',$propertyId)->value('propertyPrice');
@@ -320,7 +320,7 @@ class editingControll extends Controller
 
                  $installmentDates[0] = "10-Sep-2018"; 
                
-                for($i=0; $i < $noOfinstallments; $i++)
+                for($i=1; $i < $noOfinstallments; $i++)
                 {
                     
                     $date2 = new DateTime($data1);
@@ -342,6 +342,29 @@ class editingControll extends Controller
                 // save the installment info
                 if($installment->save()){
 
+                    // installment history
+                    $installmentH = new installmentHistory;
+                    $installmentH->installmentNo = 1;
+                    $installmentH->installmentAmount = $amountOfOneInstallment;
+                    $installmentH->status = "unpaid";
+
+                    $installmentH->installmentPaymentDate = "2018-09-10";
+                    $installmentH->propertyId = $propertyId;
+                    $installmentH->save();
+
+                    // payment history
+
+                    // payment history 
+                    $paymentHistory = new paymentHistory;
+                    $propertyprice  = DB::table('payments')->where('propertyId',$propertyId)->value('propertyPrice');
+                    $paymentHistory->paidAmount = $downpayment;
+                    //Remaing amount = total amount - total amount payment;
+                    $remaingAmount = $propertyprice - $downpayment;
+                    $paymentHistory->remeaningAmount = $remaingAmount;
+                    $paymentHistory->propertyId = $propertyId;
+                    $paymentHistory->save();
+                   
+
                     $property = DB::table('properties')->where('id',$propertyId)->first();
                     $applicant = DB::table('applicants')->where('propertyId',$propertyId)->first();
                     $payment = DB::table('payments')->where('propertyId',$propertyId)->first();
@@ -360,7 +383,18 @@ class editingControll extends Controller
 
         }
         elseif($paymentProcedure == "Total Amount"){
-          
+            
+                // payment history 
+                $paymentHistory = new paymentHistory;
+                $propertyprice  = DB::table('payments')->where('propertyId',$propertyId)->value('propertyPrice');
+                $paymentHistory->paidAmount = $propertyprice;
+               //Remaing amount = total amount - total amount payment;
+                $remaingAmount = 0;
+                $paymentHistory->remeaningAmount = $remaingAmount;
+                $paymentHistory->propertyId = $propertyId;
+                $paymentHistory->save();
+              
+                // 
                 $property = DB::table('properties')->where('id',$propertyId)->first();
                 $applicant = DB::table('applicants')->where('propertyId',$propertyId)->first();
                 $payment = DB::table('payments')->where('propertyId',$propertyId)->first();
@@ -388,7 +422,29 @@ class editingControll extends Controller
             $token->remaningPaymentDate = $request->input('remaningPaymentDate');
             $token->propertyId = $propertyId;
             if($token->save()){
+                /* update history maintaince */
+                
+                // save history 
+                $tokenHistory = new tokenHistory;
+                $tokenHistory->tokenPayment = $request->input('tokenPayment');
+                $tokenHistory->propertyId = $propertyId;
+                $tokenHistory->save();
+                // payment history 
+                $paymentHistory = new paymentHistory;
+                $paymentHistory->paidAmount = $request->input('tokenPayment');
+                
+                // total property amount and token amount get
+                $tokenAmount = $request->input('tokenPayment');
+                $propertyprice  = DB::table('payments')->where('propertyId',$propertyId)->value('propertyPrice');
+               //Remaing amount = total amount - token payment
+                $remaingAmount = $propertyprice - $tokenAmount;
 
+                $paymentHistory->remeaningAmount = $remaingAmount;
+                $paymentHistory->propertyId = $propertyId;
+                $paymentHistory->save();
+
+                 /* End update history maintaince */
+                // 
                 $property = DB::table('properties')->where('id',$propertyId)->first();
                 $applicant = DB::table('applicants')->where('propertyId',$propertyId)->first();
                 $payment = DB::table('payments')->where('propertyId',$propertyId)->first();
@@ -939,7 +995,32 @@ class editingControll extends Controller
         $deletepropertyId = DB::table('properties')->where('id',$id)->value('id');
         // get the token table id to delete the have property Id same
         $deletetoken = DB::table('tokens')->where('propertyId',$id)->first();
-       
+        // get the installment id to delete the have peoperty Id same
+        $deleteInstallmentHistroy = DB::table('installment_histories')->where('propertyId',$id)->first();
+        // get the installment id to delete the have peoperty Id same
+        $deletepaymenttHistroy = DB::table('payment_histories')->where('propertyId',$id)->first();
+
+
+        if($deletepaymenttHistroy){
+            $deletepaymentHistoryId = DB::table('payment_histories')->where('propertyId',$id)->value('id');
+           
+            $deletepaymentHistoryRow = paymentHistory::find($deletepaymentHistoryId);
+            if(!$deletepaymentHistoryRow->delete()){
+                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  token row have something worng  !!!');
+            }
+       }  
+
+
+        if($deleteInstallmentHistroy){
+            $deleteinstallmentHistoryId = DB::table('installment_histories')->where('propertyId',$id)->value('id');
+           
+            $deleteInstallmentHistoryRow = installmentHistory::find($deleteinstallmentHistoryId);
+            if(!$deleteInstallmentHistoryRow->delete()){
+                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  token row have something worng  !!!');
+            }
+       }
+
+
        if($deletetoken){
             $deleteTokenId = DB::table('tokens')->where('propertyId',$id)->value('id');
             $deleteTokenRow = token::find($deleteTokenId);
