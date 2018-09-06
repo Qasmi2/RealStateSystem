@@ -12,6 +12,7 @@
                 <div class="card-header" style="background-color: #f44336;color:white;">Total Payment History</div>
                 <div class="card-body">
                     <?php 
+                        
                         $paymentHistory = array($paymenthistory);
                         foreach($paymentHistory as $te){
                             $paidAmount = $te->paidAmount;
