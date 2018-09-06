@@ -99,7 +99,7 @@ Route::get('selleredit/{id}','sellerController@edit')->name('selleredit')->middl
 Route::get('sellerdelete/{id}','sellerController@destroy')->name('sellerdelete')->middleware('auth');
 
 // updated paymenty history
-Route::get('paymenthistory/{id}','paymentHistoryController@edit')->name('paymenthistory')->middleware('auth');
+Route::get('paymenthistory/{id}','paymentHistoryController@show')->name('paymenthistory')->middleware('auth');
 
 
 

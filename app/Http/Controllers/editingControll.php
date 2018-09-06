@@ -75,7 +75,7 @@ class editingControll extends Controller
             // 'phoneNO'=> 'required',
             'mobileNo1'=> 'required',
             // 'mobileNo2'=> 'required',
-            // 'cover_image'=> 'required',
+             'cover_image'=> 'required',
             'nomineeName'=> 'required',
             'nomineeFatherName'=> 'required',
             'relationWithApplicant'=> 'required',
@@ -192,7 +192,7 @@ class editingControll extends Controller
             }
            
         } else {
-            $fileNameToStore = 'noimage.jpg';
+            $s3_url = 'noimage.jpg';
         }
     }
     catch(Exception $e){
@@ -975,9 +975,10 @@ class editingControll extends Controller
                        // exit();
                        $paymentHistory = paymentHistory::find($paymentHId);
                    }
+
                  
                  $propertyprice  = DB::table('payments')->where('propertyId',$id)->value('propertyPrice');
-                 $paymentHistory->paidAmount = $propertyprice;
+                 $paymentHistory->paidAmount = $propertyprice + $tokenPayment;
                 //Remaing amount = total amount - total amount payment;
                  $remaingAmount = 0;
                  $paymentHistory->remeaningAmount = $remaingAmount;
