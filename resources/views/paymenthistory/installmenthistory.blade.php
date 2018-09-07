@@ -10,7 +10,10 @@
                 <?php 
 
 
-                        $installmentHistory = array($installmentHistory);
+                      // $installmentHistory = array($installmentHistory);
+                      
+                      
+
                         foreach($installmentHistory as $te){
                             $installmentNo = $te->installmentNo;
                             $installmentAmount = $te->installmentAmount;
@@ -23,7 +26,15 @@
                             $remaingAmount = $te->remeaningAmount;
                         }
                        
-                        
+                        $installment = array($installment);
+                        foreach($installment as $te){
+                            $propertyId = $te->propertyId;
+                            $installmentDates = json_decode($te->installmentDates); 
+                            $sizeofDates = sizeof($installmentDates);
+                            $sizeofDates = $sizeofDates +1;
+                            $temp = 0;
+                           
+                        }
                        
                         $payment = array($payment);
                         foreach($payment as $te){
@@ -55,26 +66,18 @@
                                <th>Remaning Amount</th>
                                <th>Purching Data</th>
                                
-                            
-                               
                             </tr>
                         </thead>
                         <tbody>
-                           
                                 <tr>
-                                    
                                     <td>{{$propertyType}} <br>{{$propertySection}} </td>
                                     <td>{{$applicantName}}</td>
-                                  
                                     <td>{{$propertyPrice}}</td>
                                     <td>{{$paidAmount}}</td>
                                     <td>{{$remaingAmount}}</td>
                                     <td>{{$PurchingDate}}</td>
                                     
-                        
                                 </tr>
-                           
-                            
                         </tbody>
                     </table>
                     <br>
@@ -84,35 +87,29 @@
                         <thead bgcolor="#a6468c" style="color:white;">
                             <tr>
                                <th>installment Number</th>
-                               
                                <th>Installment Amount </th>
                                <th>Installment Due Data</th>
                                <th>Status</th>
-                               <th>Paid Installments</th>
-                                <th>Remeaning Installments</th>
-                               <th>Action</th>
-                              
-                               
-                            
-                               
+                               <th>Action Paid </th>
+                               <th>Installment Payment Data</th>
                             </tr>
                         </thead>
                         <tbody>
-                           
+                                @foreach($installment as $te)
+                                @for($i = 1; $i < $sizeofDates; $i++)
                                 <tr>
-                                    
-                                    <td> {{$installmentNo}}</td>
-                                    <td>{{ $installmentAmount}}</td>
-                                  
-                                    <td>{{$dueDate}}</td>
-                                    <td>{{$status}}</td>
-                                    <td>...</td>
-                                    <td>...</td>
-                                    <td><a href="">......</a></td>
-                                  
+
+                                    <td> {{$i }}</td>
+                                    <td>{{$te->amountOfOneInstallment}}</td>
+                                    <td>{{$installmentDates[$i-1]}}</td>
+                                    <td>unpaid</td>
+                                    <td><a href="{{url('installmentpaid/'.$propertyId.'/'.$i)}}"> paid installment</a></td>
+                                    <td>Paid Data</td>
+                              
                         
                                 </tr>
-                           
+                                @endfor
+                                @endforeach
                             
                         </tbody>
                     </table>

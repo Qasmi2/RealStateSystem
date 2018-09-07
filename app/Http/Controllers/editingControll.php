@@ -343,16 +343,16 @@ class editingControll extends Controller
                 if($installment->save()){
 
                     // installment history
-                    $installmentH = new installmentHistory;
-                    $installmentH->installmentNo = 1;
-                    $installmentH->installmentAmount = $amountOfOneInstallment;
-                    $installmentH->status = "unpaid";
+                    // $installmentH = new installmentHistory;
+                    // $installmentH->installmentNo = 1;
+                    // $installmentH->installmentAmount = $amountOfOneInstallment;
+                    // $installmentH->status = "unpaid";
 
-                    $installmentH->installmentPaymentDate = "2018-09-10";
-                    $installmentH->propertyId = $propertyId;
-                    $installmentH->save();
+                    // $installmentH->installmentPaymentDate = "2018-09-10";
+                    // $installmentH->propertyId = $propertyId;
+                    // $installmentH->save();
 
-                    // payment history
+                    
 
                     // payment history 
                     $paymentHistory = new paymentHistory;
@@ -862,27 +862,27 @@ class editingControll extends Controller
                      
 
                     // installment history
-                    $installmentHId  = DB::table('installment_histories')->where('propertyId',$id)->value('id');
-                    $isEmptyinstallmentH = json_encode($installmentHId);
-                    if($isEmptyinstallmentH == "null")
-                    {
-                        // var_dump("No",$isEmpty);
-                        // exit();
-                        $installmentH = new installmentHistory;
-                    }
-                    else{
-                        // var_dump("yes ",$installmentId);
-                        // exit();
-                        $installmentH = installmentHistory::find($installmentHId);
-                    }
+                    // $installmentHId  = DB::table('installment_histories')->where('propertyId',$id)->value('id');
+                    // $isEmptyinstallmentH = json_encode($installmentHId);
+                    // if($isEmptyinstallmentH == "null")
+                    // {
+                    //     // var_dump("No",$isEmpty);
+                    //     // exit();
+                    //     $installmentH = new installmentHistory;
+                    // }
+                    // else{
+                    //     // var_dump("yes ",$installmentId);
+                    //     // exit();
+                    //     $installmentH = installmentHistory::find($installmentHId);
+                    // }
                     
-                    $installmentH->installmentNo = 1;
-                    $installmentH->installmentAmount = $amountOfOneInstallment;
-                    $installmentH->status = "unpaid";
+                    // $installmentH->installmentNo = 1;
+                    // $installmentH->installmentAmount = $amountOfOneInstallment;
+                    // $installmentH->status = "unpaid";
 
-                    $installmentH->installmentPaymentDate = "2018-09-10";
-                    $installmentH->propertyId = $id;
-                    $installmentH->save();
+                    // $installmentH->installmentPaymentDate = "2018-09-10";
+                    // $installmentH->propertyId = $id;
+                    // $installmentH->save();
 
                     // payment history
                     $paymentHId  = DB::table('payment_histories')->where('propertyId',$id)->value('id');
