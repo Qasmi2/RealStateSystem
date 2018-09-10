@@ -4,29 +4,31 @@
     <div class="row justify-content-center">
         <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
         @include('flash-message')
-                    <div>
-                        <button class="btn btn-lg btn-default" onclick="window.history.go(-1)">Back</button>
-                    </div>
-                    <br>
             <div class="card">
                 <div class="card-header" style="background-color: #f44336;color:white;">Installment History</div>
                 <div class="card-body">
                 <?php 
 
-                       foreach($installmentHistory as $te){
-                            $status[] = $te->status;
-                            $installmentdata[] = $te->installmentPaymentDate;
-
-                       }
-                       
-
-                         $statusItems = sizeof($status);
-                        // for($i= 1 ; $i <= $statusItems ; $i++){
-                        //     echo $status[$i-1]."<br>";
+                       // $installmentHistory = array($installmentHistory);
+                            // var_dump(json_encode($installmentHistory));
+                            // exit();
+                          //  $installmentHistory = json_encode($installmentHistory);
+                        // foreach($installmentHistory as $te){
+                        //     $installment[] = $te->installmentNo;
+                        //     $status[] = $te->status;
                         // }
-                  
-                      
-                         
+                        // for($i=0; $i<sizeof($installment); $i++){
+                        //     echo "installment No.".$installment[$i]."<br>";
+                        //     echo "status".$status[$i]."<br>";
+
+                        // }
+                        // exit();
+                        // var_dump($installmentHistory);
+                        // exit();
+                        //   foreach($installmentHistory as $te){
+                        //     echo $te->status."<br>";
+                     //   }
+
                         $paymentHistory = array($paymenthistory);
                         foreach($paymentHistory as $te){
                             $paidAmount = $te->paidAmount;
@@ -73,7 +75,10 @@
                                <th>Paid Amount</th>
                                <th>Remaning Amount</th>
                                <th>Purching Data</th>
+                               
                               
+                               
+                               
                             </tr>
                         </thead>
                         <tbody>
@@ -85,36 +90,14 @@
                                     <td>{{$remaingAmount}}</td>
                                     <td>{{$PurchingDate}}</td>
                                    
+
+                                   
+                                   
+                                    
                                 </tr>
                         </tbody>
                     </table>
                     <br>
-                    <h2>Paid Installemnt Info</h2>
-                    <br>
-                    <table class="table table-striped table-hover table-responsive">
-                        <thead bgcolor="#a6468c" style="color:white;">
-                            <tr>
-                               <th >Installment No.</th>
-                               <th >Installment Amount</th>
-                               <th>Installment Paid Data</th>
-                              
-                              
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($installmentHistory as $te)
-                                
-                               
-                                <tr>
-
-                                    <td> {{$te->installmentNo}}</td>
-                                    <td>{{$te->installmentAmount}}</td>
-                                    <td>{{$te->installmentPaymentDate}}</td>
-
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
                     <h2> Installment Info</h2>
                     <br>
                      <table class="table table-striped table-hover table-responsive">
@@ -125,39 +108,28 @@
                                <th>Installment Due Data</th>
                                <th>Status</th>
                                <th>Action Paid </th>
-                               <th>Update</th>
+                           
                             </tr>
                         </thead>
                         <tbody>
                                 @foreach($installment as $te)
-                              
                                 @for($i = 1; $i < $sizeofDates; $i++)
                                 <tr>
 
                                     <td> {{$i }}</td>
                                     <td>{{$te->amountOfOneInstallment}}</td>
                                     <td>{{$installmentDates[$i-1]}}</td>
+                                    
+                                    <td>unpaid</td>
                                     <td><a href="{{url('installmentpaid/'.$propertyId.'/'.$i)}}"> paid installment</a></td>
-                                    <td></td>
-                                    <td>..</td>
-                                    </tr>
+                                   
+                              
+                        
+                                </tr>
                                 @endfor
                                 @endforeach
-                             
-                               
-                              
+                            
                         </tbody>
-                        <thead bgcolor="#a6468c" style="color:white;">
-                            <tr>
-                               <th>Property Item</th>
-                               <th>Owner Name</th>
-                               <th>Property Total Amount </th>
-                               <th>Paid Amount</th>
-                               <th>Remaning Amount</th>
-                               <th>Purching Data</th>
-                              
-                            </tr>
-                        </thead>
                     </table>
                     
                     

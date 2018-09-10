@@ -73,22 +73,13 @@ class paymentHistoryController extends Controller
             $token = DB::table('tokens')->where('propertyId',$id)->first();
             $tokenhisory = DB::table('token_histories')->where('propertyId',$id)->first();
             //$seller = seller::orderBy('created_at','desc')->get();
-            $installmentHistory = DB::table('installment_histories')->where('propertyId', $id)->first();
+            $installmentHistory = DB::table('installment_histories')->where('propertyId', $id)->get();
             $paymenthistory = DB::table('payment_histories')->where('propertyId', $id)->first();
 
            
             $isEmptyinstallment = json_encode($installment);
             $isEmptytoken = json_encode($token);
            
-            // if($isEmptytoken == "null" )
-            // { 
-            //     // total payment
-            //     return view('paymenthistory/installmenthistory',compact('property','applicant','payment','review','installment','paymenthistory'));    
-            // }
-            // elseif($isEmptyinstallment == "null"){
-            //     // token
-            //     return view('paymenthistory/tokenhistory',compact('property','applicant','payment','review','token','paymenthistory')); 
-            // }
 
 
             if($isEmptytoken == "null" && $isEmptyinstallment == "null")
