@@ -19,12 +19,14 @@
 
                        }
                        
-
+                        if($installmentHistory != "[]")
+                        {
                          $statusItems = sizeof($status);
+                        }
                         // for($i= 1 ; $i <= $statusItems ; $i++){
                         //     echo $status[$i-1]."<br>";
                         // }
-                  
+                     
                       
                          
                         $paymentHistory = array($paymenthistory);
@@ -102,6 +104,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @if($installmentHistory != "[]")
                             @foreach($installmentHistory as $te)
                                 
                                
@@ -113,6 +116,7 @@
 
                                 </tr>
                             @endforeach
+                            @endif
                         </tbody>
                     </table>
                     <h2> Installment Info</h2>
