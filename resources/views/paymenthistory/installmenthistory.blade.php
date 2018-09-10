@@ -93,7 +93,7 @@
                     <br>
                     <h2>Paid Installemnt Info</h2>
                     <br>
-                    <table class="table table-striped table-hover table-responsive">
+                    <table class="table table-striped table-hover ">
                         <thead bgcolor="#a6468c" style="color:white;">
                             <tr>
                                <th >Installment No.</th>
@@ -121,15 +121,16 @@
                     </table>
                     <h2> Installment Info</h2>
                     <br>
-                     <table class="table table-striped table-hover table-responsive">
+                 
+                     <table class="table table-striped table-hover ">
                         <thead bgcolor="#a6468c" style="color:white;">
                             <tr>
                                <th>installment Number</th>
                                <th>Installment Amount </th>
                                <th>Installment Due Data</th>
-                               <th>Status</th>
+                              
                                <th>Action Paid </th>
-                               <th>Update</th>
+                             
                             </tr>
                         </thead>
                         <tbody>
@@ -142,8 +143,7 @@
                                     <td>{{$te->amountOfOneInstallment}}</td>
                                     <td>{{$installmentDates[$i-1]}}</td>
                                     <td><a href="{{url('installmentpaid/'.$propertyId.'/'.$i)}}"> paid installment</a></td>
-                                    <td></td>
-                                    <td>..</td>
+                                  
                                     </tr>
                                 @endfor
                                 @endforeach
@@ -153,13 +153,12 @@
                         </tbody>
                         <thead bgcolor="#a6468c" style="color:white;">
                             <tr>
-                               <th>Property Item</th>
-                               <th>Owner Name</th>
-                               <th>Property Total Amount </th>
-                               <th>Paid Amount</th>
-                               <th>Remaning Amount</th>
-                               <th>Purching Data</th>
+                               <th>installment Number</th>
+                               <th>Installment Amount </th>
+                               <th>Installment Due Data</th>
                               
+                               <th>Action Paid </th>
+                             
                             </tr>
                         </thead>
                     </table>
