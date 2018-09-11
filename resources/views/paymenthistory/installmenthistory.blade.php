@@ -98,6 +98,7 @@
                             <tr>
                                <th >Installment No.</th>
                                <th >Installment Amount</th>
+                               <th>Status</th>
                                <th>Installment Paid Data</th>
                                <th>Download</th>
                               
@@ -113,6 +114,7 @@
 
                                     <td> {{$te->installmentNo}}</td>
                                     <td>{{$te->installmentAmount}}</td>
+                                    <td style="color:green">Paid Installment</td>
                                     <td>{{$te->installmentPaymentDate}}</td>
                                     <td>
                                         <div class="dropdown">
