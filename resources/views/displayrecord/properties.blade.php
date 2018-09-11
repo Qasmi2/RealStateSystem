@@ -22,13 +22,13 @@
                         }
                     ?>
 
-                    <table class="table table-bordered table-striped table-hover table-responsive">
+                    <table class="table table-striped table-hover">
                         <thead bgcolor="#a6468c" style="color:white;">
                             <tr>
                                <a href="#"> <th>Property Type</th></a>
-                               <th>Address</th>
-                               <th>Location</th>
-                               <th>Size (sqr /ft )</th>
+                               <!-- <th>Address /Location </th> -->
+                               
+                               <!-- <th>Size (sqr /ft )</th> -->
                                <th>Owner</th>
                                <th>Owner CNIC NO</th>
                                <th>Payment Procedure</th>
@@ -42,13 +42,14 @@
                                 <tr>
                                 
                                     <td><a href="{{url('display/'.$properties[$i]['id'])}}">{{$properties[$i]['propertyType']}}</a></td>
-                                    <td>Floor No. :{{$properties[$i]['propertyAddress']}}</td>
-                                    <td>Room No./Shop No. :{{$properties[$i]['propertyLocation']}}</td>
-                                    <td>{{$properties[$i]['propertySize']}} sqr/ft</td>
+                                    <!-- <td>Floor No. :{{$properties[$i]['propertyAddress']}} <br><br>Room/Shop No. :{{$properties[$i]['propertyLocation']}}</td> -->
+                                    <!-- <td>{{$properties[$i]['propertySize']}} sqr/ft</td> -->
                                     <td>{{$applicanties[$i]['name']}}</td>
                                     <td>{{$applicanties[$i]['cnicNo']}}</td>
                                     <td>{{$payments[$i]['propertyPaymentProcedure']}}</td>
-                                    <td> <a href="{{url('editingform/'.$properties[$i]['id'])}}">Edit</a></td>
+                                    <td> <a href="{{url('editingform/'.$properties[$i]['id'])}}">Edit</a><br>
+                                         <a href="{{url('paymenthistory/'.$properties[$i]['id'])}}">Payment History</a>
+                                    </td>
                                    
                                     <td>
                                    

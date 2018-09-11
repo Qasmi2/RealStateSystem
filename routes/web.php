@@ -84,6 +84,10 @@ Route::get('Receptform/{id}','formController@showReceptform')->name('Receptform'
 Route::get('Receptformtoken/{id}','formController@showReceptformtoken')->name('Receptformtoken')->middleware('auth');
 Route::get('contractform/{id}','formController@showcontractform')->name('contractform')->middleware('auth');
 
+Route::get('installmentfrom/{id}/{no}/{amount}','formController@showinstallmentforms')->name('installmentfrom')->middleware('auth');
+
+
+
 // seller 
 
 Route::get('/sellerform', function () {
@@ -97,6 +101,12 @@ Route::post('sellercreate','sellerController@store')->name('sellercreate')->midd
 Route::post('sellerupdate/{id}','sellerController@update')->name('sellerupdate')->middleware('auth');
 Route::get('selleredit/{id}','sellerController@edit')->name('selleredit')->middleware('auth');
 Route::get('sellerdelete/{id}','sellerController@destroy')->name('sellerdelete')->middleware('auth');
+
+// updated paymenty history
+Route::get('paymenthistory/{id}','paymentHistoryController@show')->name('paymenthistory')->middleware('auth');
+
+Route::get('installmentpaid/{id}/{no}','installmentHistoryController@create')->name('installmentpaid')->middleware('auth');
+
 
 
 

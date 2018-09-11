@@ -161,7 +161,7 @@
                     
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
-                                <img src="../storage/cover_images/{{$te->cover_image}}" height="100" width="100">
+                                <img src="{{$te->cover_image}}" height="100" width="100">
                                 <br>
                                 <label>Please update your Picture</label>
                                 <br>
