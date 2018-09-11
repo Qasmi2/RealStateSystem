@@ -47,8 +47,8 @@
                                     <td>{{$applicanties[$i]['name']}}</td>
                                     <td>{{$applicanties[$i]['cnicNo']}}</td>
                                     <td>{{$payments[$i]['propertyPaymentProcedure']}}</td>
-                                    <td> <a href="{{url('editingform/'.$properties[$i]['id'])}}">Edit</a>&nbsp;&nbsp;
-                                         <a href="{{url('paymenthistory/'.$properties[$i]['id'])}}">History</a>
+                                    <td> <a href="{{url('editingform/'.$properties[$i]['id'])}}">Edit</a><br>
+                                         <a href="{{url('paymenthistory/'.$properties[$i]['id'])}}">Payment History</a>
                                     </td>
                                    
                                     <td>

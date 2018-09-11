@@ -84,6 +84,10 @@ Route::get('Receptform/{id}','formController@showReceptform')->name('Receptform'
 Route::get('Receptformtoken/{id}','formController@showReceptformtoken')->name('Receptformtoken')->middleware('auth');
 Route::get('contractform/{id}','formController@showcontractform')->name('contractform')->middleware('auth');
 
+Route::get('installmentfrom/{id}/{no}/{amount}','formController@showinstallmentforms')->name('installmentfrom')->middleware('auth');
+
+
+
 // seller 
 
 Route::get('/sellerform', function () {

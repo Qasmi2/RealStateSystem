@@ -99,6 +99,7 @@
                                <th >Installment No.</th>
                                <th >Installment Amount</th>
                                <th>Installment Paid Data</th>
+                               <th>Download</th>
                               
                               
                             </tr>
@@ -113,6 +114,17 @@
                                     <td> {{$te->installmentNo}}</td>
                                     <td>{{$te->installmentAmount}}</td>
                                     <td>{{$te->installmentPaymentDate}}</td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Print Forms
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">  
+                                 
+                                                <a class="dropdown-item" href="{{url('installmentfrom/'.$propertyId.'/'.$te->installmentNo.'/'.$te->installmentAmount)}}">Print Recept Form</a>
+                                            </div>
+                                        </div>
+                                    </td>
 
                                 </tr>
                             @endforeach
