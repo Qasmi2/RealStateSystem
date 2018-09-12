@@ -174,19 +174,21 @@
             <center><strong style="font-size:24px;">DECLARATION</strong></center>
             <div style="width:800px; margin:20px 20px 20px 20px;">
                 <div style="margin-top:20px; margin-right:20px;">
-                I/ We, Mr. /Mrs. /Ms. /M/s.   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong> {{$te->name}}</strong>
+                I/ We, Mr. /Mrs. /Ms. /M/s.   <u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong> {{$te->name}}</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</u>
                 </div>
                 <div style="margin-top:5px; margin-right:20px;">                    
-                S/o / D/o   &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>{{$te->fatherName}}</strong> <br />bearing CNIC No. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>{{$te->cnicNo}}</strong>
+                S/o / D/o   <u> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>{{$te->fatherName}}</strong>&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </u> 
+                <br />bearing CNIC No. <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>{{$te->cnicNo}}</strong>&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</u>
                 </div>
 
                 <div style="margin-top:5px; margin-right:20px;">
-                    Resident of / situated at &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong> {{$te->mailingAddress}}</strong>,<br/><br/>
+                    Resident of / situated at <u>&nbsp;&nbsp;<strong> {{$te->mailingAddress}}</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                    <br><br>
                     do hereby, confirm that I have fully read/understood the above terms and conditions and do hereby agree to abide the same. I further declare that I shall abide by the existing rules, regulations terms and conditions, requirement etc. laid down by the company and, furthermore, any condition of common interest should be promulgated by the company must be accomplished.
                 </div> 
                 <br/>
                 <div style="margin-top:10px; margin-right:20px;">
-                    Name of Booking Person &nbsp;&nbsp; &nbsp; &nbsp;<strong>{{$bookingPerson}} </strong><br>
+                    Name of Booking Person <u>&nbsp;&nbsp; &nbsp; &nbsp;<strong>{{$bookingPerson}} </strong>&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u><br>
                     Read, understood and accepted above terms and conditions of application form
 
                 </div>                
