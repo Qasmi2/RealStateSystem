@@ -69,11 +69,11 @@
                                             Print Forms
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="{{url('form1/'.$properties[$i]['id'])}}">Print Form 1</a>
-                                            <a class="dropdown-item" href="{{url('form2/'.$properties[$i]['id'])}}">Print Form 2</a>
-                                            <a class="dropdown-item" href="{{url('form3/'.$properties[$i]['id'])}}">Print Form 3</a>
-                                            <a class="dropdown-item" href="{{url('Receptform/'.$properties[$i]['id'])}}">Print Recept Form</a>
-                                            <a class="dropdown-item" href="{{url('contractform/'.$properties[$i]['id'])}}">Print Contract Form</a>
+                                            <a class="dropdown-item" href="{{url('form1/'.$properties[$i]['id'])}}" target="_blank">Print Form 1</a>
+                                            <a class="dropdown-item" href="{{url('form2/'.$properties[$i]['id'])}}" target="_blank">Print Form 2</a>
+                                            <a class="dropdown-item" href="{{url('form3/'.$properties[$i]['id'])}}" target="_blank">Print Form 3</a>
+                                            <a class="dropdown-item" href="{{url('Receptform/'.$properties[$i]['id'])}}" target="_blank">Print Recept Form</a>
+                                            <a class="dropdown-item" href="{{url('contractform/'.$properties[$i]['id'])}}" target="_blank">Print Contract Form</a>
                                         </div>
                                     </div>
                                     <!-- <a href="{{url('form1/'.$properties[$i]['id'])}}">Print Form1</a>,

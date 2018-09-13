@@ -374,17 +374,65 @@
                         <hr>
                     
                         <div class="form-group row">
-                            <div class="col-md-6 col-lg-6 col-sm-12">
-                                <label for="paymentType" >{{ __('Cash / Pay Order / Cheque / Adjustment') }}</label>
-                                <input id="paymentType" type="text" placeholder="Enter Property Payment Type " class="form-control{{ $errors->has('paymentType') ? ' is-invalid' : '' }}" name="paymentType" value="" required>
+                            <div class="col-md-12 col-lg-12 col-sm-12">
+                                <label for="paymentType" >{{ __('Cash / Pay Order / Cheque') }}</label>
+                               <!-- <input id="paymentType" type="text" placeholder="Enter Property Payment Type " class="form-control{{ $errors->has('paymentType') ? ' is-invalid' : '' }}" name="paymentType" value="" required> -->
                                  
+                                      
+                                <select class="form-control" name="paymentType" id="paymentType" onchange="paymenttype(this);" >
+                                    <option value="">choice payment type</option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="Pay Order">Pay Order</option>
+                                    <option value="Cheque">Cheque </option>
+                                    
+                                </select>
+
                                 @if ($errors->has('paymentType'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('paymentType') }}</strong>
                                     </span>
                                 @endif
                             </div>
-                            <div class="col-md-6 col-lg-6 col-sm-12">
+                        </div>
+                            <!-- add -->
+                          
+                                <div id="addpayorder">
+                                <div><h3>Pay Order Information</h3></div>
+                                <div class="form-group row">
+                                    <div class="col-md-6 col-lg-6 col-sm-12">
+                                            <label for="payorder"> Pay Order </label>
+                                            <input id="payorder" type="text" placeholder="Enter Pay Order No" class="form-control" name="chequeno" value="" style="border: 1px solid red;">
+                                        
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 col-sm-12">
+                                            <label for="bankName"> Bank Name </label>
+                                            <input id="bankName" type="text" placeholder="Enter Bank Name" class="form-control" name="bankName" value="" style="border: 1px solid red;">
+                                        
+                                    </div>
+                                </div>
+                                </div>
+                                <hr>
+                              
+                                <div id="addcheque">
+                                    <div><h3>Cheque Information</h3></div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6 col-lg-6 col-sm-12">
+                                            <label id="chequePayment" for="chequePayment" >Cheque No </label>
+                                            <input id="chequePayment" type="text"  placeholder="Enter Cheque No." class="form-control" name="chequeno" value="" style="border: 1px solid red;">
+                                        
+                                        </div>       
+                                        <div class="col-md-6 col-lg-6 col-sm-12">
+                                            <label for="bankName"> Bank Name </label>
+                                            <input id="bankName" type="text" placeholder="Enter Bank Name" class="form-control" name="bankName" value="" style="border: 1px solid red;">
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            <!-- end add -->
+                        <div class="form-group row">
+                            <div class="col-md-12 col-lg-12 col-sm-12">
                                 <label for="transferTo">{{ __('In Favor of') }}</label>
                                 <input id="transferTo" type="text" placeholder="transferTo " class="form-control{{ $errors->has('transferTo') ? ' is-invalid' : '' }}" name="transferTo" value=" Montviro (Pvt) Ltd." required>
                               
@@ -394,8 +442,9 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>
-                        <div class="form-group row">
+                         </div>
+                        
+                        <!-- <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                 <label for="bankName">{{ __('Bank Name') }} &nbsp; &nbsp; (Optional)</label>
                                 <input id="bankName" type="text" placeholder="Enter bankName " class="form-control{{ $errors->has('bankName') ? ' is-invalid' : '' }}" name="bankName" value="" >
@@ -407,7 +456,7 @@
                                 @endif
                             </div>
                            
-                        </div>
+                        </div> -->
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertyPurchingDate">{{ __('Date') }}</label>
@@ -420,7 +469,7 @@
                             </div>
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertyPrice">{{ __('Total Amount') }}</label>
-                                <input id="propertyPrice" type="text" placeholder="Enter Total Amount " class="form-control{{ $errors->has('propertyPrice') ? ' is-invalid' : '' }}" name="propertyPrice" value="" required>
+                                <input id="propertyPrice" type="number" min="0" placeholder="Enter Total Amount " class="form-control{{ $errors->has('propertyPrice') ? ' is-invalid' : '' }}" name="propertyPrice" value="" required>
                                 @if ($errors->has('propertyPrice'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertyPrice') }}</strong>
@@ -466,7 +515,7 @@
                                     <option value="7">7</option>
                                     <option value="8">8</option>
                                     <option value="9">9</option>
-                                    <option value="10">10</option>
+                                    <option value="10" selected="selected">10</option>
                                     
                                 </select>
                                 @if ($errors->has('propertyPaymentProcedure'))
@@ -567,7 +616,33 @@
 </div>
 <!-- javascript code -->
 <script>
-//add fucntion to test
+// add function to payment type
+function paymenttype(val){
+
+    
+var paymentType = val.value;
+
+var parent = document.getElementById('addpayorder');
+var parent = document.getElementById('addcheque');
+    if( paymentType == "Cash"){
+      
+        document.getElementById("addpayorder").style.display ="none";
+        document.getElementById("addcheque").style.display ="none";
+
+    }
+    else if( paymentType == "Pay Order"){
+        
+        document.getElementById("addpayorder").style.display ="block";  
+        document.getElementById("addcheque").style.display ="none";
+    }
+    else if( paymentType == "Cheque"){
+        document.getElementById("addcheque").style.display ="block";                               
+        document.getElementById("addpayorder").style.display ="none";
+    }
+
+return 0;
+}
+//add fucntion to paymentProcedure 
 function paymentProcedure(val){
 
     
@@ -592,6 +667,8 @@ var parent = document.getElementById('addtoken');
 
 return 0;
 }
+
+
 </script>
 
 @endsection

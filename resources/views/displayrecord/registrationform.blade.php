@@ -168,6 +168,7 @@
             $sizeofCNiCa = sizeof($charsArrayCnica);
             // applicant passport 
             $isEmptyPassporta = $te->passportNo;
+            $hasPassporta = json_encode($isEmptyPassporta);
            
             $charsArrayPassporta = str_split($te->passportNo);
             $sizeofPassporta = sizeof($charsArrayPassporta);
@@ -176,8 +177,14 @@
             $sizeofCNICn = sizeof($charsArraynCnicn);
             // Nominee passport 
             $isEmptyPassportn = $te->nomineePassportNo;
+
+            $hasPassportn = json_encode($isEmptyPassportn);
             $charsArrayPassportn = str_split($te->nomineePassportNo);
             $sizeofPassportn = sizeof($charsArrayPassportn);
+
+         
+      
+        
         }           
     ?>
 <body>
@@ -364,12 +371,15 @@
                         <td>
                             <strong>Passport No:</strong>&nbsp;
                          
-                            
+                            @if($hasPassporta != "null")
                                 @for($i=0; $i< $sizeofPassporta; $i++)
                              
                                 <span class="block">{{$charsArrayPassporta[$i]}}</span>
                              
                                 @endfor
+                            @else
+                            N/A
+                            @endif
                                
                             <!-- <span class="block">&nbsp;</span>
                             <span class="block">&nbsp;</span>
@@ -401,7 +411,7 @@
                         <td><strong>Permenant Address:</strong> &nbsp;  <u>{{$te->permanentAddress}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
                     </tr>
                     <tr>
-                        <td><strong>Email:</strong> &nbsp;  <u>{{$te->email}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                        <td><strong style="display:inline-block;">Email:</strong> &nbsp;  <u style="display:inline-block;">{{$te->email}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
                     </tr>
                 </table>
                 <br />
@@ -437,10 +447,13 @@
                         <!-- 61101-0588104-7 -->
                         <td>
                             <strong>Passport No:</strong>
+                        @if($hasPassportn != "null")
                             @for($i=0; $i< $sizeofPassportn; $i++)
                             <span class="block">{{$charsArrayPassportn[$i]}}</span>
                             @endfor
-                           
+                        @else
+                        N/A
+                        @endif
                             <!-- <span class="block">&nbsp;</span>
                             <span class="block">&nbsp;</span>
                             <span class="block">&nbsp;</span>

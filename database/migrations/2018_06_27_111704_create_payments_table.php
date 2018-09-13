@@ -18,6 +18,7 @@ class CreatePaymentsTable extends Migration
             $table->string('propertyPaymentType')->nullable();
             $table->string('transferTo')->nullable();
             $table->string('bankName')->nullable();
+            $table->string('chequeno')->nullable();
             $table->string('propertyPurchingDate');
             $table->integer('propertyPrice');// total amount 
             $table->string('propertyPaymentProcedure');  //instalment or Total amount          

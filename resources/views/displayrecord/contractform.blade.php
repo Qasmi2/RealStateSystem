@@ -86,7 +86,7 @@
 </head>
 <body>
     
-        <div style="width:800px; margin:0px auto; font-size:20px; line-height:25px; display:table;">
+        <div style="width:800px; margin:0px auto; font-size:20px; line-height:25px; display:table; padding:50px;">
 			
             <div style="font-family:GothamBook;font-size:30px; font-weight:bold;margin-top:30px;">CONTRACT</div>
 			&nbsp;
