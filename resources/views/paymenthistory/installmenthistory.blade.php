@@ -123,7 +123,7 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">  
                                  
-                                                <a class="dropdown-item" href="{{url('installmentfrom/'.$propertyId.'/'.$te->installmentNo.'/'.$te->installmentAmount)}}">Print Recept Form</a>
+                                                <a class="dropdown-item" href="{{url('installmentfrom/'.$propertyId.'/'.$te->installmentNo.'/'.$te->installmentAmount)}}" target="_blank">Print Recept Form</a>
                                             </div>
                                         </div>
                                     </td>

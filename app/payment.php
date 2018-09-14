@@ -12,7 +12,7 @@ class payment extends Model
      * @var array
      */
     protected $fillable = [
-        'propertyPrice','propertyPaymentType','transferTo','bankName',
+        'propertyPrice','propertyPaymentType','transferTo','bankName','chequeno',
         'propertyPurchingDate','propertyPaymentProcedure','paymentType','paymentMethod',
         'bookingDate','chequeNo','totalAmount','initialDeposite',
         'propertyId',

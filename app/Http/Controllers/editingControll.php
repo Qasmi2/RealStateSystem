@@ -104,7 +104,8 @@ class editingControll extends Controller
 
         if ($validator->fails()) {
             // return response()->json(['error'=>$validator->errors()], 401);   
-            return Redirect::back()->withErrors($validator);         
+            return redirect()->back()->with('error',$validator->errors());  
+          //  return Redirect::back()->withErrors($validator);         
         }   
 
         // function to Generate the random number
@@ -237,7 +238,12 @@ class editingControll extends Controller
         $payment->paymentType = $request->input('paymentType');
         $payment->transferTo = $request->input('transferTo');
         $payment->bankName = $request->input('bankName');
-        $payment->propertyPurchingDate = $request->input('propertyPurchingDate');
+        $payment->chequeno = $request->input('chequeno');
+
+        $originalDate = $request->input('propertyPurchingDate');
+        $newDate = date("d-M-Y", strtotime($originalDate));
+       // $payment->propertyPurchingDate = $request->input('propertyPurchingDate');
+        $payment->propertyPurchingDate = $newDate;
         $payment->propertyPaymentProcedure = $request->input('propertyPaymentProcedure');
         $payment->propertyPrice = $request->input('propertyPrice');
         $payment->propertyId = $propertyId;
@@ -311,16 +317,16 @@ class editingControll extends Controller
                 $amountOfOneInstallment = $remaningAmount/$noOfinstallments;
                 
                  // get lunching (project) data and add 3 months or ( 90 days ) to calculat the next installment date
-                 $todayDate = date("2018-09-10");
+                 $todayDate = date("Y-M-d");
                  $data1 = $todayDate;
                  //  var_dump(json_encode($data1));
                  //  exit();
                  // jogarr to show data in month name
                
 
-                 $installmentDates[0] = "10-Sep-2018"; 
+                // $installmentDates[0] = $todayDate; 
                
-                for($i=1; $i < $noOfinstallments; $i++)
+                for($i=0; $i < $noOfinstallments; $i++)
                 {
                     
                     $date2 = new DateTime($data1);
@@ -717,7 +723,13 @@ class editingControll extends Controller
         $payment->paymentType = $request->input('paymentType');
         $payment->transferTo = $request->input('transferTo');
         $payment->bankName = $request->input('bankName');
-        $payment->propertyPurchingDate = $request->input('propertyPurchingDate');
+        $payment->chequeno = $request->input('chequeno');
+     //   $payment->propertyPurchingDate = $request->input('propertyPurchingDate');
+
+        $originalDate = $request->input('propertyPurchingDate');
+        $newDate = date("d-M-Y", strtotime($originalDate));
+        $payment->propertyPurchingDate = $newDate;
+
         $payment->propertyPaymentProcedure = $request->input('propertyPaymentProcedure');
         $payment->propertyPrice = $request->input('propertyPrice');
         // property total amount 
@@ -817,15 +829,15 @@ class editingControll extends Controller
                     $amountOfOneInstallment = $remaningAmount/$noOfinstallments;
                     
                     // get lunching (project) data and add 3 months or ( 90 days ) to calculat the next installment date
-                    $todayDate = date("2018-09-10");
+                    $todayDate = date("Y-M-d");
                     $data1 = $todayDate;
                     //  var_dump(json_encode($data1));
                     //  exit();
                     // jogarr to show data in month name
                   
 
-                    $installmentDates[0] = "10-Sep-2018"; 
-                    for($i=1; $i < $noOfinstallments; $i++)
+                    //$installmentDates[0] = $todayDate; 
+                    for($i=0; $i < $noOfinstallments; $i++)
                     {
                         
                         $date2 = new DateTime($data1);

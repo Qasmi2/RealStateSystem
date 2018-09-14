@@ -240,18 +240,24 @@ class formController extends Controller
         $witness =DB::table('witnesses')->where('propertyId',$id)->first();
         $review = DB::table('reviews')->where('propertyId',$id)->first();
         $applicant = DB::table('applicants')->where('propertyId',$id)->first();
+
+        $property1 = array($property);       
+        foreach($property1 as $te){
+            $id = $te->propertySellerId;
+        }  
+        $seller = DB::table('sellers')->where('id',$id)->first();
         
         $isEmpty = json_encode($installments);
         
         if($isEmpty == "null")
         { 
            
-            return view('displayrecord.contractform',compact('property','payment','witness','applicant','review')); 
+            return view('displayrecord.contractform',compact('property','payment','witness','applicant','review','seller')); 
             
         }
         else{
            
-            return view('displayrecord.contractforminstallment',compact('property','payment','installments','witness','applicant','review')); 
+            return view('displayrecord.contractforminstallment',compact('property','payment','installments','witness','applicant','review','seller')); 
             // return view('displayrecord/singlerecordinstallment',compact('property','applicant','payment','witness','review','installment')); 
         }
         
