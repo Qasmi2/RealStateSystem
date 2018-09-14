@@ -104,7 +104,8 @@ class editingControll extends Controller
 
         if ($validator->fails()) {
             // return response()->json(['error'=>$validator->errors()], 401);   
-            return Redirect::back()->withErrors($validator);         
+            return redirect()->back()->with('error',$validator->errors());  
+          //  return Redirect::back()->withErrors($validator);         
         }   
 
         // function to Generate the random number
