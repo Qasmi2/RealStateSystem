@@ -162,7 +162,7 @@
                     
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
-                                <img src="../storage/cover_images/{{$te->cover_image}}" height="100" width="100">
+                                <img src="{{$te->cover_image}}" height="100" width="100">
                                 <br>
                                 <label>Please update your Picture</label>
                                 <br>
@@ -405,22 +405,47 @@
                     <div><h3>Payment Information</h3></div>
                         <hr>
                     @foreach($payment as $te)
-                    
+                   
                         <div class="form-group row">
-                            <div class="col-md-6 col-lg-6 col-sm-12">
-                                <label for="paymentType" >{{ __('Cash / Pay Order / Cheque / Adjustment') }}</label>
-                                <input id="paymentType" type="text" placeholder="Enter Property Payment Type " class="form-control{{ $errors->has('paymentType') ? ' is-invalid' : '' }}" name="paymentType" value="{{ $te->paymentType }}" required>
-                                 
+                            <div class="col-md-12 col-lg-12 col-sm-12">
+                                <label for="paymentType" >{{ __('Cash / Pay Order / Cheque') }}</label>
+                                <!-- <input id="paymentType" type="text" placeholder="Enter Property Payment Type " class="form-control{{ $errors->has('paymentType') ? ' is-invalid' : '' }}" name="paymentType" value="" required>
+                                  -->
+                                    <select class="form-control" name="paymentType" id="paymentType" onchange="paymenttype(this);" >
+                                        <option value="{{ $te->paymentType }}">{{ $te->paymentType }}</option>
+                                        <option value="Cash">Cash</option>
+                                        <option value="Pay Order">Pay Order</option>
+                                        <option value="Cheque">Cheque </option>
+                                        
+                                    </select>
+
                                 @if ($errors->has('paymentType'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('paymentType') }}</strong>
                                     </span>
                                 @endif
                             </div>
-                            <div class="col-md-6 col-lg-6 col-sm-12">
+                        </div>
+                        <div id="addcheque" style="display:inline;">
+                                <div class="form-group row">
+                                    <div class="col-md-6 col-lg-6 col-sm-12">
+                                            <label for="payorder"> Cheque / Pay Order No.</label>
+                                            <input id="payorder" type="text" placeholder="Enter Pay Order No" class="form-control" name="chequeno" value="{{$te->chequeno}}" style="border: 1px solid red;">
+                                        
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 col-sm-12">
+                                            <label for="bankName"> Bank Name </label>
+                                            <input id="bankName" type="text" placeholder="Enter Bank Name" class="form-control" name="bankName" value="{{$te->bankName}}" style="border: 1px solid red;">
+                                        
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12 col-lg-12 col-sm-12">
                                 <label for="transferTo">{{ __('In Favor of') }}</label>
                                 <input id="transferTo" type="text" placeholder="transferTo " class="form-control{{ $errors->has('transferTo') ? ' is-invalid' : '' }}" name="transferTo" value=" Montviro (Pvt) Ltd." required>
                               
+                                
                                 @if ($errors->has('transferTo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('transferTo') }}</strong>
@@ -428,7 +453,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                 <label for="bankName">{{ __('Bank Name') }}</label>
                                 <input id="bankName" type="text" placeholder="Enter bankName " class="form-control{{ $errors->has('bankName') ? ' is-invalid' : '' }}" name="bankName" value="{{ $te->bankName }}" >
@@ -440,7 +465,7 @@
                                 @endif
                             </div>
                            
-                        </div>
+                        </div> -->
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertyPurchingDate">{{ __('Date') }}</label>
@@ -557,6 +582,26 @@
 </div>
 <!-- script fucntion -->
 <script>
+	function paymenttype(val){
+
+    
+var paymenttype = val.value;
+
+
+if( paymenttype == "Cash"){
+    
+    document.getElementById("addcheque").style.display ="none";
+   
+}
+if( paymenttype == "Cheque" || paymenttype == "Pay Order"){
+
+document.getElementById("addcheque").style.display ="block";
+
+}
+
+
+return 0;
+}
 //add fucntion to test
 function paymentProcedure(val){
 

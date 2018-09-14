@@ -29,9 +29,43 @@ class formController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function showinstallmentforms($id,$no,$amount)
     {
-        //
+        try{
+            $property = DB::table('properties')->where('id',$id)->first();
+            $installments = DB::table('installments')->where('propertyId',$id)->first();
+            $payment = DB::table('payments')->where('propertyId',$id)->first();
+            $applicant = DB::table('applicants')->where('propertyId',$id)->first();
+            $paymentHistory = DB::table('payment_histories')->where('propertyId',$id)->first();
+            $installmentHistory = DB::table('installment_histories')->where('propertyId',$id)->get();
+            $number = $no;
+            $amount = $amount;
+          
+
+            $property1 = array($property);       
+            foreach($property1 as $te){
+                $id = $te->propertySellerId;
+            }  
+            $seller = DB::table('sellers')->where('id',$id)->first();
+            
+            return view('displayrecord.receiptinstallmentno',compact('property','payment','installments','applicant','seller','paymentHistory','installmentHistory','number','amount')); 
+            
+            // if($isEmpty == "null")
+            // { 
+               
+            //     return view('displayrecord.receipttotalamount',compact('property','payment','applicant','seller')); 
+                
+            // }
+            // else{
+               
+            //     return view('displayrecord.receiptinstallment',compact('property','payment','installments','applicant','seller')); 
+            //     // return view('displayrecord/singlerecordinstallment',compact('property','applicant','payment','witness','review','installment')); 
+           // }
+    
+            }
+            catch(Exception $e){
+                return redirect()->back()->with('error',' Recept From section  something wrong .');
+            }
     }
 
     /**
@@ -206,18 +240,24 @@ class formController extends Controller
         $witness =DB::table('witnesses')->where('propertyId',$id)->first();
         $review = DB::table('reviews')->where('propertyId',$id)->first();
         $applicant = DB::table('applicants')->where('propertyId',$id)->first();
+
+        $property1 = array($property);       
+        foreach($property1 as $te){
+            $id = $te->propertySellerId;
+        }  
+        $seller = DB::table('sellers')->where('id',$id)->first();
         
         $isEmpty = json_encode($installments);
         
         if($isEmpty == "null")
         { 
            
-            return view('displayrecord.contractform',compact('property','payment','witness','applicant','review')); 
+            return view('displayrecord.contractform',compact('property','payment','witness','applicant','review','seller')); 
             
         }
         else{
            
-            return view('displayrecord.contractforminstallment',compact('property','payment','installments','witness','applicant','review')); 
+            return view('displayrecord.contractforminstallment',compact('property','payment','installments','witness','applicant','review','seller')); 
             // return view('displayrecord/singlerecordinstallment',compact('property','applicant','payment','witness','review','installment')); 
         }
         

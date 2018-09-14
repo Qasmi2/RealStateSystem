@@ -22,13 +22,13 @@
                         }
                     ?>
 
-                    <table class="table table-bordered table-striped table-hover table-responsive">
+                    <table class="table table-striped table-hover">
                         <thead bgcolor="#a6468c" style="color:white;">
                             <tr>
                                <a href="#"> <th>Property Type</th></a>
-                               <th>Address</th>
-                               <th>Location</th>
-                               <th>Size (sqr /ft )</th>
+                               <!-- <th>Address /Location </th> -->
+                               
+                               <!-- <th>Size (sqr /ft )</th> -->
                                <th>Owner</th>
                                <th>Owner CNIC NO</th>
                                <th>Payment Procedure</th>
@@ -42,13 +42,14 @@
                                 <tr>
                                 
                                     <td><a href="{{url('display/'.$properties[$i]['id'])}}">{{$properties[$i]['propertyType']}}</a></td>
-                                    <td>Floor No. :{{$properties[$i]['propertyAddress']}}</td>
-                                    <td>Room No./Shop No. :{{$properties[$i]['propertyLocation']}}</td>
-                                    <td>{{$properties[$i]['propertySize']}} sqr/ft</td>
+                                    <!-- <td>Floor No. :{{$properties[$i]['propertyAddress']}} <br><br>Room/Shop No. :{{$properties[$i]['propertyLocation']}}</td> -->
+                                    <!-- <td>{{$properties[$i]['propertySize']}} sqr/ft</td> -->
                                     <td>{{$applicanties[$i]['name']}}</td>
                                     <td>{{$applicanties[$i]['cnicNo']}}</td>
                                     <td>{{$payments[$i]['propertyPaymentProcedure']}}</td>
-                                    <td> <a href="{{url('editingform/'.$properties[$i]['id'])}}">Edit</a></td>
+                                    <td> <a href="{{url('editingform/'.$properties[$i]['id'])}}">Edit</a><br>
+                                         <a href="{{url('paymenthistory/'.$properties[$i]['id'])}}">Payment History</a>
+                                    </td>
                                    
                                     <td>
                                    
@@ -68,11 +69,11 @@
                                             Print Forms
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="{{url('form1/'.$properties[$i]['id'])}}">Print Form 1</a>
-                                            <a class="dropdown-item" href="{{url('form2/'.$properties[$i]['id'])}}">Print Form 2</a>
-                                            <a class="dropdown-item" href="{{url('form3/'.$properties[$i]['id'])}}">Print Form 3</a>
-                                            <a class="dropdown-item" href="{{url('Receptform/'.$properties[$i]['id'])}}">Print Recept Form</a>
-                                            <a class="dropdown-item" href="{{url('contractform/'.$properties[$i]['id'])}}">Print Contract Form</a>
+                                            <a class="dropdown-item" href="{{url('form1/'.$properties[$i]['id'])}}" target="_blank">Print Form 1</a>
+                                            <a class="dropdown-item" href="{{url('form2/'.$properties[$i]['id'])}}" target="_blank">Print Form 2</a>
+                                            <a class="dropdown-item" href="{{url('form3/'.$properties[$i]['id'])}}" target="_blank">Print Form 3</a>
+                                            <a class="dropdown-item" href="{{url('Receptform/'.$properties[$i]['id'])}}" target="_blank">Print Recept Form</a>
+                                            <a class="dropdown-item" href="{{url('contractform/'.$properties[$i]['id'])}}" target="_blank">Print Contract Form</a>
                                         </div>
                                     </div>
                                     <!-- <a href="{{url('form1/'.$properties[$i]['id'])}}">Print Form1</a>,
