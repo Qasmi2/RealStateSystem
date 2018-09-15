@@ -26,7 +26,7 @@
                             <div class="col-md-4 col-lg-4 col-sm-12">
                                 <label for="propertyType" >{{ __('Registion Project') }} </label>
                                
-                                <select class="form-control" name="propertyType" id="propertyType" >
+                                <select class="form-control" name="propertyType" id="propertyType" required>
                                     <option value="">Select Title</option>
                                     <option value="Montviro Hotel">Montviro Hotel</option>
                                     <option value="Montviro Mall">Montviro Mall</option>
@@ -41,7 +41,7 @@
                             <div class="col-md-4 col-lg-4 col-sm-12">
                                 <label for="registrationStatus">{{ __('Registration Status') }} </label>
                                
-                                <select class="form-control" name="registrationStatus" id="registrationStatus" >
+                                <select class="form-control" name="registrationStatus" id="registrationStatus" required>
                                     <option value="">choice Projecty Status</option>
                                     <option value="First Alottee">First Alottee</option>
                                     <option value="Transfer Certificate">Transfer Certificate</option>
@@ -58,7 +58,7 @@
                             <div class="col-md-4 col-lg-4 col-sm-12">
                                 <label for="propertySection">{{ __('Property Section') }} </label>
                               
-                                <select class="form-control" name="propertySection" id="propertySection" >
+                                <select class="form-control" name="propertySection" id="propertySection" required>
                                     <option value="">Choice the Selection</option>
                                     <option value="Office">Office</option>
                                     <option value="Shop">Shop</option>
@@ -110,7 +110,7 @@
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="jointProperty">{{ __('Joint Property') }}</label>
                                 <!-- <input id="jointProperty" type="text" placeholder="Enter Joint Property" class="form-control{{ $errors->has('jointProperty') ? ' is-invalid' : '' }}" name="jointProperty" value=""  required> -->
-                                <select class="form-control" name="jointProperty" id="jointProperty" >
+                                <select class="form-control" name="jointProperty" id="jointProperty" required>
                                     <option value="No">No</option>
                                     <option value="Yes" disabled>Yes</option>
                                 </select>
@@ -134,7 +134,7 @@
                             
                                 <label>Please choose your Picture</label>
                                 <br>
-                                <input type="file" name="cover_image" id="cover_image" class="btn btn-danger" style="color:white;"/>
+                                <input type="file" name="cover_image" id="cover_image" class="btn btn-danger" style="color:white;"/ required>
                                     @if ($errors->has('cover_image'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('cover_image') }}</strong>
@@ -379,7 +379,7 @@
                                <!-- <input id="paymentType" type="text" placeholder="Enter Property Payment Type " class="form-control{{ $errors->has('paymentType') ? ' is-invalid' : '' }}" name="paymentType" value="" required> -->
                                  
                                       
-                                <select class="form-control" name="paymentType" id="paymentType" onchange="paymenttype(this);" >
+                                <select class="form-control" name="paymentType" id="paymentType" onchange="paymenttype(this);" required>
                                     <option value="">choice payment type</option>
                                     <option value="Cash">Cash</option>
                                     <option value="Pay Order">Pay Order</option>
@@ -460,7 +460,7 @@
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertyPurchingDate">{{ __('Date') }}</label>
-                                <input id="propertyPurchingDate" type="date" placeholder="Enter Date (yyyy-mm-dd) " class="form-control{{ $errors->has('propertyPurchingDate') ? ' is-invalid' : '' }}" name="propertyPurchingDate" value="" >
+                                <input id="propertyPurchingDate" type="date" placeholder="Enter Date (yyyy-mm-dd) " class="form-control{{ $errors->has('propertyPurchingDate') ? ' is-invalid' : '' }}" name="propertyPurchingDate" value="" required>
                                 @if ($errors->has('propertyPurchingDate'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertyPurchingDate') }}</strong>
@@ -481,7 +481,7 @@
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                 <label for="propertyPaymentProcedure">{{ __('property Payment Procedure') }}</label>
                               
-                                <select class="form-control" name="propertyPaymentProcedure" id="propertyPaymentProcedure" onchange="paymentProcedure(this);" >
+                                <select class="form-control" name="propertyPaymentProcedure" id="propertyPaymentProcedure" onchange="paymentProcedure(this);" required>
                                     <option value="">Choice Payment Procedure</option>
                                     <option value="Total Amount">Total Amount</option>
                                     <option value="Installment">Installment</option>
@@ -526,7 +526,7 @@
                             </div>
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="downpayment">Down Payment</label>
-                                <input id="downpayment" type="number" min="0" placeholder="Enter down payment" class="form-control" name="downpayment" value="" style="border: 1px solid red;">
+                                <input id="downpayment" type="number" min="0" placeholder="Enter down payment" class="form-control" name="downpayment" value="" style="border: 1px solid red;" >
                                
                             </div>
                         </div>
@@ -567,7 +567,7 @@
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                     <label for="witnessName">{{ __('Seller Name') }}</label>
                             
-                                        <select class="form-control" name="propertySellerId" id="propertySellerId" >
+                                        <select class="form-control" name="propertySellerId" id="propertySellerId" required>
                                         <option value="">Select Seller Name</option>
                                         @foreach($seller as $te)
                                                
