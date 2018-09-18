@@ -70,6 +70,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('sellerform') }}">{{ __('Seller Registration Form') }}</a>
                             </li>
+                            @can('admin-only', Auth::user())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('adduser') }}">{{ __('ADD NEW USER') }}</a>
+                            </li>
+                            @endcan
                             <!-- <li class="nav-item dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1
                                 <span class="caret"></span></a>
@@ -166,6 +171,19 @@
                                     <span>{{ __('Seller Registration Form') }}</span>
                                 </a>
                     </li>
+                    @can('admin-only', Auth::user())
+                           
+                      
+                        <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('adduser') }}">
+                                    
+                                        <span>{{ __('Add New USER') }}</span>
+                                    </a>
+                        </li>
+
+                    @endcan
+
+                   
                     
                     <!-- <li >
                         <a href="" >

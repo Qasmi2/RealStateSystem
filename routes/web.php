@@ -17,9 +17,9 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('welcome');
 });
-Route::get('/register', function () {
-    return view('welcome');
-});
+// Route::get('/register', function () {
+//     return view('welcome');
+// });
 // all the printed form routes 
 // get decrlation form 
 Route::get('/declarationfom', function () {
@@ -114,5 +114,8 @@ Route::get('installmentpaid/{id}/{no}','installmentHistoryController@create')->n
 
 
 
+//polices 
 
+Route::get('/register','VarificationController@varify')->name('register');  
 
+Route::get('/adduser','VarificationController@addUser')->name('adduser');  

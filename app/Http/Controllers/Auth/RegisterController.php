@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+
+ 
+
 
 class RegisterController extends Controller
 {
@@ -28,8 +32,12 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
-
+    protected $redirectTo = '/register';
+    // public function redirectTo()
+    // {
+    //     return view('auth.register')->with('message','Successfully registered');
+    // }
+    
     /**
      * Create a new controller instance.
      *
@@ -40,6 +48,13 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function register(Request $request)
+    {
+    $this->validator($request->all())->validate();
+    $this->create($request->all());
+    var_dump("rtesting ");exit();
+    return redirect($this->redirectTo)->with('success', 'Registered successfully, please login...!');
+    }
     /**
      * Get a validator for an incoming registration request.
      *
@@ -52,6 +67,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'role' => 'required',
         ]);
     }
 
@@ -66,7 +82,13 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'role' => $data['role'],
             'password' => Hash::make($data['password']),
         ]);
     }
+ 
+    // protected function redirectTo()
+    // {
+    //     return '/home';
+    // }
 }

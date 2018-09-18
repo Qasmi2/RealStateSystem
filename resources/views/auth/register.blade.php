@@ -45,7 +45,7 @@ body, html {
         <div class="container">
             
             <!--- ---->
-            <div class="row justify-content-center" style="padding-top:175px;">
+            <div class="row justify-content-center" style="padding-top:140px;">
                  <div class="col-md-6">
                      <div class="card" style="opacity: 0.8;">
                         <div class="card-header">Login In Form</div>
@@ -55,6 +55,7 @@ body, html {
                  <div class="text-center" style="color:#a6468c;">
                     <h1>Montrivo Booking Portal </h1>
                 </div>
+                @include('flash-message')
 
                <!-- <div class="links">
                   Website Underconstruction
@@ -112,6 +113,18 @@ body, html {
                             <div class="col-md-8">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
+                        </div>
+
+                         <div class="form-group row">
+                            <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
+                                <div class="col-md-8">
+                                    <select class="form-control" name="role" id="role" >
+                                        <option value="">Select Role</option>
+                                        <option value="Agent">Agent</option>
+                                        <option value="bookingOfficer">Booking Officer</option>
+                                        <option value="FinancialOfficer">Financial Officer</option>
+                                    </select>
+                                </div>
                         </div>
 
                         <div class="form-group row mb-0">
