@@ -3,7 +3,7 @@
 <head>
     <style>
         @font-face {
-            font-family: 'GothamBlack','GothamBook';
+            font-family: 'Gotham Black','Gotham Book';
             src: url("../public/fonts/Gotham-Black.ttf");
             src: url("../public/fonts/Gotham-Book.ttf");
         }
@@ -48,12 +48,12 @@
                 top: 3px;
                 left: 40px;
                 font-size: 13px;
-                font-family: GothamBlack;
+                font-family: 'Gotham Black';
                 margin: 0px;
             }
 
         .h3prop {
-            font-family: GothamBlack;
+            font-family: 'Gotham Black';
             font-size: 12px;
             margin: 10px 20px 15px 40px;
             color: black;
@@ -140,7 +140,7 @@
             padding-left:5px;
         }
         strong{
-            font-family:GothamMedium;
+            font-family:'Gotham Medium';
             font-size:14px;
         }
     </style>
