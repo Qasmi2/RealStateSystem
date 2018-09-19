@@ -67,10 +67,12 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('properties') }}">{{ __('Display Properties') }}</a>
                             </li>
+                            @can('admin-only', Auth::user())
+
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('sellerform') }}">{{ __('Seller Registration Form') }}</a>
                             </li>
-                            @can('admin-only', Auth::user())
+                           
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('adduser') }}">{{ __('ADD NEW USER') }}</a>
                             </li>
@@ -165,15 +167,15 @@
                                     <span>{{ __('Display Properties') }}</span>
                                 </a>
                     </li>
-                    <li class="nav-item">
-                                <a class="nav-link" href="{{ route('sellerform') }}">
-                                
-                                    <span>{{ __('Seller Registration Form') }}</span>
-                                </a>
-                    </li>
+
                     @can('admin-only', Auth::user())
-                           
-                      
+                        <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('sellerform') }}">
+                                    
+                                        <span>{{ __('Seller Registration Form') }}</span>
+                                    </a>
+                        </li>
+                   
                         <li class="nav-item">
                                     <a class="nav-link" href="{{ route('adduser') }}">
                                     
@@ -183,8 +185,6 @@
 
                     @endcan
 
-                   
-                    
                     <!-- <li >
                         <a href="" >
                             <i class="material-icons">view_list</i>

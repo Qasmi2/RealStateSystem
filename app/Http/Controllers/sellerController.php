@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Auth;
 Use Redirect;
 use App\seller;
 use App\installment;
@@ -16,22 +18,46 @@ use DB;
 
 class sellerController extends Controller
 {
+
+     /**
+     * Display a Seller form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function showform(){
+
+        if(Gate::allows('admin-only',Auth::user())){
+
+            return view('sellerforms.register');
+        }
+        else{
+            return redirect()->back()->with('error',' You are not Allow to Add New SellerUser .');
+        }
+       
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        
-        // get all seller information 
-        try{
-            $seller = seller::orderBy('created_at','desc')->get();
-            return view('registrationfrom.registrationform',compact('seller'));
-            
+        if(Gate::allows('admin-only',Auth::user())){
+            // get all seller information 
+            try{
+                $seller = seller::orderBy('created_at','desc')->get();
+                return view('registrationfrom.registrationform',compact('seller'));
+                
+            }
+            catch(Exception $e){
+                return redirect()->back()->with('error',' something wrong with the seller info.');
+            }
         }
-        catch(Exception $e){
-            return redirect()->back()->with('error',' something wrong with the seller info.');
+        else{
+            return redirect()->back()->with('error',' You are not Allow to View Seller Information .');
         }
     }
      /**
@@ -41,19 +67,23 @@ class sellerController extends Controller
      */
     public function Display()
     {
-        
-        // get all seller information 
-        try{
-            $seller = seller::orderBy('created_at','desc')->get();
-            // var_dump($seller);
-            // echo "<br> testing ";
-            // echo $seller[1]['id'];
-            // exit();
-            return view('sellerforms.show',compact('seller'));
-            
+        if(Gate::allows('admin-only',Auth::user())){
+            // get all seller information 
+            try{
+                $seller = seller::orderBy('created_at','desc')->get();
+                // var_dump($seller);
+                // echo "<br> testing ";
+                // echo $seller[1]['id'];
+                // exit();
+                return view('sellerforms.show',compact('seller'));
+                
+            }
+            catch(Exception $e){
+                return redirect()->back()->with('error',' something wrong with the seller info.');
+            }
         }
-        catch(Exception $e){
-            return redirect()->back()->with('error',' something wrong with the seller info.');
+        else{
+            return redirect()->back()->with('error',' You are not Allow to View Seller Information .');
         }
     }
     
@@ -75,37 +105,42 @@ class sellerController extends Controller
      */
     public function store(Request $request)
     {
-        // validation 
-        $validator = Validator::make($request->all(), [
-            'sallerName' => 'required',
-            'sallerCnicNo' => 'required',
-            'sallerFatherName' => 'required',
-            // 'propertyId'=>'required',
-        ]);
+        if(Gate::allows('admin-only',Auth::user())){
+            // validation 
+            $validator = Validator::make($request->all(), [
+                'sallerName' => 'required',
+                'sallerCnicNo' => 'required',
+                'sallerFatherName' => 'required',
+                // 'propertyId'=>'required',
+            ]);
 
-        if ($validator->fails()) {
-            return Redirect::back()->withErrors($validator); 
-            // return response()->json(['error'=>$validator->errors()], 401);            
-        }  
-        try{
-            $seller = new seller;
-            $seller->sallerName = $request->input('sallerName');
-            $seller->sallerCnicNo = $request->input('sallerCnicNo');
-            $seller->sallerFatherName = $request->input('sallerFatherName');
-            $seller->sallerDesignation = $request->input('sallerDesignation');
-            $seller->sallerAddress = $request->input('sallerAddress');
+            if ($validator->fails()) {
+                return Redirect::back()->withErrors($validator); 
+                // return response()->json(['error'=>$validator->errors()], 401);            
+            }  
+            try{
+                $seller = new seller;
+                $seller->sallerName = $request->input('sallerName');
+                $seller->sallerCnicNo = $request->input('sallerCnicNo');
+                $seller->sallerFatherName = $request->input('sallerFatherName');
+                $seller->sallerDesignation = $request->input('sallerDesignation');
+                $seller->sallerAddress = $request->input('sallerAddress');
 
-            if($seller->save()){
-                return redirect()->back()->with('success','Successfully Added Seller info!');
+                if($seller->save()){
+                    return redirect()->back()->with('success','Successfully Added Seller info!');
+                }
+                else{
+                    return redirect()->back()->with('error',' Seller info is not inserted , Something wrong.');
+                }
             }
-            else{
-                return redirect()->back()->with('error',' Seller info is not inserted , Something wrong.');
+            catch(Exception $e){
+                return redirect()->back()->with('error',' something wrong with the seller insertion added info.');
             }
         }
-        catch(Exception $e){
-            return redirect()->back()->with('error',' something wrong with the seller insertion added info.');
+        else{
+            return redirect()->back()->with('error',' You are not Allow to View Seller Information .');
         }
-       
+        
     }
    
     /**
@@ -116,19 +151,26 @@ class sellerController extends Controller
      */
     public function show($id)
     {
-        try{
+        if(Gate::allows('admin-only',Auth::user())){
+            try{
 
-            if($seller = seller::findorFail($id)){
-                
-                return view('')->with('seller',$seller);
+                if($seller = seller::findorFail($id)){
+                    
+                    return view('')->with('seller',$seller);
+                }
+                else{
+                    return redirect()->back()->with('error',' not find your seller info, there are some Errors');  
+                }
             }
-            else{
-                return redirect()->back()->with('error',' not find your seller info, there are some Errors');  
+            catch(Exception $e){
+                return redirect()->back()->with('error',' something wrong with the seller show info .');
             }
+
         }
-        catch(Exception $e){
-            return redirect()->back()->with('error',' something wrong with the seller show info .');
+        else{
+            return redirect()->back()->with('error',' You are not Allow to View Seller Information .');
         }
+        
     }
 
     /**
@@ -139,19 +181,26 @@ class sellerController extends Controller
      */
     public function edit($id)
     {
+        if(Gate::allows('admin-only',Auth::user())){
     
-        try{
-            if($seller = seller::findorFail($id)){
-                
-                return view('sellerforms.edit')->with('seller',$seller);
+            try{
+                if($seller = seller::findorFail($id)){
+                    
+                    return view('sellerforms.edit')->with('seller',$seller);
+                }
+                else{
+                    return redirect()->back()->with('error',' not find your seller info, there are some Errors');  
+                }
             }
-            else{
-                return redirect()->back()->with('error',' not find your seller info, there are some Errors');  
+            catch(Exception $e){
+                return redirect()->back()->with('error',' something wrong with the geting seller info editing.');
             }
+
         }
-        catch(Exception $e){
-            return redirect()->back()->with('error',' something wrong with the geting seller info editing.');
+        else{
+            return redirect()->back()->with('error',' You are not Allow to View Seller Information .');
         }
+        
     }
 
     /**
@@ -163,38 +212,42 @@ class sellerController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
-         // validation 
-         $validator = Validator::make($request->all(), [
-            'sallerName' => 'required',
-            'sallerCnicNo' => 'required',
-            'sallerFatherName' => 'required',
-           
-        ]);
+        if(Gate::allows('admin-only',Auth::user())){
+            // validation 
+            $validator = Validator::make($request->all(), [
+                'sallerName' => 'required',
+                'sallerCnicNo' => 'required',
+                'sallerFatherName' => 'required',
+            
+            ]);
 
-        if ($validator->fails()) {
-            return Redirect::back()->withErrors($validator); 
-            //return response()->json(['error'=>$validator->errors()], 401);            
-        }  
-        try{
+            if ($validator->fails()) {
+                return Redirect::back()->withErrors($validator); 
+                //return response()->json(['error'=>$validator->errors()], 401);            
+            }  
+            try{
 
-            $seller = seller::find($id);
-            $seller->sallerName = $request->input('sallerName');
-            $seller->sallerCnicNo = $request->input('sallerCnicNo');
-            $seller->sallerFatherName = $request->input('sallerFatherName');
-            $seller->sallerDesignation = $request->input('sallerDesignation');
-            $seller->sallerAddress = $request->input('sallerAddress');
+                $seller = seller::find($id);
+                $seller->sallerName = $request->input('sallerName');
+                $seller->sallerCnicNo = $request->input('sallerCnicNo');
+                $seller->sallerFatherName = $request->input('sallerFatherName');
+                $seller->sallerDesignation = $request->input('sallerDesignation');
+                $seller->sallerAddress = $request->input('sallerAddress');
 
-            if($seller->save()){
-                return redirect()->back()->with('success','Successfully Added Seller info!');
-                
+                if($seller->save()){
+                    return redirect()->back()->with('success','Successfully Added Seller info!');
+                    
+                }
+                else{
+                    return redirect()->back()->with('error',' Seller info is not inserted , Something wrong.');
+                }
             }
-            else{
-                return redirect()->back()->with('error',' Seller info is not inserted , Something wrong.');
+            catch(Exception $e){
+                return redirect()->back()->with('error',' something wrong with the seller updating info.');
             }
         }
-        catch(Exception $e){
-            return redirect()->back()->with('error',' something wrong with the seller updating info.');
+        else{
+            return redirect()->back()->with('error',' You are not Allow to Update Seller Information .');
         }
     }
 
@@ -206,25 +259,34 @@ class sellerController extends Controller
      */
     public function destroy($id)
     {
-       
-        try{
-            $seller = seller::find($id);
-            if($seller){
-                
-                if($seller->delete()){
-                    return redirect()->back()->with('success', 'Record Removed');
+        
+        if(Gate::allows('admin-only',Auth::user())){
+
+            try{
+                $seller = seller::find($id);
+                if($seller){
+                    
+                    if($seller->delete()){
+                        return redirect()->back()->with('success', 'Record Removed');
+                    }
+                    else{
+                        
+                        return redirect()->back()->with('error', 'NOT Record Removed !!!');
+                    }
                 }
                 else{
-                    
-                    return redirect()->back()->with('error', 'NOT Record Removed !!!');
+                    return redirect()->back()->with('error', 'Record NOT Found !!!');  
                 }
             }
-            else{
-                return redirect()->back()->with('error', 'Record NOT Found !!!');  
+            catch(Exception $e){
+                return redirect()->back()->with('error',' something wrong with the deleting seller info.');
             }
         }
-        catch(Exception $e){
-            return redirect()->back()->with('error',' something wrong with the deleting seller info.');
+        else{
+            return redirect()->back()->with('error',' You are not Allow to Delete Seller Information .');
         }
+
     }
+
+
 }

@@ -27,12 +27,5 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function varify(){
-        if(Gate::allows('admin-only',Auth::user())){
-            return view('home');
-        }
-        else{
-            return redirect()->back()->with('error',' You are not Allow to register New User .');
-        }
-    }
+    
 }

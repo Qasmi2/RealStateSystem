@@ -31,7 +31,17 @@ class editingControll extends Controller
      */
     public function index()
     {
-      
+       
+            // get all seller information 
+            try{
+                $seller = seller::orderBy('created_at','desc')->get();
+                return view('registrationfrom.registrationform',compact('seller'));
+                
+            }
+            catch(Exception $e){
+                return redirect()->back()->with('error',' something wrong with the seller info.');
+            }
+        
     }
 
     /**

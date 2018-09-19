@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Auth;
 
  
 
@@ -50,10 +52,16 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-    $this->validator($request->all())->validate();
-    $this->create($request->all());
-    var_dump("rtesting ");exit();
-    return redirect($this->redirectTo)->with('success', 'Registered successfully, please login...!');
+        if(Gate::allows('admin-only',Auth::user())){
+
+            $this->validator($request->all())->validate();
+            $this->create($request->all());
+            return redirect($this->redirectTo)->with('success', 'Registered successfully, please login...!');
+        }
+        else{
+            return redirect()->back()->with('error',' You are not Allow to Add New User .');
+        }
+
     }
     /**
      * Get a validator for an incoming registration request.
