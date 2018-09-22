@@ -76,8 +76,8 @@
                                     <select class="form-control" name="role" id="role" >
                                         <option value="">Select Role</option>
                                         <option value="Agent">Agent</option>
-                                        <option value="bookingOfficer">Booking Officer</option>
-                                        <option value="FinancialOfficer">Financial Officer</option>
+                                        <option value="booking Officer">Booking Officer</option>
+                                        <option value="Financial Officer">Financial Officer</option>
                                     </select>
                                 </div>
                         </div>

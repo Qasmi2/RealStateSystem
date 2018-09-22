@@ -195,7 +195,33 @@ class addUserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        if(Gate::allows('admin-only',Auth::user())){
+
+            try{
+                $user = User::find($id);
+                if($user){
+                    
+                    if($user->delete()){
+                        return redirect()->back()->with('success', 'Record Removed');
+                    }
+                    else{
+                        
+                        return redirect()->back()->with('error', 'NOT Record Removed !!!');
+                    }
+                }
+                else{
+                    return redirect()->back()->with('error', 'Record NOT Found !!!');  
+                }
+            }
+            catch(Exception $e){
+                return redirect()->back()->with('error',' something wrong with the deleting user info.');
+            }
+        }
+        else{
+            return redirect()->back()->with('error',' You are not Allow to Delete user Information .');
+        }
+
     }
 
 

@@ -59,7 +59,6 @@ Route::get('properties','propertiesformController@index')->name('properties')->m
 // show info single property 
 Route::get('singlerecord/{id}','propertiesformController@show')->name('singlerecord')->middleware('auth');
 
-
 // complete form create ,display and edit 
 
 Route::get('formall','editingControll@index')->name('formall')->middleware('auth');
@@ -79,12 +78,8 @@ Route::get('contractform/{id}','formController@showcontractform')->name('contrac
 
 Route::get('installmentfrom/{id}/{no}/{amount}','formController@showinstallmentforms')->name('installmentfrom')->middleware('auth');
 
-
-
 // seller 
-
 Route::get('/sellerform','sellerController@showform')->name('sellerform')->middleware('auth');
-
 Route::get('sellerinfos','sellerController@Display')->name('sellerinfos')->middleware('auth');
 Route::post('sellercreate','sellerController@store')->name('sellercreate')->middleware('auth');
 Route::post('sellerupdate/{id}','sellerController@update')->name('sellerupdate')->middleware('auth');
@@ -99,10 +94,4 @@ Route::post('newuser','addUserController@store')->name('newuser')->middleware('a
 Route::get('userinfos','addUserController@index')->name('userinfos')->middleware('auth');
 Route::get('usersedit/{id}','addUserController@edit')->name('usersedit')->middleware('auth');
 Route::post('usersupdate/{id}','addUserController@update')->name('usersupdate')->middleware('auth');
-
-
-//polices 
-
-// Route::get('/register','VarificationController@varify')->name('register');  
-
-// Route::get('/adduser','VarificationController@addUser')->name('adduser');  
+Route::get('usersdelete/{id}','addUserController@destroy')->name('usersdelete')->middleware('auth');

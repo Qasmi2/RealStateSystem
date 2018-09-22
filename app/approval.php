@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class installmentHistory extends Model
+class approval extends Model
 {
      /**
      * The attributes that are mass assignable.
@@ -12,9 +12,13 @@ class installmentHistory extends Model
      * @var array
      */
     protected $fillable = [
-        'installmentNo','installmentAmount','status','installmentPaymentDate','remaningInstallments',
-        'nextInstallmentDate','remaingAmount','userId','propertyId',
-    ];
+     'userId','status','propertyId'
+        
+     ];
+
+    //  protected $casts = [
+    //     'installmentDates' => 'json'
+    // ];
      /**
       * The attributes that should be hidden for arrays.
       *

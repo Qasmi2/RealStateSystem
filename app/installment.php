@@ -12,7 +12,7 @@ class installment extends Model
      * @var array
      */
     protected $fillable = [
-        'noOfInstallments','downpayment','propertyId','installmentDates','amountOfOneInstallment',
+        'noOfInstallments','downpayment','userId','propertyId','installmentDates','amountOfOneInstallment',
         
      ];
 

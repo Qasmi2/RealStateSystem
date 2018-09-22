@@ -51,16 +51,14 @@ body, html {
                         <div class="card-header">Login In Form</div>
 
                             <div class="card-body">
-            <!-- -->
-                 <div class="text-center" style="color:#a6468c;">
-                    <h1>Montrivo Booking Portal </h1>
-                </div>
-                @include('flash-message')
+           
+                            <div class="text-center" style="color:#a6468c;">
+                                <h1>Montrivo Booking Portal </h1>
+                            </div>
+                            @include('flash-message')
 
-               <!-- <div class="links">
-                  Website Underconstruction
-                </div> -->
-                <div>
+           
+                             <div>
 
                     <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}">
                         @csrf

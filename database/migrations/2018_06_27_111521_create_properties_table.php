@@ -25,6 +25,8 @@ class CreatePropertiesTable extends Migration
             $table->integer('propertySellerId');
             $table->tinyInteger('jointProperty')->default(0)->nullable();
             $table->integer('noOfJointApplicant')->unsigned()->nullable();
+            $table->integer('userId')->nullable();
+            
             $table->timestamps();
         });
     }

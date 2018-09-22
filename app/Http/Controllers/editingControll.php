@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 Use Redirect;
 use App\installment;
 use App\payment;
@@ -21,6 +22,8 @@ use DateTime;
 use DateInterval;
 use DB;
 use Storage;
+use Auth;
+use App\User;
 
 class editingControll extends Controller
 {
@@ -129,7 +132,8 @@ class editingControll extends Controller
         
             return $key;
         }
-        
+        // get user Id 
+        $user_id = Auth::user();
         // get user data
         //initilization the property object 
     try{
@@ -145,7 +149,8 @@ class editingControll extends Controller
         $property->jointProperty = $request->input('jointProperty');
         $property->propertySellerId = $request->input('propertySellerId');
         $property->noOfJointApplicant = $request->input('noOfJointApplicant');
-       
+        $property->userId = $user_id->id;
+
         if($property->jointProperty == "No")
         {
             $property->jointProperty = 0;
@@ -237,6 +242,7 @@ class editingControll extends Controller
         $applicant->nomineeMobileNo1 = $request->input('nomineeMobileNo1');
         $applicant->nomineeMobileNo2 = $request->input('nomineeMobileNo2');
         $applicant->propertyId = $propertyId;
+        $applicant->userId = $user_id->id;
     }
     catch(Exception $e){
         return redirect()->back()->with('error',' applicant section input something wrong! .');
@@ -257,26 +263,17 @@ class editingControll extends Controller
         $payment->propertyPaymentProcedure = $request->input('propertyPaymentProcedure');
         $payment->propertyPrice = $request->input('propertyPrice');
         $payment->propertyId = $propertyId;
+        $payment->userId = $user_id->id;
     }
     catch(Exception $e){
         return redirect()->back()->with('error',' Payment section input something wrong .');
     }
-        // initilization the witness table object
-    // try{
-
-    //     $witness = new witness;
-    //     $witness->witnessName = $request->input('witnessName');
-    //     $witness->witnessCnicNo = $request->input('witnessCnicNo');
-    //     $witness->propertyId = $propertyId;
-    // }
-    // catch(Exception $e){
-    //     return redirect()->back()->with('error',' witness section input something wrong .');
-    // }    
-        // initilization the review table object
+       
     try{
         $review = new review;
         $review->comment=$request->input('comment');
         $review->propertyId = $propertyId;
+        $review->userId = $user_id->id;
     }
     catch(Exception $e){
         return redirect()->back()->with('error',' review section input something wrong .');
@@ -355,6 +352,7 @@ class editingControll extends Controller
                 $installment->propertyId = $propertyId;
                 $installment->amountOfOneInstallment = $amountOfOneInstallment; 
                 $installment->installmentDates = json_encode($installmentDates);
+                $installment->userId = $user_id->id;
                 // save the installment info
                 if($installment->save()){
 
@@ -437,6 +435,7 @@ class editingControll extends Controller
             $token->tokenPayment = $request->input('tokenPayment');
             $token->remaningPaymentDate = $request->input('remaningPaymentDate');
             $token->propertyId = $propertyId;
+          
             if($token->save()){
                 /* update history maintaince */
                 
@@ -499,39 +498,47 @@ class editingControll extends Controller
      */
     public function show($id)
     {
-        
-    try{
-
-        $property  = DB::table('properties')->where('id',$id)->first();
-        $payment = DB::table('payments')->where('propertyId',$id)->first();
-        $applicant = DB::table('applicants')->where('propertyId',$id)->first();
-        $installment = DB::table('installments')->where('propertyId',$id)->first();
-        $review = DB::table('reviews')->where('propertyId',$id)->first();
-        $token = DB::table('tokens')->where('propertyId',$id)->first();
-        // $witness = DB::table('witnesses')->where('propertyId',$id)->first();
-        $seller = seller::orderBy('created_at','desc')->get();
-   
-
-        $isEmptyinstallment = json_encode($installment);
-        $isEmptytoken = json_encode($token);
        
-        if($isEmptytoken == "null" && $isEmptyinstallment == "null")
-        { 
-            // total payment
-            return view('displayrecord/singlerecord',compact('property','applicant','payment','review','seller'));    
-        }
-        elseif($isEmptytoken != "null" && $isEmptyinstallment == "null"){
-            // token
-            return view('displayrecord/singlerecordtoken',compact('property','applicant','payment','review','token','seller')); 
-        }
-        elseif($isEmptyinstallment != "null"){
-            // installment
-            return view('displayrecord/singlerecordinstallment',compact('property','applicant','payment','review','installment','seller')); 
-        }
-    }
-    catch(Exception $e){
-        return redirect()->back()->with('error',' Show single record section something wrong .');
-    }   
+       
+        // if(Gate::allows('user-actions',Auth::user())){
+                
+            try{
+
+                $property  = DB::table('properties')->where('id',$id)->first();
+                $payment = DB::table('payments')->where('propertyId',$id)->first();
+                $applicant = DB::table('applicants')->where('propertyId',$id)->first();
+                $installment = DB::table('installments')->where('propertyId',$id)->first();
+                $review = DB::table('reviews')->where('propertyId',$id)->first();
+                $token = DB::table('tokens')->where('propertyId',$id)->first();
+                // $witness = DB::table('witnesses')->where('propertyId',$id)->first();
+                $seller = seller::orderBy('created_at','desc')->get();
+        
+
+                $isEmptyinstallment = json_encode($installment);
+                $isEmptytoken = json_encode($token);
+            
+                if($isEmptytoken == "null" && $isEmptyinstallment == "null")
+                { 
+                    // total payment
+                    return view('displayrecord/singlerecord',compact('property','applicant','payment','review','seller'));    
+                }
+                elseif($isEmptytoken != "null" && $isEmptyinstallment == "null"){
+                    // token
+                    return view('displayrecord/singlerecordtoken',compact('property','applicant','payment','review','token','seller')); 
+                }
+                elseif($isEmptyinstallment != "null"){
+                    // installment
+                    return view('displayrecord/singlerecordinstallment',compact('property','applicant','payment','review','installment','seller')); 
+                }
+            }
+            catch(Exception $e){
+                return redirect()->back()->with('error',' Show single record section something wrong .');
+            }   
+        // }
+        // else{
+        //     return redirect()->back()->with('error',' You are not Allow to Delete user Information .');
+        //}
+
         
     }
 
@@ -650,6 +657,8 @@ class editingControll extends Controller
             //return response()->json(['error'=>$validator->errors()], 401);            
         }   
 
+        // get user id 
+        $user_id = Auth::user();
         
           // get user data
         //initilization the property object 
@@ -664,6 +673,7 @@ class editingControll extends Controller
         $property->propertySellerId = $request->input('propertySellerId');
         $property->jointProperty = $request->input('jointProperty');
         $property->noOfJointApplicant = $request->input('noOfJointApplicant');
+        $property->userId = $user_id->id;
         
         if($property->jointProperty == "No")
         {
@@ -722,6 +732,7 @@ class editingControll extends Controller
         $applicant->nomineeMobileNo1 = $request->input('nomineeMobileNo1');
         $applicant->nomineeMobileNo2 = $request->input('nomineeMobileNo2');
         $applicant->propertyId = $id;
+        $applicant->userId = $user_id->id;
         }
         catch(Exception $e){
             return redirect()->back()->with('error',' applicant section input something wrong .');
@@ -745,6 +756,8 @@ class editingControll extends Controller
         // property total amount 
         $totalAmount = $request->input('propertyPrice');
         $payment->propertyId = $id;
+        $payment->userId = $user_id->id;
+
         }
         catch(Exception $e){
             return redirect()->back()->with('error',' Payment section input something wrong .');
@@ -755,6 +768,7 @@ class editingControll extends Controller
         $review = review::find($reviewId);
         $review->comment=$request->input('comment');
         $review->propertyId = $id;
+        $review->userId = $user_id->id;
         }
         catch(Exception $e){
             return redirect()->back()->with('error',' review section input something wrong .');
@@ -879,6 +893,7 @@ class editingControll extends Controller
                     $installment->propertyId = $propertyId;
                     $installment->amountOfOneInstallment = $amountOfOneInstallment; 
                     $installment->installmentDates = json_encode($installmentDates);
+                    $installment->userId = $user_id->id;
                     // save the installment info
                     $installment->save();
                      
@@ -981,6 +996,9 @@ class editingControll extends Controller
                             $deleteTokenRow = token::find($deleteTokenId);
                             $deleteTokenRow->delete();
                         }
+                    }
+                    else{
+                        $tokenPayment = 0;
                     }
                  
                    // payment history

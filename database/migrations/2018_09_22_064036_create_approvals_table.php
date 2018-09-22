@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInstallmentsTable extends Migration
+class CreateApprovalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,12 @@ class CreateInstallmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('installments', function (Blueprint $table) {
+        Schema::create('approvals', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('noOfInstallments')->nullable();
-            $table->double('downpayment')->nullable();
-            $table->double('amountOfOneInstallment', 8, 2)->nullable();
-            $table->string('installmentDates')->nullable();
-            $table->integer('userId')->nullable();
+            $table->string('userId')->nullable();
+            $table->string('status')->nullable();
             $table->integer('propertyId')->unsigned();
             $table->foreign('propertyId')->references('id')->on('properties');
-            
             $table->timestamps();
         });
     }
@@ -34,6 +30,6 @@ class CreateInstallmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('installments');
+        Schema::dropIfExists('approvals');
     }
 }
