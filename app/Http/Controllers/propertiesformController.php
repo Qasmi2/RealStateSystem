@@ -25,8 +25,8 @@ class propertiesformController extends Controller
         try{
 
             $user = Auth::user();
-
-            if(Gate::allows('admin-only',Auth::user())){
+            
+            if(Gate::allows('user-actions',Auth::user())){
 
                 $properties = property::orderBy('created_at','desc')->paginate(8);
                 $applicanties = applicant::orderBy('created_at','desc')->paginate(8);
@@ -43,7 +43,6 @@ class propertiesformController extends Controller
                 $payments = payment::where('userId', $user->id)->paginate(8);
                 return view('displayrecord.properties',compact('properties','applicanties','payments'));
                 
-            
             }
    
         }

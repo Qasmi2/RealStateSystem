@@ -18,7 +18,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
-        User::class => roles::class,
+       User::class => roles::class,
+        property::class => roles::class
         
     ];
 
@@ -34,6 +35,16 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('admin-only', 'App\Policies\roles@admin_only');
         Gate::define('user-actions','App\Policies\roles@user_actions');
         Gate::define('financial-actions','App\Policies\roles@financial_only');
+        Gate::define('view','App\Policies\roles@view_single');
+        Gate::define('create','App\Policies\roles@create_form');
+
+        // Gate::define('view', function ($user, $property) {
+        //     var_dump(Json_encode($user));
+        //     echo "<br>";
+        //     var_dump(Json_encode($property));
+        //     exit();
+        //     return $user->id == $property->user_id;
+        //   });
         
     }
 }

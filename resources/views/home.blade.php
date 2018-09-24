@@ -14,10 +14,15 @@
                     <p style="font-family:Roboto sans-serif;font-size:30px;">{{ Auth::user()->name }} <br>WellCome to Montrivo Booking Portal </p>
                     <br>
                   
-                    
-                    <button class="btn btn-info btn-lg" style="background-color: #a6468c !important;"><a  style="color:white !important;" href="{{ route('formall') }}">Registration Property </a></button>
+                    @can('create', Auth::user())
+                        <button class="btn btn-info btn-lg" style="background-color: #a6468c !important;"><a  style="color:white !important;" href="{{ route('formall') }}">Registration Property </a></button>
+                    @endcan
+
                     <button class="btn btn-info btn-lg" style="background-color: #a6468c !important;"><a  style="color:white !important;" href="{{ route('properties') }}">Display Properties </a></button>
-                    <button class="btn btn-info btn-lg" style="background-color: #a6468c !important;"><a  style="color:white !important;" href="{{ route('sellerform') }}">Seller Registration </a></button>
+                    
+                    @can('admin-only', Auth::user())
+                        <button class="btn btn-info btn-lg" style="background-color: #a6468c !important;"><a  style="color:white !important;" href="{{ route('sellerform') }}">Seller Registration </a></button>
+                    @endcan
                 </div>
             </div>
         </div>

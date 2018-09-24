@@ -58,9 +58,11 @@
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @else
+                        @can('create', Auth::user())
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('formall') }}">{{ __('Registration Form') }}</a>
                             </li>
+                        @endcan
                             <!-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('propertyform') }}">{{ __('Reistration Property') }}</a>
                             </li> -->
@@ -153,14 +155,15 @@
                             <span>Home</span>
                         </a>
                     </li>
-                    
+                    @can('create', Auth::user())
                     <li class="nav-item">
                             
                                 <a class="nav-link" href="{{ route('formall') }}">
                               
-                                    <span>{{__('Registration Property')}}</span>
+                                    <span>{{__('Registration Form')}}</span>
                                 </a>
                     </li>
+                    @endcan
                     <li class="nav-item">
                                 <a class="nav-link" href="{{ route('properties') }}">
                               

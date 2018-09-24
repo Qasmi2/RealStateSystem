@@ -48,7 +48,9 @@
                                     <td>{{$applicanties[$i]['cnicNo']}}</td>
                                     <td>{{$payments[$i]['propertyPaymentProcedure']}}</td>
                                     <td> <a href="{{url('editingform/'.$properties[$i]['id'])}}">Edit</a><br>
-                                         <a href="{{url('paymenthistory/'.$properties[$i]['id'])}}">Payment History</a>
+                                        @can('user-actions', Auth::user())
+                                            <a href="{{url('paymenthistory/'.$properties[$i]['id'])}}">Payment History</a>
+                                        @endcan
                                     </td>
                                    
                                     <td>

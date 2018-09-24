@@ -3,7 +3,9 @@
 namespace App\Policies;
 
 use App\User;
+use App\property;
 use App\approval;
+use Illuminate\Http\Request;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class roles
@@ -19,7 +21,11 @@ class roles
     {
         
     }
-    // Admin Actions
+    /**
+     * Create a new policy function only for Admin.
+     *
+     * @return true/false
+     */
     public function admin_only(User $user){
 
         if($user->role == "Admin")
@@ -28,7 +34,11 @@ class roles
         }
         return false;
     }
-    // financial Office's Actions 
+    /**
+     * Create a new policy function financial Office's Actions.
+     *
+     * @return true/false
+     */
     public function financial_only(User $user){
 
         if($user->role == "Financial Officer")
@@ -37,6 +47,11 @@ class roles
         }
         return false;
     }
+     /**
+     * Create a new policy function function user actions.
+     *
+     * @return true/false
+     */
 
     public function user_actions(User $user){
 
@@ -46,4 +61,33 @@ class roles
         }
         return false;
     }
+    /**
+     * Create a new policy function single view .
+     *
+     * @return true/false
+     */
+    public function view_single(User $user, property $property)
+    {
+        if($user->role == "Admin" || $user->role == "Financial Officer" || $user->id == $property->userId)
+        {
+            return true;
+        }
+        return false;
+       
+    }
+    /**
+     * Create a new policy function create form .
+     *
+     * @return true/false
+     */
+    public function  create_form(User $user)
+    {
+        if($user->role != "Financial Officer" )
+        {
+            return true;
+        }
+        return false;
+       
+    }
+   
 }
