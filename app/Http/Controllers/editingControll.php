@@ -17,6 +17,7 @@ use App\paymentHistory;
 use App\installmentHistory;
 use Validator;
 use App\seller;
+use App\approval;
 use App\Http\Controllers\DataTime;
 use DateTime;
 use DateInterval;
@@ -251,7 +252,7 @@ class editingControll extends Controller
         catch(Exception $e){
             return redirect()->back()->with('error',' applicant section input something wrong! .');
         }
-            // initilization of payment object
+        // initilization of payment object
         try{
 
             $payment = new payment;
@@ -282,7 +283,17 @@ class editingControll extends Controller
         catch(Exception $e){
             return redirect()->back()->with('error',' review section input something wrong .');
         }    
-            // installment will be changed into 2nd version 
+        // For approval table 
+        try{
+            $approval = new approval;
+            $approval->userId = $user_id->id;
+            $approval->status= "unapproval";
+            $approval->propertyId = $propertyId;
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('error',' review section input something wrong .');
+        } 
+            // installment will be changed into next version 
         try{
             $paymentProcedure = $payment->propertyPaymentProcedure;
             
@@ -294,10 +305,10 @@ class editingControll extends Controller
             if(!$payment->save()){
                 return redirect()->back()->with('error','payment record is not save, Something wrong .');
             } 
-            // save the witness
-            // if(!$witness->save()){
-            //     return redirect()->back()->with('error','witness record is not save, Something wrong .');
-            // } 
+            // save the approval table
+            if(!$approval->save()){
+                return redirect()->back()->with('error','approval table have some issue, Something wrong .');
+            } 
             // save the review
             if(!$review->save()){
                 return redirect()->back()->with('error','review record is not save, Something wrong .');
@@ -333,8 +344,6 @@ class editingControll extends Controller
                     //  var_dump(json_encode($data1));
                     //  exit();
                     // jogarr to show data in month name
-                
-
                     // $installmentDates[0] = $todayDate; 
                 
                     for($i=0; $i < $noOfinstallments; $i++)
@@ -673,7 +682,6 @@ class editingControll extends Controller
 
             // get user id 
             $user_id = Auth::user();
-            
             // get user data
             //initilization the property object 
             try{ 
@@ -804,15 +812,19 @@ class editingControll extends Controller
         // } catch(Exception $e){
         //     return redirect()->back()->with('error',' something wrong with the token payment or token payment.');
         // }
+            try{
+                $approvalTableId = DB::table('approvals')->where('propertyId', $id)->value('id');
+                $approved = approval::find($approvalTableId);
+                $approved->status= "unapproval";
             
+                $approved->save();
+            }
+            catch(Exception $e){
+                return redirect()->back()->with('error',' review section input something wrong .');
+            } 
             if($property->save()){
-                // save the applicant 
                 $applicant->save();
-                // save the payment 
                 $payment->save();
-                // save the witness
-                // $witness->save();
-                // save the review
                 $review->save();
             
                 if($paymentProcedure == "Installment"){
@@ -821,7 +833,6 @@ class editingControll extends Controller
                     $validator = Validator::make($request->all(), [
                         'noOfInstallments' => 'required',
                         'downpayment' => 'required',
-                        
                         
                     ]);
                     if ($validator->fails()) {
@@ -1010,6 +1021,7 @@ class editingControll extends Controller
                                 $deleteTokenRow = token::find($deleteTokenId);
                                 $deleteTokenRow->delete();
                             }
+                             
                         }
                         else{
                             $tokenPayment = 0;
@@ -1085,6 +1097,18 @@ class editingControll extends Controller
         $deleteInstallmentHistroy = DB::table('installment_histories')->where('propertyId',$id)->first();
         // get the installment id to delete the have peoperty Id same
         $deletepaymenttHistroy = DB::table('payment_histories')->where('propertyId',$id)->first();
+        // get the approval id to delete the have peoperty Id same
+        $deleteapproval = DB::table('approvals')->where('propertyId',$id)->first();
+
+
+        if($deleteapproval){
+            $deleteapprovelId = DB::table('approvals')->where('propertyId',$id)->value('id');
+           
+            $deleteapprovalRow = approval::find($deleteapprovelId);
+            if(!$deleteapprovalRow->delete()){
+                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Approval row have something worng  !!!');
+            }
+       }  
 
 
         if($deletepaymenttHistroy){
@@ -1092,7 +1116,7 @@ class editingControll extends Controller
            
             $deletepaymentHistoryRow = paymentHistory::find($deletepaymentHistoryId);
             if(!$deletepaymentHistoryRow->delete()){
-                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  token row have something worng  !!!');
+                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  payment history row have something worng  !!!');
             }
        }  
 
@@ -1102,7 +1126,7 @@ class editingControll extends Controller
            
             $deleteInstallmentHistoryRow = installmentHistory::find($deleteinstallmentHistoryId);
             if(!$deleteInstallmentHistoryRow->delete()){
-                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  token row have something worng  !!!');
+                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  installment History row have something worng  !!!');
             }
        }
 

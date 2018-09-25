@@ -133,50 +133,51 @@
                             @endif
                         </tbody>
                     </table>
-                    <h2> Installment Info</h2>
-                    <br>
-                 
-                     <table class="table table-striped table-hover ">
-                        <thead bgcolor="#a6468c" style="color:white;">
-                            <tr>
-                               <th>installment Number</th>
-                               <th>Installment Amount </th>
-                               <th>Installment Due Data</th>
-                              
-                               <th>Action Paid </th>
-                             
-                            </tr>
-                        </thead>
-                        <tbody>
-                                @foreach($installment as $te)
-                              
-                                @for($i = 1; $i < $sizeofDates; $i++)
-                                <tr>
-
-                                    <td> {{$i }}</td>
-                                    <td>{{$te->amountOfOneInstallment}}</td>
-                                    <td>{{$installmentDates[$i-1]}}</td>
-                                    <td><a href="{{url('installmentpaid/'.$propertyId.'/'.$i)}}"> paid installment</a></td>
-                                  
-                                    </tr>
-                                @endfor
-                                @endforeach
-                             
-                               
-                              
-                        </tbody>
-                        <thead bgcolor="#a6468c" style="color:white;">
-                            <tr>
-                               <th>installment Number</th>
-                               <th>Installment Amount </th>
-                               <th>Installment Due Data</th>
-                              
-                               <th>Action Paid </th>
-                             
-                            </tr>
-                        </thead>
-                    </table>
+                    @can('user-actions', Auth::user())
+                        <h2> Installment Info</h2>
+                        <br>
                     
+                        <table class="table table-striped table-hover ">
+                            <thead bgcolor="#a6468c" style="color:white;">
+                                <tr>
+                                <th>installment Number</th>
+                                <th>Installment Amount </th>
+                                <th>Installment Due Data</th>
+                                
+                                <th>Action Paid </th>
+                                
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    @foreach($installment as $te)
+                                
+                                    @for($i = 1; $i < $sizeofDates; $i++)
+                                    <tr>
+
+                                        <td> {{$i }}</td>
+                                        <td>{{$te->amountOfOneInstallment}}</td>
+                                        <td>{{$installmentDates[$i-1]}}</td>
+                                        <td><a href="{{url('installmentpaid/'.$propertyId.'/'.$i)}}"> paid installment</a></td>
+                                    
+                                        </tr>
+                                    @endfor
+                                    @endforeach
+                                
+                                
+                                
+                            </tbody>
+                            <thead bgcolor="#a6468c" style="color:white;">
+                                <tr>
+                                <th>installment Number</th>
+                                <th>Installment Amount </th>
+                                <th>Installment Due Data</th>
+                                
+                                <th>Action Paid </th>
+                                
+                                </tr>
+                            </thead>
+                        </table>
+                    @endcan
                     
                 </div>
                 

@@ -9,6 +9,7 @@ use App\property;
 use App\applicant;
 use App\payment;
 use App\installment;
+use App\approval;
 use DB;
 use Auth;
 
@@ -32,16 +33,17 @@ class propertiesformController extends Controller
                 $applicanties = applicant::orderBy('created_at','desc')->paginate(8);
                 $payments = payment::orderBy('created_at','desc')->paginate(8);
                 $installment = installment::orderBy('created_at','desc')->paginate(8);
-
-                return view('displayrecord.properties',compact('properties','applicanties','payments'));
+                $approvals = approval::orderBy('created_at','desc')->get();
+                return view('displayrecord.properties',compact('properties','applicanties','payments','approvals'));
 
             }
             else{
-
+                
                 $properties = property::where('userId', $user->id)->paginate(8);
                 $applicanties = applicant::where('userId', $user->id)->paginate(8);
                 $payments = payment::where('userId', $user->id)->paginate(8);
-                return view('displayrecord.properties',compact('properties','applicanties','payments'));
+                $approvals = approval::orderBy('created_at','desc')->get();
+                return view('displayrecord.properties',compact('properties','applicanties','payments','approvals'));
                 
             }
    

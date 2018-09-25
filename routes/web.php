@@ -75,9 +75,10 @@ Route::get('form3/{id}','formController@showform3')->name('form3')->middleware('
 Route::get('Receptform/{id}','formController@showReceptform')->name('Receptform')->middleware('auth');
 Route::get('Receptformtoken/{id}','formController@showReceptformtoken')->name('Receptformtoken')->middleware('auth');
 Route::get('contractform/{id}','formController@showcontractform')->name('contractform')->middleware('auth');
-
+// approval 
+Route::get('approved/{id}','formController@approval')->name('approved')->middleware('auth');
+// next installment form
 Route::get('installmentfrom/{id}/{no}/{amount}','formController@showinstallmentforms')->name('installmentfrom')->middleware('auth');
-
 // seller 
 Route::get('/sellerform','sellerController@showform')->name('sellerform')->middleware('auth');
 Route::get('sellerinfos','sellerController@Display')->name('sellerinfos')->middleware('auth');

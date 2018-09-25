@@ -65,7 +65,7 @@ class paymentHistoryController extends Controller
      */
     public function show($id)
     {
-        if(Gate::allows('user-actions',Auth::user())){
+        // if(Gate::allows('user-actions',Auth::user())){
 
             try{
 
@@ -104,10 +104,10 @@ class paymentHistoryController extends Controller
             catch(Exception $e){
                 return redirect()->back()->with('error',' Show single record section something wrong .');
             }  
-        }
-        else{
-            return redirect()->back()->with('error',' You are not Allow view Payment Section .');
-        }  
+        // }
+        // else{
+        //     return redirect()->back()->with('error',' You are not Allow view Payment Section .');
+        // }  
         
     }
     

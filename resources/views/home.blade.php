@@ -6,7 +6,7 @@
         <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12 offset-md-2 offset-lg-2">
         @include('flash-message')
             <div class="card">
-                <div class="card-header" style="background-color: #f44336;color:white;">Dashboard</div>
+                <div class="card-header" style="background-color: #f44336;color:white;">{{ Auth::user()->role }} Dashboard</div>
               
                 <div class="card-body">
                    

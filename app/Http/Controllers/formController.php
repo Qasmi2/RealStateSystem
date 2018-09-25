@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use App\installment;
 use App\payment;
 use App\property;
 use App\witness;
 use App\review;
 use App\applicant;
+use App\approval;
 use App\seller;
 use DB;
+use Auth;
 
 class formController extends Controller
 {
@@ -19,9 +22,33 @@ class formController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function approval($id)
     {
-        //
+        if(Gate::allows('user-actions',Auth::user())){
+            try{
+                $approvalTableId = DB::table('approvals')->where('propertyId', $id)->value('id');
+                $approved = approval::find($approvalTableId);
+                $approved->status = "approved";
+                if($approved->save()){
+
+                    $properties = property::orderBy('created_at','desc')->paginate(8);
+                    $applicanties = applicant::orderBy('created_at','desc')->paginate(8);
+                    $payments = payment::orderBy('created_at','desc')->paginate(8);
+                    $installment = installment::orderBy('created_at','desc')->paginate(8);
+                    $approvals = approval::orderBy('created_at','desc')->get();
+                    return view('displayrecord.properties',compact('properties','applicanties','payments','approvals'));
+                }
+                else{
+                    return redirect()->back()->with('error',' Recept From section  something wrong .');
+                }
+            }
+            catch(Exception $e){
+                return redirect()->back()->with('error',' Recept From section  something wrong .');
+            }
+        }
+        else{
+            return redirect()->back()->with('error',' You are not Allow to Add New User .');
+        }
     }
 
     /**
