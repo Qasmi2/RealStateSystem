@@ -817,10 +817,12 @@ class editingControll extends Controller
                 $approved = approval::find($approvalTableId);
                 $approved->status= "unapproval";
             
-                $approved->save();
+               if(!$approved->save()){
+                return redirect()->back()->with('error',' approval section input something wrong .');
+               }
             }
             catch(Exception $e){
-                return redirect()->back()->with('error',' review section input something wrong .');
+                return redirect()->back()->with('error',' approval section input something wrong .');
             } 
             if($property->save()){
                 $applicant->save();

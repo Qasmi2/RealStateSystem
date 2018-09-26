@@ -24,6 +24,7 @@ class formController extends Controller
      */
     public function approval($id)
     {
+       
         if(Gate::allows('user-actions',Auth::user())){
             try{
                 $approvalTableId = DB::table('approvals')->where('propertyId', $id)->value('id');

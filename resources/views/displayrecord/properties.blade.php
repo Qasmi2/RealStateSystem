@@ -4,6 +4,21 @@
 <div class="container" style="margin-top:60px;">
     <div class="row justify-content-center">
         <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
+         @include('flash-message')
+                            <script>
+                                    $(document).ready(function() {
+                                    $('a[data-confirm]').click(function(ev) {
+                                    var href = $(this).attr('href');
+                                    if (!$('#dataConfirmModal').length) {
+                                    $('body').append('<div id="dataConfirmModal" class="modal fade modal" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true"><div class="modal-dialog "><div class="modal-content"><div class=" modal-header" style="text-align:center;display:flow-root !important;color:white;background-color: Green;" ><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h3 id="dataConfirmLabel" >Please Confirm the Approval</h3></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button><a class="btn btn-success" id="dataConfirmOK">Approval</a></div></div></div></div>');
+                                    } 
+                                    $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
+                                    $('#dataConfirmOK').attr('href', href);
+                                    $('#dataConfirmModal').modal({show:true});
+                                    return false;
+                                        });
+                                });
+                             </script>
             <div class="card">
                 <div class="card-header" style="background-color: #f44336;color:white;">Display Properties</div>
 
@@ -81,7 +96,11 @@
                                         @endif
                                     @else
                                         @can('user-actions', Auth::user())
-                                          <div>  <button class="btn btn-lg btn-success"><a href="{{url('approved/'.$properties[$i]['id'])}}" style="color:white;">Approved</a></button> </div>
+                                          <div>  
+                                            <a href="{{url('approved/'.$properties[$i]['id'])}}" data-confirm="Are you sure you want to give the Approval?" class="btn btn-lg btn-success ">Approved</a> 
+                                          </div>
+                                        @else
+                                          <div> Waiting</div>
                                         @endcan
                                     @endif
                                     
