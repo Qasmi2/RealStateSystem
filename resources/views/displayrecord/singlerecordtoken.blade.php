@@ -22,7 +22,10 @@
                 <!-- <div class="card-body"> -->
                    
                     <?php  $applicant = array($applicant);
-                           
+                             $approval = array($approval);
+                            foreach($approval as $te){
+                                $status = $te->status;
+                            }
                            $property = array($property);
                            foreach($property as $key){
                             $Idkey = $key->id;
@@ -61,7 +64,9 @@
                         <button class="btn btn-lg btn-default" onclick="window.history.go(-1)">Back</button>
                         <button style="float:right;color:white;" class="btn btn-lg btn-warning" ><a href="{{url('editingform/'.$Idkey)}}">Edit</a></button>
                         <!-- <button style="float:right;color:white;" class="btn btn-lg btn-danger" data-confirm="Are you sure you want to delete?"><a href="{{url('deleteform/'.$Idkey)}}">Delete</a></button> -->
+                        @if($status != "approved")
                         <a href="{{ url('deleteform/'.$Idkey) }}" data-confirm="Are you sure you want to delete?" class="btn btn-lg btn-danger ">Delete</a>
+                        @endif
                     </div> 
 
                     <fieldset class="col-md-12" style="background-color:#fff; margin-top:20px;">    	
@@ -312,7 +317,9 @@
                         <button class="btn btn-lg btn-default" onclick="window.history.go(-1)">Back</button>
                         <button style="float:right;color:white;" class="btn btn-lg btn-warning" ><a href="{{url('editingform/'.$Idkey)}}">Edit</a></button>
                         <!-- <button style="float:right;color:white;" class="btn btn-lg btn-danger" data-confirm="Are you sure you want to delete?"><a href="{{url('deleteform/'.$Idkey)}}">Delete</a></button> -->
+                        @if($status != "approved")
                         <a href="{{ url('deleteform/'.$Idkey) }}" data-confirm="Are you sure you want to delete?" class="btn btn-lg btn-danger">Delete</a>
+                        @endif
                     </div> 
                       
                 <!-- </div>

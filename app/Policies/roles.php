@@ -89,5 +89,20 @@ class roles
         return false;
        
     }
+     /**
+     * Create a new policy function delete .
+     *
+     * @return true/false
+     */
+    public function delete_form(User $user, approval $approval)
+    {
+        if($user->status == "approved")
+        {
+            return true;
+        }
+        return false;
+       
+    }
+ 
    
 }

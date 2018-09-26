@@ -527,25 +527,25 @@ class editingControll extends Controller
                 $installment = DB::table('installments')->where('propertyId',$id)->first();
                 $review = DB::table('reviews')->where('propertyId',$id)->first();
                 $token = DB::table('tokens')->where('propertyId',$id)->first();
-                // $witness = DB::table('witnesses')->where('propertyId',$id)->first();
+                $approval = DB::table('approvals')->where('propertyId',$id)->first();
                 $seller = seller::orderBy('created_at','desc')->get();
         
-
+               
                 $isEmptyinstallment = json_encode($installment);
                 $isEmptytoken = json_encode($token);
             
                 if($isEmptytoken == "null" && $isEmptyinstallment == "null")
                 { 
                     // total payment
-                    return view('displayrecord/singlerecord',compact('property','applicant','payment','review','seller'));    
+                    return view('displayrecord/singlerecord',compact('property','applicant','payment','review','seller','approval'));    
                 }
                 elseif($isEmptytoken != "null" && $isEmptyinstallment == "null"){
                     // token
-                    return view('displayrecord/singlerecordtoken',compact('property','applicant','payment','review','token','seller')); 
+                    return view('displayrecord/singlerecordtoken',compact('property','applicant','payment','review','token','seller','approval')); 
                 }
                 elseif($isEmptyinstallment != "null"){
                     // installment
-                    return view('displayrecord/singlerecordinstallment',compact('property','applicant','payment','review','installment','seller')); 
+                    return view('displayrecord/singlerecordinstallment',compact('property','applicant','payment','review','installment','seller','approval')); 
                 }
             }
             catch(Exception $e){
@@ -576,7 +576,7 @@ class editingControll extends Controller
                 $installment = DB::table('installments')->where('propertyId',$id)->first();
                 $review = DB::table('reviews')->where('propertyId',$id)->first();
                 $token = DB::table('tokens')->where('propertyId',$id)->first();
-                // $witness = DB::table('witnesses')->where('propertyId',$id)->first();
+                $approval = DB::table('approvals')->where('propertyId',$id)->first();
                 $seller = seller::orderBy('created_at','desc')->get();
 
                 $isEmptyinstallment = json_encode($installment);
@@ -584,25 +584,17 @@ class editingControll extends Controller
                 if($isEmptytoken == "null" && $isEmptyinstallment == "null")
                 { 
                     // total payment
-                    return view('editingfrom/editfroms',compact('property','applicant','payment','review','seller'));    
+                    return view('editingfrom/editfroms',compact('property','applicant','payment','review','seller','approval'));    
                 }
                 elseif($isEmptytoken != "null" && $isEmptyinstallment == "null"){
                     // token
-                    return view('editingfrom/editfromstoken',compact('property','applicant','payment','review','token','seller')); 
+                    return view('editingfrom/editfromstoken',compact('property','applicant','payment','review','token','seller','approval')); 
                 }
                 elseif($isEmptyinstallment != "null"){
                     // installment
-                    return view('editingfrom/editfromsinstallment',compact('property','applicant','payment','review','installment','seller')); 
+                    return view('editingfrom/editfromsinstallment',compact('property','applicant','payment','review','installment','seller','approval')); 
                 }
-                // if($isEmpty == "null")
-                // { 
-                    
-                //     return view('editingfrom/editfroms',compact('property','applicant','payment','review','seller'));    
-                // }
-                // else{
-                    
-                //     return view('editingfrom/editfromsinstallment',compact('property','applicant','payment','review','installment','seller')); 
-                // }
+            
             }
             catch(Exception $e){
                 return redirect()->back()->with('error',' Editing record section , something wrong .');
@@ -1079,129 +1071,136 @@ class editingControll extends Controller
      */
     public function destroy($id)
     { 
-        try{
-        $installmentrow = DB::table('installments')->where('propertyId',$id)->first();
-        // get installment table id to delete that have property Id same 
-        // $deleteInstallmentId = DB::table('installments')->where('propertyId',$id)->value('id');
-        // get payment table id to delete that  HAVE property Id same 
-        $deletePaymentId = DB::table('payments')->where('propertyId',$id)->value('id');
-        // get applicant table id to delete that  HAVE property Id same 
-        $deleteApplicantId = DB::table('applicants')->where('propertyId',$id)->value('id');
-        // get witness table id to delete that  HAVE property Id same 
-        // $deleteWitnessId = DB::table('witnesses')->where('propertyId',$id)->value('id');
-        // get review table id to delete that  HAVE property Id same 
-        $deleteReviewsId = DB::table('reviews')->where('propertyId',$id)->value('id');
-        // get property table id to delete that  HAVE property Id same 
-        $deletepropertyId = DB::table('properties')->where('id',$id)->value('id');
-        // get the token table id to delete the have property Id same
-        $deletetoken = DB::table('tokens')->where('propertyId',$id)->first();
-        // get the installment id to delete the have peoperty Id same
-        $deleteInstallmentHistroy = DB::table('installment_histories')->where('propertyId',$id)->first();
-        // get the installment id to delete the have peoperty Id same
-        $deletepaymenttHistroy = DB::table('payment_histories')->where('propertyId',$id)->first();
-        // get the approval id to delete the have peoperty Id same
-        $deleteapproval = DB::table('approvals')->where('propertyId',$id)->first();
+      
+        $approval = approval::where('propertyId',$id)->first();
+        if(Gate::allows('delete',$approval,Auth::user())){
+            try{
+            $installmentrow = DB::table('installments')->where('propertyId',$id)->first();
+            // get installment table id to delete that have property Id same 
+            // $deleteInstallmentId = DB::table('installments')->where('propertyId',$id)->value('id');
+            // get payment table id to delete that  HAVE property Id same 
+            $deletePaymentId = DB::table('payments')->where('propertyId',$id)->value('id');
+            // get applicant table id to delete that  HAVE property Id same 
+            $deleteApplicantId = DB::table('applicants')->where('propertyId',$id)->value('id');
+            // get witness table id to delete that  HAVE property Id same 
+            // $deleteWitnessId = DB::table('witnesses')->where('propertyId',$id)->value('id');
+            // get review table id to delete that  HAVE property Id same 
+            $deleteReviewsId = DB::table('reviews')->where('propertyId',$id)->value('id');
+            // get property table id to delete that  HAVE property Id same 
+            $deletepropertyId = DB::table('properties')->where('id',$id)->value('id');
+            // get the token table id to delete the have property Id same
+            $deletetoken = DB::table('tokens')->where('propertyId',$id)->first();
+            // get the installment id to delete the have peoperty Id same
+            $deleteInstallmentHistroy = DB::table('installment_histories')->where('propertyId',$id)->first();
+            // get the installment id to delete the have peoperty Id same
+            $deletepaymenttHistroy = DB::table('payment_histories')->where('propertyId',$id)->first();
+            // get the approval id to delete the have peoperty Id same
+            $deleteapproval = DB::table('approvals')->where('propertyId',$id)->first();
 
 
-        if($deleteapproval){
-            $deleteapprovelId = DB::table('approvals')->where('propertyId',$id)->value('id');
-           
-            $deleteapprovalRow = approval::find($deleteapprovelId);
-            if(!$deleteapprovalRow->delete()){
-                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Approval row have something worng  !!!');
+            if($deleteapproval){
+                $deleteapprovelId = DB::table('approvals')->where('propertyId',$id)->value('id');
+            
+                $deleteapprovalRow = approval::find($deleteapprovelId);
+                if(!$deleteapprovalRow->delete()){
+                    return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Approval row have something worng  !!!');
+                }
+        }  
+
+
+            if($deletepaymenttHistroy){
+                $deletepaymentHistoryId = DB::table('payment_histories')->where('propertyId',$id)->value('id');
+            
+                $deletepaymentHistoryRow = paymentHistory::find($deletepaymentHistoryId);
+                if(!$deletepaymentHistoryRow->delete()){
+                    return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  payment history row have something worng  !!!');
+                }
+        }  
+
+
+            if($deleteInstallmentHistroy){
+                $deleteinstallmentHistoryId = DB::table('installment_histories')->where('propertyId',$id)->value('id');
+            
+                $deleteInstallmentHistoryRow = installmentHistory::find($deleteinstallmentHistoryId);
+                if(!$deleteInstallmentHistoryRow->delete()){
+                    return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  installment History row have something worng  !!!');
+                }
+        }
+
+
+        if($deletetoken){
+                $deleteTokenId = DB::table('tokens')->where('propertyId',$id)->value('id');
+                $deleteTokenRow = token::find($deleteTokenId);
+                if(!$deleteTokenRow->delete()){
+                    return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  token row have something worng  !!!');
+                }
+        }
+            // check that installment is exist or not 
+            if($installmentrow){
+                        
+                $deleteInstallmentId = DB::table('installments')->where('propertyId',$id)->value('id');
+                $deleteInstallmentRow = installment::find($deleteInstallmentId);
+                if(!$deleteInstallmentRow->delete()){
+                    return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  installment row have something worng  !!!');
+                }
             }
-       }  
-
-
-        if($deletepaymenttHistroy){
-            $deletepaymentHistoryId = DB::table('payment_histories')->where('propertyId',$id)->value('id');
-           
-            $deletepaymentHistoryRow = paymentHistory::find($deletepaymentHistoryId);
-            if(!$deletepaymentHistoryRow->delete()){
-                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  payment history row have something worng  !!!');
+            $payment = payment::find($deletePaymentId);
+            if($payment){
+                // if apyment is not delete then error massage will be shown 
+                if(!$payment->delete()){
+                    //return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+                    return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
+                }
             }
-       }  
-
-
-        if($deleteInstallmentHistroy){
-            $deleteinstallmentHistoryId = DB::table('installment_histories')->where('propertyId',$id)->value('id');
-           
-            $deleteInstallmentHistoryRow = installmentHistory::find($deleteinstallmentHistoryId);
-            if(!$deleteInstallmentHistoryRow->delete()){
-                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  installment History row have something worng  !!!');
+            $applicant = applicant::find($deleteApplicantId);
+            if($applicant){
+                if(!$applicant->delete()){
+                    //return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+                    return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
+                }
             }
-       }
-
-
-       if($deletetoken){
-            $deleteTokenId = DB::table('tokens')->where('propertyId',$id)->value('id');
-            $deleteTokenRow = token::find($deleteTokenId);
-            if(!$deleteTokenRow->delete()){
-                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  token row have something worng  !!!');
+            // $witness = witness::find($deleteWitnessId);
+            // if($witness){
+            //     if(!$witness->delete()){
+            //         // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+            //         return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
+            //     }
+            // }
+            $review = review::find($deleteReviewsId);
+            if($review){
+                if(!$review->delete()){
+                    //return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
+                    return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
+                }
             }
-       }
-        // check that installment is exist or not 
-        if($installmentrow){
+            $property = property::find($deletepropertyId);
+        
+            if($property){
+            
+                if(!$property->delete()){
                     
-            $deleteInstallmentId = DB::table('installments')->where('propertyId',$id)->value('id');
-            $deleteInstallmentRow = installment::find($deleteInstallmentId);
-            if(!$deleteInstallmentRow->delete()){
-                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  installment row have something worng  !!!');
-            }
-        }
-        $payment = payment::find($deletePaymentId);
-        if($payment){
-            // if apyment is not delete then error massage will be shown 
-            if(!$payment->delete()){
-                //return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
-                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
-            }
-        }
-        $applicant = applicant::find($deleteApplicantId);
-        if($applicant){
-            if(!$applicant->delete()){
-                 //return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
-                return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
-            }
-        }
-        // $witness = witness::find($deleteWitnessId);
-        // if($witness){
-        //     if(!$witness->delete()){
-        //         // return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
-        //         return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
-        //     }
-        // }
-        $review = review::find($deleteReviewsId);
-        if($review){
-            if(!$review->delete()){
-                //return redirect()->back()->with('error', 'NOT Record Removed Id is worng !!!');
-                 return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
-            }
-        }
-        $property = property::find($deletepropertyId);
-       
-        if($property){
-           
-            if(!$property->delete()){
+                    //return redirect()->back()->with('error','NOT Removed, Id is wrong  !!!');
+                    return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
+                }
+                else{
+                    //return redirect()->back()->with('success','Delted Record  !!!');
+                    return view('displayrecord.deleterecordMessage')->with('status', 'Delted Record  !!!');  
                 
-                //return redirect()->back()->with('error','NOT Removed, Id is wrong  !!!');
-                 return view('displayrecord.deleterecordMessage')->with('error', 'NOT Record Removed,  Id is worng  !!!');
+                }
+
             }
             else{
-                //return redirect()->back()->with('success','Delted Record  !!!');
-                 return view('displayrecord.deleterecordMessage')->with('status', 'Delted Record  !!!');  
-               
-            }
 
+                //return redirect()->back()->with('error','Record NOT Found or Something Wrong !!!');
+                return view('displayrecord.deleterecordMessage')->with('error', 'Record NOT Found or Something Wrong !!!');  
+            }
+            }
+            catch(Exception $e){
+                return redirect()->back()->with('error',' Deletion section, something wrong .');
+            }
         }
         else{
-
-            //return redirect()->back()->with('error','Record NOT Found or Something Wrong !!!');
-            return view('displayrecord.deleterecordMessage')->with('error', 'Record NOT Found or Something Wrong !!!');  
-        }
-        }
-        catch(Exception $e){
-            return redirect()->back()->with('error',' Deletion section, something wrong .');
+            return redirect()->back()->with('error',' You are not Allow to Delete user Information .');
         }
     }
 }

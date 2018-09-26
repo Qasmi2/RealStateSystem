@@ -18,8 +18,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
-       User::class => roles::class,
-        property::class => roles::class
+        User::class => roles::class,
+        property::class => roles::class,
+        approval::class => roles::class
         
     ];
 
@@ -37,11 +38,12 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('financial-actions','App\Policies\roles@financial_only');
         Gate::define('view','App\Policies\roles@view_single');
         Gate::define('create','App\Policies\roles@create_form');
+        Gate::define('delete','App\Policies\roles@delete_form');
 
-        // Gate::define('view', function ($user, $property) {
+        // Gate::define('delete', function ($user, $approval) {
         //     var_dump(Json_encode($user));
         //     echo "<br>";
-        //     var_dump(Json_encode($property));
+        //     var_dump(Json_encode($approval));
         //     exit();
         //     return $user->id == $property->user_id;
         //   });
