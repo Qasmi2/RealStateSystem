@@ -96,7 +96,8 @@ class roles
      */
     public function delete_form(User $user, approval $approval)
     {
-        if($user->status == "approved")
+        
+        if($approval->status != "approved")
         {
             return true;
         }

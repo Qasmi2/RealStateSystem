@@ -12,7 +12,7 @@
        
         $status = $te->status;
     }
-   
+ 
 
     foreach($property as $pr){
         $PropertyJoint =  $pr->jointProperty;

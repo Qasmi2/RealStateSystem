@@ -517,20 +517,22 @@ class editingControll extends Controller
     {
        
         $property = property::find($id);
+        $approval = DB::table('approvals')->where('propertyId',$id)->first();
+        $applicant = DB::table('applicants')->where('propertyId',$id)->first();
          if(Gate::allows('view',$property,Auth::user())){
            
             try{
 
                 $property  = DB::table('properties')->where('id',$id)->first();
                 $payment = DB::table('payments')->where('propertyId',$id)->first();
-                $applicant = DB::table('applicants')->where('propertyId',$id)->first();
+             
                 $installment = DB::table('installments')->where('propertyId',$id)->first();
                 $review = DB::table('reviews')->where('propertyId',$id)->first();
                 $token = DB::table('tokens')->where('propertyId',$id)->first();
-                $approval = DB::table('approvals')->where('propertyId',$id)->first();
+             
                 $seller = seller::orderBy('created_at','desc')->get();
-        
-               
+             
+             
                 $isEmptyinstallment = json_encode($installment);
                 $isEmptytoken = json_encode($token);
             
@@ -615,9 +617,18 @@ class editingControll extends Controller
      */
     public function update(Request $request, $id)
     {
+       
         $property = property::find($id);   
         if(Gate::allows('view',$property,Auth::user())){
             // validation 
+
+            //  $approval = approval::where('propertyId',$id)->value('status');
+            //   echo $request->propertyPaymentProcedure;
+            
+             
+            //  var_dump($approval);
+            //  exit();
+
             $validator = Validator::make($request->all(), [
                 // property Info validation 
                 'propertyType' => 'required',
@@ -1071,7 +1082,7 @@ class editingControll extends Controller
      */
     public function destroy($id)
     { 
-      
+        
         $approval = approval::where('propertyId',$id)->first();
         if(Gate::allows('delete',$approval,Auth::user())){
             try{

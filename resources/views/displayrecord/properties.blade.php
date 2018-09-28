@@ -31,7 +31,7 @@
                           $proSize = sizeof($payments);
                           $approSize = sizeof($approvals);
                          
-                       
+                        
                     ?>
 
                     <table class="table table-striped table-hover">
@@ -50,6 +50,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                       
                             @for($i=0; $appSize >$i; $i++)
                                 <tr>
                                 
@@ -66,9 +67,10 @@
                                     </td>
                                    
                                     <td>
+                                  
                                     @if($approvals[$i]['status'] == "approved")
 
-                                      
+                                     
                                         @if($payments[$i]['propertyPaymentProcedure'] == "Token")
                                     
                                             <div class="dropdown">
