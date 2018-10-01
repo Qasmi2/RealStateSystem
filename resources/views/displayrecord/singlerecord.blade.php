@@ -42,21 +42,25 @@
                             $seller = array($seller);
                           
                             $review = array($review);
+                        
                          
-                           foreach($seller as $te){
+                        //    foreach($seller as $te){
                              
-                               if( $te->id == $sellerId)
-                               {
+                        //        if( $te->id == $sellerId)
+                        //        {
                                  
-                                   $sname =  $te->sallerName; 
-                                   $sfatherName =  $te->sallerFatherName;
-                                   $sdesignation = $te->sallerDesignation;
-                                   $scnicNo = $te->sallerCnicNo;
+                        //            $sname =  $te->sallerName; 
+                        //            $sfatherName =  $te->sallerFatherName;
+                        //            $sdesignation = $te->sallerDesignation;
+                        //            $scnicNo = $te->sallerCnicNo;
                                    
-                               }
+                        //        }
+                        //        else{
+                        //           echo "n/a";
+                        //        }
                               
 
-                           }
+                        //    }
                           
                     ?>
                    
@@ -265,12 +269,12 @@
                                 <div class="col-md-6">
                            
                                         <div class="p-3 bg-secondary mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Seller Name') }}    :</label>
-                                           <b>{{$sname}}</b>
+                                           <b></b>
                                         </div>
                                 </div>
                                 <div class="col-md-6">
                                         <div class="p-3 bg-secondary mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Seller CNIC NO ') }}    :</label>
-                                               <b>{{$sfatherName}}</b> 
+                                               <b></b> 
                                         </div>
                                         
                                 </div>

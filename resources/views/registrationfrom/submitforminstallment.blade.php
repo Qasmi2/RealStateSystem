@@ -26,6 +26,9 @@
                            $seller = array($seller);
                            $review = array($review);
                            $installment = array($installment);
+                           foreach($installment as $te){
+                            $installmentDates = json_decode($te->installmentDates);
+                           }
                            $sizeOfInstallmentDates = sizeof($installmentDates);
                            
                         //    var_dump($sizeOfInstallmentDates);
