@@ -100,9 +100,10 @@
                                         @can('user-actions', Auth::user())
                                           <div>  
                                             <a href="{{url('approved/'.$properties[$i]['id'])}}" data-confirm="Are you sure you want to give the Approval?" class="btn btn-lg btn-success ">Approved</a> 
+                                            @else
+                                            <button class="btn btn-info"  type="button"> Waiting </button>
                                           </div>
-                                        @else
-                                          <div> Waiting</div>
+                                      
                                         @endcan
                                     @endif
                                     

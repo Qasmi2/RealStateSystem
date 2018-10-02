@@ -1,22 +1,24 @@
 @extends('layouts.app')
+
 @section('content')
 
 <?php 
-   $property = array($property);
+    $property = array($property);
     $payment = array($payment);
     $applicant = array($applicant);
-   
+    $installment = array($installment);
     $review = array($review);
     $approval = array($approval);
     $seller =array($seller);
-  
-    
+    $token = array($token);
+     
+
     foreach($approval as $te){
        
         $status = $te->status;
     }
- 
-
+    
+  
     foreach($property as $pr){
         $PropertyJoint =  $pr->jointProperty;
         $sellerId = $pr->propertySellerId;
@@ -29,18 +31,7 @@
             $PropertyJoint = "Yes";
         }
     }
-    // foreach($seller as $te){
-    //     if( $te->id == $sellerId)
-    //     {
-    //         $id = $te->id;
-    //         $sname =  $te->sallerName; 
-    //         $sfatherName =  $te->sellerFatherName;
-    //         $sdesignation = $te->sallerDesignation;
-    //         $scnicNo = $te->sallerCnicNo;
-    //     }
-       
-    // }
-   
+
 ?>
 <div class="container" style="margin-top:60px;">
     <div class="row justify-content-center">
@@ -50,12 +41,17 @@
                 <div class="card-header" style="background-color: #f44336;color:white;"> Registion Form Updating</div>
 
                 <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
                     <div><h3>Property Information</h3></div>
                     <hr>
                     &nbsp;&nbsp;
                     &nbsp;
-                @foreach($property as $te)
-                <form method="POST"  action="{{ url('updating/'.$te->id)}}" enctype="multipart/form-data" value="PATCH">
+                    @foreach($property as $te)
+                    <form method="POST"  action="{{ url('updating/'.$te->id)}}" enctype="multipart/form-data" value="PATCH">
                         {{ csrf_field() }}
                         <div class="form-group row">
                             <div class="col-md-4 col-lg-4 col-sm-12">
@@ -112,8 +108,8 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
-                                <label for="propertyAddress">{{ __('Property Address (Floor No.)') }}</label>
-                                <input id="Property Address" type="number" min="0" placeholder="Enter Floor No. " class="form-control{{ $errors->has('propertyAddress') ? ' is-invalid' : '' }}" name="propertyAddress" value="{{ $te->propertyAddress}}" @if($status =="approved") disabled @endif>
+                                <label for="propertyAddress">{{ __('Property Address ( Floor No.)') }}</label>
+                                <input id="Property Address" type="number" min="0" placeholder="Enter Property Address (Floor No.) " class="form-control{{ $errors->has('propertyAddress') ? ' is-invalid' : '' }}" name="propertyAddress" value="{{ $te->propertyAddress}}" @if($status =="approved") disabled @endif>
                                 @if ($errors->has('propertyAddress'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertyAddress') }}</strong>
@@ -124,7 +120,7 @@
                         <div class="form-group row"> -->
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertyLocation">{{ __('Property Location (Room No/Shop No.)') }}</label>
-                                <input id="propertyLocation" type="number" min="0" placeholder="Enter Room NO / Shop No " class="form-control{{ $errors->has('propertyLocation') ? ' is-invalid' : '' }}" name="propertyLocation" value="{{ $te->propertyLocation }}" @if($status =="approved") disabled @endif>
+                                <input id="propertyLocation" type="number"  min="0" placeholder="Enter Property Location " class="form-control{{ $errors->has('propertyLocation') ? ' is-invalid' : '' }}" name="propertyLocation" value="{{ $te->propertyLocation }}" @if($status =="approved") disabled @endif>
                                 @if ($errors->has('propertyLocation'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertyLocation') }}</strong>
@@ -145,11 +141,10 @@
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="jointProperty">{{ __('Joint Property') }}</label>
                                 <!-- <input id="jointProperty" type="text" placeholder="Enter Joint Property" class="form-control{{ $errors->has('jointProperty') ? ' is-invalid' : '' }}" name="jointProperty" value="{{ $PropertyJoint }}"  required> -->
-                                <select class="form-control" name="jointProperty" id="jointProperty" >
+                                <select class="form-control" name="jointProperty" id="jointProperty" @if($status =="approved") disabled @endif>
                                     <option value="{{$PropertyJoint}}">{{$PropertyJoint}}</option>
                                     <option value="Yes" disabled>Yes</option>
-                                    <option value="No">No</option>
-                                    
+                                    <option value="No" disabled>No</option>
                                 </select>
                                 @if ($errors->has('jointProperty'))
                                     <span class="invalid-feedback">
@@ -159,8 +154,6 @@
                             </div>
                         </div>
                        
-                       
-                    
                     @endforeach
                     &nbsp;&nbsp;
                     &nbsp;
@@ -170,9 +163,9 @@
                     
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
-                                <img src="{{$te->cover_image}}" height="100" width="100">
-                                <br>
-                                <label>Please update your Picture</label>
+                            <img src="{{$te->cover_image}}" height="100" width="100">
+                            <br>
+                                <label>Please choose your Picture</label>
                                 <br>
                                 <input type="file" name="cover_image" id="cover_image" class="btn btn-primary" style="color:white;" @if($status =="approved") disabled @endif>
                                     @if ($errors->has('cover_image'))
@@ -217,7 +210,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="passportNo">{{ __('Passport No') }}</label>
-                                <input id="passportNo" type="tel" size="8" maxlength="8" placeholder="e.g ab123456" class="form-control{{ $errors->has('passportNo') ? ' is-invalid' : '' }}" name="passportNo" value="{{ $te->passportNo }}" @if($status =="approved") disabled @endif>
+                                <input id="passportNo" type="tel" size="8" maxlength="8" placeholder="e.g ab123456" class="form-control{{ $errors->has('passportNo') ? ' is-invalid' : '' }}" name="passportNo" value="{{ $te->passportNo }}"  @if($status =="approved") disabled @endif>
                                 @if ($errors->has('passportNo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('passportNo') }}</strong>
@@ -259,7 +252,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="phoneNO">{{ __('Phone Number') }}</label>
-                                <input id="phoneNO" type="tel" size="11" maxlength="11" placeholder="e.g xxx-xxxxxxx" class="form-control{{ $errors->has('phoneNO') ? ' is-invalid' : '' }}" name="phoneNO" value="{{ $te->phoneNO }}"  @if($status =="approved") disabled @endif>
+                                <input id="phoneNO" type="tel" size="12" maxlength="12" placeholder="e.g xxxx-xxxxxxx" class="form-control{{ $errors->has('phoneNO') ? ' is-invalid' : '' }}" name="phoneNO" value="{{ $te->phoneNO }}"  @if($status =="approved") disabled @endif>
                                 @if ($errors->has('phoneNo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('phoneNo') }}</strong>
@@ -270,7 +263,7 @@
                         <!-- <div class="form-group row"> -->
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="mobileNo1">{{ __('Mobile Number') }}</label>
-                                <input id="mobileNo1" type="tel" size="12" maxlength="12" placeholder="e.g 0xxx-xxxxxxx" class="form-control{{ $errors->has('mobileNo1') ? ' is-invalid' : '' }}" name="mobileNo1" value="{{ $te->mobileNo1 }}" pattern="[0-9]{11}" title=" Please match the Mobile No" required @if($status =="approved") disabled @endif>
+                                <input id="mobileNo1" type="tel" size="12" maxlength="12" placeholder="e.g xxxx-xxxxxxx" class="form-control{{ $errors->has('mobileNo1') ? ' is-invalid' : '' }}" name="mobileNo1" value="{{ $te->mobileNo1 }}" pattern="[0-9]{11}" title=" Please match the Mobile No" required @if($status =="approved") disabled @endif>
                                 @if ($errors->has('mobileNo1'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('mobileNo1') }}</strong>
@@ -317,7 +310,7 @@
                         <!-- <div class="form-group row"> -->
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="nomineeCnicNo">{{ __('Nominee CNIC Number') }}</label>
-                                <input id="nomineeCnicNo" type="tel" size="15" maxlength="15" placeholder="e.g xxxxx-xxxxxxx-x" class="form-control{{ $errors->has('nomineeCnicNo') ? ' is-invalid' : '' }}" name="nomineeCnicNo" value="{{$te->nomineeCnicNo }}" pattern="[0-9]{13}" title=" Please match the CNIC No" required @if($status =="approved") disabled @endif>
+                                <input id="nomineeCnicNo" type="text" placeholder="Enter Mominee CNIC Number " class="form-control{{ $errors->has('nomineeCnicNo') ? ' is-invalid' : '' }}" name="nomineeCnicNo" value="{{$te->nomineeCnicNo }}" pattern="[0-9]{13}" title=" Please match the CNIC No" required @if($status =="approved") disabled @endif>
                                 @if ($errors->has('nomineeCnicNo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('nomineeCnicNo') }}</strong>
@@ -326,7 +319,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="nomineePassportNo">{{ __('Passport No') }}</label>
-                                <input id="nomineePassportNo" type="tel" size="8" maxlength="8" placeholder="e.g ab123456" class="form-control{{ $errors->has('nomineePassportNo') ? ' is-invalid' : '' }}" name="nomineePassportNo" value="{{ $te->nomineePassportNo }}"  @if($status =="approved") disabled @endif>
+                                <input id="nomineePassportNo" type="text" placeholder="Enter Passport Number " class="form-control{{ $errors->has('nomineePassportNo') ? ' is-invalid' : '' }}" name="nomineePassportNo" value="{{ $te->nomineePassportNo }}"  @if($status =="approved") disabled @endif>
                                 @if ($errors->has('nomineePassportNo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('nomineePassportNo') }}</strong>
@@ -356,58 +349,7 @@
                                 @endif
                             </div>
                         </div>
-                        <!-- <div class="form-group row">
-                            <div class="col-md-12 col-lg-12 col-sm-12">
-                                <label for="nomineePermanentAddress">{{ __('Permanent Address') }}</label>
-                                <input id="nomineePermanentAddress" type="text" placeholder="Enter Permanent Address " class="form-control{{ $errors->has('nomineePermanentAddress') ? ' is-invalid' : '' }}" name="nomineePermanentAddress" value="{{ $te->nomineePermanentAddress }}"  >
-                                @if ($errors->has('nomineePermanentAddress'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('nomineePermanentAddress') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-3 col-lg-3 col-sm-12">
-                                <label for="nomineeMail">{{ __('Email') }}</label>
-                                <input id="nomineeMail" type="text" placeholder="Enter Email" class="form-control{{ $errors->has('nomineeMail') ? ' is-invalid' : '' }}" name="nomineeMail" value="{{ $te->nomineeMail }}"  >
-                                @if ($errors->has('nomineeMail'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('nomineeMail') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                            <div class="col-md-3 col-lg-3 col-sm-12">
-                                <label for="nomineePhoneNo">{{ __('Phone Number') }}</label>
-                                <input id="nomineePhoneNo" type="text" placeholder="Enter Phone No" class="form-control{{ $errors->has('nomineePhoneNo') ? ' is-invalid' : '' }}" name="nomineePhoneNo" value="{{ $te->nomineePhoneNo }}"  >
-                                @if ($errors->has('nomineePhoneNo'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('nomineePhoneNo') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-            
-                            <div class="col-md-3 col-lg-3 col-sm-12">
-                                <label for="nomineeMobileNo1">{{ __('Mobile Number') }}</label>
-                                <input id="nomineeMobileNo1" type="text" placeholder="Enter Mobile number" class="form-control{{ $errors->has('nomineeMobileNo1') ? ' is-invalid' : '' }}" name="nomineeMobileNo1" value="{{ $te->nomineeMobileNo1 }}"  >
-                                @if ($errors->has('nomineeMobileNo1'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('nomineeMobileNo1') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                            <div class="col-md-3 col-lg-3 col-sm-12">
-                                <label for="nomineeMobileNo2">{{ __('Phone Number (2)') }}</label>
-                                <input id="nomineeMobileNo2" type="text" placeholder="Enter Mobile Numhber 2" class="form-control{{ $errors->has('nomineeMobileNo2') ? ' is-invalid' : '' }}" name="nomineeMobileNo2" value="{{$te->nomineeMobileNo2 }}"  >
-                                @if ($errors->has('nomineeMobileNo2'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('nomineeMobileNo2') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div> -->
-                       
-                    <!-- </from> -->
+                      
                     @endforeach
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <div><h3>Payment Information</h3></div>
@@ -461,19 +403,7 @@
                                 @endif
                             </div>
                         </div>
-                        <!-- <div class="form-group row">
-                            <div class="col-md-12 col-lg-12 col-sm-12">
-                                <label for="bankName">{{ __('Bank Name') }}</label>
-                                <input id="bankName" type="text" placeholder="Enter bankName " class="form-control{{ $errors->has('bankName') ? ' is-invalid' : '' }}" name="bankName" value="{{ $te->bankName }}" >
-                               
-                                @if ($errors->has('bankName'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('bankName') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                           
-                        </div> -->
+                        
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertyPurchingDate">{{ __('Date') }}</label>
@@ -500,7 +430,7 @@
                                 <!-- <input id="propertyPaymentProcedure" type="text" placeholder="Enter Total Amount " class="form-control{{ $errors->has('propertyPaymentProcedure') ? ' is-invalid' : '' }}" name="propertyPaymentProcedure" value="{{ $te->propertyPaymentProcedure }}" required> -->
                                 <select class="form-control" name="propertyPaymentProcedure" id="propertyPaymentProcedure" onchange="paymentProcedure(this);" >
                                     <option value="{{ $te->propertyPaymentProcedure }}">{{ $te->propertyPaymentProcedure }}</option>
-                                    <option value="Installment">Installment</option>
+                                    <option value="Token">Token</option>
                                     <option value="Total Amount">Total Amount</option>
                                     
                                 </select>
@@ -511,38 +441,62 @@
                                 @endif
                             </div>
                         </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                       
+                        @foreach($installment as $te)
+                            <div id="addinstallment" style="display:inline;">
+                            <div><h3>Installment Info</h3></div>
+                            <hr>
+                            <div class="form-group row">
+                                <div class="col-md-6 col-lg-6 col-sm-12">
+                                    <label for="noOfInstallments">{{ __('Number of Installments') }}</label>
+                                    <input  type="text"  id="noOfInstallments" placeholder="" class="form-control{{ $errors->has('noOfInstallments') ? ' is-invalid' : '' }}" name="noOfInstallments" value="{{$te->noOfInstallments}}" >
+                                    
+                                    @if ($errors->has('noOfInstallments'))
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('noOfInstallments') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>       
+                                <div class="col-md-6 col-lg-6 col-sm-12">
+                                    <label for="downpayment" >{{ __('Down Payment') }}</label>
+                                    <input id="downpayment" type="number" min="0" placeholder="" class="form-control{{ $errors->has('downpayment') ? ' is-invalid' : '' }}" name="downpayment" value="{{$te->downpayment}}" >
+                                    @if ($errors->has('downpayment'))
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('downpayment') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>                    
+                            </div>
+                        </div>
+                        @endforeach
+            
                         &nbsp;&nbsp;
-                                <div id="addinstallment" style="display:inline;">
-                                
-                                
+                        <div id="addtoken1" style="display:inline;">
                             
-                                </div>
-                        &nbsp;&nbsp;
-                                <div id="addtoken" style="display:inline;">
-                                
-                                
                             
-                                </div>
-                          
+                        </div>
+
+                        
                         <!-- <div class="card-header" style="background:#f44336;color:white;margin:10px;">Witness Form</div> -->
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <div><h3>Seller Information</h3></div>
                         <hr>
-                      
+                       
                         <div class="form-group row">    
                             <div class="col-md-12 col-lg-12 col-sm-12">
-                                    <label for="witnessName">{{ __('Saller Name') }}</label>
+                                    <label for="witnessName">{{ __('Seller Name') }}</label>
                                     <select class="form-control" name="propertySellerId" id="propertySellerId" @if($status =="approved") disabled @endif>
-                                        <option value=""> </option>
+                                        <option value="{{$id}}">{{$sname}}</option>
                                         @foreach($seller as $te)
                                                
-                                                <option value=""></option>
+                                                <option value="{{$te->id}}">{{$te->sallerName}}</option>
                                         @endforeach
-                                    </select> 
+                                    </select>
                             </div>
-                          
+                           
                         </div>
-                        
+                       
                         <!-- <div class="card-header" style="background:#f44336;color:white;margin:10px;">Review Form</div> -->
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <div><h3>Review</h3></div>
@@ -561,25 +515,25 @@
                             </div> 
                         </div>
                         @endforeach
-                        <!-- <input type="hidden" name="propertyId" value=""> -->
+                       
+                    
                         <div class="col-md-12 col-lg-12 col-sm-12" style="margin-top:30px;">
                             <div class="form-group row mb-0">
                                 <div class="col-md-12 ">
                                     <button type="submit" class="btn btn-lg " style="float:right; background-color:#f44336 !important; color:white;" >
-                                        {{ __('Update') }}
+                                        {{ __('update') }}
                                     </button>
                                 </div>
                             </div>
                         </div>
-                   
-                    @endforeach
-            </from>
+                    </from>
+                    @endforeach    
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- script fucntion -->
+<!-- javascript code -->
 <script>
 function paymenttype(val){
 
@@ -601,51 +555,18 @@ document.getElementById("addcheque").style.display ="block";
 
 return 0;
 }
-//add fucntion to test
+//add fucntion to paymentProcedure 
 function paymentProcedure(val){
 
     
-    var paymentProcedure = val.value;
-    var parent = document.getElementById('addinstallment');
-    var parent1 = document.getElementById('addtoken');
-    if( paymentProcedure == "Installment"){
-        
-        var added =   '<div><h3>Installment Information</h3></div>'+
-                      '<hr>'+
-                        '<div class="form-group row">'+
-                            '<div class="col-md-6 col-lg-6 col-sm-12">'+
-                                '<label for="noOfInstallments" >No Of installment</label>'+
-                              
-                                  '<select class="form-control" name="noOfInstallments" id="noOfInstallments" >'+
-                                    '<option value="">Select No of Installments</option>'+
-                                    '<option value="1">1</option>'+
-                                    '<option value="2">2</option>'+
-                                    '<option value="3">3</option>'+
-                                    '<option value="4">4</option>'+
-                                    '<option value="5">5</option>'+
-                                    '<option value="6">6</option>'+
-                                    '<option value="7">7</option>'+
-                                    '<option value="8">8</option>'+
-                                    '<option value="9">9</option>'+
-                                    '<option value="10">10</option>'+
-                                    
-                                '</select>'+
-                              
-                            '</div>'+       
-                            '<div class="col-md-6 col-lg-6 col-sm-12">'+
-                                '<label for="downpayment">Down Payment</label>'+
-                                '<input id="downpayment" type="number" min="0" placeholder="Enter down payment" class="form-control" name="downpayment" value="" >'+
-                               
-                            '</div>';                
-                        
-        parent.insertAdjacentHTML('beforeend', added);
-    }
+var paymentProcedure = val.value;
+var parent1 = document.getElementById('addtoken1');
 
-    if( paymentProcedure == "Token"){
-
-                    var added1 = '<div><h3>Token Information</h3></div>'+
+if( paymentProcedure == "Token"){
+    
+    document.getElementById("addinstallment").style.display ="none";
+    var added1 = '<div><h3>Token Information</h3></div>'+
                         '<div class="form-group row">'+
-                         '<hr>'+
                             '<div class="col-md-6 col-lg-6 col-sm-12">'+
                                 '<label for="tokenPayment" >Token Payment </label>'+
                                 '<input id="tokenPayment" type="number" min="0" placeholder="Enter token Payment" class="form-control" name="tokenPayment" value="" >'+
@@ -653,22 +574,26 @@ function paymentProcedure(val){
                               
                             '</div>'+       
                             '<div class="col-md-6 col-lg-6 col-sm-12">'+
-                                '<label for="remaningPaymentDate">Remaning Down Payment Date</label>'+
-                                '<input id="remaningPaymentDate" type="Date" placeholder="Enter Reaming Payment Date" class="form-control" name="remaningPaymentDate" value="" >'+
+                                '<label for="remaningPaymentDate">Down Payment</label>'+
+                                '<input id="remaningPaymentDate" type="number" min="0" placeholder="Enter Reaming Payment Date" class="form-control" name="remaningPaymentDate" value="" >'+
                                
                             '</div>'+
                         '</div>'+
-                    '</div>'; 
-                         
-                      
-                parent1.insertAdjacentHTML('beforeend', added1);
-                document.getElementById("addinstallment").style.display ="none";
-    }
-    
-    return 0;
+                    '</div>';         
+                        
+        parent1.insertAdjacentHTML('beforeend', added1);
+        document.getElementById("addtoken").style.display ="inline";
+}
+if( paymentProcedure == "Total Amount"){
+
+document.getElementById("addtoken1").style.display ="none";
+document.getElementById("addinstallment").style.display ="none";
+
 }
 
 
-    </script>
-<!-- End script funtion -->
+return 0;
+}
+</script>
+
 @endsection

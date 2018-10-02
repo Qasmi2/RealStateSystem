@@ -158,7 +158,7 @@ class editingControll extends Controller
                     }
                     $installment = new installment;
                     $installment = $this->installment($request,$propertyId,$installment);
-                    if($installment != 0){
+                    if($installment != "0"){
                         if($installment->save()){
                             $paymentHistory = new paymentHistory;
                             $paymentHistory = $this->paymentHistoryInstallment($paymentHistory,$propertyId);
@@ -332,6 +332,8 @@ class editingControll extends Controller
                 $approval = DB::table('approvals')->where('propertyId',$id)->first();
                 $seller = seller::orderBy('created_at','desc')->get();
 
+                // return view('edit/editfrom',compact('property','applicant','payment','review','token','installment','seller','approval')); 
+
                 $isEmptyinstallment = json_encode($installment);
                 $isEmptytoken = json_encode($token);
                 if($isEmptytoken == "null" && $isEmptyinstallment == "null")
@@ -371,208 +373,196 @@ class editingControll extends Controller
        
         $property = property::find($id);   
         if(Gate::allows('view',$property,Auth::user())){
-            // validation 
 
-            //  $approval = approval::where('propertyId',$id)->value('status');
-            //   echo $request->propertyPaymentProcedure;
-            //  var_dump($approval);
-            //  exit();
-            // validation
-            $validator = $this->editValidation($request);
-            if ($validator->fails()) {
-                return Redirect::back()->withErrors($validator); 
-                //return response()->json(['error'=>$validator->errors()], 401);            
-            }   
-            $user_id = Auth::user();
-            //property info update 
-            try{ 
-                $property = property::find($id);
-                $property = $this->property($property,$request);
-                if(!$property->save()){
+           $approval = approval::where('propertyId',$id)->value('status');
+           if($approval == "approved"){
+               $paymentmethod = DB::table('payments')->where('propertyId',$id)->value('propertyPaymentProcedure');
+                $paymentprocedure = $request->input('propertyPaymentProcedure');
+                if($paymentmethod == $paymentprocedure){
+                    return redirect()->back()->with('error','You can not update same payment Method (Token, Total Amount, Installment), becuase this Record have been Approved by ADMIN / financial officer ');
+                }
+                else{
+                    if($paymentprocedure == "Token"){
+                        $validator = $this->validationToken($request);
+                        if ($validator->fails()) {
+                            return Redirect::back()->withErrors($validator);       
+                        }
+                        echo "toke with two paramters ";
+                        exit();
+                        // if require this funality later will be written code on Token payment procedure 
+                        //...
+                    }
+                    elseif($paymentprocedure =="Installment"){
+                        try{
+                            $this->updateInstallment($request,$id);
+                            return redirect()->back()->with('success','Updated Record successfully.');
+                        }
+                        catch(Exception $e){
+                            return redirect()->back()->with('error','Updating property section , something wrong .');
+                        }
+                       
+                    }
+                    elseif($paymentprocedure == "Total Amount"){
+                        try{
+                            $this->updateTotalAmount($request,$id);
+                            return redirect()->back()->with('success','Updated Record successfully.');
+                        }
+                        catch(Exception $e){
+                            return redirect()->back()->with('error','Updating property section , something wrong .');
+                        }
+                    }
+                }
+                
+           } 
+           else{
+             
+                $validator = $this->editValidation($request);
+                if ($validator->fails()) {
+                    return Redirect::back()->withErrors($validator); 
+                    //return response()->json(['error'=>$validator->errors()], 401);            
+                }   
+                $user_id = Auth::user();
+                //property info update 
+                try{ 
+                    $property = property::find($id);
+                    $property = $this->property($property,$request);
+                    if(!$property->save()){
+                        return redirect()->back()->with('error','Updating property section , something wrong .');
+                    }
+                }
+                catch(Exception $e){
                     return redirect()->back()->with('error','Updating property section , something wrong .');
                 }
-            }
-            catch(Exception $e){
-                return redirect()->back()->with('error','Updating property section , something wrong .');
-            }
-            // applicant info update
-            try{
-                $applicantId = DB::table('applicants')->where('propertyId',$id)->value('id');
-                $applicant = applicant::find($applicantId);
-                $applicant = $this->applicant($applicant,$request,$id);
-                if(!$applicant->save()){
-                    return redirect()->back()->with('error','Updating Applicant section , something wrong .');
-                }
-            }
-            catch(Exception $e){
-                return redirect()->back()->with('error',' applicant section input something wrong .');
-            }
-            try{
-            //  initilization of payment object
-                $paymentId = DB::table('payments')->where('propertyId',$id)->value('id');
-                $payment = payment::find($paymentId);
-                $payment = $this->payment($payment,$request,$id);
-                $totalAmount = $request->input('propertyPrice');
-                if(!$payment->save()){
-                    return redirect()->back()->with('error','Updating Payment section , something wrong .');
-                }
-            
-            }
-            catch(Exception $e){
-                return redirect()->back()->with('error',' Payment section input something wrong .');
-            }
-            // initilization of the review object
-            try{
-                $reviewId = DB::table('reviews')->where('propertyId',$id)->value('id');
-                $review = review::find($reviewId);
-                $review = $this->review($review,$request,$id);
-                if(!$review->save()){
-                    return redirect()->back()->with('error','Updating Review section , something wrong .');
-                }
-                
-            }
-            catch(Exception $e){
-                return redirect()->back()->with('error',' review section input something wrong .');
-            }
-            // initilization of the approval object
-            try{
-                $approvalTableId = DB::table('approvals')->where('propertyId', $id)->value('id');
-                $approval = approval::find($approvalTableId);
-                $approval = $this->Unapproval($approval,$id);
-            
-               if(!$approval->save()){
-                return redirect()->back()->with('error',' approval section input something wrong .');
-               }
-            }
-            catch(Exception $e){
-                return redirect()->back()->with('error',' approval section input something wrong .');
-            } 
-            // installment , total amount, token
-            try{
-            $paymentProcedure = $payment->propertyPaymentProcedure;
-            
-                if($paymentProcedure == "Installment"){
-                    $validator =$this->validationInstallment($request);
-                    if ($validator->fails()) {
-                        return Redirect::back()->withErrors($validator);      
+                // applicant info update
+                try{
+                    $applicantId = DB::table('applicants')->where('propertyId',$id)->value('id');
+                    $applicant = applicant::find($applicantId);
+                    $applicant = $this->applicant($applicant,$request,$id);
+                    if(!$applicant->save()){
+                        return redirect()->back()->with('error','Updating Applicant section , something wrong .');
                     }
-                   $downpayment =  $this->installmentUpdateSimple($request,$id);
-                   if($downpayment == 0){
-                        return redirect()->back()->with('error',' downpayment is less then 20% .');
-                   }
                 }
-                elseif($paymentProcedure == "Total Amount"){
-                
-                    $this->installmentDelete($id);
-                    $this->tokenDelete($id);
-                    $this->paymentHistoryTotalAmount($id);
-                    
-                        // $token = DB::table('tokens')->where('propertyId',$id)->first();
-                        // $isEmptyToken = json_encode($token);
-                        
-                        // if($isEmptyToken != "null"){
-                        //     $token = array($token);
-                        //     foreach($token as $te){
-                        //     $tokenPayment = $te->tokenPayment;
-                        //     $propertyprice  = DB::table('payments')->where('propertyId',$id)->value('propertyPrice');
-                        //     $propertyprice = $propertyprice - $tokenPayment;
-                        //         // initilization the payment table's object to update the total price 
-                        //         $paymentId = DB::table('payments')->where('propertyId',$id)->value('id');
-                        //         $payment = payment::find($paymentId);
-                        //         $payment->propertyPrice = $propertyprice;
-                        //         $payment->save();
-                        //     }
-                        //     if($token){
-                        
-                        //         $deleteTokenId = DB::table('tokens')->where('propertyId',$id)->value('id');
-                        //         $deleteTokenRow = token::find($deleteTokenId);
-                        //         $deleteTokenRow->delete();
-                        //     }
-                             
-                        // }
-                        // else{
-                        //     $tokenPayment = 0;
-                        // }
-                    
-                    // payment history
-
-                    // $paymentHId  = DB::table('payment_histories')->where('propertyId',$id)->value('id');
-                    // $isEmptypaymentH = json_encode($paymentHId);
-                    // if($isEmptypaymentH == "null")
-                    // {
-                    //     // var_dump("No",$isEmpty);
-                    //     // exit();
-                    //     $paymentHistory = new paymentHistory;
-                    // }
-                    // else{
-                    //     // var_dump("yes ",$installmentId);
-                    //     // exit();
-                    //     $paymentHistory = paymentHistory::find($paymentHId);
-                    // }
-                    // $propertyprice  = DB::table('payments')->where('propertyId',$id)->value('propertyPrice');
-                    // $paymentHistory->paidAmount = $propertyprice;
-                    // $remaingAmount = 0;
-                    // $paymentHistory->remeaningAmount = $remaingAmount;
-                    // $paymentHistory->propertyId = $id;
-                    // $paymentHistory->save();
-                    
+                catch(Exception $e){
+                    return redirect()->back()->with('error',' applicant section input something wrong .');
                 }
-                elseif($paymentProcedure == "Token"){
-                    $validator = $this->validationToken($request);
-                    if ($validator->fails()) {
-                        return Redirect::back()->withErrors($validator);       
+                try{
+                //  initilization of payment object
+                    $paymentId = DB::table('payments')->where('propertyId',$id)->value('id');
+                    $payment = payment::find($paymentId);
+                    $payment = $this->payment($payment,$request,$id);
+                    $totalAmount = $request->input('propertyPrice');
+                    if(!$payment->save()){
+                        return redirect()->back()->with('error','Updating Payment section , something wrong .');
                     }
-                    $installmentrow = DB::table('installments')->where('propertyId',$id)->first();
-                    $isEptyinstallmentRow = json_encode($installmentrow);
-                    if($isEptyinstallmentRow != "null"){
+                
+                }
+                catch(Exception $e){
+                    return redirect()->back()->with('error',' Payment section input something wrong .');
+                }
+                // initilization of the review object
+                try{
+                    $reviewId = DB::table('reviews')->where('propertyId',$id)->value('id');
+                    $review = review::find($reviewId);
+                    $review = $this->review($review,$request,$id);
+                    if(!$review->save()){
+                        return redirect()->back()->with('error','Updating Review section , something wrong .');
+                    }
+                    
+                }
+                catch(Exception $e){
+                    return redirect()->back()->with('error',' review section input something wrong .');
+                }
+                // initilization of the approval object
+                try{
+                    $approvalTableId = DB::table('approvals')->where('propertyId', $id)->value('id');
+                    $approval = approval::find($approvalTableId);
+                    $approval = $this->Unapproval($approval,$id);
+                
+                if(!$approval->save()){
+                    return redirect()->back()->with('error',' approval section input something wrong .');
+                }
+                }
+                catch(Exception $e){
+                    return redirect()->back()->with('error',' approval section input something wrong .');
+                } 
+                // installment , total amount, token
+                try{
+                $paymentProcedure = $payment->propertyPaymentProcedure;
+                
+                    if($paymentProcedure == "Installment"){
+                        $validator =$this->validationInstallment($request);
+                        if ($validator->fails()) {
+                            return Redirect::back()->withErrors($validator);      
+                        }
+                    $downpayment =  $this->installmentUpdateSimple($request,$id);
+                    if($downpayment == 0){
+                            return redirect()->back()->with('error',' downpayment is less then 20% .');
+                    }
+                    }
+                    elseif($paymentProcedure == "Total Amount"){
+                    
                         $this->installmentDelete($id);
+                        $this->tokenDelete($id);
+                        $this->paymentHistoryTotalAmount($id);
+                        
                     }
-                    $tokeId  = DB::table('tokens')->where('propertyId',$id)->value('id');
-                    $isEmptyTokenH = json_encode($tokeId);
-                    if($isEmptyTokenH == "null"){
-                        $token = new token;
-                    }
-                    else{
-                        $token = token::find($tokeId);
-                    }
-                    $token = $this->token($token,$request, $id);
-                    if($token->save()){
-                        $tokenHistoryId = DB::table('token_histories')->where('propertyId',$id)->value('id');
-                        $isE = json_encode($tokenHistoryId);
-                        if($isE == "null"){
-                            $tokenHistory = new tokenHistory;
+                    elseif($paymentProcedure == "Token"){
+                        $validator = $this->validationToken($request);
+                        if ($validator->fails()) {
+                            return Redirect::back()->withErrors($validator);       
+                        }
+                        $installmentrow = DB::table('installments')->where('propertyId',$id)->first();
+                        $isEptyinstallmentRow = json_encode($installmentrow);
+                        if($isEptyinstallmentRow != "null"){
+                            $this->installmentDelete($id);
+                        }
+                        $tokeId  = DB::table('tokens')->where('propertyId',$id)->value('id');
+                        $isEmptyTokenH = json_encode($tokeId);
+                        if($isEmptyTokenH == "null"){
+                            $token = new token;
                         }
                         else{
-                            $tokenHistory = tokenHistory::find($tokenHistoryId);
+                            $token = token::find($tokeId);
                         }
-                        $tokenHistory = $this->tokenHistory($tokenHistory,$request,$id);
-                        if(!$tokenHistory->save()){
-                            return redirect()->back()->with('error','Token History is not save, Something wrong .');
-                        }
-                        $paymentHistoryId = DB::table('payment_histories')->where('propertyId',$id)->value('id');
-                        $isEmptypaymentHId = json_encode($paymentHistoryId);
-                        if($isEmptypaymentHId == "null"){
-                            $paymentHistory = new paymentHistory;
+                        $token = $this->token($token,$request, $id);
+                        if($token->save()){
+                            $tokenHistoryId = DB::table('token_histories')->where('propertyId',$id)->value('id');
+                            $isE = json_encode($tokenHistoryId);
+                            if($isE == "null"){
+                                $tokenHistory = new tokenHistory;
+                            }
+                            else{
+                                $tokenHistory = tokenHistory::find($tokenHistoryId);
+                            }
+                            $tokenHistory = $this->tokenHistory($tokenHistory,$request,$id);
+                            if(!$tokenHistory->save()){
+                                return redirect()->back()->with('error','Token History is not save, Something wrong .');
+                            }
+                            $paymentHistoryId = DB::table('payment_histories')->where('propertyId',$id)->value('id');
+                            $isEmptypaymentHId = json_encode($paymentHistoryId);
+                            if($isEmptypaymentHId == "null"){
+                                $paymentHistory = new paymentHistory;
+                            }
+                            else{
+                                $paymentHistory = paymentHistory::find($paymentHistoryId);
+                            }
+                            $paymentHistory = $this->paymentHistoryToken($paymentHistory,$request, $id);
+                            if(!$paymentHistory->save()){
+                                return redirect()->back()->with('error','Token Payment Hisotry Not updated.');
+                            }
                         }
                         else{
-                            $paymentHistory = paymentHistory::find($paymentHistoryId);
+                            return redirect()->back()->with('error','token record is not save, Something wrong .');
                         }
-                        $paymentHistory = $this->paymentHistoryToken($paymentHistory,$request, $id);
-                        if(!$paymentHistory->save()){
-                            return redirect()->back()->with('error','Token Payment Hisotry Not updated.');
-                        }
-                    }
-                    else{
-                        return redirect()->back()->with('error','token record is not save, Something wrong .');
-                    }
 
+                    }
+                
+                    // save all the property info and return successuflly message;
+                    return redirect()->back()->with('success','Updated Record successfully.');
                 }
-            
-                // save all the property info and return successuflly message;
-                return redirect()->back()->with('success','Updated Record successfully.');
-            }
-            catch(Exception $e){
-                return redirect()->back()->with('error',' updating , installment section , something wrong .');
+                catch(Exception $e){
+                    return redirect()->back()->with('error',' updating , installment section , something wrong .');
+                }
             }
         }
         else{
@@ -1072,11 +1062,11 @@ class editingControll extends Controller
      * return 
      */
     public function updateInstallment($request,$id){
+        
         try{
-            $user_id = Auth::user();
+       
             $downpayment = $request->input('downpayment');
             $noOfinstallments = $request->input('noOfInstallments');
-        
             $token = DB::table('tokens')->where('propertyId',$id)->first();
             $isEmptyToken = json_encode($token);
             if($isEmptyToken != "null"){
@@ -1111,8 +1101,12 @@ class editingControll extends Controller
                 $installment->propertyId = $id;
                 $installment->amountOfOneInstallment = $amountOfOneInstallment; 
                 $installment->installmentDates = json_encode($installmentDates);
-                $installment->userId = $user_id->id;
+               
                 $installment->save();
+
+                $payment = payment::find($id);
+                $payment->propertyPaymentProcedure = $request->input('propertyPaymentProcedure');
+                $payment->save();    
             
                 $paymentHId  = DB::table('payment_histories')->where('propertyId',$id)->value('id');
                 $isEmptypaymentH = json_encode($paymentHId);
@@ -1139,14 +1133,65 @@ class editingControll extends Controller
         } 
     }
     /**
+     * update total Amount 
+     */
+    public function updateTotalAmount($request,$id){
+        try{
+            $token = DB::table('tokens')->where('propertyId',$id)->first();
+            $isEmptyToken = json_encode($token);
+                                
+            if($isEmptyToken != "null"){     
+                    $deleteTokenId = DB::table('tokens')->where('propertyId',$id)->value('id');
+                    $deleteTokenRow = token::find($deleteTokenId);
+                    $deleteTokenRow->delete();
+            }
+            //payment table update
+            $propertyprice  = DB::table('payments')->where('propertyId',$id)->value('propertyPrice');
+            $paymentId = DB::table('payments')->where('propertyId',$id)->value('id');
+            $payment = payment::find($paymentId);
+            $payment->propertyPrice = $propertyprice;
+            $payment->propertyPaymentProcedure = $request->input('propertyPaymentProcedure');
+            $payment->save();
+            //delte installment 
+            $installmentrow = DB::table('installments')->where('propertyId',$id)->first();
+            $isEmptyInstallment = json_encode($installmentrow);
+            if($isEmptyInstallment != "null"){
+                        
+                $deleteInstallmentId = DB::table('installments')->where('propertyId',$id)->value('id');
+                $deleteInstallmentRow = installment::find($deleteInstallmentId);
+                if(!$deleteInstallmentRow->delete()){
+                    return view('displayrecord.deleterecordMessage')->with('error', 'NOT installment table Removed,  installment row have something worng  !!!');
+                }
+            }
+            //delete installment history
+            $deleteInstallmentHistroy = DB::table('installment_histories')->where('propertyId',$id)->first();
+            $isEmptyInstallmentH = json_encode($deleteInstallmentHistroy);
+            if($isEmptyInstallmentH != "null"){
+                $deleteinstallmentHistoryId = DB::table('installment_histories')->where('propertyId',$id)->value('id');
+
+                $deleteInstallmentHistoryRow = installmentHistory::find($deleteinstallmentHistoryId);
+                if(!$deleteInstallmentHistoryRow->delete()){
+                    return view('displayrecord.deleterecordMessage')->with('error', 'NOT installment Hisotry table Removed,  installment History row have something worng  !!!');
+                }
+            }
+           
+            $this->paymentHistoryTotalAmount($id);
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('error','Updating property section , something wrong .');
+        }
+    }
+
+    /**
      * simple update
      * @param $request 
      */
     public function installmentUpdateSimple($request,$id){
         try{
-            $user_id = Auth::user();
+           
             $downpayment = $request->input('downpayment');
             $noOfinstallments = $request->input('noOfInstallments');
+
         
             $this->tokenDelete($id);
 
@@ -1170,7 +1215,7 @@ class editingControll extends Controller
                 $installment->propertyId = $id;
                 $installment->amountOfOneInstallment = $amountOfOneInstallment; 
                 $installment->installmentDates = json_encode($installmentDates);
-                $installment->userId = $user_id->id;
+              
                 $installment->save();
             
                 $paymentHId  = DB::table('payment_histories')->where('propertyId',$id)->value('id');
@@ -1258,22 +1303,26 @@ class editingControll extends Controller
      * payment History of total amount
     */
     public function paymentHistoryTotalAmount($id){
-
-        $paymentHId  = DB::table('payment_histories')->where('propertyId',$id)->value('id');
-        $isEmptypaymentH = json_encode($paymentHId);
-        if($isEmptypaymentH == "null")
-        {
-            $paymentHistory = new paymentHistory;
+        try{
+            $paymentHId  = DB::table('payment_histories')->where('propertyId',$id)->value('id');
+            $isEmptypaymentH = json_encode($paymentHId);
+            if($isEmptypaymentH == "null")
+            {
+                $paymentHistory = new paymentHistory;
+            }
+            else{
+                $paymentHistory = paymentHistory::find($paymentHId);
+            }
+            $propertyprice  = DB::table('payments')->where('propertyId',$id)->value('propertyPrice');
+            $paymentHistory->paidAmount = $propertyprice;
+            $remaingAmount = 0;
+            $paymentHistory->remeaningAmount = $remaingAmount;
+            $paymentHistory->propertyId = $id;
+            $paymentHistory->save();
         }
-        else{
-            $paymentHistory = paymentHistory::find($paymentHId);
+        catch(Exception $e){
+            return redirect()->back()->with('error','Updating property section , something wrong .');
         }
-        $propertyprice  = DB::table('payments')->where('propertyId',$id)->value('propertyPrice');
-        $paymentHistory->paidAmount = $propertyprice;
-        $remaingAmount = 0;
-        $paymentHistory->remeaningAmount = $remaingAmount;
-        $paymentHistory->propertyId = $id;
-        $paymentHistory->save();
     }
 
 
