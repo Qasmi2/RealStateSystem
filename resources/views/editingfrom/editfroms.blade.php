@@ -8,9 +8,11 @@
    
     $review = array($review);
     $approval = array($approval);
-    $seller =array($seller);
-  
-    
+    $selectedseller = array($selectedseller);
+    foreach($selectedseller as $te){
+        $sellerId = $te->id;
+        $sellername = $te->sallerName;
+    }
     foreach($approval as $te){
        
         $status = $te->status;
@@ -533,10 +535,9 @@
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                     <label for="witnessName">{{ __('Saller Name') }}</label>
                                     <select class="form-control" name="propertySellerId" id="propertySellerId" @if($status =="approved") disabled @endif>
-                                        <option value=""> </option>
+                                                <option value="{{$sellerId}}">{{$sellername}}</option>
                                         @foreach($seller as $te)
-                                               
-                                                <option value=""></option>
+                                                <option value="{{$te->id}}">{{$te->sallerName}}</option>
                                         @endforeach
                                     </select> 
                             </div>

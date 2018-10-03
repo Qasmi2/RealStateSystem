@@ -21,46 +21,17 @@
                         <!-- End JavaScript code -->
                 <!-- <div class="card-body"> -->
                    
-                    <?php  $applicant = array($applicant);
-                          
-                            //  $approval = array($approval);
-                            //  foreach($approval as $te){
-                            //      $status = $te->status;
-                            //  }
-
-                           $property = array($property);
-                         
-                           foreach($property as $key){
-                             $Idkey = $key->id;
-                             
+                    <?php 
+                        $applicant = array($applicant);
+                        $property = array($property);
+                        foreach($property as $key){
+                            $Idkey = $key->id;
                             $sellerId = $key->propertySellerId;
-                            
-                            }
-                          
-                           $payment = array($payment);
-                          
-                            $seller = array($seller);
-                          
-                            $review = array($review);
+                        }
+                        $payment = array($payment);
+                        $seller = array($seller);
+                        $review = array($review);
                         
-                         
-                        //    foreach($seller as $te){
-                             
-                        //        if( $te->id == $sellerId)
-                        //        {
-                                 
-                        //            $sname =  $te->sallerName; 
-                        //            $sfatherName =  $te->sallerFatherName;
-                        //            $sdesignation = $te->sallerDesignation;
-                        //            $scnicNo = $te->sallerCnicNo;
-                                   
-                        //        }
-                        //        else{
-                        //           echo "n/a";
-                        //        }
-                              
-
-                        //    }
                           
                     ?>
                    
@@ -266,19 +237,18 @@
                     <legend>Seller  Infromation</legend>
                         <!-- <div class="col-md-12 col-lg-12 col-sm-12">     -->
                             <div class="form-group row">
-                                <div class="col-md-6">
-                           
-                                        <div class="p-3 bg-secondary mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Seller Name') }}    :</label>
-                                           <b></b>
-                                        </div>
-                                </div>
-                                <div class="col-md-6">
-                                        <div class="p-3 bg-secondary mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Seller CNIC NO ') }}    :</label>
-                                               <b></b> 
-                                        </div>
-                                        
-                                </div>
-                                        
+                                    <div class="col-md-6">
+                                        @foreach($seller as $te)
+                                            <div class="p-3 bg-secondary mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Saller Name') }}    :</label>
+                                            <b>{{$te->sallerName}}</b>
+                                            </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                            <div class="p-3 bg-secondary mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Saller CNIC NO.') }}    :</label>
+                                                <b>{{$te->sallerFatherName}}</b> 
+                                            </div>
+                                        @endforeach    
+                                    </div>
                             </div>
                                     
                        

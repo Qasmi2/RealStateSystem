@@ -177,6 +177,7 @@ class editingControll extends Controller
                         $review = DB::table('reviews')->where('propertyId',$propertyId)->first();
                         $sellerId = DB::table('properties')->where('id',$propertyId)->value('propertySellerId');
                         $seller = DB::table('sellers')->where('id',$sellerId)->first();
+                      
 
                         return view('registrationfrom/submitforminstallment ',compact('property','applicant','payment','installment','review','seller'));    
                     }
@@ -188,16 +189,7 @@ class editingControll extends Controller
                 
     
                     $this->paymentHistoryTotalAmount($propertyId);
-                    // $paymentHistory = new paymentHistory;
-                    // $propertyprice  = DB::table('payments')->where('propertyId',$propertyId)->value('propertyPrice');
-                    // $paymentHistory->paidAmount = $propertyprice;
-                    // //Remaing amount = total amount - total amount payment;
-                    // $remaingAmount = 0;
-                    // $paymentHistory->remeaningAmount = $remaingAmount;
-                    // $paymentHistory->propertyId = $propertyId;
-                    // $paymentHistory->save();
-                
-                    // 
+                    
                     $property = DB::table('properties')->where('id',$propertyId)->first();
                     $applicant = DB::table('applicants')->where('propertyId',$propertyId)->first();
                     $payment = DB::table('payments')->where('propertyId',$propertyId)->first();
@@ -205,9 +197,8 @@ class editingControll extends Controller
                     // get seller Id from property table 
                     $sellerId = DB::table('properties')->where('id',$propertyId)->value('propertySellerId');
                     $seller = DB::table('sellers')->where('id',$sellerId)->first();
+                   
 
-                    
-                    
                     return view('registrationfrom/submitform',compact('property','applicant','payment','review','seller'));   
                 }
                 elseif($paymentProcedure == "Token"){
@@ -236,7 +227,7 @@ class editingControll extends Controller
                         // get seller Id from property table 
                         $sellerId = DB::table('properties')->where('id',$propertyId)->value('propertySellerId');
                         $seller = DB::table('sellers')->where('id',$sellerId)->first();
-                        
+                       
                         return view('registrationfrom/submitformtoken',compact('property','applicant','payment','review','seller','token'));
                     }
                     else{
@@ -280,8 +271,9 @@ class editingControll extends Controller
                 $installment = DB::table('installments')->where('propertyId',$id)->first();
                 $review = DB::table('reviews')->where('propertyId',$id)->first();
                 $token = DB::table('tokens')->where('propertyId',$id)->first();
-             
-                $seller = seller::orderBy('created_at','desc')->get();
+                $sellerId = DB::table('properties')->where('id',$id)->value('propertySellerId');
+                $seller = DB::table('sellers')->where('id',$sellerId)->first();
+               // $seller = seller::orderBy('created_at','desc')->get();
              
              
                 $isEmptyinstallment = json_encode($installment);
@@ -330,6 +322,9 @@ class editingControll extends Controller
                 $review = DB::table('reviews')->where('propertyId',$id)->first();
                 $token = DB::table('tokens')->where('propertyId',$id)->first();
                 $approval = DB::table('approvals')->where('propertyId',$id)->first();
+
+                $sellerId = DB::table('properties')->where('id',$id)->value('propertySellerId');
+                $selectedseller = DB::table('sellers')->where('id',$sellerId)->first();
                 $seller = seller::orderBy('created_at','desc')->get();
 
                 // return view('edit/editfrom',compact('property','applicant','payment','review','token','installment','seller','approval')); 
@@ -339,15 +334,15 @@ class editingControll extends Controller
                 if($isEmptytoken == "null" && $isEmptyinstallment == "null")
                 { 
                     // total payment
-                    return view('editingfrom/editfroms',compact('property','applicant','payment','review','seller','approval'));    
+                    return view('editingfrom/editfroms',compact('property','applicant','payment','review','seller','selectedseller','approval'));    
                 }
                 elseif($isEmptytoken != "null" && $isEmptyinstallment == "null"){
                     // token
-                    return view('editingfrom/editfromstoken',compact('property','applicant','payment','review','token','seller','approval')); 
+                    return view('editingfrom/editfromstoken',compact('property','applicant','payment','review','token','seller','selectedseller','approval')); 
                 }
                 elseif($isEmptyinstallment != "null"){
                     // installment
-                    return view('editingfrom/editfromsinstallment',compact('property','applicant','payment','review','installment','seller','approval')); 
+                    return view('editingfrom/editfromsinstallment',compact('property','applicant','payment','review','installment','seller','selectedseller','approval')); 
                 }
             
             }
@@ -495,9 +490,9 @@ class editingControll extends Controller
                             return Redirect::back()->withErrors($validator);      
                         }
                     $downpayment =  $this->installmentUpdateSimple($request,$id);
-                    if($downpayment == 0){
-                            return redirect()->back()->with('error',' downpayment is less then 20% .');
-                    }
+                        if($downpayment == 0){
+                                return redirect()->back()->with('error',' downpayment is less then 20% .');
+                        }
                     }
                     elseif($paymentProcedure == "Total Amount"){
                     

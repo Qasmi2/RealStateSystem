@@ -8,7 +8,12 @@
     $review = array($review);
     $token = array($token);
     $approval = array($approval);
+    $selectedseller = array($selectedseller);
 
+    foreach($selectedseller as $te){
+        $sellerId = $te->id;
+        $sellername = $te->sallerName;
+    }
 
     foreach($approval as $te){
        
@@ -28,18 +33,7 @@
             $PropertyJoint = "Yes";
         }
     }
-    // seller info
-    foreach($seller as $te){
-        if( $te->id == $sellerId)
-        {
-            $id =  $te->id;
-            $sname =  $te->sallerName; 
-            $sfatherName =  $te->sellerFatherName;
-            $sdesignation = $te->sallerDesignation;
-            $scnicNo = $te->sallerCnicNo;
-        }
-       
-    }
+   
    
 ?>
 <div class="container" style="margin-top:60px;">
@@ -542,9 +536,8 @@
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                     <label for="witnessName">{{ __('Saller Name') }}</label>
                                     <select class="form-control" name="propertySellerId" id="propertySellerId" @if($status =="approved") disabled @endif>
-                                        <option value="{{$id}}">{{$sname}}</option>
+                                        <option value="{{$sellerId}}">{{$sellername}}</option>
                                         @foreach($seller as $te)
-                                               
                                                 <option value="{{$te->id}}">{{$te->sallerName}}</option>
                                         @endforeach
                                     </select> 

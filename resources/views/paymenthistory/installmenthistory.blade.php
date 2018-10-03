@@ -66,7 +66,7 @@
                    <h2>Installment Payment info</h2>
                   
                    <br>
-                   <table class="table table-striped table-hover table-responsive">
+                   <table class="table table-striped table-hover table-responsive w-100 d-block d-md-table">
                         <thead bgcolor="#a6468c" style="color:white;">
                             <tr>
                                <th>Property Item</th>
@@ -93,7 +93,7 @@
                     <br>
                     <h2>Paid Installemnt Info</h2>
                     <br>
-                    <table class="table table-striped table-hover ">
+                    <table class="table table-striped table-hover table-responsive w-100 d-block d-md-table">
                         <thead bgcolor="#a6468c" style="color:white;">
                             <tr>
                                <th >Installment No.</th>
@@ -137,7 +137,7 @@
                         <h2> Installment Info</h2>
                         <br>
                     
-                        <table class="table table-striped table-hover ">
+                        <table class="table table-striped table-hover table-responsive w-100 d-block d-md-table">
                             <thead bgcolor="#a6468c" style="color:white;">
                                 <tr>
                                 <th>installment Number</th>

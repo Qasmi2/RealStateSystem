@@ -19,6 +19,7 @@
                                         });
                                 });
                              </script>
+                            
             <div class="card">
                 <div class="card-header" style="background-color: #f44336;color:white;">Display Properties</div>
 
@@ -34,7 +35,7 @@
                         
                     ?>
 
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover table-responsive w-100 d-block d-md-table">
                         <thead bgcolor="#a6468c" style="color:white;">
                             <tr>
                                <a href="#"> <th>Property Type</th></a>
@@ -55,70 +56,58 @@
                                 <tr>
                                 
                                     <td><a href="{{url('display/'.$properties[$i]['id'])}}">{{$properties[$i]['propertyType']}}</a></td>
-                                    <!-- <td>Floor No. :{{$properties[$i]['propertyAddress']}} <br><br>Room/Shop No. :{{$properties[$i]['propertyLocation']}}</td> -->
-                                    <!-- <td>{{$properties[$i]['propertySize']}} sqr/ft</td> -->
                                     <td>{{$applicanties[$i]['name']}}</td>
                                     <td>{{$applicanties[$i]['cnicNo']}}</td>
                                     <td>{{$payments[$i]['propertyPaymentProcedure']}}</td>
                                     <td> <a href="{{url('editingform/'.$properties[$i]['id'])}}">Edit</a><br>
-                                        
-                                        <a href="{{url('paymenthistory/'.$properties[$i]['id'])}}">Payment History</a>
-                                    
-                                    </td>
-                                   
+                                         <a href="{{url('paymenthistory/'.$properties[$i]['id'])}}">Payment History</a>
+                                    </td>           
                                     <td>
-                                  
-                                    @if($approvals[$i]['status'] == "approved")
+                                        @if($approvals[$i]['status'] == "approved")
 
-                                     
-                                        @if($payments[$i]['propertyPaymentProcedure'] == "Token")
-                                    
-                                            <div class="dropdown">
-                                                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Print Forms
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">  
-                                                    <a class="dropdown-item" href="{{url('Receptformtoken/'.$properties[$i]['id'])}}">Print Recept Form</a>
+                                            @if($payments[$i]['propertyPaymentProcedure'] == "Token")
+                                        
+                                                <div class="dropdown">
+                                                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Print Forms
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">  
+                                                        <a class="dropdown-item" href="{{url('Receptformtoken/'.$properties[$i]['id'])}}">Print Recept Form</a>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        @else
-                                            <div class="dropdown">
-                                                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Print Forms
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <a class="dropdown-item" href="{{url('form1/'.$properties[$i]['id'])}}" target="_blank">Print Form 1</a>
-                                                    <a class="dropdown-item" href="{{url('form2/'.$properties[$i]['id'])}}" target="_blank">Print Form 2</a>
-                                                    <a class="dropdown-item" href="{{url('form3/'.$properties[$i]['id'])}}" target="_blank">Print Form 3</a>
-                                                    <a class="dropdown-item" href="{{url('Receptform/'.$properties[$i]['id'])}}" target="_blank">Print Recept Form</a>
-                                                    <a class="dropdown-item" href="{{url('contractform/'.$properties[$i]['id'])}}" target="_blank">Print Contract Form</a>
-                                                </div>
-                                            </div>
-                                    
-                                        @endif
-                                    @else
-                                        @can('user-actions', Auth::user())
-                                          <div>  
-                                            <a href="{{url('approved/'.$properties[$i]['id'])}}" data-confirm="Are you sure you want to give the Approval?" class="btn btn-lg btn-success ">Approved</a> 
                                             @else
-                                            <button class="btn btn-info"  type="button"> Waiting </button>
-                                          </div>
-                                      
-                                        @endcan
-                                    @endif
-                                    
+                                                <div class="dropdown">
+                                                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Print Forms
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <a class="dropdown-item" href="{{url('form1/'.$properties[$i]['id'])}}" target="_blank">Print Form 1</a>
+                                                        <a class="dropdown-item" href="{{url('form2/'.$properties[$i]['id'])}}" target="_blank">Print Form 2</a>
+                                                        <a class="dropdown-item" href="{{url('form3/'.$properties[$i]['id'])}}" target="_blank">Print Form 3</a>
+                                                        <a class="dropdown-item" href="{{url('Receptform/'.$properties[$i]['id'])}}" target="_blank">Print Recept Form</a>
+                                                        <a class="dropdown-item" href="{{url('contractform/'.$properties[$i]['id'])}}" target="_blank">Print Contract Form</a>
+                                                    </div>
+                                                </div>
+                                        
+                                            @endif
+                                        @else
+                                          
+                                            <div>  
+                                            @can('user-actions', Auth::user())
+                                                <a href="{{url('approved/'.$properties[$i]['id'])}}" data-confirm="Are you sure you want to give the Approval?" class="btn btn-lg btn-success ">Approved</a> 
+                                                @else
+                                                <span class="badge badge-pill badge-info" style="font-size: 100% !important; background-color: #a6468c !important;">Waiting</span>
+                                            @endcan
+                                            </div>
+                                        
+                                        @endif
                                     </td>
-
                                 </tr>
-
                             @endfor
-                            
                         </tbody>
                     </table>
                     {{$properties->links()}}
-                    
                 </div>
-                
             </div>
         </div>
     </div>

@@ -9,13 +9,15 @@
     $installment = array($installment);
     $review = array($review);
     $approval = array($approval);
-
+    $selectedseller = array($selectedseller);
+    foreach($selectedseller as $te){
+        $sellerId = $te->id;
+        $sellername = $te->sallerName;
+    }
     foreach($approval as $te){
        
         $status = $te->status;
     }
-    
-  
     foreach($property as $pr){
         $PropertyJoint =  $pr->jointProperty;
         $sellerId = $pr->propertySellerId;
@@ -558,9 +560,8 @@
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                     <label for="witnessName">{{ __('Seller Name') }}</label>
                                     <select class="form-control" name="propertySellerId" id="propertySellerId" @if($status =="approved") disabled @endif>
-                                        <option value="{{$id}}">{{$sname}}</option>
+                                                <option value="{{$sellerId}}">{{$sellername}}</option>
                                         @foreach($seller as $te)
-                                               
                                                 <option value="{{$te->id}}">{{$te->sallerName}}</option>
                                         @endforeach
                                     </select>

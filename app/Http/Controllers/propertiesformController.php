@@ -41,9 +41,9 @@ class propertiesformController extends Controller
             }
             else{
                
-                $properties = property::where('userId', $user->id)->paginate(8);
-                $applicanties = applicant::where('userId', $user->id)->paginate(8);
-                $payments = payment::where('userId', $user->id)->paginate(8);
+                $properties = property::orderBy('created_at','desc')->where('userId', $user->id)->paginate(8);
+                $applicanties = applicant::orderBy('created_at','desc')->where('userId', $user->id)->paginate(8);
+                $payments = payment::orderBy('created_at','desc')->where('userId', $user->id)->paginate(8);
                 $approvals = approval::orderBy('created_at','desc')->paginate(8);
                
                 return view('displayrecord.properties',compact('properties','applicanties','payments','approvals'));
