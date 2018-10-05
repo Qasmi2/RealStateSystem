@@ -39,6 +39,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('view','App\Policies\roles@view_single');
         Gate::define('create','App\Policies\roles@create_form');
         Gate::define('delete','App\Policies\roles@delete_form');
+        Gate::define('installmentpaid','App\Policies\roles@installment_paid');
 
         // Gate::define('delete', function ($user, $approval) {
         //     var_dump(Json_encode($user));

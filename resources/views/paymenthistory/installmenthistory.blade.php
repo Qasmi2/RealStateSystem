@@ -11,6 +11,20 @@
             <div class="card">
                 <div class="card-header" style="background-color: #f44336;color:white;">Installment History</div>
                 <div class="card-body">
+                            <script>
+                                $(document).ready(function() {
+                                $('a[data-confirm]').click(function(ev) {
+                                var href = $(this).attr('href');
+                                if (!$('#dataConfirmModal').length) {
+                                $('body').append('<div id="dataConfirmModal" class="modal fade modal" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true"><div class="modal-dialog "><div class="modal-content"><div class=" modal-header" style="text-align:center;display:flow-root !important;color:white;background-color: green;" ><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h3 id="dataConfirmLabel" >Installment Paid Confirmation </h3></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button><a class="btn btn-success" id="dataConfirmOK">Paid Installment</a></div></div></div></div>');
+                                } 
+                                $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
+                                $('#dataConfirmOK').attr('href', href);
+                                $('#dataConfirmModal').modal({show:true});
+                                return false;
+                                    });
+                            });
+                        </script>
                 <?php 
 
                        foreach($installmentHistory as $te){
@@ -124,6 +138,7 @@
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">  
                                  
                                                 <a class="dropdown-item" href="{{url('installmentfrom/'.$propertyId.'/'.$te->installmentNo.'/'.$te->installmentAmount)}}" target="_blank">Print Recept Form</a>
+                                                
                                             </div>
                                         </div>
                                     </td>
@@ -157,7 +172,10 @@
                                         <td> {{$i }}</td>
                                         <td>{{$te->amountOfOneInstallment}}</td>
                                         <td>{{$installmentDates[$i-1]}}</td>
-                                        <td><a href="{{url('installmentpaid/'.$propertyId.'/'.$i)}}"> paid installment</a></td>
+                                        <td>
+                                        <!--<a href="{{url('installmentpaid/'.$propertyId.'/'.$i)}}"> paid installment</a>-->
+                                        <a href="{{url('installmentpaid/'.$propertyId.'/'.$i)}}" data-confirm="Are you sure to Confirm the Installment Paid ?" class="btn btn-success" >Paid Installment</a>                                        
+                                        </td>
                                     
                                         </tr>
                                     @endfor

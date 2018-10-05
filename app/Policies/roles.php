@@ -104,6 +104,23 @@ class roles
         return false;
        
     }
+     /**
+     * Create a new policy function delete .
+     *
+     * @return true/false
+     */
+    public function  installment_paid(User $user, approval $approval)
+    {
+        
+        if($approval->status == "approved")
+        {
+            return true;
+        }
+        return false;
+       
+    }
+
+   
  
    
 }
