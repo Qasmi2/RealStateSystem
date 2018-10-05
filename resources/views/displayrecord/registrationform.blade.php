@@ -161,7 +161,9 @@
                             
         $property = array($property);
         $payment = array($payment);
-        $applicant = array($applicant);            
+        $applicant = array($applicant);          
+        $paymentHistory = array($paymentHistory);
+       
         foreach($applicant as $te){
             //applicant CNIC NO 
             $charsArrayCnica = str_split($te->cnicNo);
@@ -181,11 +183,11 @@
             $hasPassportn = json_encode($isEmptyPassportn);
             $charsArrayPassportn = str_split($te->nomineePassportNo);
             $sizeofPassportn = sizeof($charsArrayPassportn);
-
-         
-      
-        
         }           
+        foreach($paymentHistory as $te){
+            $paidAmount = $te->paidAmount;
+        }
+       
     ?>
 <body>
     <div id="content">
@@ -497,7 +499,7 @@
                         <td style="width:360px;"><strong>Bank:</strong>&nbsp;<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$te->bankName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
                         <td>
                             <strong>Total Amount(PKR):</strong>&nbsp;
-                           <u> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$te->propertyPrice}}/-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                           <u> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $paidAmount }}/-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
                         </td>
                     </tr>
                 </table>

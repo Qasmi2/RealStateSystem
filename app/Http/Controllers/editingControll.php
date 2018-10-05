@@ -83,6 +83,8 @@ class editingControll extends Controller
             try{
                 $property = new property;
                 $property = $this->property($property,$request);
+                $property->userId = $user_id->id;
+
                 if($property->save()){
                     // save all the property info and return successuflly message;
                     // return redirect()->back()->with('success','Insert Record successfully.');
@@ -105,6 +107,7 @@ class editingControll extends Controller
             try{
                 $applicant = new applicant;
                 $applicant = $this->applicant($applicant,$request,$propertyId);
+                $applicant->userId = $user_id->id;
                 if(!$applicant->save()){
                     return redirect()->back()->with('error',' Applicant record is not save, Something wrong .');
                 }  
@@ -117,6 +120,7 @@ class editingControll extends Controller
 
                 $payment = new payment;
                 $payment = $this->payment($payment,$request,$propertyId);
+                $payment->userId = $user_id->id;
                 if(!$payment->save()){
                     return redirect()->back()->with('error','payment record is not save, Something wrong .');
                 } 
@@ -128,6 +132,7 @@ class editingControll extends Controller
             try{
                 $review = new review;
                 $review = $this->review($review,$request,$propertyId);
+                $review->userId = $user_id->id;
                 if(!$review->save()){
                     return redirect()->back()->with('error','review record is not save, Something wrong .');
                 } 
@@ -139,6 +144,7 @@ class editingControll extends Controller
             try{
                 $approval = new approval;
                 $approval = $this->Unapproval($approval,$propertyId);
+                $approval->userId = $user_id->id;
                 if(!$approval->save()){
                     return redirect()->back()->with('error','approval table have some issue, Something wrong .');
                 } 
@@ -159,6 +165,7 @@ class editingControll extends Controller
                     $installment = new installment;
                     $installment = $this->installment($request,$propertyId,$installment);
                     if($installment != "0"){
+                        $installment->userId = $user_id->id;
                         if($installment->save()){
                             $paymentHistory = new paymentHistory;
                             $paymentHistory = $this->paymentHistoryInstallment($paymentHistory,$propertyId);
@@ -378,18 +385,26 @@ class editingControll extends Controller
                 }
                 else{
                     if($paymentprocedure == "Token"){
+                        return redirect()->back()->with('error','you can not allow to change  the payemnt Method (Token ) on this stage ');
                         $validator = $this->validationToken($request);
                         if ($validator->fails()) {
                             return Redirect::back()->withErrors($validator);       
                         }
-                        echo "toke with two paramters ";
-                        exit();
-                        // if require this funality later will be written code on Token payment procedure 
-                        //...
+
                     }
                     elseif($paymentprocedure =="Installment"){
+
+                        $validator =$this->validationInstallment($request);
+                        if ($validator->fails()) {
+                           // return Redirect::back()->withErrors($validator); 
+                            return redirect()->back()->with('error','Number of Installments or Downpayment Incorrect !');
+                            //return response()->json(['error'=>$validator->errors()], 401);            
+                        }
                         try{
-                            $this->updateInstallment($request,$id);
+                            $downpaymentcheck = $this->updateInstallment($request,$id);
+                            if($downpaymentcheck == "0"){
+                                return redirect()->back()->with('error','Downpayment is less then 20% ');
+                            }
                             return redirect()->back()->with('success','Updated Record successfully.');
                         }
                         catch(Exception $e){
@@ -407,7 +422,6 @@ class editingControll extends Controller
                         }
                     }
                 }
-                
            } 
            else{
              
@@ -443,6 +457,8 @@ class editingControll extends Controller
                 try{
                 //  initilization of payment object
                     $paymentId = DB::table('payments')->where('propertyId',$id)->value('id');
+                    // get privous payment metho 
+                    $paymentMetod = DB::table('payments')->where('propertyId',$id)->value('propertyPaymentProcedure');
                     $payment = payment::find($paymentId);
                     $payment = $this->payment($payment,$request,$id);
                     $totalAmount = $request->input('propertyPrice');
@@ -491,7 +507,12 @@ class editingControll extends Controller
                         }
                     $downpayment =  $this->installmentUpdateSimple($request,$id);
                         if($downpayment == 0){
-                                return redirect()->back()->with('error',' downpayment is less then 20% .');
+                            // if downpayment is less then 20% then payemnt method reaming same and no other functionity will not be perfrom
+                            $payment = payment::find($paymentId);
+                            $payment->propertyPaymentProcedure = $paymentMetod;
+                            $payment->save();
+                            
+                            return redirect()->back()->with('error',' downpayment is less then 20% .');
                         }
                     }
                     elseif($paymentProcedure == "Total Amount"){
@@ -736,7 +757,7 @@ class editingControll extends Controller
             'propertyType' => 'required',
             'registrationStatus' => 'required',
             'propertySection' => 'required',
-            // 'propertyAddress' => 'required',
+            'propertyAddress' => 'required',
             'propertyLocation' => 'required',
             'propertySize' =>'required',
             'propertySellerId'=>'required',
@@ -790,7 +811,7 @@ class editingControll extends Controller
      */
     public function property($property,$request){
 
-        $user_id = Auth::user();
+      
         try{
     
             $property->propertyType = $request->input('propertyType');
@@ -803,7 +824,6 @@ class editingControll extends Controller
             $property->jointProperty = $request->input('jointProperty');
             $property->propertySellerId = $request->input('propertySellerId');
             $property->noOfJointApplicant = $request->input('noOfJointApplicant');
-            $property->userId = $user_id->id;
 
             if($property->jointProperty == "No")
             {
@@ -855,7 +875,6 @@ class editingControll extends Controller
      */
     public function applicant($applicant,$request,$propertyId){
 
-        $user_id = Auth::user();
         try{
             $applicant->name = $request->input('name');
             // $applicant->cover_image = $this->image($request);
@@ -898,7 +917,7 @@ class editingControll extends Controller
             $applicant->nomineeMobileNo1 = $request->input('nomineeMobileNo1');
             $applicant->nomineeMobileNo2 = $request->input('nomineeMobileNo2');
             $applicant->propertyId = $propertyId;
-            $applicant->userId = $user_id->id;
+            
         
             return $applicant;
         }
@@ -913,7 +932,7 @@ class editingControll extends Controller
      * return payment
      */
     public function payment($payment,$request,$propertyId){
-        $user_id = Auth::user();
+  
         try{
 
             $payment->paymentType = $request->input('paymentType');
@@ -926,7 +945,7 @@ class editingControll extends Controller
             $payment->propertyPaymentProcedure = $request->input('propertyPaymentProcedure');
             $payment->propertyPrice = $request->input('propertyPrice');
             $payment->propertyId = $propertyId;
-            $payment->userId = $user_id->id;
+            
 
             return $payment;
         }
@@ -942,12 +961,11 @@ class editingControll extends Controller
      */
     public function review($review,$request,$propertyId){
 
-        $user_id = Auth::user();
         try{
 
             $review->comment=$request->input('comment');
             $review->propertyId = $propertyId;
-            $review->userId = $user_id->id;
+            
             return $review;
         }
         catch(Exception $e){
@@ -963,10 +981,10 @@ class editingControll extends Controller
     */
     public function Unapproval($approval,$propertyId){
 
-        $user_id = Auth::user();
+
         try{
           
-            $approval->userId = $user_id->id;
+            
             $approval->status= "unapproval";
             $approval->propertyId = $propertyId;
         
@@ -1007,17 +1025,19 @@ class editingControll extends Controller
      * return installmentDate ( array )
      */
     public function DateAdd($request){
-        // get numbers of installments 
+
         $noOfinstallments = $request->input('noOfInstallments');
-        $todayDate = date("Y-M-d");
+        $todayDate = date('Y-m-d');
         $data1 = $todayDate;
-        for($i=0; $i < $noOfinstallments; $i++)
-        {
-            $date2 = new DateTime($data1);
-            $date2->add(new DateInterval('P3M')); // P90D means a period of 90 day
-            $installmentDates[$i] = $date2->format('d-M-Y');
-            $date = $installmentDates[$i];         
-        }
+       for($i=0; $i < $noOfinstallments; $i++)
+       {
+           
+           $date2 = new DateTime($data1);
+           $date2->add(new DateInterval('P3M')); // P90D means a period of 90 day
+           $installmentDates[$i] = $date2->format('d-M-Y');
+           $data1 = $installmentDates[$i];         
+           
+       }
         return $installmentDates;
     }
     /**
@@ -1027,7 +1047,6 @@ class editingControll extends Controller
      */
     public function installment($request,$propertyId,$installment){
 
-        $user_id = Auth::user();
         $downpayment = $request->input('downpayment');
         $noOfinstallments = $request->input('noOfInstallments');
         $propertyprice  = DB::table('payments')->where('propertyId',$propertyId)->value('propertyPrice');
@@ -1042,7 +1061,7 @@ class editingControll extends Controller
             $installment->propertyId = $propertyId;
             $installment->amountOfOneInstallment = $amountOfOneInstallment; 
             $installment->installmentDates = json_encode($installmentDates);
-            $installment->userId = $user_id->id;
+            
 
             return $installment;
         }
@@ -1070,10 +1089,19 @@ class editingControll extends Controller
                     $tokenPayment = $te->tokenPayment;
                 }
                 $downpayment = $downpayment + $tokenPayment;
-                if($token){
-                    $deleteTokenId = DB::table('tokens')->where('propertyId',$id)->value('id');
-                    $deleteTokenRow = token::find($deleteTokenId);
-                    $deleteTokenRow->delete();
+                //check the downpayment less then 20 % or not 
+                $propertyprice  = DB::table('payments')->where('propertyId',$id)->value('propertyPrice');
+                $atleastDownpayment = ($propertyprice * 0.2) ;
+                if( $downpayment >=$atleastDownpayment ){
+
+                    if($token){
+                        $deleteTokenId = DB::table('tokens')->where('propertyId',$id)->value('id');
+                        $deleteTokenRow = token::find($deleteTokenId);
+                        $deleteTokenRow->delete();
+                    }
+                }
+                else{
+                    return 0;
                 }
             }
             $propertyprice  = DB::table('payments')->where('propertyId',$id)->value('propertyPrice');
@@ -1124,7 +1152,7 @@ class editingControll extends Controller
             }          
 
         } catch(Exception $e){
-            return redirect()->back()->with('error',' something wrong with the token payment or token payment.');
+            return 0;
         } 
     }
     /**
@@ -1212,7 +1240,7 @@ class editingControll extends Controller
                 $installment->installmentDates = json_encode($installmentDates);
               
                 $installment->save();
-            
+                
                 $paymentHId  = DB::table('payment_histories')->where('propertyId',$id)->value('id');
                 $isEmptypaymentH = json_encode($paymentHId);
                 if($isEmptypaymentH == "null")

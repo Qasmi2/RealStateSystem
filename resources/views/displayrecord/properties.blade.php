@@ -94,7 +94,7 @@
                                           
                                             <div>  
                                             @can('user-actions', Auth::user())
-                                                <a href="{{url('approved/'.$properties[$i]['id'])}}" data-confirm="Are you sure you want to give the Approval?" class="btn btn-lg btn-success ">Approved</a> 
+                                                <a href="{{url('approved/'.$properties[$i]['id'])}}" data-confirm="Are you sure you want to give the Approval?" class="btn btn-lg btn-success " style="background-color: #a6468c !important;">Approved</a> 
                                                 @else
                                                 <span class="badge badge-pill badge-info" style="font-size: 100% !important; background-color: #a6468c !important;">Waiting</span>
                                             @endcan

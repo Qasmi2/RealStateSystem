@@ -36,7 +36,7 @@
    
    
 ?>
-<div class="container" style="margin-top:60px;">
+<div class="container" style="margin-top:80px;">
     <div class="row justify-content-center">
         <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
         @include('flash-message')
@@ -618,7 +618,7 @@ function paymentProcedure(val){
                             '<div class="col-md-6 col-lg-6 col-sm-12">'+
                                 '<label for="noOfInstallments" >No Of installment</label>'+
                               
-                                  '<select class="form-control" name="noOfInstallments" id="noOfInstallments" >'+
+                                  '<select class="form-control" name="noOfInstallments" id="noOfInstallments" required>'+
                                     '<option value="">Select No of Installments</option>'+
                                     '<option value="1">1</option>'+
                                     '<option value="2">2</option>'+
@@ -629,14 +629,14 @@ function paymentProcedure(val){
                                     '<option value="7">7</option>'+
                                     '<option value="8">8</option>'+
                                     '<option value="9">9</option>'+
-                                    '<option value="10">10</option>'+
+                                    '<option value="10" selected="selected">10</option>'+
                                     
                                 '</select>'+
                               
                             '</div>'+       
                             '<div class="col-md-6 col-lg-6 col-sm-12">'+
                                 '<label for="downpayment">Down Payment</label>'+
-                                '<input id="downpayment" type="number" min="0" placeholder="Enter down payment" class="form-control" name="downpayment" value="" >'+
+                                '<input id="downpayment" type="number" min="0" placeholder="Enter down payment" class="form-control" name="downpayment" value="" required>'+
                                
                             '</div>'+
                         '</div>'+

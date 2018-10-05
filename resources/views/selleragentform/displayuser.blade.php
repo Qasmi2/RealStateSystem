@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="container" style="margin-top:60px;">
+<div class="container" style="margin-top:80px;">
     <div class="row justify-content-center">
         <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
         @include('flash-message')
@@ -32,7 +32,7 @@
                     ?>
 
                    
-                    <table class="table table-bordered table-striped table-hover ">
+                    <table class="table table-bordered table-striped table-hover table-responsive w-100 d-block d-md-table ">
                         <thead bgcolor="#a6468c" style="color:white;">
                             <tr>
                                <th>users ID</th>

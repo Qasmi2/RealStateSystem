@@ -6,7 +6,7 @@
   $numberOfSellers = sizeof($seller);
 
 ?>
-<div class="container" style="margin-top:60px;">
+<div class="container" style="margin-top:80px;">
     <div class="row justify-content-center">
         <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
         @include('flash-message')
@@ -78,7 +78,7 @@
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertyAddress">{{ __('Property Address ( Floor No.)') }}</label>
-                                <input id="Property Address" type="number" min="0" placeholder="Enter Floor No, " class="form-control{{ $errors->has('propertyAddress') ? ' is-invalid' : '' }}" name="propertyAddress" value="" >
+                                <input id="Property Address" type="number" min="0" placeholder="Enter Floor No, " class="form-control{{ $errors->has('propertyAddress') ? ' is-invalid' : '' }}" name="propertyAddress" value="" required>
                                 @if ($errors->has('propertyAddress'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertyAddress') }}</strong>
@@ -89,7 +89,7 @@
                         <!-- <div class="form-group row"> -->
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertyLocation">{{ __('Property Location (Room No/Shop No.)') }}</label>
-                                <input id="propertyLocation" type="number" min="0" placeholder="Enter Property Location (Room No / Shop NO) " class="form-control{{ $errors->has('propertyLocation') ? ' is-invalid' : '' }}" name="propertyLocation" value="" >
+                                <input id="propertyLocation" type="number" min="0" placeholder="Enter Property Location (Room No / Shop NO) " class="form-control{{ $errors->has('propertyLocation') ? ' is-invalid' : '' }}" name="propertyLocation" value="" required>
                                 @if ($errors->has('propertyLocation'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertyLocation') }}</strong>
@@ -220,7 +220,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="phoneNO">{{ __('Phone Number') }}(Optional)</label>
-                                <input id="phoneNO" type="tel" size="11" maxlength="11" placeholder="e.g 051xxxxxxx" class="form-control{{ $errors->has('phoneNO') ? ' is-invalid' : '' }}" name="phoneNO" value=""  >
+                                <input id="phoneNO" type="tel" size="16" maxlength="16" placeholder="e.g 051xxxxxxx" class="form-control{{ $errors->has('phoneNO') ? ' is-invalid' : '' }}" name="phoneNO" value=""  >
                                 @if ($errors->has('phoneNo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('phoneNo') }}</strong>
@@ -231,7 +231,8 @@
                         <!-- <div class="form-group row"> -->
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="mobileNo1">{{ __('Mobile Number') }}</label>
-                                <input id="mobileNo1"type="tel" size="12" maxlength="12" placeholder="e.g 0333xxxxxxx" class="form-control{{ $errors->has('mobileNo1') ? ' is-invalid' : '' }}" name="mobileNo1" value="" pattern="[0-9]{11}" title=" Please match the Mobile No"  required>
+                                
+                                <input id="mobileNo1"type="tel" size="13" maxlength="16" placeholder="e.g 923331234567" class="form-control{{ $errors->has('mobileNo1') ? ' is-invalid' : '' }}" name="mobileNo1" value="" pattern="[0-9]{11}" title=" Please match the Mobile No"  required>
                                 @if ($errors->has('mobileNo1'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('mobileNo1') }}</strong>
@@ -240,7 +241,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="mobileNo2">{{ __('Mobile Number (Opt)') }}</label>
-                                <input id="mobileNo2"  type="tel" size="12" maxlength="12" placeholder="e.g 0305xxxxxxx" class="form-control{{ $errors->has('mobileNo2') ? ' is-invalid' : '' }}" name="mobileNo2" value="" >
+                                <input id="mobileNo2"  type="tel" size="13" maxlength="16" placeholder="e.g 923331234567" class="form-control{{ $errors->has('mobileNo2') ? ' is-invalid' : '' }}" name="mobileNo2" value="" >
                                 @if ($errors->has('mobileNo2'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('mobileNo2') }}</strong>
@@ -504,7 +505,7 @@
                               
                             
                               
-                                  <select id="noOfInstallments" class="form-control" name="noOfInstallments"    >
+                                  <select id="noOfInstallments" class="form-control" name="noOfInstallments" >
                                     <option value="">Select No of Installments</option>'+
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -538,12 +539,12 @@
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label id="tokenPayment" for="tokenPayment" >Token Payment </label>
-                                <input id="tokenPayment" type="number" min="0" placeholder="Enter Token payment" class="form-control" name="tokenPayment" value="" style="border: 1px solid red;">
+                                <input id="tokenPayment" type="number" min="0" placeholder="Enter Token payment" class="form-control" name="tokenPayment" value="" style="border: 1px solid red;" >
                               
                             </div>       
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="remaningPaymentDate">Remaning Payment Date </label>
-                                <input id="remaningPaymentDate" type="Date" placeholder="Enter Remaning Payment Date" class="form-control" name="remaningPaymentDate" value="" style="border: 1px solid red;">
+                                <input id="remaningPaymentDate" type="Date" placeholder="Enter Remaning Payment Date" class="form-control" name="remaningPaymentDate" value="" style="border: 1px solid red;" >
                                
                             </div>
                         </div>
@@ -658,10 +659,14 @@ var parent = document.getElementById('addtoken');
     else if( paymentProcedure == "Installment"){
         
         document.getElementById("addinstallment").style.display ="block";  
+        document.getElementById("noOfInstallments").required = true;
+        document.getElementById("downpayment").required = true;
         document.getElementById("addtoken").style.display ="none";
     }
     else if( paymentProcedure == "Token"){
-        document.getElementById("addtoken").style.display ="block";                               
+        document.getElementById("addtoken").style.display ="block";
+        document.getElementById("tokenPayment").required = true;
+        document.getElementById("remaningPaymentDate").required = true;                               
         document.getElementById("addinstallment").style.display ="none";
     }
 

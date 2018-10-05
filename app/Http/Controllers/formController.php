@@ -119,7 +119,9 @@ class formController extends Controller
         $property  = DB::table('properties')->where('id',$id)->first();
         $payment = DB::table('payments')->where('propertyId',$id)->first();
         $applicant = DB::table('applicants')->where('propertyId',$id)->first();
-        return view('displayrecord.registrationform',compact('property','payment','applicant'));
+        $paymentHistory = DB::table('payment_histories')->where('propertyId',$id)->first();
+      
+        return view('displayrecord.registrationform',compact('property','payment','applicant','paymentHistory'));
 
         }
         catch(Exception $e){

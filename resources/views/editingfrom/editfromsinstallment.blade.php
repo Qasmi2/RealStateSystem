@@ -43,7 +43,7 @@
        
     }
 ?>
-<div class="container" style="margin-top:60px;">
+<div class="container" style="margin-top:80px;">
     <div class="row justify-content-center">
         <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
         @include('flash-message')
@@ -641,13 +641,13 @@ if( paymentProcedure == "Token"){
                         '<div class="form-group row">'+
                             '<div class="col-md-6 col-lg-6 col-sm-12">'+
                                 '<label for="tokenPayment" >Token Payment </label>'+
-                                '<input id="tokenPayment" type="number" min="0" placeholder="Enter token Payment" class="form-control" name="tokenPayment" value="" >'+
+                                '<input id="tokenPayment" type="number" min="0" placeholder="Enter token Payment" class="form-control" name="tokenPayment" value="" required>'+
                                  
                               
                             '</div>'+       
                             '<div class="col-md-6 col-lg-6 col-sm-12">'+
-                                '<label for="remaningPaymentDate">Down Payment</label>'+
-                                '<input id="remaningPaymentDate" type="number" min="0" placeholder="Enter Reaming Payment Date" class="form-control" name="remaningPaymentDate" value="" >'+
+                                '<label for="remaningPaymentDate">Remaning Payment Date</label>'+
+                                '<input id="remaningPaymentDate" type="Date" placeholder="Enter Reaming Payment Date" class="form-control" name="remaningPaymentDate" value="" required>'+
                                
                             '</div>'+
                         '</div>'+
