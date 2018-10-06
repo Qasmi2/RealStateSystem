@@ -327,7 +327,7 @@
             </table>
         </section>
     </div>
-    <!--<img src="images/footer.jpg" class="footerprop" />-->
-
+    <img src="../../public/images/footer.jpg" class="footerprop" />
+   
 </body>
 </html>
