@@ -1,108 +1,21 @@
 <!doctype html>
-<html>
-<head>
-   <!-- Required meta tags -->
-   <meta charset="utf-8">
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <style>
-        @font-face {
-            font-family: 'GothamBlack','GothamBook';
-            src: url("fonts/Gotham-Black.ttf");
-            src: url("fonts/Gotham-Book.ttf");
-        }
 
-        body {
-            font-family:'GothamBook',GothamBlack;
-            font-size:12px;
-            height: auto;
-            width: 800px;
-            position: relative;
-            margin: 0 auto;
-            color: #000;
-            background: #FFFFFF;
-            display: block;
-            letter-spacing: 1px;
-        } 
-		
-		table {
-			font-family: arial, sans-serif;
-			border-collapse: collapse;
-			width: 100%;
-		}
-
-		td, th {
-			border: 1px solid #dddddd;
-			text-align: left;
-			padding: 8px;
-		}
-		li{
-			margin:20px 0;
-		}
-    </style>
-	<?php 
-		$seller = array($seller);
-		foreach($seller as $te){
+    <title>Contract Form</title>
+  </head>
+  <body>
+        <div class="container">
+			<div class="row">
+             <div style="width:800px; margin:0px auto; font-size:20px; display:table; padding:50px;">
 			
-			$sallerName = $te->sallerName;
-			$sallerCnicNo = $te->sallerCnicNo;
-		
-		}  
-		$applicant = array($applicant);
-		foreach($applicant as $te){
-			
-			$appName = $te->name;
-			$fatherName = $te->fatherName;
-			$cnicNo = $te->cnicNo;
-			$address = $te->mailingAddress;
-		
-		}  
-		$property = array($property);
-		$applicant = array($applicant);
-		$payment = array($payment);
-		$witness = array($witness);
-		$installment = array ($installments);
-
-		foreach($property as $te){
-			$propertyType = $te->propertyType;
-			$propertySection = $te->propertySection;
-			$size = $te->propertySize;
-			$location = $te->propertyLocation;
-			$floor = $te->propertyAddress;
-
-		}
-		foreach($payment as $te){
-			$totalPrice = $te->propertyPrice;
-			$mode = $te->propertyPaymentProcedure;
-			$paymentType = $te->paymentType;
-			$purchingDate = $te->propertyPurchingDate;
-			 
-		}
-		// get per unit cost 
-		$unitCost = (int)($totalPrice/$size);
-		foreach($installment as $te){
-			$noOfInstallments = $te->noOfInstallments;
-			$downpayment = $te->downpayment;
-			$OneInstalment = (int)($te->amountOfOneInstallment);
-			$intallmentDates = json_decode($te->installmentDates);
-			$firstInstallmentDates = $intallmentDates[0];
-			
-		}
-		// reaming amount 
-		$remaingAmount = $totalPrice - $downpayment;
-
-		
-	?>
-
-</head>
-<body>
-<div class="container">
-
-        <div style="width:1000px; margin:0px auto; font-size:20px; line-height:25px; display:table; padding:50px;">
-			
-            <div style="font-family:GothamBook;font-size:30px; font-weight:bold;margin-top:80px;">CONTRACT</div>
+            <div style="font-family:GothamBook;font-size:30px; font-weight:bold;margin-top:110px;">CONTRACT</div>
 			&nbsp;
 			
 			<div style="font-family:GothamBook; font-size:30px; font-weight:bold;margin-top:30px;">MONTVIRO INVESTMENT</div>
@@ -117,7 +30,7 @@
                 </div>       
 			
 
-				<div style="font-family:GothamBook; font-size:15px; margin:5px 0; margin-right:20px;">
+				<div style="font-family:GothamBook; font-size:15px; margin:15px 0; margin-right:20px;">
 					According to this contract CLIENT is investing in one unit of Montviro Project. 
 				</div>
 				<div style="font-family:GothamBook; font-size:15px; margin-top:5px; margin-right:20px;">
@@ -135,7 +48,7 @@
 						</li>
 					</ol>
 				</div>
-				<div style="font-family:GothamBook; font-size:30px; font-weight:bold;margin:25px 0;">TERMS AND CONDITIONS</div>
+				<div style="font-family:GothamBook; font-size:30px; font-weight:bold;margin:50px 0;">TERMS AND CONDITIONS</div>
 				<div style="font-family:GothamBook; font-size:15px;margin-top:5px; margin-right:20px;">
                     <b>
 					The terms and conditions mentioned hereunder pertain to “Montviro” Hotel, Mall and Theme Park being 
@@ -168,8 +81,9 @@
 							</li>
 						</ol>
 					
-				
-						<li><b>CHANGE OF ADDRESS</b></li>
+				      
+						
+						<li ><b>CHANGE OF ADDRESS</b></li>
 							<ol type="a">
 								<li>The demand notice of payments and all correspondence will be dispatched by post at the address of 
 									applicant as mentioned in the application form and shall be deemed to be duly received and served upon 
@@ -177,8 +91,10 @@
 									is not informed by the applicant in advance or for the postal mishap.
 								</li>
 							</ol>
-					
-					    <br><br><br><br><br><br><br><br><br><br><br>
+						<br/><br/><br/><br/><br/>
+					 
+					 
+						
 						<li style="padding-top:100px;"><b>PAYMENT OF INSTALMENTS/ PAYMENTS</b></li>
 							<ol type="a">
 								<li>The time for each and every payment is the essence of this contract. The applicant must ensure the prompt payment of instalments on the due date as per payment schedule agreed at the time of booking. In case of failure, a demand notice for payment will be send to such applicant by ordinary post, if no payment received within next 15 days, the company shall have a right to demand a late payment surcharge and/or revoke the discount offered to the applicant (if any): Whereas, the applicant who shall have paid the full amount against his unit be exempted from this clause.
@@ -191,12 +107,13 @@
 								</li>
 							</ol>
 					
-				
-						<li><b>NON PAYMENT OF INSTALMENTS</b></li>
+				        <br/><br/>
+						<li>
+							<b>NON PAYMENT OF INSTALMENTS</b></li>
 							
 						In case of failure on part of the applicant to make payments against his/ her booked unit within the prescribed time period or within 30 days from the date of issuance of demand notice, the allotment of unit shall be stand cancelled and the principle amount received as down payment and installments till date of cancellation of allotment shall be refunded to the applicant within next 30 days, thereon. The applicant shall have no right to object in such case.
-
-						<li><b>OWNERSHIP/ POSSESSION EXECUTION</b></li>
+                      
+						<li style="margin-top:50px;"><b>OWNERSHIP/ POSSESSION EXECUTION</b></li>
 						<ol type="a">
 							<li>
 								In case of Booking of Shop, the applicant shall only be given the ownership and possession of his shop in case of full payment/ clearance of instalments against his booked unit. The company shall extend full cooperation to the applicant in registration of the shop after all payment is made. However, all legal expenses in this connection shall be borne by the applicant.
@@ -213,23 +130,23 @@
 							</li>
 						</ol>
 					
-					
+					    <br/><br/><br/>
 						<li><b>AVAILABILITY OF ALLIED FACILITIES</b></li>
 						
 							Although the company shall be bound to provide all the allied facilities to the applicant and that the availability of the mentioned services are subject to the policy of the concerned department/ Government/ semi Government or Local Authorities’ the processing for installation/ transfer of such allied facilities shall be done on behalf of the applicant through demand notice and therefore, the applicant shall pay the processing fee as incurred.
 						
 						
-						<li><b>TRANSFER OF ALLOTMENT</b></li>
+						<li style="margin-top:50px;"><b>TRANSFER OF ALLOTMENT</b></li>
 								The applicant shall have no right to transfer or sell his unit to anyone without prior permission of the company. Such transfer shall only be made through the Fintial Consultants (Pvt) Ltd and the transfer fee @2% of the total price shall be charged from the applicant as transfer charges as per company policy.
 
 						
 					
-					
-						<li><b>SURRENDER OF ALLOTMENT</b></li>
+					    <br><br><br><br><br><br><br>
+						<li style="padding-top:100px;"><b>SURRENDER OF ALLOTMENT</b></li>
 								If applicant subsequently wishes to surrender his/her unit at any stage, allotment of booked unit shall stand cancelled and the amount received as down payment and instalments shall be refunded to the applicant without any deduction of amount within 30 days.
 					
-						<br><br><br><br><br><br><br>
-						<li  style="padding-top:100px;"><b>COMMON AREA MAINTENANCE (CAM) CHARGES</b></li>
+				
+						<li><b>COMMON AREA MAINTENANCE (CAM) CHARGES</b></li>
 								The client (may or may not be the owner) shall be bound to pay the monthly CAM charges to the company as decided. In case of delay in payment, the company shall charge the client with late payment surcharge as penalty.
 
 						
@@ -253,18 +170,19 @@
 									Usage of Shop: Such units shall be managed by the applicant/ client under overall supervision of the company.
 
 								</li>
+								
 								<li>
 									That the applicant shall not made any additions involving structure of the building within the room/shop allotted. The structure includes columns, slabs and beams, nor shall change the elevation of the building and any part, thereof, under any circumstances. However, the applicant/ client shall be allowed for such minor fixation which doesn’t affect the structure of the unit after prior approval of the company. The restriction will continue even after the possession of the shop is taken by the applicant.
 
 
 								</li>
-								<li>
+								<br/><br/><br/><br/><br/><br/>
+								<li  style="padding-top:100px;">
 									That the applicant shall not object if company sublet the applicant’s unit to any of the brand.
 
 
 								</li>
-								<br><br><br><br>
-								<li style="padding-top:100px;">
+								<li>
 									That the applicant/ client shall not be allowed for any kind of advertisement within the shopping mall premises, however, the applicant/ client shall only be allowed to use boards of specified size/ dimensions outside the shop as permitted by the company with prior written approval of the company.
 
 								</li>
@@ -308,30 +226,35 @@
 							<li>
 								 That the use of exterior walls, front and common area shall be reserved by the company for other commercial use at the sole discretion of the company.
 							</li>
+							
 							<li>
 								That the applicant/ client shall keep the common way passages and staircase and streets etc. for the only purpose as being the common way passages staircase and streets etc. for all the applicants/ clients and shall not place any goods or create any obstruction in the same.
 
 							</li>
+						
 							<li>
 								
 								The unit shall be used only for the purpose mentioned in application form, and the applicant/ client shall maintain the unit in good condition and shall not do anything contrary to law.
 
 							</li>
+							
 							<li>
 								The rights of the roof shall be retained by the company at all times and the applicant/ client shall have no share, claim or interest in and over the roof top and floors. Further, the company reserves the full rights of using top floor, roof or slide wall for erecting and fixing or constructing any additional floors.
 							</li>
+							
 							<li>
 							
 								The applicant/ client, hereby, agrees to open the shop for business within 15 days after possession of the shop for running, if he desires to run the known brand in it. In case the applicant/ client fails to open the shop within the prescribed time, the company shall be entitled to imposed penalty on the applicant / client. However, the company shall facilitate the applicant for rent out as per the rates mentioned in Annexure A of the terms and conditions by the company and the applicant is bound to do so.
 
 							</li>
-							<li>
+							
+							<li >
 							All clients (may or may not be owner) shall liable to pay all allied bills before due date, if applicable. Breeding management system shall also be installed by the company to monitor transparent payment of such bills.
 							</li>
 							
 						</ol>
-						<br><br>
-						<li style="padding-top:100px;">That; the company shall make internal and external minor charges in the designing and layout to the mall and hotel, if necessary.</li>
+						<br/><br/><br/><br/><br/><br/>
+						<li style="margin-top:100px;">That; the company shall make internal and external minor charges in the designing and layout to the mall and hotel, if necessary.</li>
 					
 						<li>That; the company shall have first lien, claim and charge on the shop/ room, its fixtures and fitting and the contents, therein, regarding any amount liable to be paid by the applicant to the company.</li>
 					
@@ -346,7 +269,7 @@
 			<table>
 				<tr style="border:none !important;">
 					<td style="border:none !important;">
-						<div style="front-family:GothamBook;font-size:12px;text-align:left;line-height:18px; padding:25px 0;">
+						<div style="front-family:GothamBook;font-size:12px;text-align:left;line-height:18px; padding:20px 0; padding-left:60px;">
 							<b>Saller</b><br>
 							Signature:___________________________<br>
 							MONTVIRO (Pvt) Ltd.<br>
@@ -356,11 +279,12 @@
 						</div>
 					</td>
 					<td style="border:none !important;">
-						<div style="front-family:GothamBook;font-size:12px;text-align:right;line-height:18px; padding:25px 0;">
+						<div style="front-family:GothamBook;font-size:12px;line-height:18px; padding:25px 0; padding-left:105px">
 							<b>Purchaser</b><br>
+							Signature:___________________________<br>
 							Name:<b> {{$appName}} </b><br>
 							CNIC #  {{$cnicNo}}<br>
-							Address:{{$address}}
+							<!--Address:address-->
 						
 						</div>
 					</td>
@@ -371,17 +295,19 @@
 			<table>
 				<tr style="border:none !important;">
 					<td style="border:none !important;">
-						<div style="front-family:GothamBook;font-size:12px;text-align:left;line-height:18px; padding:25px 0;">
+						<div style="front-family:GothamBook;font-size:12px;text-align:left;line-height:18px; padding:20px 0; padding-left:60px;">
 							<b>Witness 1:</b><br>
-							FFintial consultants (Pvt) Ltd.<br>
+							Signature:___________________________<br>
+							Fintial consultants (Pvt) Ltd.<br>
 							Name: <b>Kashif Malik </b><br>
 							CNIC # 37405-4588246-1<br>
 							
 						</div>
 					</td>
 					<td style="border:none !important;">
-						<div style="front-family:GothamBook;font-size:12px;text-align:right;line-height:18px; padding:25px 0;">
+						<div style="front-family:GothamBook;font-size:12px;line-height:18px; padding:25px 0; padding-left:105px;">
 							<b>Witness 2:</b><br>
+							Signature:___________________________<br>
 							Fintial consultants (Pvt) Ltd.<br>
 							Name:<b>{{$sallerName}}</b><br>
 							CNIC NO # {{$sallerCnicNo}}<br>
@@ -392,12 +318,14 @@
 			</table>
             
 		</div>
+        </div> 
+		</div>
+   
 
- </div>
-		   <!-- Optional JavaScript -->
+    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-</body>
+  </body>
 </html>

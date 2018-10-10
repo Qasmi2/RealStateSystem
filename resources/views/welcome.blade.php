@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Nadeem Qasmi Full stack Developer at WIZKON.com">
 
-        <title>BookingSystem</title>
+        <title>Montviro Booking Portal</title>
          <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
 

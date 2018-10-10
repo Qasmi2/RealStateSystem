@@ -134,7 +134,7 @@
                             
                                 <label>Please choose your Picture</label>
                                 <br>
-                                <input type="file" name="cover_image" id="cover_image" class="btn btn-danger" style="color:white;"/ required>
+                                <input type="file" name="cover_image" id="cover_image" class="btn btn-denger" style="color:white; background-color:red" required>
                                     @if ($errors->has('cover_image'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('cover_image') }}</strong>

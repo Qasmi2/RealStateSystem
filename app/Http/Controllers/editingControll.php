@@ -774,7 +774,7 @@ class editingControll extends Controller
             // 'phoneNO'=> 'required',
             'mobileNo1'=> 'required',
             // 'mobileNo2'=> 'required',
-            // 'cover_image'=> 'required',
+            'cover_image'=> 'image|nullable|max:1999',
             'nomineeName'=> 'required',
             'nomineeFatherName'=> 'required',
             'relationWithApplicant'=> 'required',
@@ -1127,9 +1127,10 @@ class editingControll extends Controller
                
                 $installment->save();
 
-                $payment = payment::find($id);
-                $payment->propertyPaymentProcedure = $request->input('propertyPaymentProcedure');
-                $payment->save();    
+                $paymentId = DB::table('payments')->where('propertyId', $id)->value('id');
+				$payment = payment::find($paymentId);
+				$payment->propertyPaymentProcedure = $request->input('propertyPaymentProcedure');
+                $payment->save();  
             
                 $paymentHId  = DB::table('payment_histories')->where('propertyId',$id)->value('id');
                 $isEmptypaymentH = json_encode($paymentHId);

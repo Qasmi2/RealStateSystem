@@ -96,7 +96,7 @@
 	<div class="col-md-8 token-headings">
 	<h2 style="font-family:arial; margin-top:160px; font-weight:bold;font-size:44px;"> RECEIPT</h2>
 	<h2 style="font-family:arial; margin-top:45px; font-weight:bold;font-size:32px;"> MONTVIRO INVESTMENT</h2>
-	<h2 style="font-family:arial;  font-weight:bold;font-size:32px;">DOWN PAYMENT</h2>
+	<h2 style="font-family:arial;  font-weight:bold;font-size:32px;">TOTAL PAYMENT</h2>
 	</div>
 	<div class="col-md-4" style="margin-top:160px;">
 	<p style="text-align:right; padding-right:20px;margin-bottom:0.3rem !important;"> Receipt #:<u>{{$appid}}</u></p>
