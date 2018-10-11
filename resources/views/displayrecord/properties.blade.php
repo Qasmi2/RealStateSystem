@@ -18,7 +18,17 @@
                                     return false;
                                         });
                                 });
-                             </script>
+                            </script>
+                            <script>
+                                    $(document).ready(function(){
+                                    $("#myInput").on("keyup", function() {
+                                        var value = $(this).val().toLowerCase();
+                                        $("#myTable tr").filter(function() {
+                                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                        });
+                                    });
+                                    });
+                            </script>    
                             
             <div class="card">
                 <div class="card-header" style="background-color: #f44336;color:white;">Display Properties</div>
@@ -27,14 +37,25 @@
                 <div class="card-body">
                    
                  
-                    <?php $appSize = sizeof($applicanties);
+                    <?php 
+                        //  var_dump(json_encode($applicanties));                       
+                        //  exit(); 
+                         $appSize = sizeof($applicanties);
                           $proSize = sizeof($properties);
                           $proSize = sizeof($payments);
                           $approSize = sizeof($approvals);
-                         
+
                         
                     ?>
+          
 
+                    
+                    <div class="container">
+                      <div class="row">
+                         <input id="myInput" type="text" class="form-control" placeholder="Search..">
+                       </div>
+                    </div>     
+                    <br>      
                     <table class="table table-striped table-hover table-responsive w-100 d-block d-md-table">
                         <thead bgcolor="#a6468c" style="color:white;">
                             <tr>
@@ -50,7 +71,7 @@
                                
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="myTable">
                        
                             @for($i=0; $appSize >$i; $i++)
                                 <tr>

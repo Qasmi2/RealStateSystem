@@ -19,6 +19,7 @@
                     <hr>
                     &nbsp;&nbsp;
                     &nbsp;
+                 
                     
                     <form method="POST"  action="{{ url('allformdata')}}" enctype="multipart/form-data" value="PATCH">
                         {{ csrf_field() }}
