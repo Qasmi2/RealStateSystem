@@ -96,3 +96,5 @@ Route::get('userinfos','addUserController@index')->name('userinfos')->middleware
 Route::get('usersedit/{id}','addUserController@edit')->name('usersedit')->middleware('auth');
 Route::post('usersupdate/{id}','addUserController@update')->name('usersupdate')->middleware('auth');
 Route::get('usersdelete/{id}','addUserController@destroy')->name('usersdelete')->middleware('auth');
+//ajax call to find existing reocord through CNIC NO
+Route::post('findrecord','ajaxController@index')->name('findrecord');

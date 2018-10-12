@@ -17,10 +17,96 @@
                    
                     <div><h3>Property Information</h3></div>
                     <hr>
+                         <div class="dropdown" style="float:right;">
+                            <button class="btn btn-danger dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">Get Existing Date using CNIC NO
+                                <span class="caret"></span></button>
+                                    <div class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                        <div class="container">
+                                                   <h5 style="text-align:center"> Existing Date Get using CNIC NO</h5>
+                                                   <div class="alert alert-info" style="color:black !important;display:none"></div>
+                                                    <form id="myForm">
+                                                        <div class="form-group row">
+                                                            <div class="col-md- col-lg-12 col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label for="name">CNIC NO. :</label>
+                                                                    <input id="cnicNo" type="tel" size="15" maxlength="15" placeholder="e.g 6110112345678" class="form-control" name="cnicNo"  value=""  pattern="[0-9]{13}" >
+                                                                </div>
+                                                                <button class="btn btn-danger" id="ajaxSubmit" style="float:right;">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                        </div>
+                                    </div>
+                          </div>
+                        
+                        <script>
+                        $(document).ready(function(){
+                            $(".dropdown-toggle").dropdown();
+                        });
+                        </script>
+                         <!-- script Ajax -->
+                         <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+                                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+                                crossorigin="anonymous">
+                         </script>
+                        <script>
+                            jQuery(document).ready(function(){
+                                jQuery('#ajaxSubmit').click(function(e){
+                                e.preventDefault();
+                                $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    }
+                                });
+                                jQuery.ajax({
+                                    dataType: "JSON",
+                                    url: "{{ url('findrecord') }}",
+                                    method: 'post',
+
+                                    data: {
+                                        cnicNo: jQuery('#cnicNo').val()
+                                       
+
+                                    },
+                                    success: function(result){
+                                        console.log('Ajax Response', result);
+                                        if(result.success != "Not Found") {
+                                            jQuery('.alert').show();
+                                            jQuery('.alert').html("Filled out the form ");
+                                          // alert(result.id + result.name + result.fatherName);
+                                          document.getElementById("name").value = result.name;
+                                          document.getElementById("fatherName").value = result.fatherName;
+                                          document.getElementById("cnicNo1").value = result.cnicNo;
+                                          document.getElementById("passportNo").value = result.passportNo;
+                                          document.getElementById("mailingAddress").value = result.mailingAddress;
+                                          document.getElementById("permanentAddress").value = result.permanentAddress;
+                                          document.getElementById("email").value = result.email;
+                                          document.getElementById("phoneNO").value = result.phoneNO;
+                                          document.getElementById("mobileNo1").value = result.mobileNo1;
+                                          document.getElementById("mobileNo2").value = result.mobileNo2;
+                                          document.getElementById("nomineeName").value = result.nomineeName;
+                                          document.getElementById("nomineeFatherName").value = result.nomineeFatherName;
+                                          document.getElementById("nomineeCnicNo").value = result.nomineeCnicNo;
+                                          document.getElementById("relationWithApplicant").value = result.relationWithApplicant;
+                                          document.getElementById("nomineeMailingAddress").value = result.nomineeMailingAddress;
+                                        
+
+                                        }
+                                        else{
+                                           
+                                        jQuery('.alert').show();
+                                        jQuery('.alert').html(result.success);
+                                        }
+                                        
+                                    }
+                                    });
+                                });
+                                });
+                        </script>
+                         <!-- End script Ajax -->
+                    <br>
                     &nbsp;&nbsp;
                     &nbsp;
-                 
-                    
                     <form method="POST"  action="{{ url('allformdata')}}" enctype="multipart/form-data" value="PATCH">
                         {{ csrf_field() }}
                         <div class="form-group row">
@@ -135,7 +221,7 @@
                             
                                 <label>Please choose your Picture</label>
                                 <br>
-                                <input type="file" name="cover_image" id="cover_image" class="btn btn-denger" style="color:white; background-color:red" required>
+                                <input type="file" name="cover_image" id="cover_image" class="btn btn-denger" style="color:white; background-color:red" value="" required>
                                     @if ($errors->has('cover_image'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('cover_image') }}</strong>
@@ -168,12 +254,12 @@
                         <!-- </div> -->
                         <!-- <div class="form-group row"> -->
                             <div class="col-md-3 col-lg-3 col-sm-12">
-                                <label for="cnicNo">{{ __('CNIC Number') }}</label>
-                                <input id="cnicNo" type="tel" size="15" maxlength="15" placeholder="e.g 6110112345678" class="form-control{{ $errors->has('cnicNo') ? ' is-invalid' : '' }}" name="cnicNo" value=""  pattern="[0-9]{13}" title=" Please match the CNIC No" required>
+                                <label for="cnicNo1">{{ __('CNIC Number') }}</label>
+                                <input id="cnicNo1" type="tel" size="15" maxlength="15" placeholder="e.g 6110112345678" class="form-control{{ $errors->has('cnicNo') ? ' is-invalid' : '' }}" name="cnicNo" value=""  pattern="[0-9]{13}" title=" Please match the CNIC No" required>
                               
-                                @if ($errors->has('cnicNo'))
+                                @if ($errors->has('cnicNo1'))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('cnicNo') }}</strong>
+                                        <strong>{{ $errors->first('cnicNo1') }}</strong>
                                     </span>
                                 @endif
                             </div>
