@@ -49,7 +49,7 @@ body, html {
             <div class="row justify-content-center" style="padding-top:150px;">
                  <div class="col-md-6">
                      <div class="card" style="opacity: 0.9;">
-                        <div class="card-header">Login In Form</div>
+                        <div class="card-header">Login Form</div>
 
                             <div class="card-body">
             <!-- -->

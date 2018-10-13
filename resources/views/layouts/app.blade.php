@@ -35,7 +35,8 @@
         <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-fixed-top" style="background-color:#a6468c !important;position: fixed !important;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
-                    {{ config('app.name', 'MontviroBookingPortal  BETA') }}
+               
+                    {{ config('app.name', 'MontviroBookingPortal ') }} <sup style="background-color:white;color: #a6468c;">BETA</sup>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -123,8 +124,8 @@
                     <img src="..\public\images\user.png" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
-                    <!-- <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</div> -->
-                    <div class=" name dropdown" >
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</div>
+                    <!-- <div class=" name dropdown" >
                                 <a style="color:white;"id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
@@ -140,7 +141,7 @@
                                         @csrf
                                     </form>
                                 </div>
-                    </div>
+                    </div> -->
                     
                 </div>
             </div>

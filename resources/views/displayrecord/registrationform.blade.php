@@ -23,7 +23,7 @@
             float:left;
         }        
         .compname h1{
-            font-family:GothamBlack;
+            font-family:'GothamBlack';
             font-size:20px;
             font-weight:bold;
             margin-bottom:0px;
@@ -75,12 +75,12 @@
             top:3px;
             left:40px;
             font-size:13px;
-            font-family:GothamBlack;
+            font-family:'GothamBlack';
             margin:0px;
         }
 
         .h3prop{
-            font-family:GothamBlack;
+            font-family:'GothamBlack';
             font-size:12px;
             margin:10px 20px 15px 40px;
             color:black;
@@ -153,7 +153,7 @@
             margin-bottom:18px;
         }
         strong{
-            font-family:GothamMedium;
+            font-family:'GothamMedium';
             font-size:14px;
         }
     </style>
