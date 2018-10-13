@@ -377,7 +377,7 @@ class editingControll extends Controller
         if(Gate::allows('view',$property,Auth::user())){
 
            $approval = approval::where('propertyId',$id)->value('status');
-           if($approval == "approved"){
+           if($approval == "approved" && Auth::user()->role !="Admin"){
                $paymentmethod = DB::table('payments')->where('propertyId',$id)->value('propertyPaymentProcedure');
                 $paymentprocedure = $request->input('propertyPaymentProcedure');
                 if($paymentmethod == $paymentprocedure){
