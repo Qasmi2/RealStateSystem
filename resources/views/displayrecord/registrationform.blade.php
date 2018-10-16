@@ -249,7 +249,7 @@
             <div class="h3prop">
                 REGISTRATION STATUS: &nbsp; &nbsp; &nbsp;
                 <label class="checkboxprop" style="padding-left:7px;">
-                    <span id="check4" class="tempuncheck">&nbsp; &nbsp;</span> First Alottee 
+                    <span id="check4" class="tempuncheck">&nbsp; &nbsp;</span> First Allottee 
                 </label>
                 <label class="checkboxprop" style="padding-left:18px;">
                     <span id="check5" class="tempuncheck">&nbsp; &nbsp;</span> Transfer Certificate

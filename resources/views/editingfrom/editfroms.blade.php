@@ -62,7 +62,7 @@
                         {{ csrf_field() }}
                         <div class="form-group row">
                             <div class="col-md-4 col-lg-4 col-sm-12">
-                                <label for="propertyType" >{{ __('Registion Project') }}</label>
+                                <label for="propertyType" >{{ __('Registration Project') }}</label>
                                 <!-- <input id="propertyType" type="propertyType" placeholder="Enter REGISTERED PROJECT " class="form-control{{ $errors->has('propertyType') ? ' is-invalid' : '' }}" name="propertyType" value="{{$te->propertyType}}" required> -->
                                 <select class="form-control" name="propertyType" id="propertyType" @if($status =="approved" && $role !="Admin") disabled @endif>
                                     <option value="{{$te->propertyType}}">{{$te->propertyType}}</option>
@@ -339,7 +339,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
-                                <label for="relationWithApplicant">{{ __('Relationship With applicant') }}</label>
+                                <label for="relationWithApplicant">{{ __('Relationship with Applicant') }}</label>
                                 <input id="relationWithApplicant" type="text" placeholder="Enter Relation With Applicant " class="form-control{{ $errors->has('relationWithApplicant') ? ' is-invalid' : '' }}" name="relationWithApplicant" value="{{ $te->relationWithApplicant }}"  required @if($status =="approved"  && $role !="Admin") disabled @endif>
                                 @if ($errors->has('relationWithApplicant'))
                                     <span class="invalid-feedback">
@@ -499,7 +499,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
-                                <label for="propertyPaymentProcedure">{{ __('property Payment Procedure') }}</label>
+                                <label for="propertyPaymentProcedure">{{ __('Property Payment Procedure') }}</label>
                                 <!-- <input id="propertyPaymentProcedure" type="text" placeholder="Enter Total Amount " class="form-control{{ $errors->has('propertyPaymentProcedure') ? ' is-invalid' : '' }}" name="propertyPaymentProcedure" value="{{ $te->propertyPaymentProcedure }}" required> -->
                                 <select class="form-control" name="propertyPaymentProcedure" id="propertyPaymentProcedure" onchange="paymentProcedure(this);" >
                                     <option value="{{ $te->propertyPaymentProcedure }}">{{ $te->propertyPaymentProcedure }}</option>
@@ -534,7 +534,7 @@
                       
                         <div class="form-group row">    
                             <div class="col-md-12 col-lg-12 col-sm-12">
-                                    <label for="witnessName">{{ __('Saller Name') }}</label>
+                                    <label for="witnessName">{{ __('Seller Name') }}</label>
                                     <select class="form-control" name="propertySellerId" id="propertySellerId" @if($status =="approved"  && $role !="Admin") disabled @endif>
                                                 <option value="{{$sellerId}}">{{$sellername}}</option>
                                         @foreach($seller as $te)

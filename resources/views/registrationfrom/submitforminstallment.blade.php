@@ -274,17 +274,17 @@
                         </div>
                     </fieldset>
                     <fieldset class="col-md-12" style="background-color:#fff; margin-top:20px;">    	
-                    <legend>Saller Infromation</legend>
+                    <legend>Seller Infromation</legend>
                         <!-- <div class="col-md-12 col-lg-12 col-sm-12">     -->
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     @foreach($seller as $te)
-                                        <div class="p-3 bg-secondary mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Saller Name') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Seller Name') }}    :</label>
                                            <b>{{$te->sallerName}}</b>
                                         </div>
                                 </div>
                                 <div class="col-md-6">
-                                        <div class="p-3 bg-secondary mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Saller CNIC NO.') }}    :</label>
+                                        <div class="p-3 bg-secondary mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Seller CNIC NO.') }}    :</label>
                                                <b>{{$te->sallerFatherName}}</b> 
                                         </div>
                                     @endforeach    

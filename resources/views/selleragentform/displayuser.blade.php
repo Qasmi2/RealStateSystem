@@ -35,10 +35,10 @@
                     <table class="table table-bordered table-striped table-hover table-responsive w-100 d-block d-md-table ">
                         <thead bgcolor="#a6468c" style="color:white;">
                             <tr>
-                               <th>users ID</th>
-                               <th>users Name</th>
-                               <th>users Email</th>
-                               <th>users Role</th>
+                               <th>Users ID</th>
+                               <th>Users Name</th>
+                               <th>Users Email</th>
+                               <th>Users Role</th>
                               
                                <th>Actions</th>
                                

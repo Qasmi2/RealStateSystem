@@ -111,7 +111,7 @@
                         {{ csrf_field() }}
                         <div class="form-group row">
                             <div class="col-md-4 col-lg-4 col-sm-12">
-                                <label for="propertyType" >{{ __('Registion Project') }} </label>
+                                <label for="propertyType" >{{ __('Registration Project') }} </label>
                                
                                 <select class="form-control" name="propertyType" id="propertyType" required>
                                     <option value="">Select Title</option>
@@ -130,7 +130,7 @@
                                
                                 <select class="form-control" name="registrationStatus" id="registrationStatus" required>
                                     <option value="">choice Projecty Status</option>
-                                    <option value="First Alottee">First Alottee</option>
+                                    <option value="First Alottee">First Allottee</option>
                                     <option value="Transfer Certificate">Transfer Certificate</option>
                                     <option value="Open Certificate">Open Certificate</option>
                                 </select>
@@ -187,7 +187,7 @@
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertySize">{{ __('Property Size') }}</label>
-                                <input id="propertySize" type="number" placeholder="Enter Property Size  (Sqr ft)" class="form-control{{ $errors->has('propertySize') ? ' is-invalid' : '' }}" name="propertySize" value=""  required>
+                                <input id="propertySize" type="number" placeholder="Enter Property Size  (Sq ft)" class="form-control{{ $errors->has('propertySize') ? ' is-invalid' : '' }}" name="propertySize" value=""  required>
                                 @if ($errors->has('propertySize'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertySize') }}</strong>
@@ -385,7 +385,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
-                                <label for="relationWithApplicant">{{ __('Relationship With applicant') }}</label>
+                                <label for="relationWithApplicant">{{ __('Relationship with Applicant') }}</label>
                                 <input id="relationWithApplicant" type="text" placeholder="Enter Relation With Applicant " class="form-control{{ $errors->has('relationWithApplicant') ? ' is-invalid' : '' }}" name="relationWithApplicant" value=""  required>
                                 @if ($errors->has('relationWithApplicant'))
                                     <span class="invalid-feedback">
@@ -567,7 +567,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
-                                <label for="propertyPaymentProcedure">{{ __('property Payment Procedure') }}</label>
+                                <label for="propertyPaymentProcedure">{{ __('Property Payment Procedure') }}</label>
                               
                                 <select class="form-control" name="propertyPaymentProcedure" id="propertyPaymentProcedure" onchange="paymentProcedure(this);" required>
                                     <option value="">Choice Payment Procedure</option>
