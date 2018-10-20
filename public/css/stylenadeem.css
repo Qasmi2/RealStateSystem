@@ -1,5 +1,21 @@
 @media screen and (max-width: 968px) {
-    .sidebar_block {
-        display:none;
-    }
+  .sidebar_block {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .web-login {
+    padding-top: 150px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .mobile-login {
+    padding-top: 55px;
+  }
+}
+@media (max-width: 767px){
+.navbar .dropdown-menu {
+    margin-left: 0px !important;
+}
 }

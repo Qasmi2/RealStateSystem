@@ -89,7 +89,7 @@
                                     <select class="form-control" name="role" id="role" >
                                         <option value="{{ $users['role'] }}">{{ $users['role'] }}</option>
                                         <option value="Agent">Agent</option>
-                                        <option value="bookingOfficer">Booking Officer</option>
+                                        <!-- <option value="bookingOfficer">Booking Officer</option> -->
                                         <option value="FinancialOfficer">Financial Officer</option>
                                     </select>
                                 </div>

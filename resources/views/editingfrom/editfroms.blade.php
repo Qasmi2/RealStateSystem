@@ -504,7 +504,7 @@
                                 <select class="form-control" name="propertyPaymentProcedure" id="propertyPaymentProcedure" onchange="paymentProcedure(this);" >
                                     <option value="{{ $te->propertyPaymentProcedure }}">{{ $te->propertyPaymentProcedure }}</option>
                                     <option value="Installment">Installment</option>
-                                    <option value="Total Amount">Total Amount</option>
+                                    <option value="Token">Token</option>
                                     
                                 </select>
                                 @if ($errors->has('propertyPaymentProcedure'))

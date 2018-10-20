@@ -15,6 +15,7 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/stylenadeem.css') }}" rel="stylesheet">
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -44,10 +45,14 @@ body, html {
         <div class="container">
             
             <!--- ---->
-            <div class="row justify-content-center" style="padding-top:175px;">
+            <div class="row justify-content-center web-login mobile-login ">
                  <div class="col-md-6">
-                     <div class="card" style="opacity: 0.8;">
-                        <div class="card-header">Login Form</div>
+                 <div class="card" style="opacity: 0.9;border: 1px solid #ab5993 !important;">
+                     <div class="card-header" style="background-color: #ab5993;
+                                              
+                                              color: white;
+                                              font-size: 25px;">
+                      Login Form</div>
 
                             <div class="card-body">
             <!-- -->
