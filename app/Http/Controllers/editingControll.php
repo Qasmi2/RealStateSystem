@@ -1051,7 +1051,7 @@ class editingControll extends Controller
         $noOfinstallments = $request->input('noOfInstallments');
         $propertyprice  = DB::table('payments')->where('propertyId',$propertyId)->value('propertyPrice');
         $atleastDownpayment = ($propertyprice * 0.2) ;
-        if($downpayment >=$atleastDownpayment){
+        // if($downpayment >=$atleastDownpayment){
             $remaningAmount = $propertyprice - $downpayment;
             $amountOfOneInstallment = $remaningAmount/$noOfinstallments;
             $installmentDates = $this->DateAdd($request);
@@ -1064,10 +1064,10 @@ class editingControll extends Controller
             
 
             return $installment;
-        }
-        else{
-            return 0;
-        }
+        // }
+        // else{
+        //     return 0;
+        // }
       
     }
       /**
@@ -1106,7 +1106,7 @@ class editingControll extends Controller
             }
             $propertyprice  = DB::table('payments')->where('propertyId',$id)->value('propertyPrice');
             $atleastDownpayment = ($propertyprice * 0.2) ;
-            if( $downpayment >=$atleastDownpayment ){
+            // if( $downpayment >=$atleastDownpayment ){
                 $remaningAmount = $propertyprice - $downpayment ;
                 $amountOfOneInstallment = $remaningAmount/$noOfinstallments;
                 $installmentDates = $this->DateAdd($request);
@@ -1147,10 +1147,10 @@ class editingControll extends Controller
                 $paymentHistory->remeaningAmount = $remaingAmount;
                 $paymentHistory->propertyId = $id;
                 $paymentHistory->save();
-            }    
-            else{
-                return 0;
-            }          
+            // }    
+            // else{
+            //     return 0;
+            // }          
 
         } catch(Exception $e){
             return 0;
@@ -1221,7 +1221,7 @@ class editingControll extends Controller
 
             $propertyprice  = DB::table('payments')->where('propertyId',$id)->value('propertyPrice');
             $atleastDownpayment = ($propertyprice * 0.2) ;
-            if( $downpayment >=$atleastDownpayment ){
+            // if( $downpayment >=$atleastDownpayment ){
                 $remaningAmount = $propertyprice - $downpayment ;
                 $amountOfOneInstallment = $remaningAmount/$noOfinstallments;
                 $installmentDates = $this->DateAdd($request);
@@ -1258,10 +1258,10 @@ class editingControll extends Controller
                 $paymentHistory->propertyId = $id;
                 $paymentHistory->save();
                 return 1;
-            }    
-            else{
-                return 0;
-            }          
+            // }    
+            // else{
+            //     return 0;
+            // }          
 
         } catch(Exception $e){
             return redirect()->back()->with('error',' something wrong with the token payment or token payment.');

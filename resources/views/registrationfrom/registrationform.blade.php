@@ -749,6 +749,11 @@ var parent = document.getElementById('addtoken');
         document.getElementById("noOfInstallments").required = true;
         document.getElementById("downpayment").required = true;
         document.getElementById("addtoken").style.display ="none";
+        // get propertyPrice and insert 20% into downpayment section 
+        var totalAmount = document.getElementById("propertyPrice").value;
+        var downpayment = (totalAmount * 0.2);
+        document.getElementById("downpayment").value = downpayment;
+        
     }
     else if( paymentProcedure == "Token"){
         document.getElementById("addtoken").style.display ="block";
