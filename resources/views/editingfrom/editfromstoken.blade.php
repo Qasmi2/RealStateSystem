@@ -642,12 +642,20 @@ function paymentProcedure(val){
                         '</div>'+
                     '</div>';              
                         
-        parent.insertAdjacentHTML('beforeend', added);
+       // parent.insertAdjacentHTML('beforeend', added);
+        document.getElementById("addinstallment").innerHTML = added;   
+        document.getElementById("addinstallment").style.display ="block";
     }
     if(paymentProcedure == "Total Amount"){
 
         document.getElementById("addtoken").style.display ="none";
         document.getElementById("addinstallment").style.display ="none";
+    }
+    if(paymentProcedure == "Token"){
+        document.getElementById("addinstallment").style.display ="none";
+        document.getElementById("addtoken").style.display ="block";
+
+
     }
     
     return 0;

@@ -515,13 +515,13 @@
                             </div>
                         </div>
                         &nbsp;&nbsp;
-                                <div id="addinstallment" style="display:inline;">
+                                <div id="addinstallment" style="display:none;">
                                 
                                 
                             
                                 </div>
                         &nbsp;&nbsp;
-                                <div id="addtoken" style="display:inline;">
+                                <div id="addtoken" style="display:none;">
                                 
                                 
                             
@@ -610,6 +610,7 @@ function paymentProcedure(val){
     var paymentProcedure = val.value;
     var parent = document.getElementById('addinstallment');
     var parent1 = document.getElementById('addtoken');
+
     if( paymentProcedure == "Installment"){
         
         var added =   '<div><h3>Installment Information</h3></div>'+
@@ -639,8 +640,11 @@ function paymentProcedure(val){
                                 '<input id="downpayment" type="number" min="0" placeholder="Enter down payment" class="form-control" name="downpayment" value="" required>'+
                                
                             '</div>';                
-                        
-        parent.insertAdjacentHTML('beforeend', added);
+        document.getElementById("addinstallment").innerHTML = added;
+        // parent.insertAdjacentHTML('beforeend', added);
+        document.getElementById("addtoken").style.display ="none";
+        document.getElementById("addinstallment").style.display ="block";
+      
     }
 
     if( paymentProcedure == "Token"){
@@ -663,8 +667,14 @@ function paymentProcedure(val){
                     '</div>'; 
                          
                       
-                parent1.insertAdjacentHTML('beforeend', added1);
-                document.getElementById("addinstallment").style.display ="none";
+            document.getElementById("addtoken").innerHTML = added1;     
+                // parent1.insertAdjacentHTML('beforeend', added1);
+            document.getElementById("addinstallment").style.display ="none";
+            document.getElementById("addtoken").style.display ="block";
+    }
+    if(paymentProcedure == "Total Amount"){
+        document.getElementById("addinstallment").style.display ="none";
+        document.getElementById("addtoken").style.display ="none";
     }
     
     return 0;

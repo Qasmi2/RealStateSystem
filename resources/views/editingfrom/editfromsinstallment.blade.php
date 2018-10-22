@@ -637,7 +637,6 @@ var paymentProcedure = val.value;
 var parent1 = document.getElementById('addtoken1');
 
 if( paymentProcedure == "Token"){
-    
     document.getElementById("addinstallment").style.display ="none";
     var added1 = '<div><h3>Token Information</h3></div>'+
                         '<div class="form-group row">'+
@@ -654,15 +653,19 @@ if( paymentProcedure == "Token"){
                             '</div>'+
                         '</div>'+
                     '</div>';         
-                        
-        parent1.insertAdjacentHTML('beforeend', added1);
-        document.getElementById("addtoken").style.display ="inline";
+        document.getElementById("addtoken1").innerHTML = added1;                
+       // parent1.insertAdjacentHTML('beforeend', added1);
+        document.getElementById("addtoken1").style.display ="block";
 }
 if( paymentProcedure == "Total Amount"){
 
 document.getElementById("addtoken1").style.display ="none";
 document.getElementById("addinstallment").style.display ="none";
 
+}
+if( paymentProcedure == "Installment"){
+    document.getElementById("addtoken1").style.display ="none";
+    document.getElementById("addinstallment").style.display ="block";
 }
 
 
