@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 Use Redirect;
 use App\installment;
 use App\payment;
@@ -21,7 +22,8 @@ use DateTime;
 use DateInterval;
 use DB;
 use Storage;
-
+use App\User;
+use Auth;
 class paymentHistoryController extends Controller
 {
     /**
@@ -63,44 +65,50 @@ class paymentHistoryController extends Controller
      */
     public function show($id)
     {
-        try{
+        // if(Gate::allows('user-actions',Auth::user())){
 
-            $property  = DB::table('properties')->where('id',$id)->first();
-            $payment = DB::table('payments')->where('propertyId',$id)->first();
-            $applicant = DB::table('applicants')->where('propertyId',$id)->first();
-            $installment = DB::table('installments')->where('propertyId',$id)->first();
-            $review = DB::table('reviews')->where('propertyId',$id)->first();
-            $token = DB::table('tokens')->where('propertyId',$id)->first();
-            $tokenhisory = DB::table('token_histories')->where('propertyId',$id)->first();
-            //$seller = seller::orderBy('created_at','desc')->get();
-            $installmentHistory = DB::table('installment_histories')->where('propertyId', $id)->get();
-            $paymenthistory = DB::table('payment_histories')->where('propertyId', $id)->first();
+            try{
 
-           
-            $isEmptyinstallment = json_encode($installment);
-            $isEmptytoken = json_encode($token);
-           
+                $property  = DB::table('properties')->where('id',$id)->first();
+                $payment = DB::table('payments')->where('propertyId',$id)->first();
+                $applicant = DB::table('applicants')->where('propertyId',$id)->first();
+                $installment = DB::table('installments')->where('propertyId',$id)->first();
+                $review = DB::table('reviews')->where('propertyId',$id)->first();
+                $token = DB::table('tokens')->where('propertyId',$id)->first();
+                $tokenhisory = DB::table('token_histories')->where('propertyId',$id)->first();
+                //$seller = seller::orderBy('created_at','desc')->get();
+                $installmentHistory = DB::table('installment_histories')->where('propertyId', $id)->get();
+                $paymenthistory = DB::table('payment_histories')->where('propertyId', $id)->first();
 
-
-            if($isEmptytoken == "null" && $isEmptyinstallment == "null")
-            { 
-                // total payment
-                return view('paymenthistory/totalpaymenthistory',compact('property','applicant','payment','review','paymenthistory','tokenhisory'));    
-            }
-            elseif($isEmptytoken != "null" && $isEmptyinstallment == "null"){
-                // token
-                return view('paymenthistory/tokenhistory',compact('property','applicant','payment','review','token','paymenthistory','tokenhisory')); 
-            }
-            elseif($isEmptyinstallment != "null"){
-                // installment
-                return view('paymenthistory/installmenthistory',compact('property','applicant','payment','review','installment','paymenthistory','tokenhisory','installmentHistory'));    
-            }
-           
-        }
-        catch(Exception $e){
-            return redirect()->back()->with('error',' Show single record section something wrong .');
-        }   
             
+                $isEmptyinstallment = json_encode($installment);
+                $isEmptytoken = json_encode($token);
+            
+
+
+                if($isEmptytoken == "null" && $isEmptyinstallment == "null")
+                { 
+                    // total payment
+                    return view('paymenthistory/totalpaymenthistory',compact('property','applicant','payment','review','paymenthistory','tokenhisory'));    
+                }
+                elseif($isEmptytoken != "null" && $isEmptyinstallment == "null"){
+                    // token
+                    return view('paymenthistory/tokenhistory',compact('property','applicant','payment','review','token','paymenthistory','tokenhisory')); 
+                }
+                elseif($isEmptyinstallment != "null"){
+                    // installment
+                    return view('paymenthistory/installmenthistory',compact('property','applicant','payment','review','installment','paymenthistory','tokenhisory','installmentHistory'));    
+                }
+            
+            }
+            catch(Exception $e){
+                return redirect()->back()->with('error',' Show single record section something wrong .');
+            }  
+        // }
+        // else{
+        //     return redirect()->back()->with('error',' You are not Allow view Payment Section .');
+        // }  
+        
     }
     
     /**

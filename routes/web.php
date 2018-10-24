@@ -17,9 +17,9 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('welcome');
 });
-Route::get('/register', function () {
-    return view('welcome');
-});
+// Route::get('/register', function () {
+//     return view('welcome');
+// });
 // all the printed form routes 
 // get decrlation form 
 Route::get('/declarationfom', function () {
@@ -47,14 +47,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Route for property table 
 Route::get('propertyform','propertyController@propertyform')->name('propertyform')->middleware('auth');
 Route::post('insertproperty','propertyController@store')->name('insertproperty')->middleware('auth');
-// Route::get('show','propertyController@index')->name('show')->middleware('auth');
-// Route::get('show/{id}','propertyController@show')->name('show')->middleware('auth');
-// Route::get('delete/{id}','propertyController@destroy')->name('delete')->middleware('auth');
-// Route::get('edit/{id}','propertyController@edit')->name('edit')->middleware('auth');
-// Route::post('update/{id}','propertyController@update')->name('update')->middleware('auth');
-// Route for applicant form with last entered property ID
-// Route::get('applicantform','propertyController@applicantform')->name('applicantform')->middleware('auth');
-// Route for the applicant form 
+
 Route::post('insertapplicantinfo','applicantController@store')->name('insertapplicantinfo')->middleware('auth');
 Route::post('updateapplicant/{id}','applicantController@update')->name('updateapplicant')->middleware('auth');
 // Route for payment table
@@ -66,10 +59,9 @@ Route::get('properties','propertiesformController@index')->name('properties')->m
 // show info single property 
 Route::get('singlerecord/{id}','propertiesformController@show')->name('singlerecord')->middleware('auth');
 
+// complete form create ,display and edit 
 
-// complete form display and edit 
-
-
+Route::get('formall','editingControll@index')->name('formall')->middleware('auth');
 Route::get('display/{id}','editingControll@show')->name('display')->middleware('auth');
 Route::get('editingform/{id}','editingControll@edit')->name('editingform')->middleware('auth');
 Route::post('allformdata','editingControll@store')->name('allformdata')->middleware('auth');
@@ -83,36 +75,26 @@ Route::get('form3/{id}','formController@showform3')->name('form3')->middleware('
 Route::get('Receptform/{id}','formController@showReceptform')->name('Receptform')->middleware('auth');
 Route::get('Receptformtoken/{id}','formController@showReceptformtoken')->name('Receptformtoken')->middleware('auth');
 Route::get('contractform/{id}','formController@showcontractform')->name('contractform')->middleware('auth');
-
+// approval 
+Route::get('approved/{id}','formController@approval')->name('approved')->middleware('auth');
+// next installment form
 Route::get('installmentfrom/{id}/{no}/{amount}','formController@showinstallmentforms')->name('installmentfrom')->middleware('auth');
-
-
-
 // seller 
-
-Route::get('/sellerform', function () {
-    return view('sellerforms.register');
-})->name('sellerform')->middleware('auth');
-
-Route::get('formall','sellerController@index')->name('formall')->middleware('auth');
-
+Route::get('/sellerform','sellerController@showform')->name('sellerform')->middleware('auth');
 Route::get('sellerinfos','sellerController@Display')->name('sellerinfos')->middleware('auth');
 Route::post('sellercreate','sellerController@store')->name('sellercreate')->middleware('auth');
 Route::post('sellerupdate/{id}','sellerController@update')->name('sellerupdate')->middleware('auth');
 Route::get('selleredit/{id}','sellerController@edit')->name('selleredit')->middleware('auth');
 Route::get('sellerdelete/{id}','sellerController@destroy')->name('sellerdelete')->middleware('auth');
-
 // updated paymenty history
 Route::get('paymenthistory/{id}','paymentHistoryController@show')->name('paymenthistory')->middleware('auth');
-
 Route::get('installmentpaid/{id}/{no}','installmentHistoryController@create')->name('installmentpaid')->middleware('auth');
-
-
-
-
-
-
-
-
-
-
+// Add New User
+Route::get('adduser','addUserController@showform')->name('adduser')->middleware('auth');
+Route::post('newuser','addUserController@store')->name('newuser')->middleware('auth');
+Route::get('userinfos','addUserController@index')->name('userinfos')->middleware('auth');
+Route::get('usersedit/{id}','addUserController@edit')->name('usersedit')->middleware('auth');
+Route::post('usersupdate/{id}','addUserController@update')->name('usersupdate')->middleware('auth');
+Route::get('usersdelete/{id}','addUserController@destroy')->name('usersdelete')->middleware('auth');
+//ajax call to find existing reocord through CNIC NO
+Route::post('findrecord','ajaxController@index')->name('findrecord');

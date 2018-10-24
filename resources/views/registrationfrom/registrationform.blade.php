@@ -6,7 +6,7 @@
   $numberOfSellers = sizeof($seller);
 
 ?>
-<div class="container" style="margin-top:60px;">
+<div class="container" style="margin-top:80px;">
     <div class="row justify-content-center">
         <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
         @include('flash-message')
@@ -17,16 +17,103 @@
                    
                     <div><h3>Property Information</h3></div>
                     <hr>
+                         <div class="dropdown" style="float:right;">
+                            <button class="btn btn-danger dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">Get Existing Date using CNIC NO
+                                <span class="caret"></span></button>
+                                    <div class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                        <div class="container">
+                                                   <h5 style="text-align:center"> Existing Date Get using CNIC NO</h5>
+                                                   <div class="alert alert-info" style="color:black !important;display:none"></div>
+                                                    <form id="myForm">
+                                                        <div class="form-group row">
+                                                            <div class="col-md- col-lg-12 col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label for="name">CNIC NO. :</label>
+                                                                    <input id="cnicNo" type="tel" size="15" maxlength="15" placeholder="e.g 6110112345678" class="form-control" name="cnicNo"  value=""  pattern="[0-9]{13}" >
+                                                                </div>
+                                                                <button class="btn btn-danger" id="ajaxSubmit" style="float:right;">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                        </div>
+                                    </div>
+                          </div>
+                        
+                        <script>
+                        $(document).ready(function(){
+                            $(".dropdown-toggle").dropdown();
+                        });
+                        </script>
+                         <!-- script Ajax -->
+                         <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+                                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+                                crossorigin="anonymous">
+                         </script>
+                        <script>
+                            jQuery(document).ready(function(){
+                                jQuery('#ajaxSubmit').click(function(e){
+                                e.preventDefault();
+                                $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    }
+                                });
+                                jQuery.ajax({
+                                    dataType: "JSON",
+                                    url: "{{ url('findrecord') }}",
+                                    method: 'post',
+
+                                    data: {
+                                        cnicNo: jQuery('#cnicNo').val()
+                                       
+
+                                    },
+                                    success: function(result){
+                                        console.log('Ajax Response', result);
+                                        if(result.success != "Not Found") {
+                                            jQuery('.alert').show();
+                                            jQuery('.alert').html("Filled out the form ");
+                                          // alert(result.id + result.name + result.fatherName);
+                                          document.getElementById("name").value = result.name;
+                                          document.getElementById("fatherName").value = result.fatherName;
+                                          document.getElementById("cnicNo1").value = result.cnicNo;
+                                          document.getElementById("passportNo").value = result.passportNo;
+                                          document.getElementById("mailingAddress").value = result.mailingAddress;
+                                          document.getElementById("permanentAddress").value = result.permanentAddress;
+                                          document.getElementById("email").value = result.email;
+                                          document.getElementById("phoneNO").value = result.phoneNO;
+                                          document.getElementById("mobileNo1").value = result.mobileNo1;
+                                          document.getElementById("mobileNo2").value = result.mobileNo2;
+                                          document.getElementById("nomineeName").value = result.nomineeName;
+                                          document.getElementById("nomineeFatherName").value = result.nomineeFatherName;
+                                          document.getElementById("nomineeCnicNo").value = result.nomineeCnicNo;
+                                          document.getElementById("relationWithApplicant").value = result.relationWithApplicant;
+                                          document.getElementById("nomineeMailingAddress").value = result.nomineeMailingAddress;
+                                        
+
+                                        }
+                                        else{
+                                           
+                                        jQuery('.alert').show();
+                                        jQuery('.alert').html(result.success);
+                                        }
+                                        
+                                    }
+                                    });
+                                });
+                                });
+                        </script>
+                         <!-- End script Ajax -->
+                    <br>
                     &nbsp;&nbsp;
                     &nbsp;
-                    
                     <form method="POST"  action="{{ url('allformdata')}}" enctype="multipart/form-data" value="PATCH">
                         {{ csrf_field() }}
                         <div class="form-group row">
                             <div class="col-md-4 col-lg-4 col-sm-12">
-                                <label for="propertyType" >{{ __('Registion Project') }} </label>
+                                <label for="propertyType" >{{ __('Registration Project') }} </label>
                                
-                                <select class="form-control" name="propertyType" id="propertyType" >
+                                <select class="form-control" name="propertyType" id="propertyType" required>
                                     <option value="">Select Title</option>
                                     <option value="Montviro Hotel">Montviro Hotel</option>
                                     <option value="Montviro Mall">Montviro Mall</option>
@@ -41,9 +128,9 @@
                             <div class="col-md-4 col-lg-4 col-sm-12">
                                 <label for="registrationStatus">{{ __('Registration Status') }} </label>
                                
-                                <select class="form-control" name="registrationStatus" id="registrationStatus" >
+                                <select class="form-control" name="registrationStatus" id="registrationStatus" required>
                                     <option value="">choice Projecty Status</option>
-                                    <option value="First Alottee">First Alottee</option>
+                                    <option value="First Alottee">First Allottee</option>
                                     <option value="Transfer Certificate">Transfer Certificate</option>
                                     <option value="Open Certificate">Open Certificate</option>
                                 </select>
@@ -58,7 +145,7 @@
                             <div class="col-md-4 col-lg-4 col-sm-12">
                                 <label for="propertySection">{{ __('Property Section') }} </label>
                               
-                                <select class="form-control" name="propertySection" id="propertySection" >
+                                <select class="form-control" name="propertySection" id="propertySection" required>
                                     <option value="">Choice the Selection</option>
                                     <option value="Office">Office</option>
                                     <option value="Shop">Shop</option>
@@ -78,7 +165,7 @@
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertyAddress">{{ __('Property Address ( Floor No.)') }}</label>
-                                <input id="Property Address" type="number" min="0" placeholder="Enter Floor No, " class="form-control{{ $errors->has('propertyAddress') ? ' is-invalid' : '' }}" name="propertyAddress" value="" >
+                                <input id="Property Address" type="number" min="0" placeholder="Enter Floor No, " class="form-control{{ $errors->has('propertyAddress') ? ' is-invalid' : '' }}" name="propertyAddress" value="" required>
                                 @if ($errors->has('propertyAddress'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertyAddress') }}</strong>
@@ -89,7 +176,7 @@
                         <!-- <div class="form-group row"> -->
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertyLocation">{{ __('Property Location (Room No/Shop No.)') }}</label>
-                                <input id="propertyLocation" type="number" min="0" placeholder="Enter Property Location (Room No / Shop NO) " class="form-control{{ $errors->has('propertyLocation') ? ' is-invalid' : '' }}" name="propertyLocation" value="" >
+                                <input id="propertyLocation" type="number" min="0" placeholder="Enter Property Location (Room No / Shop NO) " class="form-control{{ $errors->has('propertyLocation') ? ' is-invalid' : '' }}" name="propertyLocation" value="" required>
                                 @if ($errors->has('propertyLocation'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertyLocation') }}</strong>
@@ -100,7 +187,7 @@
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertySize">{{ __('Property Size') }}</label>
-                                <input id="propertySize" type="number" placeholder="Enter Property Size  (Sqr ft)" class="form-control{{ $errors->has('propertySize') ? ' is-invalid' : '' }}" name="propertySize" value=""  required>
+                                <input id="propertySize" type="number" placeholder="Enter Property Size  (Sq ft)" class="form-control{{ $errors->has('propertySize') ? ' is-invalid' : '' }}" name="propertySize" value=""  required>
                                 @if ($errors->has('propertySize'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertySize') }}</strong>
@@ -110,7 +197,7 @@
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="jointProperty">{{ __('Joint Property') }}</label>
                                 <!-- <input id="jointProperty" type="text" placeholder="Enter Joint Property" class="form-control{{ $errors->has('jointProperty') ? ' is-invalid' : '' }}" name="jointProperty" value=""  required> -->
-                                <select class="form-control" name="jointProperty" id="jointProperty" >
+                                <select class="form-control" name="jointProperty" id="jointProperty" required>
                                     <option value="No">No</option>
                                     <option value="Yes" disabled>Yes</option>
                                 </select>
@@ -134,7 +221,7 @@
                             
                                 <label>Please choose your Picture</label>
                                 <br>
-                                <input type="file" name="cover_image" id="cover_image" class="btn btn-danger" style="color:white;"/>
+                                <input type="file" name="cover_image" id="cover_image" class="btn btn-denger" style="color:white; background-color:red" value="" required>
                                     @if ($errors->has('cover_image'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('cover_image') }}</strong>
@@ -167,12 +254,12 @@
                         <!-- </div> -->
                         <!-- <div class="form-group row"> -->
                             <div class="col-md-3 col-lg-3 col-sm-12">
-                                <label for="cnicNo">{{ __('CNIC Number') }}</label>
-                                <input id="cnicNo" type="tel" size="15" maxlength="15" placeholder="e.g 6110112345678" class="form-control{{ $errors->has('cnicNo') ? ' is-invalid' : '' }}" name="cnicNo" value=""  pattern="[0-9]{13}" title=" Please match the CNIC No" required>
+                                <label for="cnicNo1">{{ __('CNIC Number') }}</label>
+                                <input id="cnicNo1" type="tel" size="15" maxlength="15" placeholder="e.g 6110112345678" class="form-control{{ $errors->has('cnicNo') ? ' is-invalid' : '' }}" name="cnicNo" value=""  pattern="[0-9]{13}" title=" Please match the CNIC No" required>
                               
-                                @if ($errors->has('cnicNo'))
+                                @if ($errors->has('cnicNo1'))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('cnicNo') }}</strong>
+                                        <strong>{{ $errors->first('cnicNo1') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -220,7 +307,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="phoneNO">{{ __('Phone Number') }}(Optional)</label>
-                                <input id="phoneNO" type="tel" size="11" maxlength="11" placeholder="e.g 051xxxxxxx" class="form-control{{ $errors->has('phoneNO') ? ' is-invalid' : '' }}" name="phoneNO" value=""  >
+                                <input id="phoneNO" type="tel" size="16" maxlength="16" placeholder="e.g 051xxxxxxx" class="form-control{{ $errors->has('phoneNO') ? ' is-invalid' : '' }}" name="phoneNO" value=""  >
                                 @if ($errors->has('phoneNo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('phoneNo') }}</strong>
@@ -231,7 +318,8 @@
                         <!-- <div class="form-group row"> -->
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="mobileNo1">{{ __('Mobile Number') }}</label>
-                                <input id="mobileNo1"type="tel" size="12" maxlength="12" placeholder="e.g 0333xxxxxxx" class="form-control{{ $errors->has('mobileNo1') ? ' is-invalid' : '' }}" name="mobileNo1" value="" pattern="[0-9]{11}" title=" Please match the Mobile No"  required>
+                                
+                                <input id="mobileNo1"type="tel" size="13" maxlength="16" placeholder="e.g 923331234567" class="form-control{{ $errors->has('mobileNo1') ? ' is-invalid' : '' }}" name="mobileNo1" value="" pattern="[0-9]{11}" title=" Please match the Mobile No"  required>
                                 @if ($errors->has('mobileNo1'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('mobileNo1') }}</strong>
@@ -240,7 +328,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="mobileNo2">{{ __('Mobile Number (Opt)') }}</label>
-                                <input id="mobileNo2"  type="tel" size="12" maxlength="12" placeholder="e.g 0305xxxxxxx" class="form-control{{ $errors->has('mobileNo2') ? ' is-invalid' : '' }}" name="mobileNo2" value="" >
+                                <input id="mobileNo2"  type="tel" size="13" maxlength="16" placeholder="e.g 923331234567" class="form-control{{ $errors->has('mobileNo2') ? ' is-invalid' : '' }}" name="mobileNo2" value="" >
                                 @if ($errors->has('mobileNo2'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('mobileNo2') }}</strong>
@@ -297,7 +385,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
-                                <label for="relationWithApplicant">{{ __('Relationship With applicant') }}</label>
+                                <label for="relationWithApplicant">{{ __('Relationship with Applicant') }}</label>
                                 <input id="relationWithApplicant" type="text" placeholder="Enter Relation With Applicant " class="form-control{{ $errors->has('relationWithApplicant') ? ' is-invalid' : '' }}" name="relationWithApplicant" value=""  required>
                                 @if ($errors->has('relationWithApplicant'))
                                     <span class="invalid-feedback">
@@ -379,7 +467,7 @@
                                <!-- <input id="paymentType" type="text" placeholder="Enter Property Payment Type " class="form-control{{ $errors->has('paymentType') ? ' is-invalid' : '' }}" name="paymentType" value="" required> -->
                                  
                                       
-                                <select class="form-control" name="paymentType" id="paymentType" onchange="paymenttype(this);" >
+                                <select class="form-control" name="paymentType" id="paymentType" onchange="paymenttype(this);" required>
                                     <option value="">choice payment type</option>
                                     <option value="Cash">Cash</option>
                                     <option value="Pay Order">Pay Order</option>
@@ -460,7 +548,7 @@
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertyPurchingDate">{{ __('Date') }}</label>
-                                <input id="propertyPurchingDate" type="date" placeholder="Enter Date (yyyy-mm-dd) " class="form-control{{ $errors->has('propertyPurchingDate') ? ' is-invalid' : '' }}" name="propertyPurchingDate" value="" >
+                                <input id="propertyPurchingDate" type="date" placeholder="Enter Date (yyyy-mm-dd) " class="form-control{{ $errors->has('propertyPurchingDate') ? ' is-invalid' : '' }}" name="propertyPurchingDate" value="" required>
                                 @if ($errors->has('propertyPurchingDate'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertyPurchingDate') }}</strong>
@@ -479,9 +567,9 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
-                                <label for="propertyPaymentProcedure">{{ __('property Payment Procedure') }}</label>
+                                <label for="propertyPaymentProcedure">{{ __('Property Payment Procedure') }}</label>
                               
-                                <select class="form-control" name="propertyPaymentProcedure" id="propertyPaymentProcedure" onchange="paymentProcedure(this);" >
+                                <select class="form-control" name="propertyPaymentProcedure" id="propertyPaymentProcedure" onchange="paymentProcedure(this);" required>
                                     <option value="">Choice Payment Procedure</option>
                                     <option value="Total Amount">Total Amount</option>
                                     <option value="Installment">Installment</option>
@@ -504,7 +592,7 @@
                               
                             
                               
-                                  <select id="noOfInstallments" class="form-control" name="noOfInstallments"    >
+                                  <select id="noOfInstallments" class="form-control" name="noOfInstallments" >
                                     <option value="">Select No of Installments</option>'+
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -526,7 +614,7 @@
                             </div>
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="downpayment">Down Payment</label>
-                                <input id="downpayment" type="number" min="0" placeholder="Enter down payment" class="form-control" name="downpayment" value="" style="border: 1px solid red;">
+                                <input id="downpayment" type="number" min="0" placeholder="Enter down payment" class="form-control" name="downpayment" value="" style="border: 1px solid red;" >
                                
                             </div>
                         </div>
@@ -538,12 +626,12 @@
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label id="tokenPayment" for="tokenPayment" >Token Payment </label>
-                                <input id="tokenPayment" type="number" min="0" placeholder="Enter Token payment" class="form-control" name="tokenPayment" value="" style="border: 1px solid red;">
+                                <input id="tokenPayment" type="number" min="0" placeholder="Enter Token payment" class="form-control" name="tokenPayment" value="" style="border: 1px solid red;" >
                               
                             </div>       
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="remaningPaymentDate">Remaning Payment Date </label>
-                                <input id="remaningPaymentDate" type="Date" placeholder="Enter Remaning Payment Date" class="form-control" name="remaningPaymentDate" value="" style="border: 1px solid red;">
+                                <input id="remaningPaymentDate" type="Date" placeholder="Enter Remaning Payment Date" class="form-control" name="remaningPaymentDate" value="" style="border: 1px solid red;" >
                                
                             </div>
                         </div>
@@ -567,7 +655,7 @@
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                     <label for="witnessName">{{ __('Seller Name') }}</label>
                             
-                                        <select class="form-control" name="propertySellerId" id="propertySellerId" >
+                                        <select class="form-control" name="propertySellerId" id="propertySellerId" required>
                                         <option value="">Select Seller Name</option>
                                         @foreach($seller as $te)
                                                
@@ -658,10 +746,19 @@ var parent = document.getElementById('addtoken');
     else if( paymentProcedure == "Installment"){
         
         document.getElementById("addinstallment").style.display ="block";  
+        document.getElementById("noOfInstallments").required = true;
+        document.getElementById("downpayment").required = true;
         document.getElementById("addtoken").style.display ="none";
+        // get propertyPrice and insert 20% into downpayment section 
+        var totalAmount = document.getElementById("propertyPrice").value;
+        var downpayment = (totalAmount * 0.2);
+        document.getElementById("downpayment").value = downpayment;
+        
     }
     else if( paymentProcedure == "Token"){
-        document.getElementById("addtoken").style.display ="block";                               
+        document.getElementById("addtoken").style.display ="block";
+        document.getElementById("tokenPayment").required = true;
+        document.getElementById("remaningPaymentDate").required = true;                               
         document.getElementById("addinstallment").style.display ="none";
     }
 

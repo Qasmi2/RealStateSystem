@@ -8,7 +8,18 @@
     $applicant = array($applicant);
     $installment = array($installment);
     $review = array($review);
-  
+    $approval = array($approval);
+    $selectedseller = array($selectedseller);
+    foreach($selectedseller as $te){
+        $sellerId = $te->id;
+        $sellername = $te->sallerName;
+    }
+    foreach($approval as $te){
+       
+        $status = $te->status;
+    }
+    $role = Auth::user()->role;
+    echo $role;
     foreach($property as $pr){
         $PropertyJoint =  $pr->jointProperty;
         $sellerId = $pr->propertySellerId;
@@ -34,7 +45,7 @@
        
     }
 ?>
-<div class="container" style="margin-top:60px;">
+<div class="container" style="margin-top:80px;">
     <div class="row justify-content-center">
         <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
         @include('flash-message')
@@ -56,9 +67,9 @@
                         {{ csrf_field() }}
                         <div class="form-group row">
                             <div class="col-md-4 col-lg-4 col-sm-12">
-                                <label for="propertyType" >{{ __('Registion Project') }}</label>
+                                <label for="propertyType" >{{ __('Registration Project') }}</label>
                                 <!-- <input id="propertyType" type="propertyType" placeholder="Enter REGISTERED PROJECT " class="form-control{{ $errors->has('propertyType') ? ' is-invalid' : '' }}" name="propertyType" value="{{$te->propertyType}}" required> -->
-                                <select class="form-control" name="propertyType" id="propertyType" >
+                                <select class="form-control" name="propertyType" id="propertyType" @if($status =="approved" && $role !="Admin") disabled @endif>
                                     <option value="{{$te->propertyType}}">{{$te->propertyType}}</option>
                                     <option value="Montviro Hotal">Montviro Hotal</option>
                                     <option value="Montviro Mall">Montviro Mall</option>
@@ -73,7 +84,7 @@
                             <div class="col-md-4 col-lg-4 col-sm-12">
                                 <label for="registrationStatus">{{ __('Registration Status') }}</label>
                                 <!-- <input id="registrationStatus" type="text" placeholder="Select Registration Status " class="form-control{{ $errors->has('registrationStatus') ? ' is-invalid' : '' }}" name="registrationStatus" value="{{$te->registrationStatus}}" required> -->
-                                <select class="form-control" name="registrationStatus" id="registrationStatus" >
+                                <select class="form-control" name="registrationStatus" id="registrationStatus" @if($status =="approved" && $role !="Admin") disabled @endif>
                                     <option value="{{$te->registrationStatus}}">{{$te->registrationStatus}}</option>
                                     <option value="First Alottee">First Alottee</option>
                                     <option value="Transfer Certificate">Transfer Certificate</option>
@@ -90,7 +101,7 @@
                             <div class="col-md-4 col-lg-4 col-sm-12">
                                 <label for="propertySection">{{ __('Property Section') }}</label>
                                 <!-- <input id="propertySection" type="text" placeholder="Enter property Section " class="form-control{{ $errors->has('propertySection') ? ' is-invalid' : '' }}" name="propertySection" value="{{ $te->propertySection }}"  required> -->
-                                <select class="form-control" name="propertySection" id="propertySection" >
+                                <select class="form-control" name="propertySection" id="propertySection" @if($status =="approved" && $role !="Admin") disabled @endif>
                                     <option value="{{ $te->propertySection }}">{{ $te->propertySection }}</option>
                                     <option value="Office">Office</option>
                                     <option value="Shop">Shop</option>
@@ -110,7 +121,7 @@
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertyAddress">{{ __('Property Address ( Floor No.)') }}</label>
-                                <input id="Property Address" type="number" min="0" placeholder="Enter Property Address (Floor No.) " class="form-control{{ $errors->has('propertyAddress') ? ' is-invalid' : '' }}" name="propertyAddress" value="{{ $te->propertyAddress}}" >
+                                <input id="Property Address" type="number" min="0" placeholder="Enter Property Address (Floor No.) " class="form-control{{ $errors->has('propertyAddress') ? ' is-invalid' : '' }}" name="propertyAddress" value="{{ $te->propertyAddress}}" @if($status =="approved" && $role !="Admin") disabled @endif>
                                 @if ($errors->has('propertyAddress'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertyAddress') }}</strong>
@@ -121,7 +132,7 @@
                         <div class="form-group row"> -->
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertyLocation">{{ __('Property Location (Room No/Shop No.)') }}</label>
-                                <input id="propertyLocation" type="number"  min="0" placeholder="Enter Property Location " class="form-control{{ $errors->has('propertyLocation') ? ' is-invalid' : '' }}" name="propertyLocation" value="{{ $te->propertyLocation }}" >
+                                <input id="propertyLocation" type="number"  min="0" placeholder="Enter Property Location " class="form-control{{ $errors->has('propertyLocation') ? ' is-invalid' : '' }}" name="propertyLocation" value="{{ $te->propertyLocation }}" @if($status =="approved" && $role !="Admin") disabled @endif>
                                 @if ($errors->has('propertyLocation'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertyLocation') }}</strong>
@@ -132,7 +143,7 @@
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertySize">{{ __('Property Size') }}</label>
-                                <input id="propertySize" type="number" placeholder="Enter Property Size  (Sqr ft)" class="form-control{{ $errors->has('propertySize') ? ' is-invalid' : '' }}" name="propertySize" value="{{ $te->propertySize}}"  required>
+                                <input id="propertySize" type="number" placeholder="Enter Property Size  (Sqr ft)" class="form-control{{ $errors->has('propertySize') ? ' is-invalid' : '' }}" name="propertySize" value="{{ $te->propertySize}}"  required @if($status =="approved" && $role !="Admin") disabled @endif>
                                 @if ($errors->has('propertySize'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertySize') }}</strong>
@@ -142,7 +153,7 @@
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="jointProperty">{{ __('Joint Property') }}</label>
                                 <!-- <input id="jointProperty" type="text" placeholder="Enter Joint Property" class="form-control{{ $errors->has('jointProperty') ? ' is-invalid' : '' }}" name="jointProperty" value="{{ $PropertyJoint }}"  required> -->
-                                <select class="form-control" name="jointProperty" id="jointProperty" >
+                                <select class="form-control" name="jointProperty" id="jointProperty" @if($status =="approved" && $role !="Admin") disabled @endif>
                                     <option value="{{$PropertyJoint}}">{{$PropertyJoint}}</option>
                                     <option value="Yes" disabled>Yes</option>
                                     <option value="No" disabled>No</option>
@@ -168,7 +179,7 @@
                             <br>
                                 <label>Please choose your Picture</label>
                                 <br>
-                                <input type="file" name="cover_image" id="cover_image" class="btn btn-primary" style="color:white;"/>
+                                <input type="file" name="cover_image" id="cover_image" class="btn btn-primary" style="color:white;" @if($status =="approved" && $role !="Admin") disabled @endif>
                                     @if ($errors->has('cover_image'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('cover_image') }}</strong>
@@ -181,7 +192,7 @@
                         <div class="form-group row">
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="name" >{{ __('Name of Applicant') }}</label>
-                                <input id="name" type="text" placeholder="Enter Name of Applicant " class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="name" value="{{ $te->name}}" required>
+                                <input id="name" type="text" placeholder="Enter Name of Applicant " class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="name" value="{{ $te->name}}" required @if($status =="approved" && $role !="Admin") disabled @endif>
                                 
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback">
@@ -191,7 +202,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="fatherName">{{ __('S/O,D/O,W/O') }}</label>
-                                <input id="fatherName" type="text" placeholder="Enter father Name " class="form-control{{ $errors->has('fatherName') ? ' is-invalid' : '' }}" name="fatherName" value="{{ $te->fatherName }}" required>
+                                <input id="fatherName" type="text" placeholder="Enter father Name " class="form-control{{ $errors->has('fatherName') ? ' is-invalid' : '' }}" name="fatherName" value="{{ $te->fatherName }}" required @if($status =="approved" && $role !="Admin") disabled @endif>
                                 @if ($errors->has('fatherName'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('fatherName') }}</strong>
@@ -202,7 +213,7 @@
                         <!-- <div class="form-group row"> -->
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="cnicNo">{{ __('CNIC Number') }}</label>
-                                <input id="cnicNo" type="tel" size="15" maxlength="15" placeholder="e.g xxxxx-xxxxxxx-x" class="form-control{{ $errors->has('cnicNo') ? ' is-invalid' : '' }}" name="cnicNo" value="{{ $te->cnicNo }}" pattern="[0-9]{13}" title=" Please match the CNIC No" required>
+                                <input id="cnicNo" type="tel" size="15" maxlength="15" placeholder="e.g xxxxx-xxxxxxx-x" class="form-control{{ $errors->has('cnicNo') ? ' is-invalid' : '' }}" name="cnicNo" value="{{ $te->cnicNo }}" pattern="[0-9]{13}" title=" Please match the CNIC No" required @if($status =="approved" && $role !="Admin") disabled @endif>
                                 @if ($errors->has('cnicNo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('cnicNo') }}</strong>
@@ -211,7 +222,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="passportNo">{{ __('Passport No') }}</label>
-                                <input id="passportNo" type="tel" size="8" maxlength="8" placeholder="e.g ab123456" class="form-control{{ $errors->has('passportNo') ? ' is-invalid' : '' }}" name="passportNo" value="{{ $te->passportNo }}"  >
+                                <input id="passportNo" type="tel" size="8" maxlength="8" placeholder="e.g ab123456" class="form-control{{ $errors->has('passportNo') ? ' is-invalid' : '' }}" name="passportNo" value="{{ $te->passportNo }}"  @if($status =="approved" && $role !="Admin") disabled @endif>
                                 @if ($errors->has('passportNo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('passportNo') }}</strong>
@@ -222,7 +233,7 @@
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                 <label for="mailingAddress">{{ __('Mailing Address') }}</label>
-                                <input id="mailingAddress" type="text" placeholder="Enter Mailing Address " class="form-control{{ $errors->has('mailingAddress') ? ' is-invalid' : '' }}" name="mailingAddress" value="{{ $te->mailingAddress}}"  required>
+                                <input id="mailingAddress" type="text" placeholder="Enter Mailing Address " class="form-control{{ $errors->has('mailingAddress') ? ' is-invalid' : '' }}" name="mailingAddress" value="{{ $te->mailingAddress}}"  required @if($status =="approved" && $role !="Admin") disabled @endif>
                                 @if ($errors->has('mailingAddress'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('mailingAddress') }}</strong>
@@ -233,7 +244,7 @@
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                 <label for="permanentAddress">{{ __('Permanent Address') }}</label>
-                                <input id="permanentAddress" type="text" placeholder="Enter Permanent Address " class="form-control{{ $errors->has('permanentAddress') ? ' is-invalid' : '' }}" name="permanentAddress" value="{{ $te->permanentAddress }}"  required>
+                                <input id="permanentAddress" type="text" placeholder="Enter Permanent Address " class="form-control{{ $errors->has('permanentAddress') ? ' is-invalid' : '' }}" name="permanentAddress" value="{{ $te->permanentAddress }}"  required @if($status =="approved" && $role !="Admin") disabled @endif>
                                 @if ($errors->has('permanentAddress'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('permanentAddress') }}</strong>
@@ -244,7 +255,7 @@
                         <div class="form-group row">
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="email">{{ __('Email') }}</label>
-                                <input id="email" type="email" placeholder="Enter Email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $te->email }}"  >
+                                <input id="email" type="email" placeholder="Enter Email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $te->email }}"  @if($status =="approved" && $role !="Admin") disabled @endif>
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -253,7 +264,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="phoneNO">{{ __('Phone Number') }}</label>
-                                <input id="phoneNO" type="tel" size="12" maxlength="12" placeholder="e.g xxxx-xxxxxxx" class="form-control{{ $errors->has('phoneNO') ? ' is-invalid' : '' }}" name="phoneNO" value="{{ $te->phoneNO }}"  >
+                                <input id="phoneNO" type="tel" size="12" maxlength="12" placeholder="e.g xxxx-xxxxxxx" class="form-control{{ $errors->has('phoneNO') ? ' is-invalid' : '' }}" name="phoneNO" value="{{ $te->phoneNO }}"  @if($status =="approved"&& $role !="Admin") disabled @endif>
                                 @if ($errors->has('phoneNo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('phoneNo') }}</strong>
@@ -264,7 +275,7 @@
                         <!-- <div class="form-group row"> -->
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="mobileNo1">{{ __('Mobile Number') }}</label>
-                                <input id="mobileNo1" type="tel" size="12" maxlength="12" placeholder="e.g xxxx-xxxxxxx" class="form-control{{ $errors->has('mobileNo1') ? ' is-invalid' : '' }}" name="mobileNo1" value="{{ $te->mobileNo1 }}" pattern="[0-9]{11}" title=" Please match the Mobile No" required>
+                                <input id="mobileNo1" type="tel" size="12" maxlength="12" placeholder="e.g xxxx-xxxxxxx" class="form-control{{ $errors->has('mobileNo1') ? ' is-invalid' : '' }}" name="mobileNo1" value="{{ $te->mobileNo1 }}" pattern="[0-9]{11}" title=" Please match the Mobile No" required @if($status =="approved" && $role !="Admin") disabled @endif>
                                 @if ($errors->has('mobileNo1'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('mobileNo1') }}</strong>
@@ -273,7 +284,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="mobileNo2">{{ __('Mobile Number (2)') }}</label>
-                                <input id="mobileNo2" type="tel" size="12" maxlength="12" placeholder="e.g xxxx-xxxxxxx" class="form-control{{ $errors->has('mobileNo2') ? ' is-invalid' : '' }}" name="mobileNo2" value="{{ $te->mobileNo2 }}"  >
+                                <input id="mobileNo2" type="tel" size="12" maxlength="12" placeholder="e.g xxxx-xxxxxxx" class="form-control{{ $errors->has('mobileNo2') ? ' is-invalid' : '' }}" name="mobileNo2" value="{{ $te->mobileNo2 }}"  @if($status =="approved" && $role !="Admin") disabled @endif>
                                 @if ($errors->has('mobileNo2'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('mobileNo2') }}</strong>
@@ -290,7 +301,7 @@
                         <div class="form-group row">
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="nomineeName" >{{ __('Nominee Name') }}</label>
-                                <input id="nomineeName" type="text" placeholder="Enter Mominee Name  " class="form-control{{ $errors->has('nomineeName') ? ' is-invalid' : '' }}" name="nomineeName" value="{{ $te->nomineeName }}" required>
+                                <input id="nomineeName" type="text" placeholder="Enter Mominee Name  " class="form-control{{ $errors->has('nomineeName') ? ' is-invalid' : '' }}" name="nomineeName" value="{{ $te->nomineeName }}" required @if($status =="approved" && $role !="Admin") disabled @endif>
                                 
                                 @if ($errors->has('nomineeName'))
                                     <span class="invalid-feedback">
@@ -300,7 +311,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="nomineeFatherName">{{ __('S/O,D/O,W/O') }}</label>
-                                <input id="nomineeFatherName" type="text" placeholder="Enter father Name " class="form-control{{ $errors->has('nomineeFatherName') ? ' is-invalid' : '' }}" name="nomineeFatherName" value="{{ $te->nomineeFatherName }}" required>
+                                <input id="nomineeFatherName" type="text" placeholder="Enter father Name " class="form-control{{ $errors->has('nomineeFatherName') ? ' is-invalid' : '' }}" name="nomineeFatherName" value="{{ $te->nomineeFatherName }}" required @if($status =="approved" && $role !="Admin") disabled @endif>
                                 @if ($errors->has('nomineeFatherName'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('nomineeFatherName') }}</strong>
@@ -311,7 +322,7 @@
                         <!-- <div class="form-group row"> -->
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="nomineeCnicNo">{{ __('Nominee CNIC Number') }}</label>
-                                <input id="nomineeCnicNo" type="text" placeholder="Enter Mominee CNIC Number " class="form-control{{ $errors->has('nomineeCnicNo') ? ' is-invalid' : '' }}" name="nomineeCnicNo" value="{{$te->nomineeCnicNo }}" pattern="[0-9]{13}" title=" Please match the CNIC No" required>
+                                <input id="nomineeCnicNo" type="text" placeholder="Enter Mominee CNIC Number " class="form-control{{ $errors->has('nomineeCnicNo') ? ' is-invalid' : '' }}" name="nomineeCnicNo" value="{{$te->nomineeCnicNo }}" pattern="[0-9]{13}" title=" Please match the CNIC No" required @if($status =="approved" && $role !="Admin") disabled @endif>
                                 @if ($errors->has('nomineeCnicNo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('nomineeCnicNo') }}</strong>
@@ -320,7 +331,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-sm-12">
                                 <label for="nomineePassportNo">{{ __('Passport No') }}</label>
-                                <input id="nomineePassportNo" type="text" placeholder="Enter Passport Number " class="form-control{{ $errors->has('nomineePassportNo') ? ' is-invalid' : '' }}" name="nomineePassportNo" value="{{ $te->nomineePassportNo }}"  >
+                                <input id="nomineePassportNo" type="text" placeholder="Enter Passport Number " class="form-control{{ $errors->has('nomineePassportNo') ? ' is-invalid' : '' }}" name="nomineePassportNo" value="{{ $te->nomineePassportNo }}"  @if($status =="approved" && $role !="Admin") disabled @endif>
                                 @if ($errors->has('nomineePassportNo'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('nomineePassportNo') }}</strong>
@@ -330,8 +341,8 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
-                                <label for="relationWithApplicant">{{ __('Relationship With applicant') }}</label>
-                                <input id="relationWithApplicant" type="text" placeholder="Enter Relation With Applicant " class="form-control{{ $errors->has('relationWithApplicant') ? ' is-invalid' : '' }}" name="relationWithApplicant" value="{{ $te->relationWithApplicant }}"  required>
+                                <label for="relationWithApplicant">{{ __('Relationship with Applicant') }}</label>
+                                <input id="relationWithApplicant" type="text" placeholder="Enter Relation With Applicant " class="form-control{{ $errors->has('relationWithApplicant') ? ' is-invalid' : '' }}" name="relationWithApplicant" value="{{ $te->relationWithApplicant }}"  required @if($status =="approved" && $role !="Admin") disabled @endif>
                                 @if ($errors->has('relationWithApplicant'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('relationWithApplicant') }}</strong>
@@ -342,7 +353,7 @@
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                 <label for="nomineeMailingAddress">{{ __('Mailing Address') }}</label>
-                                <input id="nomineeMailingAddress" type="text" placeholder="Enter Mailing Address " class="form-control{{ $errors->has('nomineeMailingAddress') ? ' is-invalid' : '' }}" name="nomineeMailingAddress" value="{{ $te->nomineeMailingAddress }}"  >
+                                <input id="nomineeMailingAddress" type="text" placeholder="Enter Mailing Address " class="form-control{{ $errors->has('nomineeMailingAddress') ? ' is-invalid' : '' }}" name="nomineeMailingAddress" value="{{ $te->nomineeMailingAddress }}"  @if($status =="approved" && $role !="Admin") disabled @endif>
                                 @if ($errors->has('nomineeMailingAddress'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('nomineeMailingAddress') }}</strong>
@@ -412,7 +423,7 @@
                                 <label for="paymentType" >{{ __('Cash / Pay Order / Cheque') }}</label>
                                 <!-- <input id="paymentType" type="text" placeholder="Enter Property Payment Type " class="form-control{{ $errors->has('paymentType') ? ' is-invalid' : '' }}" name="paymentType" value="" required>
                                   -->
-                                    <select class="form-control" name="paymentType" id="paymentType" onchange="paymenttype(this);" >
+                                    <select class="form-control" name="paymentType" id="paymentType" onchange="paymenttype(this);" @if($status =="approved" && $role !="Admin") disabled @endif>
                                         <option value="{{ $te->paymentType }}">{{ $te->paymentType }}</option>
                                         <option value="Cash">Cash</option>
                                         <option value="Pay Order">Pay Order</option>
@@ -431,12 +442,12 @@
                                 <div class="form-group row">
                                     <div class="col-md-6 col-lg-6 col-sm-12">
                                             <label for="payorder"> Cheque / Pay Order No.</label>
-                                            <input id="payorder" type="text" placeholder="Enter Pay Order No" class="form-control" name="chequeno" value="{{$te->chequeno}}" style="border: 1px solid red;">
+                                            <input id="payorder" type="text" placeholder="Enter Pay Order No" class="form-control" name="chequeno" value="{{$te->chequeno}}" style="border: 1px solid red;" @if($status =="approved" && $role !="Admin") disabled @endif>
                                         
                                     </div>
                                     <div class="col-md-6 col-lg-6 col-sm-12">
                                             <label for="bankName"> Bank Name </label>
-                                            <input id="bankName" type="text" placeholder="Enter Bank Name" class="form-control" name="bankName" value="{{$te->bankName}}" style="border: 1px solid red;">
+                                            <input id="bankName" type="text" placeholder="Enter Bank Name" class="form-control" name="bankName" value="{{$te->bankName}}" style="border: 1px solid red;" @if($status =="approved" && $role !="Admin") disabled @endif>
                                         
                                     </div>
                                 </div>
@@ -444,7 +455,7 @@
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                 <label for="transferTo">{{ __('In Favor of') }}</label>
-                                <input id="transferTo" type="text" placeholder="transferTo " class="form-control{{ $errors->has('transferTo') ? ' is-invalid' : '' }}" name="transferTo" value=" Montviro (Pvt) Ltd." required>
+                                <input id="transferTo" type="text" placeholder="transferTo " class="form-control{{ $errors->has('transferTo') ? ' is-invalid' : '' }}" name="transferTo" value=" Montviro (Pvt) Ltd." required @if($status =="approved" && $role !="Admin") disabled @endif>
                               
                                 
                                 @if ($errors->has('transferTo'))
@@ -471,7 +482,7 @@
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertyPurchingDate">{{ __('Date') }}</label>
-                                <input id="propertyPurchingDate" type="text" placeholder="Enter Date (yyyy-mm-dd) " class="form-control{{ $errors->has('propertyPurchingDate') ? ' is-invalid' : '' }}" name="propertyPurchingDate" value="{{ $te->propertyPurchingDate }}" >
+                                <input id="propertyPurchingDate" type="text" placeholder="Enter Date (yyyy-mm-dd) " class="form-control{{ $errors->has('propertyPurchingDate') ? ' is-invalid' : '' }}" name="propertyPurchingDate" value="{{ $te->propertyPurchingDate }}" @if($status =="approved" && $role !="Admin") disabled @endif>
                                 @if ($errors->has('propertyPurchingDate'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertyPurchingDate') }}</strong>
@@ -480,7 +491,7 @@
                             </div>
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <label for="propertyPrice">{{ __('Total Amount') }}</label>
-                                <input id="propertyPrice" type="text" placeholder="Enter Total Amount " class="form-control{{ $errors->has('propertyPrice') ? ' is-invalid' : '' }}" name="propertyPrice" value="{{ $te->propertyPrice }}" required>
+                                <input id="propertyPrice" type="text" placeholder="Enter Total Amount " class="form-control{{ $errors->has('propertyPrice') ? ' is-invalid' : '' }}" name="propertyPrice" value="{{ $te->propertyPrice }}" required @if($status =="approved" && $role !="Admin") disabled @endif>
                                 @if ($errors->has('propertyPrice'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('propertyPrice') }}</strong>
@@ -490,7 +501,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
-                                <label for="propertyPaymentProcedure">{{ __('property Payment Procedure') }}</label>
+                                <label for="propertyPaymentProcedure">{{ __('Property Payment Procedure') }}</label>
                                 <!-- <input id="propertyPaymentProcedure" type="text" placeholder="Enter Total Amount " class="form-control{{ $errors->has('propertyPaymentProcedure') ? ' is-invalid' : '' }}" name="propertyPaymentProcedure" value="{{ $te->propertyPaymentProcedure }}" required> -->
                                 <select class="form-control" name="propertyPaymentProcedure" id="propertyPaymentProcedure" onchange="paymentProcedure(this);" >
                                     <option value="{{ $te->propertyPaymentProcedure }}">{{ $te->propertyPaymentProcedure }}</option>
@@ -550,10 +561,9 @@
                         <div class="form-group row">    
                             <div class="col-md-12 col-lg-12 col-sm-12">
                                     <label for="witnessName">{{ __('Seller Name') }}</label>
-                                    <select class="form-control" name="propertySellerId" id="propertySellerId" >
-                                        <option value="{{$id}}">{{$sname}}</option>
+                                    <select class="form-control" name="propertySellerId" id="propertySellerId" @if($status =="approved" && $role !="Admin") disabled @endif>
+                                                <option value="{{$sellerId}}">{{$sellername}}</option>
                                         @foreach($seller as $te)
-                                               
                                                 <option value="{{$te->id}}">{{$te->sallerName}}</option>
                                         @endforeach
                                     </select>
@@ -627,32 +637,35 @@ var paymentProcedure = val.value;
 var parent1 = document.getElementById('addtoken1');
 
 if( paymentProcedure == "Token"){
-    
     document.getElementById("addinstallment").style.display ="none";
     var added1 = '<div><h3>Token Information</h3></div>'+
                         '<div class="form-group row">'+
                             '<div class="col-md-6 col-lg-6 col-sm-12">'+
                                 '<label for="tokenPayment" >Token Payment </label>'+
-                                '<input id="tokenPayment" type="number" min="0" placeholder="Enter token Payment" class="form-control" name="tokenPayment" value="" >'+
+                                '<input id="tokenPayment" type="number" min="0" placeholder="Enter token Payment" class="form-control" name="tokenPayment" value="" required>'+
                                  
                               
                             '</div>'+       
                             '<div class="col-md-6 col-lg-6 col-sm-12">'+
-                                '<label for="remaningPaymentDate">Down Payment</label>'+
-                                '<input id="remaningPaymentDate" type="number" min="0" placeholder="Enter Reaming Payment Date" class="form-control" name="remaningPaymentDate" value="" >'+
+                                '<label for="remaningPaymentDate">Remaning Payment Date</label>'+
+                                '<input id="remaningPaymentDate" type="Date" placeholder="Enter Reaming Payment Date" class="form-control" name="remaningPaymentDate" value="" required>'+
                                
                             '</div>'+
                         '</div>'+
                     '</div>';         
-                        
-        parent1.insertAdjacentHTML('beforeend', added1);
-        document.getElementById("addtoken").style.display ="inline";
+        document.getElementById("addtoken1").innerHTML = added1;                
+       // parent1.insertAdjacentHTML('beforeend', added1);
+        document.getElementById("addtoken1").style.display ="block";
 }
 if( paymentProcedure == "Total Amount"){
 
 document.getElementById("addtoken1").style.display ="none";
 document.getElementById("addinstallment").style.display ="none";
 
+}
+if( paymentProcedure == "Installment"){
+    document.getElementById("addtoken1").style.display ="none";
+    document.getElementById("addinstallment").style.display ="block";
 }
 
 

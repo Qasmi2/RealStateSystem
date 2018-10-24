@@ -1,6 +1,12 @@
 <!doctype html>
 <html>
 <head>
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <style>
         @font-face {
             font-family: 'GothamBlack','GothamBook';
@@ -92,10 +98,11 @@
 
 </head>
 <body>
-    
-        <div style="width:800px; margin:0px auto; font-size:20px; line-height:25px; display:table; padding:50px;">
+<div class="container">
+
+        <div style="width:1000px; margin:0px auto; font-size:20px; line-height:25px; display:table; padding:50px;">
 			
-            <div style="font-family:GothamBook;font-size:30px; font-weight:bold;margin-top:30px;">CONTRACT</div>
+            <div style="font-family:GothamBook;font-size:30px; font-weight:bold;margin-top:80px;">CONTRACT</div>
 			&nbsp;
 			
 			<div style="font-family:GothamBook; font-size:30px; font-weight:bold;margin-top:30px;">MONTVIRO INVESTMENT</div>
@@ -110,7 +117,7 @@
                 </div>       
 			
 
-				<div style="font-family:GothamBook; font-size:15px; margin:15px 0; margin-right:20px;">
+				<div style="font-family:GothamBook; font-size:15px; margin:5px 0; margin-right:20px;">
 					According to this contract CLIENT is investing in one unit of Montviro Project. 
 				</div>
 				<div style="font-family:GothamBook; font-size:15px; margin-top:5px; margin-right:20px;">
@@ -128,7 +135,7 @@
 						</li>
 					</ol>
 				</div>
-				<div style="font-family:GothamBook; font-size:30px; font-weight:bold;margin:50px 0;">TERMS AND CONDITIONS</div>
+				<div style="font-family:GothamBook; font-size:30px; font-weight:bold;margin:25px 0;">TERMS AND CONDITIONS</div>
 				<div style="font-family:GothamBook; font-size:15px;margin-top:5px; margin-right:20px;">
                     <b>
 					The terms and conditions mentioned hereunder pertain to “Montviro” Hotel, Mall and Theme Park being 
@@ -171,8 +178,8 @@
 								</li>
 							</ol>
 					
-					
-						<li><b>PAYMENT OF INSTALMENTS/ PAYMENTS</b></li>
+					    <br><br><br><br><br><br><br><br><br><br><br>
+						<li style="padding-top:100px;"><b>PAYMENT OF INSTALMENTS/ PAYMENTS</b></li>
 							<ol type="a">
 								<li>The time for each and every payment is the essence of this contract. The applicant must ensure the prompt payment of instalments on the due date as per payment schedule agreed at the time of booking. In case of failure, a demand notice for payment will be send to such applicant by ordinary post, if no payment received within next 15 days, the company shall have a right to demand a late payment surcharge and/or revoke the discount offered to the applicant (if any): Whereas, the applicant who shall have paid the full amount against his unit be exempted from this clause.
 								</li>
@@ -211,7 +218,7 @@
 						
 							Although the company shall be bound to provide all the allied facilities to the applicant and that the availability of the mentioned services are subject to the policy of the concerned department/ Government/ semi Government or Local Authorities’ the processing for installation/ transfer of such allied facilities shall be done on behalf of the applicant through demand notice and therefore, the applicant shall pay the processing fee as incurred.
 						
-						<br><br><br>
+						
 						<li><b>TRANSFER OF ALLOTMENT</b></li>
 								The applicant shall have no right to transfer or sell his unit to anyone without prior permission of the company. Such transfer shall only be made through the Fintial Consultants (Pvt) Ltd and the transfer fee @2% of the total price shall be charged from the applicant as transfer charges as per company policy.
 
@@ -221,8 +228,8 @@
 						<li><b>SURRENDER OF ALLOTMENT</b></li>
 								If applicant subsequently wishes to surrender his/her unit at any stage, allotment of booked unit shall stand cancelled and the amount received as down payment and instalments shall be refunded to the applicant without any deduction of amount within 30 days.
 					
-				
-						<li><b>COMMON AREA MAINTENANCE (CAM) CHARGES</b></li>
+						<br><br><br><br><br><br><br>
+						<li  style="padding-top:100px;"><b>COMMON AREA MAINTENANCE (CAM) CHARGES</b></li>
 								The client (may or may not be the owner) shall be bound to pay the monthly CAM charges to the company as decided. In case of delay in payment, the company shall charge the client with late payment surcharge as penalty.
 
 						
@@ -256,7 +263,8 @@
 
 
 								</li>
-								<li>
+								<br><br><br><br>
+								<li style="padding-top:100px;">
 									That the applicant/ client shall not be allowed for any kind of advertisement within the shopping mall premises, however, the applicant/ client shall only be allowed to use boards of specified size/ dimensions outside the shop as permitted by the company with prior written approval of the company.
 
 								</li>
@@ -322,8 +330,8 @@
 							</li>
 							
 						</ol>
-				
-						<li>That; the company shall make internal and external minor charges in the designing and layout to the mall and hotel, if necessary.</li>
+						<br><br>
+						<li style="padding-top:100px;">That; the company shall make internal and external minor charges in the designing and layout to the mall and hotel, if necessary.</li>
 					
 						<li>That; the company shall have first lien, claim and charge on the shop/ room, its fixtures and fitting and the contents, therein, regarding any amount liable to be paid by the applicant to the company.</li>
 					
@@ -384,5 +392,12 @@
 			</table>
             
 		</div>
+
+ </div>
+		   <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
 </html>

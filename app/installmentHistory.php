@@ -13,7 +13,7 @@ class installmentHistory extends Model
      */
     protected $fillable = [
         'installmentNo','installmentAmount','status','installmentPaymentDate','remaningInstallments',
-        'nextInstallmentDate','remaingAmount','propertyId',
+        'nextInstallmentDate','remaingAmount','userId','propertyId',
     ];
      /**
       * The attributes that should be hidden for arrays.

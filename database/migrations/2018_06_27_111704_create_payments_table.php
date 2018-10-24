@@ -24,6 +24,7 @@ class CreatePaymentsTable extends Migration
             $table->string('propertyPaymentProcedure');  //instalment or Total amount          
             $table->string('paymentType'); 
             $table->integer('propertyId')->unsigned();
+            $table->integer('userId')->nullable();
             $table->foreign('propertyId')->references('id')->on('properties');
             $table->timestamps();
         });

@@ -37,6 +37,7 @@ class CreateApplicantsTable extends Migration
             $table->string('nomineePhoneNo')->nullable();
             $table->string('nomineeMobileNo1')->nullable();
             $table->string('nomineeMobileNo2')->nullable();
+            $table->integer('userId')->nullable();
             $table->integer('propertyId')->unsigned();
             $table->foreign('propertyId')->references('id')->on('properties');
             $table->timestamps();

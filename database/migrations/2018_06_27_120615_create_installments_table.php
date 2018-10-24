@@ -19,6 +19,7 @@ class CreateInstallmentsTable extends Migration
             $table->double('downpayment')->nullable();
             $table->double('amountOfOneInstallment', 8, 2)->nullable();
             $table->string('installmentDates')->nullable();
+            $table->integer('userId')->nullable();
             $table->integer('propertyId')->unsigned();
             $table->foreign('propertyId')->references('id')->on('properties');
             

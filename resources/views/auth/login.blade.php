@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Montviro Booking Portal</title>
          <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -15,6 +15,7 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/stylenadeem.css') }}" rel="stylesheet">
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -25,7 +26,6 @@ body, html {
     height: 100%;
     margin: 0;
 }
-
 .bg {
     /* The image used */
     background-image: url("../public/images/bg-image.png");
@@ -45,14 +45,18 @@ body, html {
         <div class="container">
             
             <!--- ---->
-            <div class="row justify-content-center" style="padding-top:175px;">
+            <div class="row justify-content-center web-login mobile-login ">
                  <div class="col-md-6">
-                     <div class="card" style="opacity: 0.8;">
-                        <div class="card-header">Login In Form</div>
+                 <div class="card" style="opacity: 0.9;border: 1px solid #ab5993 !important;">
+                     <div class="card-header" style="background-color: #ab5993;
+                                              
+                                              color: white;
+                                              font-size: 25px;">
+                      Login Form</div>
 
                             <div class="card-body">
             <!-- -->
-                 <div class="text-center">
+                 <div class="text-center" style="color:#a6468c !important;">
                     <h1>Montrivo Booking Portal </h1>
                 </div>
 
@@ -103,11 +107,11 @@ body, html {
 
                         <div class="form-group row mb-0">
                             <div class="col-md-12 offset-md-4">
-                                <button type="submit" class="btn btn-default" style="color:#007bff;">
+                            <button type="submit" class="btn btn-default" style="background-color:#a6468c !important;color:white;">
                                     {{ __('Login') }}
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                  <a class="btn btn-link" style="color:#a6468c !important;" href="{{ route('password.request') }}">
                                     {{ __('Forgot Your Password?') }}
                                 </a>
                             </div>

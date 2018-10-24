@@ -14,7 +14,7 @@ class payment extends Model
     protected $fillable = [
         'propertyPrice','propertyPaymentType','transferTo','bankName','chequeno',
         'propertyPurchingDate','propertyPaymentProcedure','paymentType','paymentMethod',
-        'bookingDate','chequeNo','totalAmount','initialDeposite',
+        'bookingDate','chequeNo','totalAmount','initialDeposite','userId',
         'propertyId',
      ];
      /**

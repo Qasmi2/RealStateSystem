@@ -13,7 +13,7 @@ class property extends Model
      */
     protected $fillable = [
         'propertyType','registrationStatus','propertySection','propertyAddress','propertyLocation','propertySize','jointProperty',
-        'propertySellerId','noOfJointApplicant',
+        'propertySellerId','noOfJointApplicant','userId',
         'tokenNo',
     ];
      /**

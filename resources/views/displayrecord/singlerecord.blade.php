@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="container" style="margin-top:60px;">
+<div class="container" style="margin-top:80px;">
     <div class="row justify-content-center">
         <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
         @include('flash-message')
@@ -21,39 +21,30 @@
                         <!-- End JavaScript code -->
                 <!-- <div class="card-body"> -->
                    
-                    <?php  $applicant = array($applicant);
-                           
-                           $property = array($property);
-                           foreach($property as $key){
+                    <?php 
+                        $applicant = array($applicant);
+                        $property = array($property);
+                        foreach($property as $key){
                             $Idkey = $key->id;
                             $sellerId = $key->propertySellerId;
-                            }
-                          
-                           $payment = array($payment);
-                            // $seller = array($seller);
-                           $review = array($review);
-                           foreach($seller as $te){
-                               if( $te->id == $sellerId)
-                               {
-                                   $sname =  $te->sallerName; 
-                                   $sfatherName =  $te->sallerFatherName;
-                                   $sdesignation = $te->sallerDesignation;
-                                   $scnicNo = $te->sallerCnicNo;
-                                   
-                               }
-                              
-
-                           }
+                        }
+                        $payment = array($payment);
+                        $seller = array($seller);
+                        $review = array($review);
+                        
                           
                     ?>
+                   
                   
                      <div>
                         <button class="btn btn-lg btn-default" onclick="window.history.go(-1)">Back</button>
                         <button style="float:right;color:white;" class="btn btn-lg btn-warning" ><a href="{{url('editingform/'.$Idkey)}}">Edit</a></button>
                         <!-- <button style="float:right;color:white;" class="btn btn-lg btn-danger" data-confirm="Are you sure you want to delete?"><a href="{{url('deleteform/'.$Idkey)}}">Delete</a></button> -->
-                        <a href="{{ url('deleteform/'.$Idkey) }}" data-confirm="Are you sure you want to delete?" class="btn btn-lg btn-danger ">Delete</a>
+                         
+                            <a href="{{ url('deleteform/'.$Idkey) }}" data-confirm="Are you sure you want to delete?" class="btn btn-lg btn-danger ">Delete</a>
+                       
                     </div> 
-
+                          
                     <fieldset class="col-md-12" style="background-color:#fff; margin-top:20px;">    	
                     <legend>Registration Detail</legend>
                         <!-- <div class="col-md-12 col-lg-12 col-sm-12">     -->
@@ -99,7 +90,7 @@
                             @foreach($applicant as $te)
                         
                                         <div class="p-3 bg-secondary mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Picture') }}    :</label>
-                                                <img src="{{$te->cover_image}}" height="100" width="100">
+                                                <img src="{{ $te->cover_image }}" height="100" width="100">
                                         </div>
                                         <div class="p-3 bg-secondary mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Name') }}    :</label>
                                                 <b>{{$te->name}}</b> 
@@ -246,19 +237,18 @@
                     <legend>Seller  Infromation</legend>
                         <!-- <div class="col-md-12 col-lg-12 col-sm-12">     -->
                             <div class="form-group row">
-                                <div class="col-md-6">
-                           
-                                        <div class="p-3 bg-secondary mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Seller Name') }}    :</label>
-                                           <b>{{$sname}}</b>
-                                        </div>
-                                </div>
-                                <div class="col-md-6">
-                                        <div class="p-3 bg-secondary mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Seller CNIC NO ') }}    :</label>
-                                               <b>{{$sfatherName}}</b> 
-                                        </div>
-                                        
-                                </div>
-                                        
+                                    <div class="col-md-6">
+                                        @foreach($seller as $te)
+                                            <div class="p-3 bg-secondary mb-2">  <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Seller Name') }}    :</label>
+                                            <b>{{$te->sallerName}}</b>
+                                            </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                            <div class="p-3 bg-secondary mb-2"> <label for="title" style="margin-top: 5px;margin-left: 10px;">{{ __('Seller CNIC NO.') }}    :</label>
+                                                <b>{{$te->sallerFatherName}}</b> 
+                                            </div>
+                                        @endforeach    
+                                    </div>
                             </div>
                                     
                        
@@ -282,8 +272,10 @@
                         <button class="btn btn-lg btn-default" onclick="window.history.go(-1)">Back</button>
                         <button style="float:right;color:white;" class="btn btn-lg btn-warning" ><a href="{{url('editingform/'.$Idkey)}}">Edit</a></button>
                         <!-- <button style="float:right;color:white;" class="btn btn-lg btn-danger" data-confirm="Are you sure you want to delete?"><a href="{{url('deleteform/'.$Idkey)}}">Delete</a></button> -->
+                     
                         <a href="{{ url('deleteform/'.$Idkey) }}" data-confirm="Are you sure you want to delete?" class="btn btn-lg btn-danger">Delete</a>
-                    </div> 
+                       
+                  </div> 
                       
                 <!-- </div>
             </div> -->

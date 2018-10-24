@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container" style="margin-top:60px;">
+<div class="container" style="margin-top:80px;">
     <div class="row justify-content-center">
         <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12 offset-md-3 offset-lg-3">
         @include('flash-message')
@@ -56,8 +56,8 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6 col-lg-6 col-sm-12">
-                                <label for="sallerDesignation">{{ __('Saller Designation') }}</label>
-                                <input id="sallerDesignation" type="text" placeholder="Enter Saller Designation" class="form-control{{ $errors->has('sallerDesignation') ? ' is-invalid' : '' }}" name="sallerDesignation" value="{{$seller['sallerDesignation']}}" required>
+                                <label for="sallerDesignation">{{ __('Seller Designation') }}</label>
+                                <input id="sallerDesignation" type="text" placeholder="Enter Seller Designation" class="form-control{{ $errors->has('sallerDesignation') ? ' is-invalid' : '' }}" name="sallerDesignation" value="{{$seller['sallerDesignation']}}" required>
                                 @if ($errors->has('sallerDesignation'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('sallerDesignation') }}</strong>
@@ -65,8 +65,8 @@
                                 @endif
                             </div>
                             <div class="col-md-6 col-lg-6 col-sm-12">
-                                <label for="sallerCnicNo">{{ __('Saller CNIC NO') }}</label>
-                                <input id="sallerCnicNo" type="text" placeholder="Enter saller CNIC NO" class="form-control{{ $errors->has('sallerCnicNo') ? ' is-invalid' : '' }}" name="sallerCnicNo" value="{{$seller['sallerCnicNo']}}"  required>
+                                <label for="sallerCnicNo">{{ __('Seller CNIC NO') }}</label>
+                                <input id="sallerCnicNo" type="text" placeholder="Enter seller CNIC NO" class="form-control{{ $errors->has('sallerCnicNo') ? ' is-invalid' : '' }}" name="sallerCnicNo" value="{{$seller['sallerCnicNo']}}"  required>
                                
                                 @if ($errors->has('sallerCnicNo'))
                                     <span class="invalid-feedback">
@@ -77,8 +77,8 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
-                                <label for="sallerAddress">{{ __('Saller Address') }}</label>
-                                <input id="sallerAddress" type="text" placeholder="Enter saller Address" class="form-control{{ $errors->has('sallerAddress') ? ' is-invalid' : '' }}" name="sallerAddress" value="{{$seller['sallerAddress']}}"  >
+                                <label for="sallerAddress">{{ __('Seller Address') }}</label>
+                                <input id="sallerAddress" type="text" placeholder="Enter seller Address" class="form-control{{ $errors->has('sallerAddress') ? ' is-invalid' : '' }}" name="sallerAddress" value="{{$seller['sallerAddress']}}"  >
                                
                                 @if ($errors->has('jointProperty'))
                                     <span class="invalid-feedback">

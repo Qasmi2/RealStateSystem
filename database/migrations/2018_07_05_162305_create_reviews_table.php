@@ -16,6 +16,7 @@ class CreateReviewsTable extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->increments('id');
             $table->string('comment')->nullable();
+            $table->integer('userId')->nullable();
             $table->integer('propertyId')->unsigned();
             $table->foreign('propertyId')->references('id')->on('properties');
             $table->timestamps();

@@ -12,7 +12,7 @@ class review extends Model
      * @var array
      */
     protected $fillable = [
-        'comment','propertyId',
+        'comment','userId','propertyId',
      ];
      /**
       * The attributes that should be hidden for arrays.

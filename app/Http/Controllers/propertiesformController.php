@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use App\User;
 use App\property;
 use App\applicant;
 use App\payment;
 use App\installment;
+use App\approval;
 use DB;
+use Auth;
 
 class propertiesformController extends Controller
 {
@@ -18,34 +22,39 @@ class propertiesformController extends Controller
      */
     public function index()
     {  
-        $properties = property::orderBy('created_at','desc')->paginate(8);
-        $applicanties = applicant::orderBy('created_at','desc')->paginate(8);
-        $payments = payment::orderBy('created_at','desc')->paginate(8);
-        $installment = installment::orderBy('created_at','desc')->paginate(8);
-        
-        
-        
-        // echo sizeof($applicanties);
-        // echo $applicanties[0]['name'];
-        // exit();
-        // $properties = array($properties);
-        // $applicanties = array($applicanties);
-        // var_dump(json_decode(json_encode($applicanties)),true);
 
-        // exit();
-        // for($i=0; sizeof($applicanties)>$i; $i++){
-        //     var_dump( $applicanties[$i]->name); 
-        // }
-        // exit();
-        // $applicanties = array($applicanties);
-        // foreach($applicanties as $ap){
-        //     echo $ap[0]->name;
-        //     exit();
-        // }
-        // var_dump($app);
-        // exit();
-        return view('displayrecord.properties',compact('properties','applicanties','payments'));
-        // return view('displayrecord.properties')->with('properties', $properties);
+        try{
+
+            $user = Auth::user();
+          
+         
+            if(Gate::allows('user-actions',Auth::user())){
+               
+                $properties = property::orderBy('created_at','desc')->paginate(8);
+                $applicanties = applicant::orderBy('created_at','desc')->paginate(8);
+                $payments = payment::orderBy('created_at','desc')->paginate(8);
+                $installment = installment::orderBy('created_at','desc')->paginate(8);
+                $approvals = approval::orderBy('created_at','desc')->paginate(8);
+               
+                return view('displayrecord.properties',compact('properties','applicanties','payments','approvals'));
+
+            }
+            else{
+               
+                $properties = property::orderBy('created_at','desc')->where('userId', $user->id)->paginate(8);
+                $applicanties = applicant::orderBy('created_at','desc')->where('userId', $user->id)->paginate(8);
+                $payments = payment::orderBy('created_at','desc')->where('userId', $user->id)->paginate(8);
+                $approvals = approval::orderBy('created_at','desc')->paginate(8);
+               
+                return view('displayrecord.properties',compact('properties','applicanties','payments','approvals'));
+                
+            }
+   
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('error',' Payment section input something wrong .');
+        }
+        
     }
 
     /**

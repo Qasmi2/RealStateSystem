@@ -4,8 +4,9 @@
     <style>
         @font-face{
             font-family:'GothamBlack','GothamBook';
-            src:url("../public/fonts/Gotham-Black.ttf");
-            src:url("../public/fonts/Gotham-Book.ttf");
+            src:url('{{ asset('../public/fonts/Gotham-Black.ttf')}}');
+            src:url('{{ asset('../public/fonts/Gotham-Book.ttf')}}');
+        
         }
         body{
             height:auto;
@@ -22,25 +23,25 @@
             float:left;
         }        
         .compname h1{
-            font-family:GothamBlack;
+            font-family:'GothamBlack';
             font-size:20px;
             font-weight:bold;
             margin-bottom:0px;
         }
         .compname span{
-            font-family:'Gotham Book';
+            font-family:'GothamBook';
             font-size:20px;
         }
         .compname h5{
             margin:0px;
             padding:0px;
             font-size:10px;
-            font-family:'Gotham Book';
+            font-family:'GothamBook';
         }
         .compname h3{
             margin-top:5px;
             font-size:13px;
-            font-family:'Gotham Book';
+            font-family:'GothamBook';
         }
 
         .compname h3 span{
@@ -74,12 +75,12 @@
             top:3px;
             left:40px;
             font-size:13px;
-            font-family:GothamBlack;
+            font-family:'GothamBlack';
             margin:0px;
         }
 
         .h3prop{
-            font-family:GothamBlack;
+            font-family:'GothamBlack';
             font-size:12px;
             margin:10px 20px 15px 40px;
             color:black;
@@ -152,7 +153,7 @@
             margin-bottom:18px;
         }
         strong{
-            font-family:GothamMedium;
+            font-family:'GothamMedium';
             font-size:14px;
         }
     </style>
@@ -161,7 +162,9 @@
                             
         $property = array($property);
         $payment = array($payment);
-        $applicant = array($applicant);            
+        $applicant = array($applicant);          
+        $paymentHistory = array($paymentHistory);
+       
         foreach($applicant as $te){
             //applicant CNIC NO 
             $charsArrayCnica = str_split($te->cnicNo);
@@ -181,11 +184,11 @@
             $hasPassportn = json_encode($isEmptyPassportn);
             $charsArrayPassportn = str_split($te->nomineePassportNo);
             $sizeofPassportn = sizeof($charsArrayPassportn);
-
-         
-      
-        
         }           
+        foreach($paymentHistory as $te){
+            $paidAmount = $te->paidAmount;
+        }
+       
     ?>
 <body>
     <div id="content">
@@ -207,7 +210,7 @@
             <div class="h3prop">
                 REGISTRATION NUMBER
                 <span class="spanprop">(as per submitted registration form):&nbsp; </span>
-                <u>&nbsp;&nbsp;&nbsp;&nbsp;{{$te->id}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                <u>&nbsp;&nbsp;&nbsp;&nbsp;{{$te->id}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
             </div>
             <div class="h3prop">
                 REGISTRATION PROJECT: &nbsp; &nbsp; &nbsp; 
@@ -245,16 +248,16 @@
                  
             <div class="h3prop">
                 REGISTRATION STATUS: &nbsp; &nbsp; &nbsp;
-                <label class="checkboxprop">
-                    <span id="check4" class="tempuncheck">&nbsp; &nbsp;</span>Orignial First Alottee 
+                <label class="checkboxprop" style="padding-left:7px;">
+                    <span id="check4" class="tempuncheck">&nbsp; &nbsp;</span> First Allottee 
                 </label>
-                <label class="checkboxprop">
-                    <span id="check5" class="tempuncheck">&nbsp; &nbsp;</span>Orignial Transfer Certificate
+                <label class="checkboxprop" style="padding-left:18px;">
+                    <span id="check5" class="tempuncheck">&nbsp; &nbsp;</span> Transfer Certificate
                 </label>
                 <br />
                 <br />
-                <label class="checkboxprop" style="margin-left:247px;">
-                    <span id="check6" class="tempuncheck">&nbsp; &nbsp;</span>Orignial Open Certificate
+                <label class="checkboxprop" style="margin-left:197px;">
+                    <span id="check6" class="tempuncheck">&nbsp; &nbsp;</span> Open Certificate
                 </label>
             </div>
             <?php if($te->registrationStatus == "First Alottee"){?>
@@ -284,7 +287,7 @@
             <img src="..\..\public\images\tabletop.jpg" />
             <h3>PROPERTY SECTION</h3>
             <div class="h3prop">
-               <b> {{$te->propertySection}}</b>
+             
                 <label class="checkboxprop">
                  
                     <span id="check7" class="tempuncheck">&nbsp; &nbsp;</span>
@@ -356,8 +359,8 @@
             <div class="h3prop2">
                 <table style="text-align:left;">
                     <tr>
-                        <td style="width:380px;"><strong>Name of Applicant:</strong>&nbsp;<u> {{$te->name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u> </td>
-                        <td><strong>S/O:</strong> &nbsp; <u>{{$te->fatherName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                        <td style="width:380px;"><strong>Name of Applicant:</strong>&nbsp;<u> {{$te->name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u> </td>
+                        <td><strong>S/O:</strong> &nbsp; <u>{{$te->fatherName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
                     </tr>
                     <tr><td><br /></td></tr>
                     <tr>
@@ -404,22 +407,22 @@
                 <br />
                 <table style="text-align:left;">
                     <tr>
-                        <td style="width:500px;"><strong>Mailing Address:</strong>&nbsp; <u>{{$te->mailingAddress}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                        <td style="width:500px;"><strong>Mailing Address:</strong>&nbsp; <u>{{$te->mailingAddress}}&nbsp;</u></td>
                         <td style="height:100px !important ; width:100px !important;" rowspan="3"><img src="{{$te->cover_image}}" height="100" width="100 " style="height:100px !important; width:100px !important; padding-left:30px;"></td>
                     </tr>
                     <tr>
-                        <td><strong>Permenant Address:</strong> &nbsp;  <u>{{$te->permanentAddress}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                        <td><strong>Permanent Address:</strong> &nbsp;  <u>{{$te->permanentAddress}}&nbsp;</u></td>
                     </tr>
                     <tr>
-                        <td><strong style="display:inline-block;">Email:</strong> &nbsp;  <u style="display:inline-block;">{{$te->email}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                        <td><strong style="display:inline-block;">Email:</strong> &nbsp;  <u style="display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$te->email}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
                     </tr>
                 </table>
                 <br />
                 <table style="text-align:left;">
                     <tr>
-                        <td style="width:266px;"><strong>Phone No Res:</strong>&nbsp;<u> {{$te->phoneNO}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
-                        <td style="width:266px;"><strong>Mobile 1: </strong>&nbsp; <u>{{$te->mobileNo1}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u></td>
-                        <td style="width:204px;"><strong>Mobile 2:</strong>&nbsp;  <u>{{$te->mobileNo2}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                        <td style="width:266px;"><strong>Phone No Res:</strong>&nbsp;<u> {{$te->phoneNO}}&nbsp;&nbsp;</u></td>
+                        <td style="width:266px;"><strong>Mobile 1: </strong>&nbsp; <u>{{$te->mobileNo1}}&nbsp;&nbsp; </u></td>
+                        <td style="width:204px;"><strong>Mobile 2:</strong>&nbsp;  <u>{{$te->mobileNo2}}&nbsp;&nbsp;</u></td>
                     </tr>
                 </table>
             </div>
@@ -431,8 +434,8 @@
             <div class="h3prop2">
                 <table style="text-align:left;">
                     <tr>
-                        <td style="width:380px;"><strong>Nominee Name:</strong>&nbsp;<u> {{$te->nomineeName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
-                        <td><strong> S/O:</strong> &nbsp; <u>{{$te->nomineeFatherName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u> </td>
+                        <td style="width:380px;"><strong>Nominee Name:</strong>&nbsp;<u> {{$te->nomineeName}}&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                        <td><strong> S/O:</strong> &nbsp; <u>{{$te->nomineeFatherName}}&nbsp;&nbsp;&nbsp;&nbsp;</u> </td>
                     </tr>
                     <tr><td colspan="2"><br /></td></tr>
                     <tr>
@@ -473,7 +476,7 @@
                     </tr>
                     <tr><td><br /></td></tr>
                     <tr>
-                        <td ><strong>Mailing Address:</strong>&nbsp; <u>{{$te->nomineeMailingAddress}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                        <td ><strong>Mailing Address:</strong>&nbsp; <u>{{$te->nomineeMailingAddress}}&nbsp;&nbsp;</u></td>
                     </tr>
                 </table>
             </div>
@@ -487,17 +490,17 @@
                 <table style="text-align:left;">
                     <tr>
                         <td style="width:360px;"><strong>Cash/Pay Order /Cheque/Adjustment:</strong>&nbsp; <u>{{$te->paymentType}}&nbsp;&nbsp;</u></td>
-                        <td style="width:150px;"><strong>Date:</strong>&nbsp;  <u>{{$te->propertyPurchingDate}}&nbsp;&nbsp;</u></td>
+                        <td style="width:140px;"><strong>Date:</strong>&nbsp;  <u>{{$te->propertyPurchingDate}}&nbsp;&nbsp;</u></td>
                         <td><strong>In Favor of:</strong>&nbsp; <u>Montviro Pvt Limited</u></td>
                     </tr>
                 </table>
                 <br />
                 <table style="text-align:left;">
                     <tr>
-                        <td style="width:360px;"><strong>Bank:</strong>&nbsp;<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$te->bankName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+                        <td style="width:360px;"><strong>Bank:</strong>&nbsp;<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
                         <td>
                             <strong>Total Amount(PKR):</strong>&nbsp;
-                           <u> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$te->propertyPrice}}/-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                           <u> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $paidAmount }}/-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
                         </td>
                     </tr>
                 </table>

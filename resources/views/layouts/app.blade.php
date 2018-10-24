@@ -35,7 +35,8 @@
         <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-fixed-top" style="background-color:#a6468c !important;position: fixed !important;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
-                    {{ config('app.name', 'MontviroBookingPortal  BETA') }}
+               
+                    {{ config('app.name', 'MontviroBookingPortal ') }} <sup style="background-color:white;color: #a6468c;">BETA</sup>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -58,18 +59,27 @@
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @else
+                        @can('create', Auth::user())
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('formall') }}">{{ __('Registration Form') }}</a>
                             </li>
+                        @endcan
                             <!-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('propertyform') }}">{{ __('Reistration Property') }}</a>
                             </li> -->
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('properties') }}">{{ __('Display Properties') }}</a>
                             </li>
+                            @can('admin-only', Auth::user())
+
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('sellerform') }}">{{ __('Seller Registration Form') }}</a>
                             </li>
+                           
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('adduser') }}">{{ __('ADD NEW USER') }}</a>
+                            </li>
+                            @endcan
                             <!-- <li class="nav-item dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1
                                 <span class="caret"></span></a>
@@ -114,8 +124,8 @@
                     <img src="..\public\images\user.png" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
-                    <!-- <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</div> -->
-                    <div class=" name dropdown" >
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</div>
+                    <!-- <div class=" name dropdown" >
                                 <a style="color:white;"id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
@@ -131,7 +141,7 @@
                                         @csrf
                                     </form>
                                 </div>
-                    </div>
+                    </div> -->
                     
                 </div>
             </div>
@@ -146,27 +156,39 @@
                             <span>Home</span>
                         </a>
                     </li>
-                    
+                    @can('create', Auth::user())
                     <li class="nav-item">
                             
                                 <a class="nav-link" href="{{ route('formall') }}">
                               
-                                    <span>{{__('Registration Property')}}</span>
+                                    <span>{{__('Registration Form')}}</span>
                                 </a>
                     </li>
+                    @endcan
                     <li class="nav-item">
                                 <a class="nav-link" href="{{ route('properties') }}">
                               
                                     <span>{{ __('Display Properties') }}</span>
                                 </a>
                     </li>
-                    <li class="nav-item">
-                                <a class="nav-link" href="{{ route('sellerform') }}">
-                                
-                                    <span>{{ __('Seller Registration Form') }}</span>
-                                </a>
-                    </li>
-                    
+
+                    @can('admin-only', Auth::user())
+                        <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('sellerform') }}">
+                                    
+                                        <span>{{ __('Seller Registration Form') }}</span>
+                                    </a>
+                        </li>
+                   
+                        <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('adduser') }}">
+                                    
+                                        <span>{{ __('Add New USER') }}</span>
+                                    </a>
+                        </li>
+
+                    @endcan
+
                     <!-- <li >
                         <a href="" >
                             <i class="material-icons">view_list</i>
@@ -196,5 +218,6 @@
   
   <script src="{{ asset('js/app.js') }}" defer></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </body>
 </html>

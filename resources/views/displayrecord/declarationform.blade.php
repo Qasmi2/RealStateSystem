@@ -14,26 +14,165 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
-
+  
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
-    body {
+    /* body {
         margin-top:50px;
         height: 842px;
         width: 595px;
-        /* to centre page on screen*/
+   
         margin-left: auto;
         margin-right: auto;
         background-color:white;
         font-family:Arial, Helvetica, sans-serif;
-        /* font-size:12px; */
-    }
+
+    } */
+
+      <style>
+        @font-face {
+            font-family: 'Gotham Black','Gotham Book';
+            src: url("../public/fonts/Gotham-Black.ttf");
+            src: url("../public/fonts/Gotham-Book.ttf");
+        }
+
+        body {
+            height: auto;
+            width: 800px;
+            position: relative;
+            margin: 0 auto;
+            color: #000;
+            background: #FFFFFF;
+            display: block;
+            letter-spacing: 1px;
+        }
+
+        .complogo img {
+            float: right;
+            width: 117px;
+            height: 40px;
+            margin-top: 10px;
+        }
+
+        .comptable {
+            display: table;
+            /*width:600px;*/
+            width: 800px;
+            border: solid 2px #51BD9A;
+            position: relative;
+            color: white;
+            margin-top: 10px;
+            border-top: 0px;
+        }
+
+            .comptable img {
+                /*width:600px;*/
+                width: 800px;
+                height: 20px;
+            }
+
+            .comptable h3 {
+                position: absolute;
+                top: 3px;
+                left: 40px;
+                font-size: 13px;
+                font-family: 'Gotham Black';
+                margin: 0px;
+            }
+
+        .h3prop {
+            font-family: 'Gotham Black';
+            font-size: 12px;
+            margin: 10px 20px 15px 40px;
+            color: black;
+            letter-spacing: 0.5px;
+        }
+
+        .h3prop2 {
+            font-family: 'Gotham Book';
+            font-size: 14px;
+            margin: 10px 20px 15px 40px;
+            color: black;
+            letter-spacing: 0.5px;
+        }
+
+        .rowprop {
+            width: 100%;
+            margin-right: 0px;
+        }
+
+        .spanprop {
+            font-family: 'Gotham Book';
+            font-size: 12px;
+            margin: 10px 0px 5px 0px;
+            color: black;
+            letter-spacing: 0px;
+        }
+
+        .checkboxprop {
+            align-items: baseline;
+            font-family: 'Gotham Book';
+            font-size: 14px;
+            margin: 10px 20px;
+        }
+
+        /*input[type='checkbox']{
+                border: 1px solid #FFFFFF;
+                background: transparent;
+        }*/
+        .tempuncheck {
+            background: transparent;
+            background-position: center;
+            border: solid 2px #000;
+        }
+
+        .tempcheck {
+            background: black;
+            background-position: center;
+            border: solid 2px #000;
+        }
+
+        .block {
+            background: transparent;
+            background-position: center;
+            border: solid 1px #000;
+            padding: 0px 4px;
+            margin-right: -4px;
+        }
+
+        .termblock {
+            display: table;
+            /*width:600px;*/
+            width: 800px;
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .footerprop {
+            width: 800px;
+            height: 26px;
+            margin-top: 20px;
+            bottom: 0px;
+        }
+
+        section {
+            margin-bottom: 18px;
+        }
+        .tdprop{
+            width:266px;
+            height:25px;
+            border:solid 1px #51BD9A;
+            color:black;
+            font-size:14px;
+            font-family:'Gotham Book';
+            padding-left:5px;
+        }
+        strong{
+            font-family: 'Gotham Medium';
+            font-size:14px;
+        }
+    </style>
     </style>
 </head>
 <body style="backgrond-color:white;">
